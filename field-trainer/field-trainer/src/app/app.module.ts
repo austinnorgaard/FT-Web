@@ -5,7 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterModule } from '@angular/router';
 
-import { MdListModule, MdButtonModule } from '@angular/material';
+import { MdListModule, MdButtonModule, MdMenuModule, MdToolbarModule, MdCardModule, MdExpansionModule, MdGridListModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { ConeComponent } from './cone-component/cone.component';
@@ -29,7 +29,12 @@ import { AppRoutingModule } from './app-routing.module';
     BrowserAnimationsModule,
     MdListModule,
     MdButtonModule,
-    AppRoutingModule
+    MdMenuModule,
+    AppRoutingModule,
+    MdToolbarModule,
+    MdCardModule,
+    MdExpansionModule,
+    MdGridListModule
   ],
   providers: [],
   bootstrap: [AppComponent]

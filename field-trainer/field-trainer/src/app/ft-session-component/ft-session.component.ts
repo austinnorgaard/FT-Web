@@ -6,4 +6,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./ft-session.component.css']
 })
 export class FTSessionComponent {
+    players_in_queue: string[] = [
+        "Keaton",
+        "Tom"
+    ]
 }

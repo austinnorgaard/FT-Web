@@ -1,12 +1,36 @@
-<cone-list></cone-list>
-<md-list>
-    <md-list-item>
-        Player 1
-    </md-list-item>
-    <md-list-item>
-        Player 2
-    </md-list-item>
-</md-list>
+<md-expansion-panel hideToggle="true">
+    <md-expansion-panel-header>
+        <md-panel-title>
+            My Cones
+        </md-panel-title>
+        <md-panel-description>
+            Expand to see cones
+        </md-panel-description>
+    </md-expansion-panel-header>
+
+    <cone-list></cone-list>
+</md-expansion-panel>
+
+<md-expansion-panel hideToggle="true">
+    <md-expansion-panel-header>
+        <md-panel-title>
+            Players
+        </md-panel-title>
+        <md-panel-description>
+            Modify players to start
+        </md-panel-description>
+    </md-expansion-panel-header>
+
+    <md-list>
+        <md-list-item>
+            Player 1
+        </md-list-item>
+        <md-list-item color="primary">
+            Player 2
+        </md-list-item>
+    </md-list>
+</md-expansion-panel>
+<br />
 <div class="centeredButton">
-    <button md-raised-button color="primary" class="startButton" routerLink="/session">Start!</button>
+        <button md-raised-button color="primary" class="startButton" routerLink="/session">Start!</button>
 </div>
