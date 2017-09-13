@@ -8,7 +8,7 @@ import { ConeComponent } from './cone-component/cone.component';
 import { ConeListComponent } from './cone-list-component/cone-list.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
-import { MdListModule } from '@angular/material';
+import { MdListModule, MdButtonModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -21,7 +21,8 @@ import { MdListModule } from '@angular/material';
     BrowserModule,
     FlexLayoutModule,
     BrowserAnimationsModule,
-    MdListModule
+    MdListModule,
+    MdButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

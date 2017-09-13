@@ -1,0 +1,8 @@
+.centeredButton {
+    text-align: center;
+}
+
+.startButton {
+    min-width: 10em;
+    min-height: 3.5em;
+}
