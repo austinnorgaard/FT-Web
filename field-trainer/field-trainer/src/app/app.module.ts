@@ -13,6 +13,7 @@ import { ConeListComponent } from './cone-list-component/cone-list.component';
 import { SetupComponent } from './setup-component/setup.component';
 import { FTSessionComponent } from './ft-session-component/ft-session.component';
 import { AppRoutingModule } from './app-routing.module';
+import { SessionConeComponent } from './session-cone-component/session-cone.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { AppRoutingModule } from './app-routing.module';
     ConeComponent,
     ConeListComponent,
     SetupComponent,
-    FTSessionComponent
+    FTSessionComponent,
+    SessionConeComponent
   ],
   imports: [
     NgbModule.forRoot(),
