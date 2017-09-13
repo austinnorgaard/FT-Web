@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-
+import { SessionCone } from './session-cone';
 @Component({
   selector: 'session-cone',
   templateUrl: './session-cone.component.html',
@@ -7,5 +7,13 @@ import { Component, Input } from '@angular/core';
 })
 export class SessionConeComponent {
     @Input()
-    id: number;
+    details: SessionCone;
+
+    onClick() {
+        this.details.triggered = true;
+    }
+
+    getColor() {
+        return this.details.triggered ? "lightgreen" : "white";
+    }
 }

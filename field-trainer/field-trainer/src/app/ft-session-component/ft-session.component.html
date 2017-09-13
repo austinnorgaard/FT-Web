@@ -1,21 +1,11 @@
 <button class="startButton" md-raised-button color="primary">Start Session</button>
 <div class="headerContainer">
     <span class="header">Player Session Details</span>
-
-
-    <!-- <md-list>
-        <md-list-item *ngFor="let player of players_in_queue">
-            {{player}}
-        </md-list-item>
-    </md-list> -->
     <br />
     <br />
-    <span class="statusLayout">Keaton</span>
-    <div fxLayout="row" fxLayoutWrap class="statusLayout">
-        <session-cone [id]=11></session-cone>
-        <session-cone [id]=2></session-cone>
-        <session-cone [id]=3></session-cone>
-        <session-cone [id]=4></session-cone>
+    
+    <div *ngFor='let session of player_sessions'>
+        <player-session [data]=session></player-session>
     </div>
 </div>
 

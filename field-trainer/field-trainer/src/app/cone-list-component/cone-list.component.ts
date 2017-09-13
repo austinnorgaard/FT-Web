@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Cone } from '../cone';
+
+import { ConesService } from '../cones.service'
+
 @Component({
   selector: 'cone-list',
   templateUrl: './cone-list.component.html',
@@ -12,18 +15,12 @@ export class ConeListComponent implements OnInit {
     }
     cones: Cone[];
 
+    constructor(
+        private conesService: ConesService
+    ) {}
+
     getCones(): void {
-        this.cones = [
-            new Cone('Cone 1', '192.168.1.1'),
-            new Cone('Cone 2', '192.168.1.2'),
-            new Cone('Cone 3', '192.168.1.3'),
-            new Cone('Cone 4', '192.168.1.4'),
-            new Cone('Cone 4', '192.168.1.4'),
-            new Cone('Cone 4', '192.168.1.4'),
-            new Cone('Cone 4', '192.168.1.4'),
-            new Cone('Cone 4', '192.168.1.4'),
-            new Cone('Cone 4', '192.168.1.4'),
-            
-        ]
+        this.conesService.getCones().then(cones =>
+            this.cones = cones);
     }
 }

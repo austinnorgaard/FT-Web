@@ -1,0 +1,6 @@
+<span class="statusLayout">{{data.player.name}}</span>
+<div fxLayout="row" fxLayoutWrap class="statusLayout">
+    <div *ngFor="let cone of data.cones">
+        <session-cone [details]=cone></session-cone>
+    </div>
+</div>

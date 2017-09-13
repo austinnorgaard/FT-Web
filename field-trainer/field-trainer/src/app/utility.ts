@@ -1,0 +1,1 @@
+export const startConeIp: string = "192.168.1.11:3000";
