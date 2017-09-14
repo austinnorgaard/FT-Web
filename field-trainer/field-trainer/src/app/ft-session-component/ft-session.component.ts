@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { PlayerSession } from '../player-session';
-import { ConesService } from '../cones.service';
-import { PlayersService } from '../players.service';
+import { PlayerSession } from '../data/player-session';
+import { ConesService } from '../api/cones.service';
+import { PlayersService } from '../api/players.service';
 
-import { Cone } from '../cone';
-import { Player } from '../player';
+import { Cone } from '../data/cone';
+import { Player } from '../data/player';
+
+import * as io from 'socket.io-client';
 
 @Component({
   selector: 'ft-session',
@@ -15,6 +17,7 @@ export class FTSessionComponent implements OnInit {
     player_sessions: PlayerSession[] = [];
     cones: Cone[];
     players: Player[];
+    socket: SocketIOClient.Socket;
 
     constructor(private conesService: ConesService,
                 private playersService: PlayersService) {}
@@ -44,5 +47,17 @@ export class FTSessionComponent implements OnInit {
             console.log('Created ' + this.player_sessions.length + ' player sessions.');
             console.log(this.player_sessions);
         });
+
+        this.socket = io.connect('192.168.1.11:4001');
+
+        this.socket.on('test2', data => {
+            console.log(data);
+        });
+    }
+
+    onClick(): void {
+        console.log('Trying to send test!');
+        
+        this.socket.emit('test', {message: 'This is from the client!'});
     }
 }

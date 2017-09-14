@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Cone } from '../cone';
+import { Cone } from '../data/cone';
 
-import { ConesService } from '../cones.service'
+import { ConesService } from '../api/cones.service'
 
 @Component({
   selector: 'cone-list',

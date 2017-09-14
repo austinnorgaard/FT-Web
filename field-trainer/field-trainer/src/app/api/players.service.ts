@@ -1,25 +1,20 @@
 import { Injectable } from '@angular/core';
+import { Player } from '../data/player';
+import { startConeIp } from '../utility';
 import { Headers, Http } from '@angular/http';
 
-import { startConeIp } from './utility';
-
-import 'rxjs/add/operator/toPromise';
-
-import { Cone } from './cone';
-
 @Injectable()
-export class ConesService {
+export class PlayersService {
     private headers = new Headers({ 'Content-Type': 'application/json' });
-    private url = `http://${startConeIp}/get_cones`
+    private url = `http://${startConeIp}/get_players`;
 
-    constructor(private http: Http) {
+    constructor(private http: Http) {}
 
-    }
-
-    getCones(): Promise<Cone[]> {
+    getPlayers(): Promise<Player[]> {
+        console.log("URL: " + this.url);
         return this.http.get(this.url)
             .toPromise()
-            .then(response => response.json().cones as Cone[])
+            .then(response => response.json().players as Player[])
             .catch(this.handleError);
     }
 

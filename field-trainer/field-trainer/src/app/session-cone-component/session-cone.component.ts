@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { SessionCone } from './session-cone';
+import { SessionCone } from '../data/session-cone';
 @Component({
   selector: 'session-cone',
   templateUrl: './session-cone.component.html',

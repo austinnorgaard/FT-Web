@@ -16,11 +16,10 @@ import { FTSessionComponent } from './ft-session-component/ft-session.component'
 import { AppRoutingModule } from './app-routing.module';
 import { SessionConeComponent } from './session-cone-component/session-cone.component';
 import { PlayerSessionComponent } from './player-session-component/player-session.component';
+import { PlayersComponent } from './players-component/players.component';
 
-import { ConesService } from './cones.service';
-import { PlayersService } from './players.service';
-
-import { PlayersComponent } from './players/players.component';
+import { ConesService } from './api/cones.service';
+import { PlayersService } from './api/players.service';
 
 @NgModule({
   declarations: [

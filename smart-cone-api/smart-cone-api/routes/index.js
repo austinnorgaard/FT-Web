@@ -1,6 +1,27 @@
 var express = require('express');
 var router = express.Router();
 
+// const io_singleton = require("../io_singleton.js");
+
+// var io_single = new io_singleton.IOSingleton();
+// var io = io_single.getIo();
+
+// var my_socket;
+var io = require('socket.io').listen(4001);
+var currentSocket = null;
+
+io.sockets.on('connection', function (socket) {
+    console.log('Connection!');
+    currentSocket = socket;
+    socket.on('test', function(data) {
+        console.log('test hit!');
+        console.log(data);
+    });
+});
+
+
+
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
     res.render('index', { title: 'Express' });
@@ -55,6 +76,11 @@ player_data = {
 
 router.get('/get_players', function(req, res, next) {
     res.end(JSON.stringify(player_data, null, '\t'));
+});
+
+router.get('/test', function(req, res, next) {
+    currentSocket.emit('test2', {message: 'This message from the API!'});
+    res.end();
 });
 
 module.exports = router;

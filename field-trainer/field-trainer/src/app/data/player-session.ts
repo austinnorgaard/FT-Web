@@ -1,5 +1,5 @@
 import { Player } from './player';
-import { SessionCone } from './session-cone-component/session-cone';
+import { SessionCone } from './session-cone';
 import { Cone } from './cone';
 
 export class PlayerSession {

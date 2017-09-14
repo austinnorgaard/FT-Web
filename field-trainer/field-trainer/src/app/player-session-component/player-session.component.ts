@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { SessionCone } from '../session-cone-component/session-cone';
-import { PlayerSession } from '../player-session';
+import { SessionCone } from '../data/session-cone';
+import { PlayerSession } from '../data/player-session';
 
 @Component({
   selector: 'player-session',

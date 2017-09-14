@@ -1,4 +1,4 @@
-import { Cone } from '../cone';
+import { Cone } from './cone';
 
 export class SessionCone {
     cone: Cone;

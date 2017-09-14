@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { PlayersService } from '../players.service';
-import { Player } from '../player';
-import { PlayerSession } from '../player-session';
+import { PlayersService } from '../api/players.service';
+import { Player } from '../data/player';
+import { PlayerSession } from '../data/player-session';
 
 
 @Component({
