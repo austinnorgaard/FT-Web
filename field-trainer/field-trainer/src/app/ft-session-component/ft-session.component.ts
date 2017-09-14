@@ -2,9 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { PlayerSession } from '../data/player-session';
 import { ConesService } from '../api/cones.service';
 import { PlayersService } from '../api/players.service';
+import { PlayerSessionData } from '../data/player-session-data';
 
 import { Cone } from '../data/cone';
 import { Player } from '../data/player';
+import { HttpClient } from '@angular/common/http';
 
 import * as io from 'socket.io-client';
 
@@ -20,7 +22,8 @@ export class FTSessionComponent implements OnInit {
     socket: SocketIOClient.Socket;
 
     constructor(private conesService: ConesService,
-                private playersService: PlayersService) {}
+                private playersService: PlayersService,
+                private http: HttpClient) {}
 
     ngOnInit(): void {
         // query for all players and cones
@@ -53,11 +56,25 @@ export class FTSessionComponent implements OnInit {
         this.socket.on('test2', data => {
             console.log(data);
         });
+
+        var data = JSON.stringify(PlayerSessionData.EmptyState());
+        console.log('sending: ' + data);
+
+        // set the initial state
+        this.http.post('http://192.168.1.11:3000/set_player_data', 
+            PlayerSessionData.EmptyState())
+            .subscribe(res => {
+                console.log('Post done.');
+                console.log(res);
+                
+            });
     }
 
     onClick(): void {
-        console.log('Trying to send test!');
-        
-        this.socket.emit('test', {message: 'This is from the client!'});
+        this.http.post('http://192.168.1.11:3000/set_player_data', 
+        {message: "This is from the front-end!"})
+        .subscribe(res => {
+            
+        });
     }
 }

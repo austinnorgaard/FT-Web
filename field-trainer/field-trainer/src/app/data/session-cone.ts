@@ -1,6 +1,12 @@
 import { Cone } from './cone';
 
 export class SessionCone {
-    cone: Cone;
-    triggered: boolean;
+    constructor(public cone?: Cone, public triggered?: boolean) {}
+
+    // toJSON() {
+    //     return {
+    //         cone: this.cone,
+    //         triggered: this.triggered
+    //     };
+    // }
 }

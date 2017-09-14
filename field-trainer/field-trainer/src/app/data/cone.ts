@@ -1,5 +1,11 @@
 export class Cone {
-    name: string;
-    ip_address: string;
-    id: number;
+    constructor(public name?: string, public ip_address?: string, public id?: number) {}
+
+    // toJSON() {
+    //     return {
+    //         name: this.name,
+    //         ip_address: this.ip_address,
+    //         id: this.id
+    //     };
+    // }
 }

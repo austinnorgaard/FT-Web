@@ -5,7 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterModule } from '@angular/router';
 import { HttpModule } from '@angular/http';
-
+import { HttpClientModule } from '@angular/common/http';
 import { MdListModule, MdButtonModule, MdMenuModule, MdToolbarModule, MdCardModule, MdExpansionModule, MdGridListModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
@@ -20,6 +20,7 @@ import { PlayersComponent } from './players-component/players.component';
 
 import { ConesService } from './api/cones.service';
 import { PlayersService } from './api/players.service';
+import { HttpHelper } from './http-helper';
 
 @NgModule({
   declarations: [
@@ -45,9 +46,10 @@ import { PlayersService } from './api/players.service';
     MdCardModule,
     MdExpansionModule,
     MdGridListModule,
-    HttpModule
+    HttpModule,
+    HttpClientModule
   ],
-  providers: [ ConesService, PlayersService ],
+  providers: [ ConesService, PlayersService, HttpHelper ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

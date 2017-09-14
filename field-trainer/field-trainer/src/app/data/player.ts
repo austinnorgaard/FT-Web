@@ -1,4 +1,10 @@
 export class Player {
-    name: string;
-    id: number;
+    constructor(public name?: string, public id?: number) {}
+
+    // toJSON() {
+    //     return {
+    //         name: this.name,
+    //         id: this.id
+    //     };
+    // }
 }
