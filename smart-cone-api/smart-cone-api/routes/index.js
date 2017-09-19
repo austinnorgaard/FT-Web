@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var rp = require('request-promise');
 
 // we are creating a server that other cones can connect
 // to in order to report events like taps
@@ -61,34 +62,15 @@ router.get('/', function(req, res, next) {
     res.render('index', { title: 'Express' });
 });
 
+// either change to range when deployed, or keep this updated
+possible_cone_ips = [
+    "192.168.1.21",
+    "192.168.1.22",
+    "192.168.1.23"
+];
+
 cone_data = {
-    cones: [
-        {
-            "name": "Start Cone",
-            "ip_address": "192.168.1.11",
-            "id": 1
-        },
-        {
-            "name": "Cone 1",
-            "ip_address": "192.168.1.12",
-            "id": 2
-        },
-        {
-            "name": "Cone 2",
-            "ip_address": "192.168.1.13",
-            "id": 3
-        },
-        {
-            "name": "Cone 3",
-            "ip_address": "192.168.1.14",
-            "id": 4
-        },
-        {
-            "name": "Cone 4",
-            "ip_address": "192.168.1.15",
-            "id": 5
-        }
-    ]
+    cones: []
 }
 // mapping from player -> cone list they are running
 var player_session_data = null;
@@ -110,6 +92,47 @@ router.post('/set_player_data', function(req, res, next) {
 
 router.get('/get_player_data', function(req, res, next) {
     res.end(JSON.stringify(player_session_data));
+});
+
+router.get('/reset_cones', function(req, res, next) {
+    cone_data = {
+        cones: []
+    }
+
+    serverSocket.emit('cone_added');
+
+    res.end();
+});
+
+router.get('/refresh', function(req, res, next) {
+    // start process of searching for cones
+    possible_cone_ips.forEach((ip) => {
+        // check if we already found this cone
+        for(i = 0; i < cone_data.cones.length; ++i) {
+            if (cone_data.cones[i].ip_address === ip)
+                return;
+        }
+        console.log('sending to: ' + `http://${ip}:3100/probe`);
+        var options = {
+            uri: `http://${ip}:3100/probe`,
+            json: true
+        };
+
+        rp(options)
+            .then(function (data) {
+                console.log('Probe successful.');
+                // add data, tell front-end to re-get cones
+                console.log('Adding: ' + data.name);
+                cone_data.cones.push(data);
+                serverSocket.emit('cone_added');
+
+            })
+            .catch(function (err) {
+                console.log('Probe unsuccessful.');
+            });
+    });
+
+    res.end();
 });
 
 router.get('/get_cones', function(req, res, next) {

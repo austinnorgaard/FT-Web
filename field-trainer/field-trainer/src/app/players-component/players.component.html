@@ -1,5 +1,9 @@
-<md-list>
+<!-- <md-list>
     <md-list-item *ngFor='let player of players'>
         {{player.id}} - {{player.name}}
     </md-list-item>
-</md-list>
+</md-list> -->
+
+<ul class="list-group" dnd-sortable-container [sortableData]="players">
+    <li *ngFor="let player of players; let i = index" class="list-group-item" dnd-sortable [sortableIndex]="i">{{player.name}}</li>
+</ul>

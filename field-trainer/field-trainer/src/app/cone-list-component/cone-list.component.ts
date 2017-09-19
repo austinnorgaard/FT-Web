@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Cone } from '../data/cone';
-
+import { Socket } from 'ng-socket-io';
 import { ConesService } from '../api/cones.service'
 
 @Component({
@@ -10,17 +10,55 @@ import { ConesService } from '../api/cones.service'
 })
 
 export class ConeListComponent implements OnInit {
+    private refreshInProgress: boolean;
+    private interval;
+
     ngOnInit(): void {
         this.getCones();
+
+        this.socket.on('cone_added', (data) => {
+             console.log('cone added!');
+             this.getCones();
+        });
+
+        this.refreshInProgress = false;
+        this.interval = null;
     }
     cones: Cone[];
 
     constructor(
-        private conesService: ConesService
-    ) {}
+        private conesService: ConesService,
+        private socket: Socket
+    ) {
+        this.cones = [];
+    }
 
     getCones(): void {
         this.conesService.getCones().then(cones =>
             this.cones = cones);
+    }
+
+    conesEmpty(): boolean {
+        return this.cones.length === 0;
+    }
+
+    refresh() {
+        this.refreshInProgress = true;
+        console.log('Refresh!');
+        this.conesService.refresh();
+
+        // refresh for the next 15 seconds
+        if (this.interval !== null)
+            clearInterval(this.interval);
+
+        this.interval = setInterval(() => {
+            console.log('stopping refresh!');
+            this.refreshInProgress = false;
+            this.conesService.stopRefresh();
+        }, 15000);
+    }
+
+    refreshing() {
+        return this.refreshInProgress;
     }
 }

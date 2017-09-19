@@ -1,7 +1,7 @@
 import * as http from 'http';
 import * as debug from 'debug';
 import App from './App';
-var rpio = require('rpio');
+
 debug('ts-express:server');
 
 // get our cone ID
@@ -19,10 +19,13 @@ server.on('listening', onListening);
 console.log('try connect 3000');
 
 var socket = require('socket.io-client')('http://192.168.1.11:3001');
+var monitor = null;
 
-socket.on('connect', function () {
+socket.on('connect', (monitor) =>  {
     console.log('Connection to smart-cone-api server');
 });
+
+
 
 
 function normalizePort(val: number|string): number|string|boolean {
@@ -59,6 +62,9 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+App.get('/probe', function(req, res, next) {
+    res.end(JSON.stringify({name: "ourName", cone_id: "cone_id", ip_address: "192.168.1.22"}));
+});
 
 var rpio = require('rpio');
 rpio.open(32, rpio.INPUT);

@@ -9,6 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MdListModule, MdButtonModule, MdMenuModule, MdToolbarModule, MdCardModule, MdExpansionModule, MdGridListModule } from '@angular/material';
 import { ChangeDetectorRef } from '@angular/core';
 
+import { DndModule } from 'ng2-dnd';
 
 import { AppComponent } from './app.component';
 import { ConeComponent } from './cone-component/cone.component';
@@ -54,7 +55,8 @@ const config: SocketIoConfig = { url: 'http://192.168.1.11:3002', options: {} };
     MdGridListModule,
     HttpModule,
     HttpClientModule,
-    SocketIoModule.forRoot(config)
+    SocketIoModule.forRoot(config),
+    DndModule.forRoot()
   ],
   providers: [ ConesService, PlayersService, HttpHelper ],
   bootstrap: [AppComponent]

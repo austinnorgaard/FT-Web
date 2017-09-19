@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Cone } from '../data/cone';
 
 @Component({
   selector: 'cone',
@@ -7,7 +8,5 @@ import { Component, Input } from '@angular/core';
 })
 export class ConeComponent {
     @Input()
-    name: string = "Cone 1";
-    @Input()
-    ip_address: string = "192.168.255.255";
+    cone: Cone;
 }
