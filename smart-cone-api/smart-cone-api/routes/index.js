@@ -6,20 +6,19 @@ var router = express.Router();
 var io = require('socket.io').listen(3001);
 
 console.log('setting up SmartConeApi server');
-var currentSocket = null;
 var serverSocket = null;
 
 // fires every time a cone connects to us
 io.on('connection', function (socket) {
-    currentSocket = socket;
+    socket = socket;
     console.log('Connection!');
 
-    currentSocket.on('test', function(data) {
+    socket.on('test', function(data) {
         console.log('test hit!');
         console.log(data);
     });
     
-    currentSocket.on('tap', function(data) {
+    socket.on('tap', function(data) {
         console.log('Cone tapped!');
 
         // check to see if we should trigger a cone
@@ -49,13 +48,6 @@ io.on('connection', function (socket) {
         }
     });
 });
-
-// SECTION FOR CLIENT -> FRONT-END SOCKET
-// var socket = require('socket.io-client')('http://192.168.1.11:3002');
-
-// socket.on('connect', function() {
-//     console.log('Connection to front-end server.');
-// });
 
 var io_s = require('socket.io')(3002);
 
@@ -139,11 +131,6 @@ player_data = {
 
 router.get('/get_players', function(req, res, next) {
     res.end(JSON.stringify(player_data, null, '\t'));
-});
-
-router.get('/test', function(req, res, next) {
-    currentSocket.emit('test2', {message: 'This message from the API!'});
-    res.end();
 });
 
 router.get('/get_session_state', function(req, res, next) {
