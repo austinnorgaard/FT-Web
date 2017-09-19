@@ -62,19 +62,39 @@ function sleep(ms) {
 
 var rpio = require('rpio');
 rpio.open(32, rpio.INPUT);
-function tilt(pin) {
-    console.log('TILT!');
-    rpio.poll(pin, null);
-    rpio.close(pin);
-    socket.emit('tap', {cone_id: cone_id});
-    setInterval(function() {
-        try {
-            rpio.open(32, rpio.INPUT);
-            rpio.poll(32, tilt, rpio.POLL_LOW);
-        } catch (e) {
 
-        }
-    }, 3000);
+var myInterval = null;
+
+function tilt(pin) {
+    
+    if (rpio.read(pin) == rpio.LOW) {
+        console.log('TILT!');
+
+        socket.emit('tap', {cone_id: cone_id});
+
+        // turn off polling for a bit
+        rpio.poll(pin, null);
+        // clear pin state
+        rpio.close(pin);
+
+        if (myInterval !== null)
+            clearInterval(myInterval);
+
+        myInterval = setInterval(function() {
+            try {
+                // triggers after timer expires
+                rpio.open(32, rpio.INPUT);
+                // restart polling
+                rpio.poll(32, tilt, rpio.POLL_LOW);
+            } catch (e) {
+
+            }
+        }, 3000);
+    }
+    else {
+        // no tilt
+    }
 }
+
 console.log('test');
-rpio.poll(32, tilt);
+rpio.poll(32, tilt, rpio.POLL_LOW);
