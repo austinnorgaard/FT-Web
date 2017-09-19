@@ -7,8 +7,11 @@ import { PlayerSessionData } from '../data/player-session-data';
 import { Cone } from '../data/cone';
 import { Player } from '../data/player';
 import { HttpClient } from '@angular/common/http';
+import { ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 
-import * as io from 'socket.io-client';
+import { Socket } from 'ng-socket-io';
+
+import * as io from 'socket.io';
 
 @Component({
   selector: 'ft-session',
@@ -19,11 +22,14 @@ export class FTSessionComponent implements OnInit {
     player_sessions: PlayerSession[] = [];
     cones: Cone[];
     players: Player[];
-    socket: SocketIOClient.Socket;
 
     constructor(private conesService: ConesService,
                 private playersService: PlayersService,
-                private http: HttpClient) {}
+                private http: HttpClient,
+                private socket: Socket,
+                private ref: ChangeDetectorRef) {
+                    this.ref.markForCheck();
+                }
 
     ngOnInit(): void {
         // query for all players and cones
@@ -49,32 +55,43 @@ export class FTSessionComponent implements OnInit {
 
             console.log('Created ' + this.player_sessions.length + ' player sessions.');
             console.log(this.player_sessions);
+
+            console.log('sending: ' + JSON.stringify(this.player_sessions));
+            
+            // set the initial state
+            this.http.post('http://192.168.1.11:3000/set_player_data', 
+                this.player_sessions)
+                .subscribe(res => {
+                    console.log('Post done.');
+                    console.log(res);
+                    
+                });
         });
 
-        this.socket = io.connect('192.168.1.11:4001');
+        console.log('Try connect');
 
-        this.socket.on('test2', data => {
-            console.log(data);
+        this.socket.on('connect', function() {
+            console.log('Connection from smart-cone-api!');
         });
 
-        var data = JSON.stringify(PlayerSessionData.EmptyState());
-        console.log('sending: ' + data);
+        var self = this;
 
-        // set the initial state
-        this.http.post('http://192.168.1.11:3000/set_player_data', 
-            PlayerSessionData.EmptyState())
-            .subscribe(res => {
-                console.log('Post done.');
-                console.log(res);
-                
+        this.socket.on('cone_state_changed', function () {
+            // backend is telling us we need to retrieve
+            // the current state
+            console.log('Getting current data...');
+
+            self.http.get<PlayerSession[]>('http://192.168.1.11:3000/get_player_data').subscribe(data => {
+                console.log('Got player data!');
+                self.player_sessions = data;
+
+                console.log(self.player_sessions);
             });
+        });
     }
 
     onClick(): void {
-        this.http.post('http://192.168.1.11:3000/set_player_data', 
-        {message: "This is from the front-end!"})
-        .subscribe(res => {
-            
-        });
+        console.log(this.player_sessions);
+        
     }
 }

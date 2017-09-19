@@ -7,6 +7,8 @@ import { RouterModule } from '@angular/router';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { MdListModule, MdButtonModule, MdMenuModule, MdToolbarModule, MdCardModule, MdExpansionModule, MdGridListModule } from '@angular/material';
+import { ChangeDetectorRef } from '@angular/core';
+
 
 import { AppComponent } from './app.component';
 import { ConeComponent } from './cone-component/cone.component';
@@ -22,6 +24,10 @@ import { ConesService } from './api/cones.service';
 import { PlayersService } from './api/players.service';
 import { HttpHelper } from './http-helper';
 
+import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
+
+const config: SocketIoConfig = { url: 'http://192.168.1.11:3002', options: {} };
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,7 +37,7 @@ import { HttpHelper } from './http-helper';
     FTSessionComponent,
     SessionConeComponent,
     PlayerSessionComponent,
-    PlayersComponent
+    PlayersComponent,
   ],
   imports: [
     NgbModule.forRoot(),
@@ -47,7 +53,8 @@ import { HttpHelper } from './http-helper';
     MdExpansionModule,
     MdGridListModule,
     HttpModule,
-    HttpClientModule
+    HttpClientModule,
+    SocketIoModule.forRoot(config)
   ],
   providers: [ ConesService, PlayersService, HttpHelper ],
   bootstrap: [AppComponent]
