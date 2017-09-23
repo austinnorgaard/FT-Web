@@ -1,17 +1,15 @@
 import { Injectable, OnInit } from '@angular/core';
 import { Headers, Http } from '@angular/http';
 
-import { startConeIp } from '../utility';
-
 import 'rxjs/add/operator/toPromise';
 
 import { Cone } from '../data/cone';
 import { HttpUtil } from '../utility';
+import * as config from '../../../../../global-config';
 
 @Injectable()
 export class ConesService {
     private headers = new Headers({ 'Content-Type': 'application/json' });
-    private url = `http://${startConeIp}/get_cones`;
     private interval = null;
     private autoRefreshInterval = null;
 
@@ -29,14 +27,13 @@ export class ConesService {
     }
 
     getCones(): Promise<Cone[]> {
-        return this.http.get(this.url)
-            .toPromise()
-            .then(response => response.json().cones as Cone[])
+        return HttpUtil.get(config.toSmartConeHttp('/get_cones'))
+            .then(response => response.cones as Cone[])
             .catch(this.handleError);
     }
 
     refresh() {
-        HttpUtil.get('http://192.168.1.11:3000/reset_cones')
+        HttpUtil.get(config.toSmartConeHttp('/reset_cones'))
         .then(function (response) {
             console.log('Reset cones list.');
         }).catch(function(error) {
@@ -48,7 +45,7 @@ export class ConesService {
             clearInterval(this.interval);
 
         this.interval = setInterval(() => {
-            HttpUtil.get('http://192.168.1.11:3000/refresh')
+            HttpUtil.get(config.toSmartConeHttp('/refresh'))
             .then(function(response) {
                 console.log('Response good');
             }).catch(function(error) {

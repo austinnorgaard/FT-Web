@@ -1,20 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Player } from '../data/player';
-import { startConeIp } from '../utility';
-import { Headers, Http } from '@angular/http';
+import { HttpUtil } from '../utility';
+import * as config from '../../../../../global-config';
 
 @Injectable()
 export class PlayersService {
-    private headers = new Headers({ 'Content-Type': 'application/json' });
-    private url = `http://${startConeIp}/get_players`;
-
-    constructor(private http: Http) {}
+    constructor() {}
 
     getPlayers(): Promise<Player[]> {
-        console.log("URL: " + this.url);
-        return this.http.get(this.url)
-            .toPromise()
-            .then(response => response.json().players as Player[])
+        return HttpUtil.get(config.toSmartConeHttp('/get_players'))
+            .then(response => {
+                console.log(response);
+            return response.players as Player[]; })
             .catch(this.handleError);
     }
 

@@ -121,11 +121,22 @@ router.get('/refresh', function(req, res, next) {
         rp(options)
             .then(function (data) {
                 console.log('Probe successful.');
-                // add data, tell front-end to re-get cones
-                console.log('Adding: ' + data.name);
-                cone_data.cones.push(data);
-                serverSocket.emit('cone_added');
 
+                // Only add if we dont have it already
+                var expression = () => {
+                    for(i = 0; i < cone_data.cones.length; ++i) {
+                        if (cone_Data.cones[i].id === data.cone_id)
+                            return false;
+                    }
+                    return true;
+                };
+
+                if (expression()) {
+                    // add data, tell front-end to re-get cones
+                    console.log('Adding: ' + data.name);
+                    cone_data.cones.push(data);
+                    serverSocket.emit('cone_added');
+                }
             })
             .catch(function (err) {
                 console.log('Probe unsuccessful.');

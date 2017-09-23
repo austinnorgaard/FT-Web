@@ -12,6 +12,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { Socket } from 'ng-socket-io';
 
 import * as io from 'socket.io';
+import * as config from '../../../../../global-config';
 
 @Component({
   selector: 'ft-session',
@@ -59,7 +60,7 @@ export class FTSessionComponent implements OnInit {
             console.log('sending: ' + JSON.stringify(this.player_sessions));
             
             // set the initial state
-            this.http.post('http://192.168.1.11:3000/set_player_data', 
+            this.http.post(config.toSmartConeHttp('/set_player_data'), 
                 this.player_sessions)
                 .subscribe(res => {
                     console.log('Post done.');
@@ -81,11 +82,12 @@ export class FTSessionComponent implements OnInit {
             // the current state
             console.log('Getting current data...');
 
-            self.http.get<PlayerSession[]>('http://192.168.1.11:3000/get_player_data').subscribe(data => {
-                console.log('Got player data!');
-                self.player_sessions = data;
+            self.http.get<PlayerSession[]>(config.toSmartConeHttp('/get_player_data'))
+                .subscribe(data => {
+                    console.log('Got player data!');
+                    self.player_sessions = data;
 
-                console.log(self.player_sessions);
+                    console.log(self.player_sessions);
             });
         });
     }

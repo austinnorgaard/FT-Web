@@ -26,8 +26,9 @@ import { PlayersService } from './api/players.service';
 import { HttpHelper } from './http-helper';
 
 import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
+import * as c from '../../../../global-config';
 
-const config: SocketIoConfig = { url: 'http://192.168.1.11:3002', options: {} };
+const config: SocketIoConfig = { url: c.getSmartConeApiSocketUrl(), options: {} };
 
 @NgModule({
   declarations: [

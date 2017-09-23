@@ -19,19 +19,7 @@ export class PlayerSessionData {
     }
 
     static EmptyState () {
-        // var player = new Player('Keaton', 1);
-        // var cone = new SessionCone(new Cone('Cone1', '192.168.1.11', 1), false);
-        // var state = new PlayerSessionData([new PlayerSession(player, [cone])]);
-
-        // return state;
-
         return new PlayerSessionData([]);
     }
-
-    // toJSON() {
-    //     return {
-    //         sessions: this.sessions
-    //     };
-    // }
 }
 
