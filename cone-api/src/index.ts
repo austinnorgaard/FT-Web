@@ -64,7 +64,7 @@ function sleep(ms) {
 
 App.get('/probe', function(req, res, next) {
     // todo: get hostname and actual ip
-    res.end(JSON.stringify({name: "ourName", cone_id: cone_id, ip_address: "192.168.1.22"}));
+    res.end(JSON.stringify({name: "ourName", id: cone_id, ip_address: "192.168.1.22"}));
 });
 
 var rpio = require('rpio');
