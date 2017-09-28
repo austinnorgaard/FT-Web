@@ -1,12 +1,3 @@
-.removePlayerButton {
-    min-width: 0em;
-}
-
-.playerItem {
-    align-items: right;
-    text-align: right;
-}
-
 .removePlayerButtonContainer {
     text-align: right;
     margin-left: 10px;
@@ -16,4 +7,8 @@
     vertical-align: center;
     align-content: center;
     justify-content: center;
+}
+
+.removePlayerButton {
+    min-width: 0em;
 }

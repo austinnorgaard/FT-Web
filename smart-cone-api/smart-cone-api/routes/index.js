@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var rp = require('request-promise');
+const uuidv1 = require('uuid/v1');
 
 // we are creating a server that other cones can connect
 // to in order to report events like taps
@@ -90,6 +91,31 @@ router.post('/set_player_data', function(req, res, next) {
     res.end();
 });
 
+function getNextId() {
+
+}
+
+router.post('/add_player', function(req, res, next) {
+    console.log("Add player");
+
+    player_data.players.push(
+        {
+            name: req.body.name,
+            id: uuidv1()
+        }
+    )
+
+    res.end();
+});
+
+router.post('/remove_player', function(req, res, next) {
+    player_data.players = player_data.players.filter(function(obj) {
+        return obj.name !== req.body.name;
+    });
+    
+    res.end();
+});
+
 router.get('/get_player_data', function(req, res, next) {
     res.end(JSON.stringify(player_session_data));
 });
@@ -133,13 +159,13 @@ router.get('/refresh', function(req, res, next) {
 
                 if (expression()) {
                     // add data, tell front-end to re-get cones
-                    console.log('Adding: ' + data.name);
+                    console.log('Adding: ' + JSON.stringify(data));
                     cone_data.cones.push(data);
                     serverSocket.emit('cone_added');
                 }
             })
             .catch(function (err) {
-                console.log('Probe unsuccessful.');
+                console.log(`Probe for ${ip} unsuccessful.`);
             });
     });
 
@@ -154,11 +180,11 @@ player_data = {
     players: [
         {
             "name" : "Keaton",
-            "id": 1,
+            "uuid": uuidv1()
         },
         {
             "name": "Tom Brady",
-            "id": 2
+            "uuid": uuidv1()
         }
     ]
 }

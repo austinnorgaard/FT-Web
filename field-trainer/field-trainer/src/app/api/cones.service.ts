@@ -14,7 +14,6 @@ export class ConesService {
     private autoRefreshInterval = null;
 
     constructor(private http: Http) {
-        console.log("ConesServier::Constructor");
         // we are starting fresh, so reset the cones
         this.refresh();
 
@@ -47,7 +46,6 @@ export class ConesService {
         this.interval = setInterval(() => {
             HttpUtil.get(config.toSmartConeHttp('/refresh'))
             .then(function(response) {
-                console.log('Response good');
             }).catch(function(error) {
                 console.log(error);
             });

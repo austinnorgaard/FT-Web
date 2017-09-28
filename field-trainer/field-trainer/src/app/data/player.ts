@@ -1,5 +1,5 @@
 export class Player {
-    constructor(public name?: string, public id?: number) {}
+    constructor(public name?: string, public uuid?: string) {}
 
     // toJSON() {
     //     return {

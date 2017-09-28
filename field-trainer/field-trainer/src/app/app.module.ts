@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -20,6 +21,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { SessionConeComponent } from './session-cone-component/session-cone.component';
 import { PlayerSessionComponent } from './player-session-component/player-session.component';
 import { PlayersComponent } from './players-component/players.component';
+import { PlayerComponent } from './player-component/player.component';
 
 import { ConesService } from './api/cones.service';
 import { PlayersService } from './api/players.service';
@@ -40,6 +42,7 @@ const config: SocketIoConfig = { url: c.getSmartConeApiSocketUrl(), options: {} 
     SessionConeComponent,
     PlayerSessionComponent,
     PlayersComponent,
+    PlayerComponent
   ],
   imports: [
     NgbModule.forRoot(),
@@ -57,7 +60,8 @@ const config: SocketIoConfig = { url: c.getSmartConeApiSocketUrl(), options: {} 
     HttpModule,
     HttpClientModule,
     SocketIoModule.forRoot(config),
-    DndModule.forRoot()
+    DndModule.forRoot(),
+    FormsModule
   ],
   providers: [ ConesService, PlayersService, HttpHelper ],
   bootstrap: [AppComponent]

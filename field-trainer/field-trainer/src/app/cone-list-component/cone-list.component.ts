@@ -17,7 +17,6 @@ export class ConeListComponent implements OnInit {
         this.getCones();
 
         this.socket.on('cone_added', (data) => {
-             console.log('cone added!');
              this.getCones();
         });
 
@@ -34,8 +33,9 @@ export class ConeListComponent implements OnInit {
     }
 
     getCones(): void {
-        this.conesService.getCones().then(cones =>
-            this.cones = cones);
+        this.conesService.getCones().then(cones => {
+                this.cones = cones;
+            });
     }
 
     conesEmpty(): boolean {
