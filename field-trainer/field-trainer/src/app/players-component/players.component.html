@@ -3,6 +3,7 @@
         <li *ngFor="let player of players; let i = index" class="list-group-item" dnd-sortable [sortableIndex]="i">
             <player [player]=player (playerRemoved)="onPlayerRemove($event)"></player>
         </li>
+        <br/>
     </div>
 </ul>
 

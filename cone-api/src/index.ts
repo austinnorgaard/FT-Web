@@ -4,17 +4,19 @@ import App from './App';
 
 debug('ts-express:server');
 
+var local_ip: string = process.argv[3];
+
 // get our cone ID
 var cone_id = parseInt(process.argv[2]);
 console.log('Our cone id is: ' + cone_id);
 
 // determine our hostname
 var hostname = require("os").hostname();
-var port = normalizePort(process.env.PORT || 3100);
+var port: number = 3100;
 App.set('port', port);
 
 var server = http.createServer(App);
-server.listen(port);
+server.listen(port, local_ip);
 server.on('error', onError);
 server.on('listening', onListening);
 
@@ -66,7 +68,8 @@ function sleep(ms) {
 
 App.get('/probe', function(req, res, next) {
     // todo: get hostname and actual ip
-    res.end(JSON.stringify({name: hostname, id: cone_id, ip_address: "192.168.1.22"}));
+    console.log(JSON.stringify({name: hostname, id: cone_id, ip_address: local_ip}));
+    res.end(JSON.stringify({name: hostname, id: cone_id, ip_address: local_ip}));
 });
 
 var rpio = require('rpio');

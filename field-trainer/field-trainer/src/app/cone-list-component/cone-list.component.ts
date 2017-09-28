@@ -34,6 +34,7 @@ export class ConeListComponent implements OnInit {
 
     getCones(): void {
         this.conesService.getCones().then(cones => {
+                console.log(this.cones);
                 this.cones = cones;
             });
     }

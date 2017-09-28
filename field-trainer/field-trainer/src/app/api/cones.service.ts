@@ -15,7 +15,7 @@ export class ConesService {
 
     constructor(private http: Http) {
         // we are starting fresh, so reset the cones
-        this.refresh();
+        //this.refresh();
 
         // stop in 5 seconds
         this.autoRefreshInterval = setInterval(() => {

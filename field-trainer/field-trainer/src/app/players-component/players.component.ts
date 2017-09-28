@@ -42,4 +42,8 @@ export class PlayersComponent implements OnInit {
     onPlayerRemove() {
         this.updatePlayers();
     }
+
+    onPlayerMoved() {
+        console.log("Player moved!");
+    }
 }

@@ -151,8 +151,9 @@ router.get('/refresh', function(req, res, next) {
                 // Only add if we dont have it already
                 var expression = () => {
                     for(i = 0; i < cone_data.cones.length; ++i) {
-                        if (cone_Data.cones[i].id === data.cone_id)
+                        if (cone_data.cones[i].id === data.id) {
                             return false;
+                        }
                     }
                     return true;
                 };
