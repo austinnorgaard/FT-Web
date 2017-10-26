@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var rp = require('request-promise');
-const uuidv1 = require('uuid/v1');
+const uuidv4 = require('uuid/v4');
 
 // we are creating a server that other cones can connect
 // to in order to report events like taps
@@ -23,6 +23,9 @@ io.on('connection', function (socket) {
     socket.on('tap', function(data) {
         console.log('Cone tapped!');
 
+        // save a time if we need it (better accuracy)
+        var time = Date.now();
+
         // check to see if we should trigger a cone
         if (player_session_data === null) {
             console.log('Player Session Data was null!');
@@ -30,21 +33,35 @@ io.on('connection', function (socket) {
         }
         console.log('Checking we need to trigger cone id: ' + data.cone_id);
 
+        // for each player
         for(i = 0; i < player_session_data.length; i++) {
             // for every player, check if this current cone_is set to
             // triggered, if we find one we flip, then inform the front
             // end so they can update
             
-            for(j = 0; j < player_session_data[i].cones.length;  j++) {
+            // for each segment
+            for(j = 0; j < player_session_data[i].course.segments.length; j++) {
+                if (player_session_data[i].course.segments[j].start_cone_triggered &&
+                    player_session_data[i].course.segments[j].end_cone_triggered === false) {
 
-                if (player_session_data[i].cones[j].cone.id === data.cone_id &&
-                    player_session_data[i].cones[j].triggered === false) {
-                    console.log('Found a cone which hasnt been flipped yet!');
-                    player_session_data[i].cones[j].triggered = true;
-                    
-                    serverSocket.emit('cone_state_changed');
+                    // we found a segment where the start_cone was triggered, but the end_cone wasn't
+                    // However, the cone_id must match the end_cone_id
+                    if (data.cone_id === player_session_data[i].course.segments[j].cone_id_end) {
+                        player_session_data[i].course.segments[j].end_cone_triggered = true;
+                        player_session_data[i].course.segments[j].completed = true;
+                        player_session_data[i].course.segments[j].time = time - player_session_data[i].course.segments[j].start_time;
 
-                    return;
+                        // We want to prime the next segment, only if it exists
+                        var numSegments = player_session_data[i].course.segments.length;
+                        if (j < numSegments - 1) {
+                            // This player still has at least 1 more segment, so prime it
+                            player_session_data[i].course.segments[j + 1].start_cone_triggered = true;
+                            player_session_data[i].course.segments[j + 1].start_time = time; // our earlier cached time is correct
+                        }
+
+                        serverSocket.emit('cone_state_changed');
+                        return;
+                    }
                 }
             }
         }
@@ -73,12 +90,12 @@ possible_cone_ips = [
 cone_data = {
     cones: []
 }
+
 // mapping from player -> cone list they are running
 var player_session_data = null;
 
 router.post('/set_player_data', function(req, res, next) {
     console.log('SetPlayerData');
-    console.log(req.body);
     player_session_data = req.body;
     console.log(player_session_data);
 
@@ -101,7 +118,7 @@ router.post('/add_player', function(req, res, next) {
     player_data.players.push(
         {
             name: req.body.name,
-            id: uuidv1()
+            id: uuidv4()
         }
     )
 
@@ -111,6 +128,22 @@ router.post('/add_player', function(req, res, next) {
 router.post('/remove_player', function(req, res, next) {
     player_data.players = player_data.players.filter(function(obj) {
         return obj.name !== req.body.name;
+    });
+    
+    res.end();
+});
+
+router.post('/player_start', function(req, res, next) {
+    // Some player has started their session! Figure out who
+    // then set their first segments start_cone to started and mark the time
+    player_session_data.filter(function(obj) {
+        return (obj.player.uuid === req.body.uuid) &&
+                (obj.course.segments[0].start_cone_triggered === false);
+    }).forEach(function(player) {
+        console.log('Found a player to start!');
+        player.course.segments[0].start_cone_triggered = true;
+        player.course.segments[0].start_time = Date.now();
+        serverSocket.emit('cone_state_changed');
     });
     
     res.end();
@@ -181,11 +214,11 @@ player_data = {
     players: [
         {
             "name" : "Keaton",
-            "uuid": uuidv1()
+            "uuid": uuidv4()
         },
         {
             "name": "Tom Brady",
-            "uuid": uuidv1()
+            "uuid": uuidv4()
         }
     ]
 }

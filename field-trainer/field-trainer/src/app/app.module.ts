@@ -22,9 +22,11 @@ import { SessionConeComponent } from './session-cone-component/session-cone.comp
 import { PlayerSessionComponent } from './player-session-component/player-session.component';
 import { PlayersComponent } from './players-component/players.component';
 import { PlayerComponent } from './player-component/player.component';
+import { SegmentComponent } from './segment-component/segment.component';
 
 import { ConesService } from './api/cones.service';
 import { PlayersService } from './api/players.service';
+import { PlayerSessionService } from './api/player-session.service';
 import { HttpHelper } from './http-helper';
 
 import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
@@ -42,7 +44,8 @@ const config: SocketIoConfig = { url: c.getSmartConeApiSocketUrl(), options: {} 
     SessionConeComponent,
     PlayerSessionComponent,
     PlayersComponent,
-    PlayerComponent
+    PlayerComponent,
+    SegmentComponent
   ],
   imports: [
     NgbModule.forRoot(),
@@ -63,7 +66,7 @@ const config: SocketIoConfig = { url: c.getSmartConeApiSocketUrl(), options: {} 
     DndModule.forRoot(),
     FormsModule
   ],
-  providers: [ ConesService, PlayersService, HttpHelper ],
+  providers: [ ConesService, PlayersService, HttpHelper, PlayerSessionService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

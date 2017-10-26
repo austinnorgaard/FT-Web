@@ -7,8 +7,6 @@
 
 import { Player } from './player';
 import { PlayerSession } from './player-session';
-import { Cone } from './cone';
-import { SessionCone } from './session-cone';
 
 export class PlayerSessionData {
     constructor(public sessions?: PlayerSession[]) {

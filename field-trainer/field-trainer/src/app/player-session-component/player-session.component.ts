@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { SessionCone } from '../data/session-cone';
 import { PlayerSession } from '../data/player-session';
-
+import { getCurrentTime } from '../utility';
+import { PlayerSessionService } from '../api/player-session.service';
 @Component({
   selector: 'player-session',
   templateUrl: './player-session.component.html',
@@ -12,6 +12,16 @@ export class PlayerSessionComponent implements OnInit {
         // grab the current cones
     }
 
+    constructor(private playerSessionService: PlayerSessionService) {}
+
     @Input()
     data: PlayerSession;
+
+    startClicked(): void {
+        console.log(`Starting session for ${this.data.player.name} at ${getCurrentTime()}!`);
+        
+        this.playerSessionService.startSession(this.data.player.uuid).then(() => {
+            console.log("session started!");
+        });
+    }
 }

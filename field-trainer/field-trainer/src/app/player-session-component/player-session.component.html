@@ -1,6 +1,9 @@
 <span class="statusLayout">{{data.player.name}}</span>
-<div fxLayout="row" fxLayoutWrap class="statusLayout">
-    <div *ngFor="let cone of data.cones">
-        <session-cone [details]=cone></session-cone>
+<br/>
+<button md-raised-button color="primary" (click)="startClicked()">Start!</button>
+<div fxLayout="row" fxLayoutWrap>
+    <div *ngFor="let segment of data.course.segments">
+        <segment [details]=segment></segment>
+        <br/>
     </div>
 </div>

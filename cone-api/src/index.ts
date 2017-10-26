@@ -78,33 +78,36 @@ rpio.open(32, rpio.INPUT);
 var myInterval = null;
 
 function tilt(pin) {
-    
-    if (rpio.read(pin) == rpio.LOW) {
-        console.log('TILT!');
+    try {
+        if (rpio.read(pin) == rpio.LOW) {
+            console.log('TILT!');
 
-        socket.emit('tap', {cone_id: cone_id});
+            socket.emit('tap', {cone_id: cone_id});
 
-        // turn off polling for a bit
-        rpio.poll(pin, null);
-        // clear pin state
-        rpio.close(pin);
+            // turn off polling for a bit
+            rpio.poll(pin, null);
+            // clear pin state
+            rpio.close(pin);
 
-        if (myInterval !== null)
-            clearInterval(myInterval);
+            if (myInterval !== null)
+                clearInterval(myInterval);
 
-        myInterval = setInterval(function() {
-            try {
-                // triggers after timer expires
-                rpio.open(32, rpio.INPUT);
-                // restart polling
-                rpio.poll(32, tilt, rpio.POLL_LOW);
-            } catch (e) {
+            myInterval = setInterval(function() {
+                try {
+                    // triggers after timer expires
+                    rpio.open(32, rpio.INPUT);
+                    // restart polling
+                    rpio.poll(32, tilt, rpio.POLL_LOW);
+                } catch (e) {
 
-            }
-        }, 3000);
-    }
-    else {
-        // no tilt
+                }
+            }, 3000);
+        }
+        else {
+
+        }
+    } catch (e) {
+        console.log('Got some tilt error: ' + e);
     }
 }
 

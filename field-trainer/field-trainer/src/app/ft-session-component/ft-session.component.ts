@@ -3,6 +3,8 @@ import { PlayerSession } from '../data/player-session';
 import { ConesService } from '../api/cones.service';
 import { PlayersService } from '../api/players.service';
 import { PlayerSessionData } from '../data/player-session-data';
+import { Segment } from '../data/segment';
+import { TrainingCourse } from '../data/training-course';
 
 import { Cone } from '../data/cone';
 import { Player } from '../data/player';
@@ -36,21 +38,20 @@ export class FTSessionComponent implements OnInit {
         // query for all players and cones
         // after we get these, create
         // a list of PlayerSessions
-        Promise.all(
-            [
-                this.conesService.getCones().then(cones =>
-                    this.cones = cones),
-                this.playersService.getPlayers().then(players =>
-                    this.players = players)
-            ]
-        ).then(value => {
-            console.log(this.cones);
-            console.log(this.players);
 
-            this.players.forEach(player => {
+        // We will hardcode the list of segments that make up the training course
+        var segment_a: Segment = new Segment(1, 2, "jog", false, 0.0);
+        var segment_b: Segment = new Segment(2, 3, "run", false, 0.0);
+        var segment_c: Segment = new Segment(3, 4, "walk", false, 0.0);
+        var course: TrainingCourse = new TrainingCourse([segment_a, segment_b, segment_c]);
+
+        this.playersService.getPlayers().then(players => {
+            console.log(players);
+
+            players.forEach(player => {
                 console.log('Creating for ' + player.name);
                 var session: PlayerSession = new PlayerSession();
-                session.create(player, this.cones);
+                session.create(player, course);
                 this.player_sessions.push(session);
             })
 

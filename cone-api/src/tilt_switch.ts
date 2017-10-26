@@ -78,12 +78,12 @@ export class TiltSwitchMonitor {
                     // restart polling
                     rpio.poll(32, this.tilt, rpio.POLL_LOW);
                 } catch (e) {
-    
+                    console.log('Caught error.');
                 }
             }, 3000);
         }
         else {
-            // no tilt
+            // no til
         }
     }
 }

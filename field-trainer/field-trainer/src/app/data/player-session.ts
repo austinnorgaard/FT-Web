@@ -1,25 +1,18 @@
 import { Player } from './player';
-import { SessionCone } from './session-cone';
-import { Cone } from './cone';
+import { TrainingCourse } from './training-course';
+import { clone } from '../utility';
 
 export class PlayerSession {
-    constructor(public player?: Player, public cones?: SessionCone[]) {}
+    /*
+    * @player - Player for this session
+    * @course - The course the player is going to be running
+    * @started - Whethered the player has started their session
+    */
+    constructor(public player?: Player, public course?: TrainingCourse, public started?: boolean) {}
 
-    create(player: Player, cones: Cone[]): void {
-        this.cones = [];
-        cones.forEach(cone => {
-            var newCone = new SessionCone();
-            newCone.cone = cone;
-            newCone.triggered = false;
-            this.cones.push(newCone);
-        });
-        this.player = player;
+    create(player: Player, course: TrainingCourse): void {
+        this.course = clone(course);
+        this.player = clone(player);
+        this.started = false;
     }
-
-    // toJSON() {
-    //     return {
-    //         player: this.player,
-    //         cones: this.cones
-    //     };
-    // }
 }
