@@ -1,6 +1,6 @@
 <span class="statusLayout">{{data.player.name}}</span>
 <br/>
-<button md-raised-button color="primary" (click)="startClicked()">Start!</button>
+<button mat-raised-button color="primary" (click)="startClicked()">Start!</button>
 <div fxLayout="row" fxLayoutWrap>
     <div *ngFor="let segment of data.course.segments">
         <segment [details]=segment></segment>

@@ -7,7 +7,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterModule } from '@angular/router';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
-import { MdListModule, MdButtonModule, MdMenuModule, MdToolbarModule, MdCardModule, MdExpansionModule, MdGridListModule } from '@angular/material';
+import { MatListModule, MatButtonModule, MatMenuModule, MatToolbarModule, MatCardModule, MatExpansionModule, MatGridListModule } from '@angular/material';
 import { ChangeDetectorRef } from '@angular/core';
 
 import { DndModule } from 'ng2-dnd';
@@ -52,14 +52,14 @@ const config: SocketIoConfig = { url: c.getSmartConeApiSocketUrl(), options: {} 
     BrowserModule,
     FlexLayoutModule,
     BrowserAnimationsModule,
-    MdListModule,
-    MdButtonModule,
-    MdMenuModule,
+    MatListModule,
+    MatButtonModule,
+    MatMenuModule,
     AppRoutingModule,
-    MdToolbarModule,
-    MdCardModule,
-    MdExpansionModule,
-    MdGridListModule,
+    MatToolbarModule,
+    MatCardModule,
+    MatExpansionModule,
+    MatGridListModule,
     HttpModule,
     HttpClientModule,
     SocketIoModule.forRoot(config),
