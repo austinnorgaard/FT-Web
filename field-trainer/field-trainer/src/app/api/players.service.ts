@@ -3,7 +3,7 @@ import { Player } from '../data/player';
 import { HttpUtil } from '../utility';
 import { HttpClient } from '@angular/common/http';
 
-import * as config from '../../../../../global-config';
+import * as config from '../../../global-config';
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()

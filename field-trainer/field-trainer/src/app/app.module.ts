@@ -30,7 +30,7 @@ import { PlayerSessionService } from './api/player-session.service';
 import { HttpHelper } from './http-helper';
 
 import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
-import * as c from '../../../../global-config';
+import * as c from '../../global-config';
 
 const config: SocketIoConfig = { url: c.getSmartConeApiSocketUrl(), options: {} };
 

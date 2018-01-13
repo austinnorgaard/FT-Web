@@ -5,7 +5,7 @@ import 'rxjs/add/operator/toPromise';
 
 import { Cone } from '../data/cone';
 import { HttpUtil } from '../utility';
-import * as config from '../../../../../global-config';
+import * as config from '../../../global-config';
 
 @Injectable()
 export class ConesService {

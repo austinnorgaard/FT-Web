@@ -14,7 +14,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { Socket } from 'ng-socket-io';
 
 import * as io from 'socket.io';
-import * as config from '../../../../../global-config';
+import * as config from '../../../global-config';
 
 @Component({
   selector: 'ft-session',
