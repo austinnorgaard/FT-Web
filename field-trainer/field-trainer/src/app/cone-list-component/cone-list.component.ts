@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Cone } from '../data/cone';
 import { Socket } from 'ng-socket-io';
-import { ConesService } from '../api/cones.service'
+import { ConesService } from '../api/cones.service';
 
 @Component({
   selector: 'cone-list',
@@ -49,8 +49,9 @@ export class ConeListComponent implements OnInit {
         this.conesService.refresh();
 
         // refresh for the next 15 seconds
-        if (this.interval !== null)
+        if (this.interval !== null) {
             clearInterval(this.interval);
+        }
 
         this.interval = setInterval(() => {
             console.log('stopping refresh!');

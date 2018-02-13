@@ -13,7 +13,7 @@ export class SessionService {
     }
 
     setState(sessions: PlayerSession[]) {
-        
+
     }
 
     private handleError(error: any): Promise<any> {

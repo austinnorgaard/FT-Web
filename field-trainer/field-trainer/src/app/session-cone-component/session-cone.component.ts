@@ -13,9 +13,11 @@ export class SessionConeComponent {
     triggered: boolean;
 
     getColor(): string {
-        if (this.triggered)
-            return "lightgreen";
-        else
-            return "white";
+        if (this.triggered) {
+            return 'lightgreen';
+        }
+        else {
+            return 'white';
+        }
     }
 }

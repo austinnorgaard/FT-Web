@@ -1,4 +1,4 @@
-/* 
+/*
     Represents the state of players and their cones
     The front-end will set the state to the clear state
     at first. The SmartConeApi will at that point become
@@ -10,8 +10,7 @@ import { PlayerSession } from './player-session';
 
 export class PlayerSessionData {
     constructor(public sessions?: PlayerSession[]) {
-        if (this.sessions === null)
-        {
+        if (this.sessions === null) {
             this.sessions = [];
         }
     }

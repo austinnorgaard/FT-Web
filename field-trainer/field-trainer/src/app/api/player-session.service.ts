@@ -13,7 +13,7 @@ export class PlayerSessionService {
 
     public startSession(uuid: string) {
         // start a session for a player referenced by uuid
-        return this.http.post(config.toSmartConeHttp("/player_start"), {uuid: uuid})
+        return this.http.post(config.toSmartConeHttp('/player_start'), {uuid: uuid})
             .toPromise();
     }
 

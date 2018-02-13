@@ -19,9 +19,9 @@ export class PlayerSessionComponent implements OnInit {
 
     startClicked(): void {
         console.log(`Starting session for ${this.data.player.name} at ${getCurrentTime()}!`);
-        
+
         this.playerSessionService.startSession(this.data.player.uuid).then(() => {
-            console.log("session started!");
+            console.log('session started!');
         });
     }
 }

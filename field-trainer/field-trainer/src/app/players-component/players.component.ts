@@ -15,7 +15,7 @@ export class PlayersComponent implements OnInit {
     player_name: string;
 
     constructor(private playersService: PlayersService) {
-        this.player_name = "";
+        this.player_name = '';
      }
 
     ngOnInit() {
@@ -29,12 +29,12 @@ export class PlayersComponent implements OnInit {
     }
 
     onAddPlayerClick() {
-        if (this.player_name === null || this.player_name === "") {
+        if (this.player_name === null || this.player_name === '') {
             return;
         }
 
         this.playersService.addPlayer(this.player_name).then(() => {
-            this.player_name = "";
+            this.player_name = '';
             this.updatePlayers();
         });
     }
@@ -44,6 +44,6 @@ export class PlayersComponent implements OnInit {
     }
 
     onPlayerMoved() {
-        console.log("Player moved!");
+        console.log('Player moved!');
     }
 }

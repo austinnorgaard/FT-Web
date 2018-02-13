@@ -40,33 +40,33 @@ export class FTSessionComponent implements OnInit {
         // a list of PlayerSessions
 
         // We will hardcode the list of segments that make up the training course
-        var segment_a: Segment = new Segment(1, 2, "jog", false, 0.0);
-        var segment_b: Segment = new Segment(2, 3, "run", false, 0.0);
-        var segment_c: Segment = new Segment(3, 4, "walk", false, 0.0);
-        var course: TrainingCourse = new TrainingCourse([segment_a, segment_b, segment_c]);
+        let segment_a: Segment = new Segment(1, 2, 'jog', false, 0.0);
+        let segment_b: Segment = new Segment(2, 3, 'run', false, 0.0);
+        let segment_c: Segment = new Segment(3, 4, 'walk', false, 0.0);
+        let course: TrainingCourse = new TrainingCourse([segment_a, segment_b, segment_c]);
 
         this.playersService.getPlayers().then(players => {
             console.log(players);
 
             players.forEach(player => {
                 console.log('Creating for ' + player.name);
-                var session: PlayerSession = new PlayerSession();
+                let session: PlayerSession = new PlayerSession();
                 session.create(player, course);
                 this.player_sessions.push(session);
-            })
+            });
 
             console.log('Created ' + this.player_sessions.length + ' player sessions.');
             console.log(this.player_sessions);
 
             console.log('sending: ' + JSON.stringify(this.player_sessions));
-            
+
             // set the initial state
-            this.http.post(config.toSmartConeHttp('/set_player_data'), 
+            this.http.post(config.toSmartConeHttp('/set_player_data'),
                 this.player_sessions)
                 .subscribe(res => {
                     console.log('Post done.');
                     console.log(res);
-                    
+
                 });
         });
 
@@ -76,7 +76,7 @@ export class FTSessionComponent implements OnInit {
             console.log('Connection from smart-cone-api!');
         });
 
-        var self = this;
+        let self = this;
 
         this.socket.on('cone_state_changed', function () {
             // backend is telling us we need to retrieve
@@ -95,6 +95,6 @@ export class FTSessionComponent implements OnInit {
 
     onClick(): void {
         console.log(this.player_sessions);
-        
+
     }
 }

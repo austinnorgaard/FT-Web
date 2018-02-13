@@ -18,14 +18,13 @@ export class PlayersService {
     }
 
     addPlayer(name: string): Promise<void> {
-        return this.http.post(config.toSmartConeHttp("/add_player"), {name: name})
+        return this.http.post(config.toSmartConeHttp('/add_player'), {name: name})
             .toPromise().then(response => {
-                
             });
     }
 
     removePlayer(name: string): Promise<void> {
-        return this.http.post(config.toSmartConeHttp("/remove_player"), {name: name})
+        return this.http.post(config.toSmartConeHttp('/remove_player'), {name: name})
             .toPromise().then(response => {
 
             });

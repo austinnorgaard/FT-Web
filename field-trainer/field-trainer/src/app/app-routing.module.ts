@@ -8,7 +8,7 @@ const routes: Routes = [
     { path: '', redirectTo: '/setup', pathMatch: 'full'},
     { path: 'setup', component: SetupComponent },
     { path: 'session', component: FTSessionComponent }
-]
+];
 
 @NgModule({
     imports: [RouterModule.forRoot(routes)],
