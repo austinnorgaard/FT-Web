@@ -1,0 +1,15 @@
+.test-item {
+    border: 1px solid #000000;
+}
+
+.test-container {
+    margin: 1em;
+}
+
+.register-name {
+    min-width: 50px;
+}
+
+input {
+    font-size: 32;
+}

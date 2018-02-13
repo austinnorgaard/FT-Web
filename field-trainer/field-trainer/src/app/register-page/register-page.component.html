@@ -1,0 +1,82 @@
+<h1>Registration</h1>
+<div fxLayout="column">
+    <div class="test-container" fxFlex>
+        <div fxLayout="row" fxLayoutGap="10px">
+            <mat-form-field fxFlex="15%">
+                <mat-select placeholder="Prefix">
+                    <mat-option *ngFor="let prefix of prefixes" [value]="prefix">
+                        {{prefix}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field fxFlex="40%">
+                <input matInput class="register-name" placeholder="First Name" />
+            </mat-form-field>
+            <mat-form-field fxFlex="40%">
+                <input matInput class="register-name" placeholder="Last Name" />
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="test-container" fxFlex>
+        <div fxLayout="row" fxLayoutGap="10px">
+            <mat-form-field fxFlex>
+                <input matInput class="register-name" placeholder="Address Line 1" />
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="test-container" fxFlex>
+        <div fxLayout="row" fxLayoutGap="10px">
+            <mat-form-field fxFlex>
+                <input matInput class="register-name" placeholder="Address Line 2" />
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="test-container" fxFlex>
+        <div fxLayout="row" fxLayoutGap="10px">
+            <mat-form-field fxFlex>
+                <input matInput class="register-name" placeholder="City" />
+            </mat-form-field>
+            <mat-form-field fxFlex>
+                <input matInput class="register-name" placeholder="State / Province" />
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="test-container" fxFlex>
+        <div fxLayout="row" fxLayoutGap="10px">
+            <mat-form-field fxFlex>
+                <input matInput class="register-name" placeholder="Postal / Zip Code" />
+            </mat-form-field>
+            <mat-form-field fxFlex>
+                <mat-select placeholder="Country">
+                    <mat-option *ngFor="let country of countries" [value]="country">
+                        {{country}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="test-container" fxFlex>
+        <div fxLayout="row" fxLayoutGap="10px">
+            <mat-form-field fxFlex>
+                <input matInput type="tel" class="register-name" placeholder="Phone Number" />
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="test-container" fxFlex>
+        <div fxLayout="row" fxLayoutGap="10px">
+            <mat-form-field fxFlex>
+                <input matInput type="text" class="register-name" placeholder="Email Address" />
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="test-container" fxFlex>
+        <div fxLayout="row" fxLayoutGap="10px">
+            <mat-checkbox>Subscribe to newsletter</mat-checkbox>
+        </div>
+    </div>
+    <div fxFlex>
+        <div fxLayout="row" fxLayoutAlign="space-around">
+            <button mat-raised-button color="primary" fxFlex="25%">Submit</button>
+        </div>
+    </div>
+</div>

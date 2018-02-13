@@ -8,8 +8,9 @@ import { RouterModule } from '@angular/router';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { MatListModule, MatButtonModule, MatMenuModule, MatToolbarModule, MatCardModule,
-  MatExpansionModule, MatGridListModule } from '@angular/material';
+  MatExpansionModule, MatGridListModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatCheckboxModule } from '@angular/material';
 import { ChangeDetectorRef } from '@angular/core';
+
 
 import { DndModule } from 'ng2-dnd';
 
@@ -33,6 +34,7 @@ import { HttpHelper } from './http-helper';
 import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
 import * as c from '../../global-config';
 import { WelcomePageComponent } from './welcome-page/welcome-page.component';
+import { RegisterPageComponent } from './register-page/register-page.component';
 
 const config: SocketIoConfig = { url: c.getSmartConeApiSocketUrl(), options: {} };
 
@@ -48,7 +50,8 @@ const config: SocketIoConfig = { url: c.getSmartConeApiSocketUrl(), options: {} 
     PlayersComponent,
     PlayerComponent,
     SegmentComponent,
-    WelcomePageComponent
+    WelcomePageComponent,
+    RegisterPageComponent
   ],
   imports: [
     NgbModule.forRoot(),
@@ -58,6 +61,10 @@ const config: SocketIoConfig = { url: c.getSmartConeApiSocketUrl(), options: {} 
     MatListModule,
     MatButtonModule,
     MatMenuModule,
+    MatCheckboxModule,
+    MatInputModule,
+    MatSelectModule,
+    MatFormFieldModule,
     AppRoutingModule,
     MatToolbarModule,
     MatCardModule,
