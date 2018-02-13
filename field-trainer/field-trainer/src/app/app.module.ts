@@ -32,6 +32,7 @@ import { HttpHelper } from './http-helper';
 
 import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
 import * as c from '../../global-config';
+import { WelcomePageComponent } from './welcome-page/welcome-page.component';
 
 const config: SocketIoConfig = { url: c.getSmartConeApiSocketUrl(), options: {} };
 
@@ -46,7 +47,8 @@ const config: SocketIoConfig = { url: c.getSmartConeApiSocketUrl(), options: {} 
     PlayerSessionComponent,
     PlayersComponent,
     PlayerComponent,
-    SegmentComponent
+    SegmentComponent,
+    WelcomePageComponent
   ],
   imports: [
     NgbModule.forRoot(),
