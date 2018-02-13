@@ -8,14 +8,14 @@ import { PlayerSessionService } from '../api/player-session.service';
   styleUrls: ['./player-session.component.css']
 })
 export class PlayerSessionComponent implements OnInit {
+    @Input()
+    data: PlayerSession;
+
     ngOnInit(): void {
         // grab the current cones
     }
 
     constructor(private playerSessionService: PlayerSessionService) {}
-
-    @Input()
-    data: PlayerSession;
 
     startClicked(): void {
         console.log(`Starting session for ${this.data.player.name} at ${getCurrentTime()}!`);

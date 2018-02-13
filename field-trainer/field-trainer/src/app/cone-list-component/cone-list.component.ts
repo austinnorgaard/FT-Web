@@ -12,6 +12,7 @@ import { ConesService } from '../api/cones.service';
 export class ConeListComponent implements OnInit {
     private refreshInProgress: boolean;
     private interval;
+    cones: Cone[];
 
     ngOnInit(): void {
         this.getCones();
@@ -23,7 +24,6 @@ export class ConeListComponent implements OnInit {
         this.refreshInProgress = false;
         this.interval = null;
     }
-    cones: Cone[];
 
     constructor(
         private conesService: ConesService,

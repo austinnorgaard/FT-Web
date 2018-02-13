@@ -40,17 +40,17 @@ export class FTSessionComponent implements OnInit {
         // a list of PlayerSessions
 
         // We will hardcode the list of segments that make up the training course
-        let segment_a: Segment = new Segment(1, 2, 'jog', false, 0.0);
-        let segment_b: Segment = new Segment(2, 3, 'run', false, 0.0);
-        let segment_c: Segment = new Segment(3, 4, 'walk', false, 0.0);
-        let course: TrainingCourse = new TrainingCourse([segment_a, segment_b, segment_c]);
+        const segment_a: Segment = new Segment(1, 2, 'jog', false, 0.0);
+        const segment_b: Segment = new Segment(2, 3, 'run', false, 0.0);
+        const segment_c: Segment = new Segment(3, 4, 'walk', false, 0.0);
+        const course: TrainingCourse = new TrainingCourse([segment_a, segment_b, segment_c]);
 
         this.playersService.getPlayers().then(players => {
             console.log(players);
 
             players.forEach(player => {
                 console.log('Creating for ' + player.name);
-                let session: PlayerSession = new PlayerSession();
+                const session: PlayerSession = new PlayerSession();
                 session.create(player, course);
                 this.player_sessions.push(session);
             });
@@ -76,7 +76,7 @@ export class FTSessionComponent implements OnInit {
             console.log('Connection from smart-cone-api!');
         });
 
-        let self = this;
+        const self = this;
 
         this.socket.on('cone_state_changed', function () {
             // backend is telling us we need to retrieve

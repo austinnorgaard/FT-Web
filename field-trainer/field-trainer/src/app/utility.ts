@@ -1,8 +1,8 @@
-let rp = require('request-promise');
+const rp = require('request-promise');
 
 export class HttpUtil {
     static get(path: string) {
-        let options = {
+        const options = {
             uri: path,
             json: true
         };
@@ -12,12 +12,12 @@ export class HttpUtil {
 }
 
 export function clone(obj) {
-    if (obj == null || typeof(obj) != 'object') {
+    if (obj == null || typeof(obj) !== 'object') {
         return obj;
     }
 
-    let temp = new obj.constructor();
-    for (let key in obj) {
+    const temp = new obj.constructor();
+    for (const key of Object.keys(obj)) {
         temp[key] = clone(obj[key]);
     }
 

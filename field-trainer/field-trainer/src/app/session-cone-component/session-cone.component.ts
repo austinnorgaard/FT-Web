@@ -15,8 +15,7 @@ export class SessionConeComponent {
     getColor(): string {
         if (this.triggered) {
             return 'lightgreen';
-        }
-        else {
+        } else {
             return 'white';
         }
     }
