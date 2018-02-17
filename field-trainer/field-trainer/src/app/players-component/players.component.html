@@ -1,7 +1,7 @@
 <ul class="list-group" dnd-sortable-container [sortableData]="players">
     <div fxLayout="column" fxLayoutWrap fxLayoutAlign="center">
         <li *ngFor="let player of players; let i = index" class="list-group-item" dnd-sortable [sortableIndex]="i">
-            <player [player]=player (playerRemoved)="onPlayerRemove($event)"></player>
+            <ft-player [player]=player (playerRemoved)="onPlayerRemove($event)"></ft-player>
         </li>
         <br/>
     </div>

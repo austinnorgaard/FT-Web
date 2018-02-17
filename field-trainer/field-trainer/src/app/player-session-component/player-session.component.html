@@ -3,7 +3,7 @@
 <button mat-raised-button color="primary" (click)="startClicked()">Start!</button>
 <div fxLayout="row" fxLayoutWrap>
     <div *ngFor="let segment of data.course.segments">
-        <segment [details]=segment></segment>
+        <ft-segment [details]=segment></ft-segment>
         <br/>
     </div>
 </div>
