@@ -3,7 +3,7 @@ import { PlayerSession } from '../data/player-session';
 import { getCurrentTime } from '../utility';
 import { PlayerSessionService } from '../api/player-session.service';
 @Component({
-  selector: 'player-session',
+  selector: 'ft-player-session',
   templateUrl: './player-session.component.html',
   styleUrls: ['./player-session.component.css']
 })

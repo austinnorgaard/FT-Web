@@ -4,7 +4,7 @@ import { Socket } from 'ng-socket-io';
 import { ConesService } from '../api/cones.service';
 
 @Component({
-  selector: 'cone-list',
+  selector: 'ft-cone-list',
   templateUrl: './cone-list.component.html',
   styleUrls: ['./cone-list.component.css']
 })

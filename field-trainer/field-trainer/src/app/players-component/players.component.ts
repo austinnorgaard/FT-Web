@@ -5,7 +5,7 @@ import { PlayerSession } from '../data/player-session';
 
 
 @Component({
-    selector: 'players',
+    selector: 'ft-players',
     templateUrl: './players.component.html',
     styleUrls: ['./players.component.css']
 })
