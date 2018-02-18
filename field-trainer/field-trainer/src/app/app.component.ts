@@ -1,4 +1,5 @@
 import { Component } from "@angular/core";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "ft-app-root",
@@ -6,5 +7,14 @@ import { Component } from "@angular/core";
   styleUrls: ["./app.component.css"]
 })
 export class AppComponent {
-  title = "app";
+  constructor(private router: Router) {
+    this.router = router;
+  }
+
+  currentPath(): string {
+    // take the router url and extract a pretty
+    // path for our title bar
+    var titleString = this.router.url.replace("/", " - ");
+    return `FieldTrainer ${titleString}`;
+  }
 }
