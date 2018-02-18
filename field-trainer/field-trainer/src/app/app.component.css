@@ -7,5 +7,37 @@
 }
 
 .ft-title {
-  margin-top: 0.25em;
+  margin-top: em;
+}
+
+.parent {
+  background-color: #eee;
+  margin: 0;
+}
+
+.container {
+  height: 100%;
+}
+
+#wrapper {
+  min-height: 100%;
+}
+
+.content {
+  background-color: green;
+}
+
+#footer {
+  position: fixed;
+  bottom: 0;
+  margin-bottom: 1em;
+}
+
+html,
+body {
+  min-height: 100%;
+  box-sizing: border-box;
+  height: 100%;
+  margin: 0;
+  display: flex;
 }
