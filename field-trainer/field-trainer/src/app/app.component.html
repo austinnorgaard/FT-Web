@@ -1,46 +1,19 @@
-<mat-toolbar color="primary">
-    <div fxLayout="row">
-        <div>
-            <button mat-icon-button (click)="sidenav.toggle()" fxFlex="40%">
-                <mat-icon class="material-icons">menu</mat-icon>
-            </button>
-        </div>
-        <div class="ft-title">
+<div fxLayout="column" fxFlex>
+    <mat-toolbar color="primary" fxLayout="row" fxLayoutAlign="space-between center">
+        <button mat-icon-button (click)="sidenav.toggle()" fxFlex="10%">
+            <mat-icon class="material-icons">menu</mat-icon>
+        </button>
+        <div class="ft-title" fxFlex fxFlexOffset="5%">
             <span>{{currentPath()}}</span>
         </div>
-    </div>
-</mat-toolbar>
+    </mat-toolbar>
 
-<mat-sidenav-container fxLayout="column">
-    <mat-sidenav #sidenav mode="over">
-        <div fxLayout="column">
-            <div fxFlex style="height:400px">
-                <a href="page1.html">Page 1111111111111111111111111111</a>
-            </div>
-            <div fxFlex>
-                <a href="page2.html">Page 2</a>
-            </div>
-            <div fxFlexFill style="background:green">
-                <a href="page3.html">Page 3</a>
-            </div>
-        </div>
-    </mat-sidenav>
-    <mat-sidenav-content>
-        <router-outlet></router-outlet>
-    </mat-sidenav-content>
-</mat-sidenav-container>
-
-<!-- <div layout="row" layout-fill>
     <mat-sidenav-container>
         <mat-sidenav #sidenav mode="over">
-            <div layout-fill>
-                CONTENT
-            </div>
+            <ft-nav-menu-content></ft-nav-menu-content>
         </mat-sidenav>
         <mat-sidenav-content>
-            <div layout-fill>
-                <span>Some TextTTTTTTTTTTTTTT</span>
-            </div>
+            <router-outlet></router-outlet>
         </mat-sidenav-content>
     </mat-sidenav-container>
-</div> -->
+</div>

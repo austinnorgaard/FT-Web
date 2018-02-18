@@ -14,7 +14,12 @@ export class AppComponent {
   currentPath(): string {
     // take the router url and extract a pretty
     // path for our title bar
-    var titleString = this.router.url.replace("/", " - ");
+    const titleString = this.prettyString(this.router.url.replace("/", " - "));
     return `FieldTrainer ${titleString}`;
+  }
+
+  private prettyString(item: string) {
+    // Hacky, hard-coded solution.
+    return item.substr(0, 3) + item.charAt(3).toUpperCase() + item.slice(4);
   }
 }
