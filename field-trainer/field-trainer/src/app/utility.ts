@@ -1,4 +1,4 @@
-const rp = require('request-promise');
+const rp = require("request-promise");
 
 export class HttpUtil {
     static get(path: string) {
@@ -12,7 +12,7 @@ export class HttpUtil {
 }
 
 export function clone(obj) {
-    if (obj == null || typeof(obj) !== 'object') {
+    if (obj == null || typeof obj !== "object") {
         return obj;
     }
 

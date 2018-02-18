@@ -1,22 +1,20 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input } from "@angular/core";
 
 @Component({
-  selector: 'ft-session-cone',
-  templateUrl: './session-cone.component.html',
-  styleUrls: ['./session-cone.component.css']
+    selector: "ft-session-cone",
+    templateUrl: "./session-cone.component.html",
+    styleUrls: ["./session-cone.component.css"]
 })
 export class SessionConeComponent {
-    @Input()
-    id: number;
+    @Input() id: number;
 
-    @Input()
-    triggered: boolean;
+    @Input() triggered: boolean;
 
     getColor(): string {
         if (this.triggered) {
-            return 'lightgreen';
+            return "lightgreen";
         } else {
-            return 'white';
+            return "white";
         }
     }
 }

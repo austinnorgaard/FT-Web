@@ -1,9 +1,8 @@
-import { Component } from '@angular/core';
+import { Component } from "@angular/core";
 
 @Component({
-  selector: 'ft-setup',
-  templateUrl: './setup.component.html',
-  styleUrls: ['./setup.component.css']
+    selector: "ft-setup",
+    templateUrl: "./setup.component.html",
+    styleUrls: ["./setup.component.css"]
 })
-export class SetupComponent {
-}
+export class SetupComponent {}

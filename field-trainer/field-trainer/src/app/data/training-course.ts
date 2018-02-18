@@ -1,4 +1,4 @@
-import { Segment } from './segment';
+import { Segment } from "./segment";
 
 /* A training course is a list of segments the player must traverse */
 

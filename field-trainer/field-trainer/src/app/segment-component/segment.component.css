@@ -22,7 +22,7 @@
 
 .Segment {
     border: 1px solid #000000;
-    margin-inline-end: .5em;
-    margin-top: .25em;
-    padding: .5em;
+    margin-inline-end: 0.5em;
+    margin-top: 0.25em;
+    padding: 0.5em;
 }

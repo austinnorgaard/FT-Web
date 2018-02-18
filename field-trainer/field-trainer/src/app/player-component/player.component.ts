@@ -1,18 +1,16 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { Player } from '../data/player';
-import { PlayersService } from '../api/players.service';
+import { Component, Input, Output, EventEmitter } from "@angular/core";
+import { Player } from "../data/player";
+import { PlayersService } from "../api/players.service";
 
 @Component({
-  selector: 'ft-player',
-  templateUrl: './player.component.html',
-  styleUrls: ['./player.component.css']
+    selector: "ft-player",
+    templateUrl: "./player.component.html",
+    styleUrls: ["./player.component.css"]
 })
 export class PlayerComponent {
-    @Input()
-    player: Player;
+    @Input() player: Player;
 
-    @Output()
-    playerRemoved: EventEmitter<void> = new EventEmitter<void>();
+    @Output() playerRemoved: EventEmitter<void> = new EventEmitter<void>();
 
     constructor(private playersService: PlayersService) {}
 

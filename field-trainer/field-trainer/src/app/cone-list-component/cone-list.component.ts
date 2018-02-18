@@ -1,14 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { Cone } from '../data/cone';
-import { Socket } from 'ng-socket-io';
-import { ConesService } from '../api/cones.service';
+import { Component, OnInit } from "@angular/core";
+import { Cone } from "../data/cone";
+import { Socket } from "ng-socket-io";
+import { ConesService } from "../api/cones.service";
 
 @Component({
-  selector: 'ft-cone-list',
-  templateUrl: './cone-list.component.html',
-  styleUrls: ['./cone-list.component.css']
+    selector: "ft-cone-list",
+    templateUrl: "./cone-list.component.html",
+    styleUrls: ["./cone-list.component.css"]
 })
-
 export class ConeListComponent implements OnInit {
     private refreshInProgress: boolean;
     private interval;
@@ -17,26 +16,23 @@ export class ConeListComponent implements OnInit {
     ngOnInit(): void {
         this.getCones();
 
-        this.socket.on('cone_added', (data) => {
-             this.getCones();
+        this.socket.on("cone_added", data => {
+            this.getCones();
         });
 
         this.refreshInProgress = false;
         this.interval = null;
     }
 
-    constructor(
-        private conesService: ConesService,
-        private socket: Socket
-    ) {
+    constructor(private conesService: ConesService, private socket: Socket) {
         this.cones = [];
     }
 
     getCones(): void {
         this.conesService.getCones().then(cones => {
-                console.log(this.cones);
-                this.cones = cones;
-            });
+            console.log(this.cones);
+            this.cones = cones;
+        });
     }
 
     conesEmpty(): boolean {
@@ -45,7 +41,7 @@ export class ConeListComponent implements OnInit {
 
     refresh() {
         this.refreshInProgress = true;
-        console.log('Refresh!');
+        console.log("Refresh!");
         this.conesService.refresh();
 
         // refresh for the next 15 seconds
@@ -54,7 +50,7 @@ export class ConeListComponent implements OnInit {
         }
 
         this.interval = setInterval(() => {
-            console.log('stopping refresh!');
+            console.log("stopping refresh!");
             this.refreshInProgress = false;
             this.conesService.stopRefresh();
         }, 15000);

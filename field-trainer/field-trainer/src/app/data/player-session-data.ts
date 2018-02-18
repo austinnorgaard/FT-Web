@@ -5,8 +5,8 @@
     the owner of the state which can be requested.
 */
 
-import { Player } from './player';
-import { PlayerSession } from './player-session';
+import { Player } from "./player";
+import { PlayerSession } from "./player-session";
 
 export class PlayerSessionData {
     constructor(public sessions?: PlayerSession[]) {
@@ -15,8 +15,7 @@ export class PlayerSessionData {
         }
     }
 
-    static EmptyState () {
+    static EmptyState() {
         return new PlayerSessionData([]);
     }
 }
-
