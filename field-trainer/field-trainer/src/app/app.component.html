@@ -1,17 +1,16 @@
-<div fxLayout="column" fxFlex>
+<div fxLayout="column" fxFlexFill>
     <mat-toolbar color="primary" fxLayout="row" fxLayoutAlign="space-between center">
-        <button mat-icon-button (click)="sidenav.toggle()" fxFlex="10%">
+        <button mat-icon-button (click)="sidenav.toggle()" fxFlex="10%" style="background: blue">
             <mat-icon class="material-icons">menu</mat-icon>
         </button>
-        <div class="ft-title" fxFlex fxFlexOffset="5%">
+        <div class="ft-title" fxFlex="auto" style="background: red">
             <span>{{currentPath()}}</span>
         </div>
-        <div fxFlex>
-
+        <div style="background: green; float:right;">
+            [X]
         </div>
     </mat-toolbar>
-
-    <mat-sidenav-container>
+    <mat-sidenav-container fxFlex>
         <mat-sidenav #sidenav mode="over">
             <ft-nav-menu-content></ft-nav-menu-content>
         </mat-sidenav>
