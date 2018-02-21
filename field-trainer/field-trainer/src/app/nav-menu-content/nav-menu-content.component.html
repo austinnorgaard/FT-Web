@@ -1,7 +1,6 @@
 <div fxLayout="left" fxFlex>
     <mat-list fxFlex>
-        <a mat-list-item href="page1.html">The first Link</a>
-        <a mat-list-item href="page1.html">The second Link</a>
-        <a mat-list-item href="page1.html">The third Link</a>
+        <a mat-list-item routerLink="/welcome" (click)="close()">Welcome Page</a>
+        <a mat-list-item routerLink="/register" (click)="close()">Register Page</a>
     </mat-list>
 </div>

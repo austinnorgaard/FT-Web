@@ -12,7 +12,7 @@
     </mat-toolbar>
     <mat-sidenav-container fxFlex>
         <mat-sidenav #sidenav mode="over">
-            <ft-nav-menu-content></ft-nav-menu-content>
+            <ft-nav-menu-content [sideNav]="sidenav"></ft-nav-menu-content>
         </mat-sidenav>
         <mat-sidenav-content>
             <router-outlet></router-outlet>
