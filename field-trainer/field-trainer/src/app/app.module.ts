@@ -48,6 +48,7 @@ import * as c from "../../global-config";
 import { WelcomePageComponent } from "./welcome-page/welcome-page.component";
 import { RegisterPageComponent } from "./register-page/register-page.component";
 import { NavMenuContentComponent } from './nav-menu-content/nav-menu-content.component';
+import { StatusIndicatorComponent } from './status-indicator/status-indicator.component';
 
 const config: SocketIoConfig = {
   url: c.getSmartConeApiSocketUrl(),
@@ -68,7 +69,8 @@ const config: SocketIoConfig = {
     SegmentComponent,
     WelcomePageComponent,
     RegisterPageComponent,
-    NavMenuContentComponent
+    NavMenuContentComponent,
+    StatusIndicatorComponent
   ],
   imports: [
     NgbModule.forRoot(),
