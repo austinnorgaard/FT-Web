@@ -20,7 +20,8 @@ import {
     MatSelectModule,
     MatCheckboxModule,
     MatSidenavModule,
-    MatIconModule
+    MatIconModule,
+    MatTooltipModule
 } from "@angular/material";
 import { ChangeDetectorRef } from "@angular/core";
 
@@ -95,7 +96,8 @@ const config: SocketIoConfig = {
         SocketIoModule.forRoot(config),
         DndModule.forRoot(),
         FormsModule,
-        MatIconModule
+        MatIconModule,
+        MatTooltipModule
     ],
     providers: [ConesService, PlayersService, HttpHelper, PlayerSessionService],
     bootstrap: [AppComponent]

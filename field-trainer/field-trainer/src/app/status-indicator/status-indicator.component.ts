@@ -43,4 +43,12 @@ export class StatusIndicatorComponent implements OnInit {
             return "red";
         }
     }
+
+    getTooltip(): String {
+        if (this.connected) {
+            return "Connected to back end!";
+        } else {
+            return "Not connected to back end!";
+        }
+    }
 }

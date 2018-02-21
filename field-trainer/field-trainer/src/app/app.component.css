@@ -1,6 +1,6 @@
 /* Styling for the app-wide Toolbar which appears at the top */
 .ft-toolbar {
-    padding: 0px; /* default to 0px, allow sub elements to define their own margins */
+    padding-right: 10px; /* default to 0px, allow sub elements to define their own margins */
 }
 
 /* Styling for menu button (hamburger menu) */
@@ -10,5 +10,5 @@
 }
 
 .ft-status-indicator {
-    margin-right: 0.5em;
+    /* margin-right: 5em; */
 }

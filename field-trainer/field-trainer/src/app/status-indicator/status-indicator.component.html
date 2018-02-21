@@ -1,4 +1,3 @@
-<div fxLayout="column">
-    <mat-icon [style.color]=getColor()>{{getIcon()}}</mat-icon>
-    <span>online</span>
+<div fxFlexLayout="center center">
+    <mat-icon fxFlex [style.color]=getColor() matTooltip="{{getTooltip()}}">{{getIcon()}}</mat-icon>
 </div>
