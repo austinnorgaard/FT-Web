@@ -8,19 +8,19 @@ import { RouterModule } from "@angular/router";
 import { HttpModule } from "@angular/http";
 import { HttpClientModule } from "@angular/common/http";
 import {
-  MatListModule,
-  MatButtonModule,
-  MatMenuModule,
-  MatToolbarModule,
-  MatCardModule,
-  MatExpansionModule,
-  MatGridListModule,
-  MatFormFieldModule,
-  MatInputModule,
-  MatSelectModule,
-  MatCheckboxModule,
-  MatSidenavModule,
-  MatIconModule
+    MatListModule,
+    MatButtonModule,
+    MatMenuModule,
+    MatToolbarModule,
+    MatCardModule,
+    MatExpansionModule,
+    MatGridListModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatCheckboxModule,
+    MatSidenavModule,
+    MatIconModule
 } from "@angular/material";
 import { ChangeDetectorRef } from "@angular/core";
 
@@ -47,57 +47,57 @@ import { SocketIoModule, SocketIoConfig } from "ng-socket-io";
 import * as c from "../../global-config";
 import { WelcomePageComponent } from "./welcome-page/welcome-page.component";
 import { RegisterPageComponent } from "./register-page/register-page.component";
-import { NavMenuContentComponent } from './nav-menu-content/nav-menu-content.component';
-import { StatusIndicatorComponent } from './status-indicator/status-indicator.component';
+import { NavMenuContentComponent } from "./nav-menu-content/nav-menu-content.component";
+import { StatusIndicatorComponent } from "./status-indicator/status-indicator.component";
 
 const config: SocketIoConfig = {
-  url: c.getSmartConeApiSocketUrl(),
-  options: {}
+    url: c.getSmartConeApiSocketUrl(),
+    options: {}
 };
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    ConeComponent,
-    ConeListComponent,
-    SetupComponent,
-    FTSessionComponent,
-    SessionConeComponent,
-    PlayerSessionComponent,
-    PlayersComponent,
-    PlayerComponent,
-    SegmentComponent,
-    WelcomePageComponent,
-    RegisterPageComponent,
-    NavMenuContentComponent,
-    StatusIndicatorComponent
-  ],
-  imports: [
-    NgbModule.forRoot(),
-    BrowserModule,
-    FlexLayoutModule,
-    BrowserAnimationsModule,
-    MatListModule,
-    MatButtonModule,
-    MatMenuModule,
-    MatCheckboxModule,
-    MatSidenavModule,
-    MatInputModule,
-    MatSelectModule,
-    MatFormFieldModule,
-    AppRoutingModule,
-    MatToolbarModule,
-    MatCardModule,
-    MatExpansionModule,
-    MatGridListModule,
-    HttpModule,
-    HttpClientModule,
-    SocketIoModule.forRoot(config),
-    DndModule.forRoot(),
-    FormsModule,
-    MatIconModule
-  ],
-  providers: [ConesService, PlayersService, HttpHelper, PlayerSessionService],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        ConeComponent,
+        ConeListComponent,
+        SetupComponent,
+        FTSessionComponent,
+        SessionConeComponent,
+        PlayerSessionComponent,
+        PlayersComponent,
+        PlayerComponent,
+        SegmentComponent,
+        WelcomePageComponent,
+        RegisterPageComponent,
+        NavMenuContentComponent,
+        StatusIndicatorComponent
+    ],
+    imports: [
+        NgbModule.forRoot(),
+        BrowserModule,
+        FlexLayoutModule,
+        BrowserAnimationsModule,
+        MatListModule,
+        MatButtonModule,
+        MatMenuModule,
+        MatCheckboxModule,
+        MatSidenavModule,
+        MatInputModule,
+        MatSelectModule,
+        MatFormFieldModule,
+        AppRoutingModule,
+        MatToolbarModule,
+        MatCardModule,
+        MatExpansionModule,
+        MatGridListModule,
+        HttpModule,
+        HttpClientModule,
+        SocketIoModule.forRoot(config),
+        DndModule.forRoot(),
+        FormsModule,
+        MatIconModule
+    ],
+    providers: [ConesService, PlayersService, HttpHelper, PlayerSessionService],
+    bootstrap: [AppComponent]
 })
 export class AppModule {}
