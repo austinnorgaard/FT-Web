@@ -1,20 +1,21 @@
 <div fxLayout="column" fxFlexFill>
-    <mat-toolbar color="primary" fxLayout="row" fxLayoutAlign="start center" class="ft-toolbar">
-        <button mat-icon-button (click)="sidenav.toggle()" class="ft-menu">
-            <mat-icon class="material-icons">menu</mat-icon>
-        </button>
-        <div class="ft-title" fxFlex>
-            <span>{{currentPath()}}</span>
-        </div>
-        <div>
-            <ft-status-indicator class="ft-status-indicator"></ft-status-indicator>
-        </div>
-    </mat-toolbar>
+
     <mat-sidenav-container fxFlex>
         <mat-sidenav #sidenav mode="over">
             <ft-nav-menu-content [sideNav]="sidenav"></ft-nav-menu-content>
         </mat-sidenav>
         <mat-sidenav-content>
+            <mat-toolbar color="primary" fxLayout="row" fxLayoutAlign="start center" class="ft-toolbar">
+                <button mat-icon-button (click)="sidenav.toggle()" class="ft-menu">
+                    <mat-icon class="material-icons">menu</mat-icon>
+                </button>
+                <div class="ft-title" fxFlex>
+                    <span>{{currentPath()}}</span>
+                </div>
+                <div>
+                    <ft-status-indicator class="ft-status-indicator"></ft-status-indicator>
+                </div>
+            </mat-toolbar>
             <router-outlet></router-outlet>
         </mat-sidenav-content>
     </mat-sidenav-container>
