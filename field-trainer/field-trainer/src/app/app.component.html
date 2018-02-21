@@ -1,12 +1,12 @@
 <div fxLayout="column" fxFlexFill>
     <mat-toolbar color="primary" fxLayout="row" fxLayoutAlign="start center">
-        <button mat-icon-button (click)="sidenav.toggle()" style="background: blue; float:left;">
+        <button mat-icon-button (click)="sidenav.toggle()">
             <mat-icon class="material-icons">menu</mat-icon>
         </button>
-        <div class="ft-title" fxFlex style="background: red">
+        <div class="ft-title" fxFlex>
             <span>{{currentPath()}}</span>
         </div>
-        <div style="background: green; float:right;">
+        <div>
             [X]
         </div>
     </mat-toolbar>
