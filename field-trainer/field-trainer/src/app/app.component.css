@@ -1,39 +1,10 @@
-.example-container {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
+/* Styling for the app-wide Toolbar which appears at the top */
+.ft-toolbar {
+    padding: 0px; /* default to 0px, allow sub elements to define their own margins */
 }
 
-.parent {
-  background-color: #eee;
-  margin: 0;
-}
-
-.container {
-  height: 100%;
-}
-
-#wrapper {
-  min-height: 100%;
-}
-
-.content {
-  background-color: green;
-}
-
-#footer {
-  position: fixed;
-  bottom: 0;
-  margin-bottom: 1em;
-}
-
-html,
-body {
-  min-height: 100%;
-  box-sizing: border-box;
-  height: 100%;
-  margin: 0;
-  display: flex;
+/* Styling for menu button (hamburger menu) */
+.ft-menu {
+    margin-left: 0.5em;
+    margin-right: 0.5em;
 }
