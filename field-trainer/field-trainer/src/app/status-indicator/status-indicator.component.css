@@ -1,1 +1,12 @@
+.ft-status-indicator-icon {
+    font-size: 32px !important;
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+}
 
+mat-icon.size-24 {
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+}
