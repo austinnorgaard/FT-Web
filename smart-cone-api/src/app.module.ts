@@ -3,9 +3,12 @@ import { AppController } from "./app.controller";
 import { StatusController } from "./status.controller";
 import { GeneralSocketApi } from "./general-socket-api";
 
+import { DatabaseModule } from "./Database/database.module";
+
 @Module({
     imports: [],
     controllers: [AppController, StatusController],
-    components: [GeneralSocketApi]
+    components: [GeneralSocketApi],
+    modules: [DatabaseModule]
 })
 export class ApplicationModule {}
