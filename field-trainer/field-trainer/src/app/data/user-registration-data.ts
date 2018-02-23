@@ -31,7 +31,6 @@ export class UserRegistrationData {
 
     // returns if this instance is valid (all required fields are selected)
     isValid(): Boolean {
-        console.log(this.prefix);
         if (this.prefix === null || this.prefix === "") return false;
         if (this.firstName === "") return false;
         if (this.lastName === "") return false;

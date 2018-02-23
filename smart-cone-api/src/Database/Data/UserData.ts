@@ -6,17 +6,17 @@ import { IsString } from "class-validator";
 */
 
 export class UserData {
-    @IsString() readonly prefix: string;
-    @IsString() readonly firstName: string;
-    @IsString() readonly lastName: string;
-    @IsString() readonly address1: string;
-    @IsString() readonly address2: string;
-    @IsString() readonly city: string;
-    @IsString() readonly state: string;
-    @IsString() readonly zipCode: string;
-    @IsString() readonly country: string;
-    @IsString() readonly phoneNumber: string;
-    @IsString() readonly email: string;
-    @IsString() readonly passwordHash: string;
-    @IsString() readonly passwordSalt: string;
+    @IsString() prefix: string;
+    @IsString() firstName: string;
+    @IsString() lastName: string;
+    @IsString() address1: string;
+    @IsString() address2: string;
+    @IsString() city: string;
+    @IsString() state: string;
+    @IsString() zipCode: string;
+    @IsString() country: string;
+    @IsString() phoneNumber: string;
+    @IsString() email: string;
+    @IsString() passwordHash: string;
+    @IsString() passwordSalt: string;
 }
