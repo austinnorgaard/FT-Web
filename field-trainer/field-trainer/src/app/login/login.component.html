@@ -1,3 +1,22 @@
-<p>
-  login works!
-</p>
+<div fxLayout="column" class="login-container">
+    <div fxFlex>
+        <h1>Login</h1>
+    </div>
+    <mat-form-field fxFlex>
+        <input matInput placeholder="Email" />
+    </mat-form-field>
+    <mat-form-field fxFlex>
+        <input matInput placeholder="Password" />
+    </mat-form-field>
+    <div fxLayout="row center" fxLayoutAlign="center center">
+        <div fxFlex class="button-container">
+            <button mat-raised-button color="primary" class="login-form-buttons">Submit</button>
+        </div>
+        <div fxFlex class="button-container">
+            <button mat-raised-button color="primary" class="login-form-buttons" routerLink="/register">Register</button>
+        </div>
+    </div>
+    <div fxFlex>
+
+    </div>
+</div>
