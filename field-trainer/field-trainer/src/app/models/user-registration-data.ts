@@ -1,31 +1,19 @@
 export class UserRegistrationData {
-    prefix: string;
-    firstName: string;
-    lastName: string;
-    address1: string;
-    address2: string;
-    city: string;
-    state: string;
-    zipCode: string;
-    country: string;
-    phoneNumber: string;
-    emailAddress: string;
-    password: string;
-    subscribeToNewsletter: boolean;
-
-    constructor() {
-        this.prefix = "";
-        this.firstName = "";
-        this.lastName = "";
-        this.address1 = "";
-        this.address2 = "";
-        this.city = "";
-        this.state = "";
-        this.zipCode = "";
-        this.country = "";
-        this.phoneNumber = "";
-        this.emailAddress = "";
-        this.password = "";
+    constructor(
+        public prefix?: string,
+        public firstName?: string,
+        public lastName?: string,
+        public address1?: string,
+        public address2?: string,
+        public city?: string,
+        public state?: string,
+        public zipCode?: string,
+        public country?: string,
+        public phoneNumber?: string,
+        public emailAddress?: string,
+        public password?: string,
+        public subscribeToNewsletter?: boolean
+    ) {
         this.subscribeToNewsletter = false;
     }
 
