@@ -1,5 +1,5 @@
 <h2 style="margin-left: 0.5em;">Registration</h2>
-<form #userRegisterForm="ngForm" fxLayout="column" class="ft-form-container">
+<form #userRegisterForm="ngForm" (ngSubmit)="submit()" fxLayout="column" class="ft-form-container">
     <div fxLayoutGap="0.5em">
         <mat-form-field fxFlex>
             <input matInput [(ngModel)]="userData.firstName" name="firstName" placeholder="First Name" required />
@@ -45,8 +45,8 @@
     </div>
     <div fxLayoutGap="0.5em">
         <mat-form-field fxFlex>
-            <input matInput [(ngModel)]="userData.emailAddress" name="emailAddress" type="text" placeholder="Email Address (this is your login!)"
-                [formControl]="emailFormControl" required/>
+            <input matInput [(ngModel)]="userData.emailAddress" name="emailAddress" type="text" required placeholder="Email Address (this is your login!)"
+                [formControl]="emailFormControl" />
             <mat-error *ngIf="emailFormControl.invalid">Invalid email</mat-error>
         </mat-form-field>
     </div>
@@ -61,6 +61,6 @@
         <mat-checkbox [(ngModel)]="userData.subscribeToNewsletter" name="subscribe">Subscribe to newsletter</mat-checkbox>
     </div>
     <div fxLayoutAlign="space-around">
-        <button mat-raised-button color="primary" fxFlex="25%" (click)="submit()">Submit</button>
+        <button mat-raised-button type="submit" [disabled]="!userRegisterForm.form.valid" color="primary" fxFlex="25%">Submit</button>
     </div>
 </form>

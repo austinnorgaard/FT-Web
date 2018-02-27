@@ -41,6 +41,11 @@ export class RegisterPageComponent {
     constructor(private userManagement: UserManagementService) {}
 
     submit(): void {
+        if (!this.emailFormControl.valid || !this.passwordFormControl.valid) {
+            console.log("Either email or password is invalid!");
+            return;
+        }
+
         this.submitted = true;
         // console.log(this.userData);
 
