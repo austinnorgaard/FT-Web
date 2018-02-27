@@ -2,36 +2,36 @@
 <div fxLayout="column" class="ft-form-container">
     <div fxLayoutGap="0.5em">
         <mat-form-field fxFlex>
-            <input matInput [(ngModel)]="this.userData.firstName" placeholder="First Name" />
+            <input matInput [(ngModel)]="userData.firstName" placeholder="First Name" required />
         </mat-form-field>
         <mat-form-field fxFlex>
-            <input matInput [(ngModel)]="this.userData.lastName" placeholder="Last Name" />
-        </mat-form-field>
-    </div>
-    <div>
-        <mat-form-field fxFlex>
-            <input matInput [(ngModel)]="this.userData.address1" placeholder="Address Line 1" />
+            <input matInput [(ngModel)]="userData.lastName" placeholder="Last Name" />
         </mat-form-field>
     </div>
     <div>
         <mat-form-field fxFlex>
-            <input matInput [(ngModel)]="this.userData.address2" placeholder="Address Line 2" />
+            <input matInput [(ngModel)]="userData.address1" placeholder="Address Line 1" />
+        </mat-form-field>
+    </div>
+    <div>
+        <mat-form-field fxFlex>
+            <input matInput [(ngModel)]="userData.address2" placeholder="Address Line 2" />
         </mat-form-field>
     </div>
     <div fxLayoutGap="0.5em">
         <mat-form-field fxFlex>
-            <input matInput [(ngModel)]="this.userData.city" placeholder="City" />
+            <input matInput [(ngModel)]="userData.city" placeholder="City" />
         </mat-form-field>
         <mat-form-field fxFlex>
-            <input matInput [(ngModel)]="this.userData.state" placeholder="State / Province" />
+            <input matInput [(ngModel)]="userData.state" placeholder="State / Province" />
         </mat-form-field>
     </div>
     <div fxLayoutGap="0.5em">
         <mat-form-field fxFlex>
-            <input matInput [(ngModel)]="this.userData.zipCode" placeholder="Postal / Zip Code" />
+            <input matInput [(ngModel)]="userData.zipCode" placeholder="Postal / Zip Code" />
         </mat-form-field>
         <mat-form-field fxFlex>
-            <mat-select [(ngModel)]="this.userData.country" placeholder="Country">
+            <mat-select [(ngModel)]="userData.country" placeholder="Country">
                 <mat-option *ngFor="let country of countries" [value]="country">
                     {{country}}
                 </mat-option>
@@ -40,21 +40,21 @@
     </div>
     <div fxLayoutGap="0.5em">
         <mat-form-field fxFlex>
-            <input matInput [(ngModel)]="this.userData.phoneNumber" type="tel" placeholder="Phone Number" />
+            <input matInput [(ngModel)]="userData.phoneNumber" type="tel" placeholder="Phone Number" />
         </mat-form-field>
     </div>
     <div fxLayoutGap="0.5em">
         <mat-form-field fxFlex>
-            <input matInput [(ngModel)]="this.userData.emailAddress" type="text" placeholder="Email Address (this is your login!)" />
+            <input matInput [(ngModel)]="userData.emailAddress" type="text" placeholder="Email Address (this is your login!)" />
         </mat-form-field>
     </div>
     <div fxLayoutGap="0.5em">
         <mat-form-field fxFlex>
-            <input matInput [(ngModel)]="this.userData.password" type="password" placeholder="Password" />
+            <input matInput [(ngModel)]="userData.password" type="password" placeholder="Password" />
         </mat-form-field>
     </div>
     <div fxLayoutGap="0.5em">
-        <mat-checkbox [(ngModel)]="this.userData.subscribeToNewsletter">Subscribe to newsletter</mat-checkbox>
+        <mat-checkbox [(ngModel)]="userData.subscribeToNewsletter">Subscribe to newsletter</mat-checkbox>
     </div>
     <div fxLayoutAlign="space-around">
         <button mat-raised-button color="primary" fxFlex="25%" (click)="submit()">Submit</button>
