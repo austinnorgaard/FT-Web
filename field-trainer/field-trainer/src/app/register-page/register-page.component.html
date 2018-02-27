@@ -1,90 +1,62 @@
-<h1 style="margin-left: 0.25em;">Registration</h1>
-<div fxLayout="column">
-    <div class="test-container" fxFlex>
-        <div fxLayout="row" fxLayoutGap="10px">
-            <mat-form-field fxFlex="15%">
-                <mat-select [(ngModel)]="this.userData.prefix" placeholder="Prefix">
-                    <mat-option *ngFor="let prefix of prefixes" [value]="prefix">
-                        {{prefix}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-            <mat-form-field fxFlex="40%">
-                <input [(ngModel)]="this.userData.firstName" matInput class="register-name" placeholder="First Name" />
-            </mat-form-field>
-            <mat-form-field fxFlex="40%">
-                <input [(ngModel)]="this.userData.lastName" matInput class="register-name" placeholder="Last Name" />
-            </mat-form-field>
-        </div>
+<h2 style="margin-left: 0.5em;">Registration</h2>
+<div fxLayout="column" class="ft-form-container">
+    <div fxLayoutGap="0.5em">
+        <mat-form-field fxFlex>
+            <input matInput [(ngModel)]="this.userData.firstName" placeholder="First Name" />
+        </mat-form-field>
+        <mat-form-field fxFlex>
+            <input matInput [(ngModel)]="this.userData.lastName" placeholder="Last Name" />
+        </mat-form-field>
     </div>
-    <div class="test-container" fxFlex>
-        <div fxLayout="row" fxLayoutGap="10px">
-            <mat-form-field fxFlex>
-                <input [(ngModel)]="this.userData.address1" matInput class="register-name" placeholder="Address Line 1" />
-            </mat-form-field>
-        </div>
+    <div>
+        <mat-form-field fxFlex>
+            <input matInput [(ngModel)]="this.userData.address1" placeholder="Address Line 1" />
+        </mat-form-field>
     </div>
-    <div class="test-container" fxFlex>
-        <div fxLayout="row" fxLayoutGap="10px">
-            <mat-form-field fxFlex>
-                <input [(ngModel)]="this.userData.address2" matInput class="register-name" placeholder="Address Line 2" />
-            </mat-form-field>
-        </div>
+    <div>
+        <mat-form-field fxFlex>
+            <input matInput [(ngModel)]="this.userData.address2" placeholder="Address Line 2" />
+        </mat-form-field>
     </div>
-    <div class="test-container" fxFlex>
-        <div fxLayout="row" fxLayoutGap="10px">
-            <mat-form-field fxFlex>
-                <input [(ngModel)]="this.userData.city" matInput class="register-name" placeholder="City" />
-            </mat-form-field>
-            <mat-form-field fxFlex>
-                <input [(ngModel)]="this.userData.state" matInput class="register-name" placeholder="State / Province" />
-            </mat-form-field>
-        </div>
+    <div fxLayoutGap="0.5em">
+        <mat-form-field fxFlex>
+            <input matInput [(ngModel)]="this.userData.city" placeholder="City" />
+        </mat-form-field>
+        <mat-form-field fxFlex>
+            <input matInput [(ngModel)]="this.userData.state" placeholder="State / Province" />
+        </mat-form-field>
     </div>
-    <div class="test-container" fxFlex>
-        <div fxLayout="row" fxLayoutGap="10px">
-            <mat-form-field fxFlex>
-                <input [(ngModel)]="this.userData.zipCode" matInput class="register-name" placeholder="Postal / Zip Code" />
-            </mat-form-field>
-            <mat-form-field fxFlex>
-                <mat-select [(ngModel)]="this.userData.country" placeholder="Country">
-                    <mat-option *ngFor="let country of countries" [value]="country">
-                        {{country}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div>
+    <div fxLayoutGap="0.5em">
+        <mat-form-field fxFlex>
+            <input matInput [(ngModel)]="this.userData.zipCode" placeholder="Postal / Zip Code" />
+        </mat-form-field>
+        <mat-form-field fxFlex>
+            <mat-select [(ngModel)]="this.userData.country" placeholder="Country">
+                <mat-option *ngFor="let country of countries" [value]="country">
+                    {{country}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
     </div>
-    <div class="test-container" fxFlex>
-        <div fxLayout="row" fxLayoutGap="10px">
-            <mat-form-field fxFlex>
-                <input [(ngModel)]="this.userData.phoneNumber" matInput type="tel" class="register-name" placeholder="Phone Number" />
-            </mat-form-field>
-        </div>
+    <div fxLayoutGap="0.5em">
+        <mat-form-field fxFlex>
+            <input matInput [(ngModel)]="this.userData.phoneNumber" type="tel" placeholder="Phone Number" />
+        </mat-form-field>
     </div>
-    <div class="test-container" fxFlex>
-        <div fxLayout="row" fxLayoutGap="10px">
-            <mat-form-field fxFlex>
-                <input [(ngModel)]="this.userData.emailAddress" matInput type="text" class="register-name" placeholder="Email Address (this is your login!)"
-                />
-            </mat-form-field>
-        </div>
+    <div fxLayoutGap="0.5em">
+        <mat-form-field fxFlex>
+            <input matInput [(ngModel)]="this.userData.emailAddress" type="text" placeholder="Email Address (this is your login!)" />
+        </mat-form-field>
     </div>
-    <div class="test-container" fxFlex>
-        <div fxLayout="row" fxLayoutGap="10px">
-            <mat-form-field fxFlex>
-                <input [(ngModel)]="this.userData.password" matInput type="password" class="register-name" placeholder="Password" />
-            </mat-form-field>
-        </div>
+    <div fxLayoutGap="0.5em">
+        <mat-form-field fxFlex>
+            <input matInput [(ngModel)]="this.userData.password" type="password" placeholder="Password" />
+        </mat-form-field>
     </div>
-    <div class="test-container" fxFlex>
-        <div fxLayout="row" fxLayoutGap="10px">
-            <mat-checkbox [(ngModel)]="this.userData.subscribeToNewsletter">Subscribe to newsletter</mat-checkbox>
-        </div>
+    <div fxLayoutGap="0.5em">
+        <mat-checkbox [(ngModel)]="this.userData.subscribeToNewsletter">Subscribe to newsletter</mat-checkbox>
     </div>
-    <div fxFlex>
-        <div fxLayout="row" fxLayoutAlign="space-around">
-            <button mat-raised-button color="primary" fxFlex="25%" (click)="submit()">Submit</button>
-        </div>
+    <div fxLayoutAlign="space-around">
+        <button mat-raised-button color="primary" fxFlex="25%" (click)="submit()">Submit</button>
     </div>
 </div>

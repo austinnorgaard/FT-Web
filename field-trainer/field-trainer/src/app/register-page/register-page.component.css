@@ -2,15 +2,11 @@
     border: 1px solid #000000;
 }
 
-.test-container {
+.ft-form-container {
     margin-left: 1em;
     margin-right: 1em;
 }
 
-.register-name {
-    min-width: 50px;
-}
-
-input {
-    font-size: 32;
+::ng-deep .mat-form-field .mat-form-field-infix {
+    width: auto;
 }
