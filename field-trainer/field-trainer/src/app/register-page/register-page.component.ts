@@ -3,6 +3,8 @@ import { UserManagementService } from "../api/user-management.service";
 import { UserData } from "../../../../../smart-cone-api/src/Database/Data/UserData";
 import { UserRegistrationData } from "../models/user-registration-data";
 
+import { FormControl, Validators } from "@angular/forms";
+
 @Component({
     selector: "ft-app-register-page",
     templateUrl: "./register-page.component.html",
@@ -12,6 +14,16 @@ export class RegisterPageComponent {
     userData: UserRegistrationData = new UserRegistrationData();
 
     readonly prefixes: string[] = ["Mr", "Mrs", "Ms"];
+
+    public emailFormControl = new FormControl("", [
+        Validators.required,
+        Validators.email
+    ]);
+
+    public passwordFormControl = new FormControl("", [
+        Validators.required,
+        Validators.minLength(8)
+    ]);
 
     readonly countries: string[] = [
         "United States",
@@ -57,5 +69,9 @@ export class RegisterPageComponent {
         // this.userManagement.createUser(data).then(response => {
         //     console.log(response);
         // });
+    }
+
+    nameInvalid(): boolean {
+        return true;
     }
 }

@@ -1,37 +1,37 @@
 <h2 style="margin-left: 0.5em;">Registration</h2>
-<div fxLayout="column" class="ft-form-container">
+<form #userRegisterForm="ngForm" fxLayout="column" class="ft-form-container">
     <div fxLayoutGap="0.5em">
         <mat-form-field fxFlex>
-            <input matInput [(ngModel)]="userData.firstName" placeholder="First Name" required />
+            <input matInput [(ngModel)]="userData.firstName" name="firstName" placeholder="First Name" required />
         </mat-form-field>
         <mat-form-field fxFlex>
-            <input matInput [(ngModel)]="userData.lastName" placeholder="Last Name" />
+            <input matInput [(ngModel)]="userData.lastName" name="lastName" placeholder="Last Name" required />
         </mat-form-field>
     </div>
     <div>
         <mat-form-field fxFlex>
-            <input matInput [(ngModel)]="userData.address1" placeholder="Address Line 1" />
+            <input matInput [(ngModel)]="userData.address1" name="address1" placeholder="Address Line 1" required />
         </mat-form-field>
     </div>
     <div>
         <mat-form-field fxFlex>
-            <input matInput [(ngModel)]="userData.address2" placeholder="Address Line 2" />
+            <input matInput [(ngModel)]="userData.address2" name="address2" placeholder="Address Line 2" />
         </mat-form-field>
     </div>
     <div fxLayoutGap="0.5em">
         <mat-form-field fxFlex>
-            <input matInput [(ngModel)]="userData.city" placeholder="City" />
+            <input matInput [(ngModel)]="userData.city" name="city" placeholder="City" required />
         </mat-form-field>
         <mat-form-field fxFlex>
-            <input matInput [(ngModel)]="userData.state" placeholder="State / Province" />
+            <input matInput [(ngModel)]="userData.state" name="state" placeholder="State / Province" required />
         </mat-form-field>
     </div>
     <div fxLayoutGap="0.5em">
         <mat-form-field fxFlex>
-            <input matInput [(ngModel)]="userData.zipCode" placeholder="Postal / Zip Code" />
+            <input matInput [(ngModel)]="userData.zipCode" name="zip" placeholder="Postal / Zip Code" required />
         </mat-form-field>
         <mat-form-field fxFlex>
-            <mat-select [(ngModel)]="userData.country" placeholder="Country">
+            <mat-select [(ngModel)]="userData.country" name="country" placeholder="Country" required>
                 <mat-option *ngFor="let country of countries" [value]="country">
                     {{country}}
                 </mat-option>
@@ -40,23 +40,27 @@
     </div>
     <div fxLayoutGap="0.5em">
         <mat-form-field fxFlex>
-            <input matInput [(ngModel)]="userData.phoneNumber" type="tel" placeholder="Phone Number" />
+            <input matInput [(ngModel)]="userData.phoneNumber" name="phoneNumber" type="tel" placeholder="Phone Number" required />
         </mat-form-field>
     </div>
     <div fxLayoutGap="0.5em">
         <mat-form-field fxFlex>
-            <input matInput [(ngModel)]="userData.emailAddress" type="text" placeholder="Email Address (this is your login!)" />
+            <input matInput [(ngModel)]="userData.emailAddress" name="emailAddress" type="text" placeholder="Email Address (this is your login!)"
+                [formControl]="emailFormControl" required/>
+            <mat-error *ngIf="emailFormControl.invalid">Invalid email</mat-error>
         </mat-form-field>
     </div>
     <div fxLayoutGap="0.5em">
         <mat-form-field fxFlex>
-            <input matInput [(ngModel)]="userData.password" type="password" placeholder="Password" />
+            <input matInput [(ngModel)]="userData.password" name="password" type="password" placeholder="Password" [formControl]="passwordFormControl"
+                required />
+            <mat-error *ngIf="passwordFormControl.invalid">Password at least 8 characters</mat-error>
         </mat-form-field>
     </div>
     <div fxLayoutGap="0.5em">
-        <mat-checkbox [(ngModel)]="userData.subscribeToNewsletter">Subscribe to newsletter</mat-checkbox>
+        <mat-checkbox [(ngModel)]="userData.subscribeToNewsletter" name="subscribe">Subscribe to newsletter</mat-checkbox>
     </div>
     <div fxLayoutAlign="space-around">
         <button mat-raised-button color="primary" fxFlex="25%" (click)="submit()">Submit</button>
     </div>
-</div>
+</form>
