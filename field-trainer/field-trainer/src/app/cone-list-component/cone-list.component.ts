@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { Cone } from "../data/cone";
+import { Cone } from "../models/cone";
 import { Socket } from "ng-socket-io";
 import { ConesService } from "../api/cones.service";
 

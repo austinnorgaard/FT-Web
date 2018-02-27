@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { PlayerSession } from "../data/player-session";
+import { PlayerSession } from "../models/player-session";
 import { getCurrentTime } from "../utility";
 import { PlayerSessionService } from "../api/player-session.service";
 @Component({

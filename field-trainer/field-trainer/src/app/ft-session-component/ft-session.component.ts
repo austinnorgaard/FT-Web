@@ -1,13 +1,13 @@
 import { Component, OnInit } from "@angular/core";
-import { PlayerSession } from "../data/player-session";
+import { PlayerSession } from "../models/player-session";
 import { ConesService } from "../api/cones.service";
 import { PlayersService } from "../api/players.service";
-import { PlayerSessionData } from "../data/player-session-data";
-import { Segment } from "../data/segment";
-import { TrainingCourse } from "../data/training-course";
+import { PlayerSessionData } from "../models/player-session-data";
+import { Segment } from "../models/segment";
+import { TrainingCourse } from "../models/training-course";
 
-import { Cone } from "../data/cone";
-import { Player } from "../data/player";
+import { Cone } from "../models/cone";
+import { Player } from "../models/player";
 import { HttpClient } from "@angular/common/http";
 import { ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core";
 

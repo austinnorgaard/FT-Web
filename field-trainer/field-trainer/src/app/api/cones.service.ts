@@ -3,7 +3,7 @@ import { Headers, Http } from "@angular/http";
 
 import "rxjs/add/operator/toPromise";
 
-import { Cone } from "../data/cone";
+import { Cone } from "../models/cone";
 import { HttpUtil } from "../utility";
 import * as config from "../../../global-config";
 

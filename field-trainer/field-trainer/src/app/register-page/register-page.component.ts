@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { UserManagementService } from "../api/user-management.service";
 import { UserData } from "../../../../../smart-cone-api/src/Database/Data/UserData";
-import { UserRegistrationData } from "../data/user-registration-data";
+import { UserRegistrationData } from "../models/user-registration-data";
 
 @Component({
     selector: "ft-app-register-page",

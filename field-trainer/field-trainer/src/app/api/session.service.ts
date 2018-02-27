@@ -3,8 +3,8 @@ import { Headers, Http } from "@angular/http";
 
 import "rxjs/add/operator/toPromise";
 
-import { Cone } from "../data/cone";
-import { PlayerSession } from "../data/player-session";
+import { Cone } from "../models/cone";
+import { PlayerSession } from "../models/player-session";
 
 @Injectable()
 export class SessionService {

@@ -1,5 +1,5 @@
 import { Component, Input } from "@angular/core";
-import { Segment } from "../data/segment";
+import { Segment } from "../models/segment";
 
 @Component({
     selector: "ft-segment",

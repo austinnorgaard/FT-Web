@@ -1,5 +1,5 @@
 import { Component, Input } from "@angular/core";
-import { Cone } from "../data/cone";
+import { Cone } from "../models/cone";
 
 @Component({
     selector: "ft-cone",

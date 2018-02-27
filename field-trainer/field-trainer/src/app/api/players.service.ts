@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Player } from "../data/player";
+import { Player } from "../models/player";
 import { HttpUtil } from "../utility";
 import { HttpClient } from "@angular/common/http";
 

@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { PlayersService } from "../api/players.service";
-import { Player } from "../data/player";
-import { PlayerSession } from "../data/player-session";
+import { Player } from "../models/player";
+import { PlayerSession } from "../models/player-session";
 
 @Component({
     selector: "ft-players",
