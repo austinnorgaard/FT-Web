@@ -1,21 +1,27 @@
-<h2>
+<h2 class="ft-add-team-header">
     Add a Team
 </h2>
 
-<mat-form-field>
-    <input matInput placeholder="Team Name" required />
-</mat-form-field>
+<div fxLayout="row" class="ft-add-team-container">
+    <div fxFlex fxLayout="column">
+        <mat-form-field fxFlex>
+            <input matInput placeholder="Team Name" required/>
+        </mat-form-field>
 
-<mat-form-field>
-    <mat-select placeholder="Age Group" required>
-        <mat-option *ngFor="let ageGroup of ageGroups" [value]="ageGroup">
-            {{ageGroup}} years old
-        </mat-option>
-    </mat-select>
-</mat-form-field>
+        <mat-form-field fxFlex="50%">
+            <mat-select placeholder="Age Group" required>
+                <mat-option *ngFor="let ageGroup of ageGroups" [value]="ageGroup">
+                    {{ageGroup}} years old
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
 
-<mat-radio-group value="1">
-    <mat-radio-button value="1">Female</mat-radio-button>
-    <mat-radio-button value="2">Male</mat-radio-button>
-    <mat-radio-button value="3">Mixed</mat-radio-button>
-</mat-radio-group>
+        <mat-radio-group value="1">
+            <mat-radio-button value="1">Female</mat-radio-button>
+            <mat-radio-button value="2">Male</mat-radio-button>
+        </mat-radio-group>
+    </div>
+    <div fxFlex>
+        PICTURE PLACEHOLDER
+    </div>
+</div>
