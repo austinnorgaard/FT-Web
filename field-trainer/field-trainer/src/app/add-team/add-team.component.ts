@@ -11,4 +11,8 @@ export class AddTeamComponent implements OnInit {
     constructor() {}
 
     ngOnInit() {}
+
+    onClick(): void {
+        console.log("Hello, world!");
+    }
 }
