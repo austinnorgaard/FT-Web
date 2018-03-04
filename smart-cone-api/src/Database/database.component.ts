@@ -2,7 +2,9 @@ import { Component, OnModuleInit, OnModuleDestroy } from "@nestjs/common";
 
 import { Sequelize } from "sequelize-typescript";
 import { User } from "./Models/User";
+import { Team } from "./Models/Team";
 import { UserData } from "./Data/UserData";
+import { AddTeamData } from "../../../field-trainer/field-trainer/src/app/models/add-team-data";
 
 @Component()
 export class DatabaseComponent implements OnModuleInit, OnModuleDestroy {
@@ -79,5 +81,15 @@ export class DatabaseComponent implements OnModuleInit, OnModuleDestroy {
         });
 
         return Promise.resolve(u.save());
+    }
+
+    addTeam(team: AddTeamData): Promise<Team> {
+        const t = new Team({
+            teamName: team.teamName,
+            ageGroup: team.ageGroup,
+            teamGender: team.teamGender
+        });
+
+        return Promise.resolve(t.save());
     }
 }

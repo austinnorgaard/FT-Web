@@ -19,7 +19,7 @@
         </mat-form-field>
 
         <mat-form-field>
-            <mat-select [(ngModel)]="addTeamData.teamgender" placeholder="Gender" name="teamGender" required>
+            <mat-select [(ngModel)]="addTeamData.teamGender" placeholder="Gender" name="teamGender" required>
                 <mat-option *ngFor="let gender of genders" [value]="gender">
                     {{gender}}
                 </mat-option>
