@@ -3,26 +3,36 @@
 </h2>
 
 <div fxLayout="row" class="ft-add-team-container">
-    <div fxFlex fxLayout="column">
-        <mat-form-field fxFlex>
-            <input matInput placeholder="Team Name" required/>
+    <form #addTeamForm="ngForm" fxFlex fxLayout="column" (ngSubmit)="onSubmit()">
+        <mat-form-field>
+            <input matInput [(ngModel)]="addTeamData.teamName" placeholder="Team Name" name="teamName" type="text" [formControl]="teamNameFormControl"
+                required/>
+            <mat-error *ngIf="teamNameFormControl.invalid">Name too short</mat-error>
         </mat-form-field>
 
-        <mat-form-field fxFlex="50%">
-            <mat-select placeholder="Age Group" required>
+        <mat-form-field>
+            <mat-select [(ngModel)]="addTeamData.ageGroup" placeholder="Age Group" name="age-group" required>
                 <mat-option *ngFor="let ageGroup of ageGroups" [value]="ageGroup">
                     {{ageGroup}} years old
                 </mat-option>
             </mat-select>
         </mat-form-field>
 
-        <mat-radio-group color="primary" value="1">
-            <mat-radio-button color="primary" value="1">Female</mat-radio-button>
-            <mat-radio-button color="primary" value="2">Male</mat-radio-button>
-        </mat-radio-group>
-    </div>
+        <mat-form-field>
+            <mat-select [(ngModel)]="addTeamData.teamgender" placeholder="Gender" name="teamGender" required>
+                <mat-option *ngFor="let gender of genders" [value]="gender">
+                    {{gender}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <!-- 
+        <mat-radio-group [(ngModel)]="addTeamData.teamGender" class="ft-add-team-age-group" name="teamGender" fxLayout="row" color="primary">
+            <mat-radio-button fxFlex color="primary" value="Female">Female</mat-radio-button>
+            <mat-radio-button fxFlex color="primary" value="Male">Male</mat-radio-button>
+        </mat-radio-group> -->
+        <button mat-raised-button color="primary" type="submit" [disabled]="!addTeamForm.form.valid" class="ft-add-team-submit">Submit</button>
+    </form>
     <div fxFlex>
         PICTURE PLACEHOLDER
     </div>
 </div>
-<button mat-raised-button color="primary" (click)="onClick()">Press me!</button>
