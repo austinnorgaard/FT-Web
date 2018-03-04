@@ -1,8 +1,7 @@
 import { Component, OnInit } from "@angular/core";
-
 import { FormControl, Validators } from "@angular/forms";
-
 import { AddTeamData } from "../models/add-team-data";
+import { TeamManagementService } from "../api/team-management.service";
 
 @Component({
     selector: "ft-add-team",
@@ -22,7 +21,7 @@ export class AddTeamComponent {
 
     public ageGroupFormControl = new FormControl("", [Validators.required]);
 
-    constructor() {}
+    constructor(private teamManagement: TeamManagementService) {}
 
     onSubmit(): void {
         if (this.teamNameFormControl.valid === false) {
@@ -31,5 +30,14 @@ export class AddTeamComponent {
         }
 
         console.log(JSON.stringify(this.addTeamData));
+
+        this.teamManagement
+            .createTeam(this.addTeamData)
+            .then(() => {
+                console.log("Team added!");
+            })
+            .catch(() => {
+                console.log("Team failed to add!");
+            });
     }
 }

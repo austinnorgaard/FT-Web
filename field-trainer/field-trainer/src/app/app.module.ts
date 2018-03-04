@@ -44,6 +44,7 @@ import { SegmentComponent } from "./segment-component/segment.component";
 import { ConesService } from "./api/cones.service";
 import { PlayersService } from "./api/players.service";
 import { PlayerSessionService } from "./api/player-session.service";
+import { TeamManagementService } from "./api/team-management.service";
 import { HttpHelper } from "./http-helper";
 
 import { SocketIoModule, SocketIoConfig } from "ng-socket-io";
@@ -113,7 +114,8 @@ const config: SocketIoConfig = {
         PlayersService,
         HttpHelper,
         PlayerSessionService,
-        UserManagementService
+        UserManagementService,
+        TeamManagementService
     ],
     bootstrap: [AppComponent]
 })
