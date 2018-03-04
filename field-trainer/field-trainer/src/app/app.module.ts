@@ -22,7 +22,8 @@ import {
     MatCheckboxModule,
     MatSidenavModule,
     MatIconModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatRadioModule
 } from "@angular/material";
 import { ChangeDetectorRef } from "@angular/core";
 
@@ -53,7 +54,7 @@ import { NavMenuContentComponent } from "./nav-menu-content/nav-menu-content.com
 import { StatusIndicatorComponent } from "./status-indicator/status-indicator.component";
 import { LoginComponent } from "./login/login.component";
 import { UserManagementService } from "./api/user-management.service";
-import { AddTeamComponent } from './add-team/add-team.component';
+import { AddTeamComponent } from "./add-team/add-team.component";
 
 const config: SocketIoConfig = {
     url: c.getSmartConeApiSocketUrl(),
@@ -104,7 +105,8 @@ const config: SocketIoConfig = {
         FormsModule,
         ReactiveFormsModule,
         MatIconModule,
-        MatTooltipModule
+        MatTooltipModule,
+        MatRadioModule
     ],
     providers: [
         ConesService,
