@@ -17,6 +17,5 @@ export class UserData {
     @IsString() country: string;
     @IsString() phoneNumber: string;
     @IsString() email: string;
-    @IsString() passwordHash: string;
-    @IsString() passwordSalt: string;
+    @IsString() password: string;
 }

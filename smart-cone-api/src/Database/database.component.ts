@@ -6,6 +6,8 @@ import { Team } from "./Models/Team";
 import { UserData } from "./Data/UserData";
 import { AddTeamData } from "../../../field-trainer/field-trainer/src/app/models/add-team-data";
 
+var bcrypt = require("bcrypt");
+
 @Component()
 export class DatabaseComponent implements OnModuleInit, OnModuleDestroy {
     private db;
@@ -62,25 +64,32 @@ export class DatabaseComponent implements OnModuleInit, OnModuleDestroy {
     }
 
     addUser(user: UserData): Promise<User> {
-        // convert UserData, then return the
-        // save promise
-        const u = new User({
-            prefix: user.prefix,
-            firstName: user.firstName,
-            lastName: user.lastName,
-            address1: user.address1,
-            address2: user.address2,
-            city: user.city,
-            state: user.state,
-            zipCode: user.zipCode,
-            country: user.country,
-            phoneNumber: user.phoneNumber,
-            email: user.email,
-            passwordHash: user.passwordHash,
-            passwordSalt: user.passwordSalt
-        });
+        return new Promise<User>(() => {
+            bcrypt.genSalt(10, function(err, salt) {
+                bcrypt.hash(user.password, salt, function(err, hash) {
+                    console.log(salt);
+                    console.log(hash);
 
-        return Promise.resolve(u.save());
+                    const u = new User({
+                        prefix: user.prefix,
+                        firstName: user.firstName,
+                        lastName: user.lastName,
+                        address1: user.address1,
+                        address2: user.address2,
+                        city: user.city,
+                        state: user.state,
+                        zipCode: user.zipCode,
+                        country: user.country,
+                        phoneNumber: user.phoneNumber,
+                        email: user.email,
+                        passwordHash: hash,
+                        passwordSalt: salt
+                    });
+
+                    return u.save();
+                });
+            });
+        });
     }
 
     addTeam(team: AddTeamData): Promise<Team> {
