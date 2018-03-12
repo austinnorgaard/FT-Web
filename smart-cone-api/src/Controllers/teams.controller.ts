@@ -9,10 +9,11 @@ export class TeamsController {
 
     @Post()
     async create(@Body() teamData: AddTeamData) {
-        await this.teamsService
+        return await this.teamsService
             .addTeam(teamData)
-            .then(() => {
+            .then(response => {
                 console.log("Team added!!");
+                return JSON.stringify(response);
             })
             .catch(reason => {
                 console.log(`Failed to add team. Reason: ${JSON.stringify(reason)}`);

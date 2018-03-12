@@ -36,3 +36,4 @@
         PICTURE PLACEHOLDER
     </div>
 </div>
+<ngb-alert style="margin-left:1em;margin-right:1em;" [type]="this.alertType" *ngIf="this.alertShouldBeDisplayed" (click)="this.alertShouldBeDisplayed=false">{{this.alertMessage}}</ngb-alert>

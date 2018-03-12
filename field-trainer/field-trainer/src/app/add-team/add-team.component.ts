@@ -3,6 +3,9 @@ import { FormControl, Validators } from "@angular/forms";
 import { AddTeamData } from "../models/add-team-data";
 import { TeamManagementService } from "../api/team-management.service";
 
+import { DatabaseResponse } from "../../../../../smart-cone-api/src/Database/Data/DatabaseResponse";
+import { DatabaseFailureType } from "../../../../../smart-cone-api/src/Database/Data/DatabaseEnums";
+
 @Component({
     selector: "ft-add-team",
     templateUrl: "./add-team.component.html",
@@ -13,6 +16,10 @@ export class AddTeamComponent {
     genders: string[] = ["Male", "Female"];
     submitted = false;
     addTeamData: AddTeamData = new AddTeamData();
+    alertShouldBeDisplayed = false;
+    alertMessage = "";
+    alertType = "success";
+    alertTimeout: NodeJS.Timer;
 
     public teamNameFormControl = new FormControl("", [
         Validators.required,
@@ -29,15 +36,32 @@ export class AddTeamComponent {
             return;
         }
 
-        console.log(JSON.stringify(this.addTeamData));
-
         this.teamManagement
             .createTeam(this.addTeamData)
-            .then(() => {
+            .then(response => {
                 console.log("Team added!");
+                this.showAlert("Team added successfully.", "success", 5000);
             })
-            .catch(() => {
-                console.log("Team failed to add!");
+            .catch((err: DatabaseResponse) => {
+                console.log("Caught error!");
+                let message =
+                    err.failureType ===
+                    DatabaseFailureType.UniqueConstraintViolated
+                        ? "This team already exists."
+                        : "Unknown server error!";
+
+                this.showAlert(message, "danger", 5000);
             });
+    }
+
+    showAlert(message: string, type: string, timeout: number) {
+        this.alertShouldBeDisplayed = true;
+        clearTimeout(this.alertTimeout);
+        this.alertTimeout = setTimeout(
+            () => (this.alertShouldBeDisplayed = false),
+            timeout
+        );
+        this.alertMessage = message;
+        this.alertType = type;
     }
 }
