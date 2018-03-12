@@ -49,9 +49,15 @@ export class RegisterPageComponent {
         this.submitted = true;
         console.log(this.userData);
 
-        this.userManagement.createUser(this.userData).then(response => {
-            console.log(response);
-        });
+        this.userManagement
+            .createUser(this.userData)
+            .then(response => {
+                console.log("User created successfully!!");
+            })
+            .catch(err => {
+                console.log(err);
+                alert("Email already in use!");
+            });
     }
 
     nameInvalid(): boolean {
