@@ -14,6 +14,7 @@ export class RegisterPageComponent {
     userData: UserData = new UserData();
 
     readonly prefixes: string[] = ["Mr", "Mrs", "Ms"];
+    public alertClosed: boolean = true;
 
     public emailFormControl = new FormControl("", [
         Validators.required,
@@ -56,7 +57,7 @@ export class RegisterPageComponent {
             })
             .catch(err => {
                 console.log(err);
-                alert("Email already in use!");
+                this.alertClosed = false;
             });
     }
 
