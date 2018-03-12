@@ -10,7 +10,7 @@ export class UserRegistrationData {
         public zipCode?: string,
         public country?: string,
         public phoneNumber?: string,
-        public emailAddress?: string,
+        public email?: string,
         public password?: string,
         public subscribeToNewsletter?: boolean
     ) {
@@ -29,7 +29,7 @@ export class UserRegistrationData {
         if (this.zipCode === "") return false;
         if (this.country === "") return false;
         if (this.phoneNumber === "") return false;
-        if (this.emailAddress === "") return false;
+        if (this.email === "") return false;
         if (this.password === "") return false;
 
         return true;

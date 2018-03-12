@@ -6,7 +6,6 @@ import { IsString } from "class-validator";
 */
 
 export class UserData {
-    @IsString() prefix: string;
     @IsString() firstName: string;
     @IsString() lastName: string;
     @IsString() address1: string;
