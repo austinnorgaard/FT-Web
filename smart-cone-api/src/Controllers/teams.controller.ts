@@ -1,23 +1,26 @@
-import { Controller, Post, Body } from "@nestjs/common";
+import { Controller, Post, Body, HttpStatus, HttpException } from "@nestjs/common";
 import { AddTeamData } from "../../../field-trainer/field-trainer/src/app/models/add-team-data";
 import { TeamsService } from "../Services/teams.service";
+import { DatabaseFailureType } from "../Database/Data/DatabaseEnums";
 
 @Controller("teams")
 export class TeamsController {
     constructor(private teamsService: TeamsService) {}
 
     @Post()
-    create(@Body() teamData: AddTeamData) {
-        console.log(teamData);
-        console.log("POST for Teams Controller hit!");
-
-        this.teamsService
+    async create(@Body() teamData: AddTeamData) {
+        await this.teamsService
             .addTeam(teamData)
             .then(() => {
                 console.log("Team added!!");
             })
-            .catch(() => {
-                console.log("Failed to add team!");
+            .catch(reason => {
+                console.log(`Failed to add team. Reason: ${JSON.stringify(reason)}`);
+                if (reason.failureType === DatabaseFailureType.UniqueConstraintViolated) {
+                    throw new HttpException(reason, HttpStatus.CONFLICT);
+                } else {
+                    throw new HttpException(reason, HttpStatus.INTERNAL_SERVER_ERROR);
+                }
             });
     }
 }

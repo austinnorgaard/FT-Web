@@ -2,9 +2,16 @@ import { Table, Column, Model } from "sequelize-typescript";
 
 @Table
 export class Team extends Model<Team> {
-    @Column teamName: string;
+    @Column({
+        unique: "uniqueTeam"
+    })
+    teamName: string;
 
-    @Column ageGroup: string;
+    @Column({
+        unique: "uniqueTeam"
+    })
+    ageGroup: string;
 
-    @Column teamGender: string;
+    @Column({ unique: "uniqueTeam" })
+    teamGender: string;
 }

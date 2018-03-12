@@ -15,7 +15,6 @@ export class UsersController {
             .addUser(userData)
             .then(() => {
                 console.log("User added!");
-                return;
             })
             .catch(reason => {
                 console.log(`Failed to add user. Reason: ${JSON.stringify(reason)}`);

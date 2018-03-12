@@ -3,8 +3,6 @@ import { Options } from "@nestjs/common";
 
 @Table
 export class User extends Model<User> {
-    @Column prefix: string;
-
     @Column firstName: string;
 
     @Column lastName: string;

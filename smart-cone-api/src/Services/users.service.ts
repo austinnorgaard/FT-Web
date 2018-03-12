@@ -15,7 +15,6 @@ export class UsersService {
         let saltAndHash = await this.generateSaltAndHash(user.password);
 
         const dbUser = new User({
-            prefix: user.prefix,
             firstName: user.firstName,
             lastName: user.lastName,
             address1: user.address1,
@@ -58,13 +57,13 @@ export class UsersService {
             user
                 .save()
                 .then(() => {
-                    let response: DatabaseResponse = new DatabaseResponse(true, "User added!");
+                    let response = new DatabaseResponse(true, "User added!");
                     resolve(response);
                 })
                 .catch(UniqueConstraintError => {
                     console.log("User already existed in the database!");
 
-                    let response: DatabaseResponse = new DatabaseResponse(
+                    let response = new DatabaseResponse(
                         false,
                         "Unique constraint violated!",
                         DatabaseFailureType.UniqueConstraintViolated,
@@ -73,7 +72,7 @@ export class UsersService {
                     reject(response);
                 })
                 .catch(err => {
-                    let response: DatabaseResponse = new DatabaseResponse(false, err);
+                    let response = new DatabaseResponse(false, err);
                     reject(response);
                 });
         });
