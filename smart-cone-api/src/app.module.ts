@@ -8,7 +8,7 @@ import { DatabaseModule } from "./Database/database.module";
 
 import { UsersService } from "./Services/users.service";
 import { TeamsService } from "./Services/teams.service";
-import { ftProviders } from "./Database/Providers/users.providers";
+import { ftProviders } from "./Database/providers";
 
 @Module({
     imports: [DatabaseModule],

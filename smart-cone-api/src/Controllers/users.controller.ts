@@ -1,6 +1,7 @@
-import { Controller, Post, Body } from "@nestjs/common";
+import { Controller, Post, Body, HttpException, HttpStatus } from "@nestjs/common";
 import { UserData } from "../Database/Data/UserData";
 import { UsersService } from "../Services/users.service";
+import { DatabaseFailureType } from "../Database/Data/DatabaseEnums";
 
 @Controller("users")
 export class UsersController {
@@ -18,7 +19,11 @@ export class UsersController {
             })
             .catch(reason => {
                 console.log(`Failed to add user. Reason: ${JSON.stringify(reason)}`);
-                return;
+                if (reason.failureType === DatabaseFailureType.UniqueConstraintViolated) {
+                    throw new HttpException(reason, HttpStatus.CONFLICT);
+                } else {
+                    throw new HttpException(reason, HttpStatus.INTERNAL_SERVER_ERROR);
+                }
             });
     }
 }
