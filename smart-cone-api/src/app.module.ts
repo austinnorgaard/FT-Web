@@ -1,14 +1,19 @@
 import { Module } from "@nestjs/common";
-import { AppController } from "./app.controller";
-import { StatusController } from "./status.controller";
+import { AppController } from "./Controllers/app.controller";
+import { StatusController } from "./Controllers/status.controller";
 import { GeneralSocketApi } from "./general-socket-api";
-
+import { UsersController } from "./Controllers/users.controller";
+import { TeamsController } from "./Controllers/teams.controller";
 import { DatabaseModule } from "./Database/database.module";
 
+import { UsersService } from "./Services/users.service";
+import { TeamsService } from "./Services/teams.service";
+import { ftProviders } from "./Database/Providers/users.providers";
+
 @Module({
-    imports: [],
-    controllers: [AppController, StatusController],
-    components: [GeneralSocketApi],
+    imports: [DatabaseModule],
+    controllers: [AppController, StatusController, UsersController, TeamsController],
+    components: [GeneralSocketApi, UsersService, ...ftProviders, TeamsService],
     modules: [DatabaseModule]
 })
 export class ApplicationModule {}

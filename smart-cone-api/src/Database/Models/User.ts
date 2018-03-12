@@ -1,4 +1,5 @@
-import { Table, Column, Model } from "sequelize-typescript";
+import { Table, Column, Model, Unique, DataType } from "sequelize-typescript";
+import { Options } from "@nestjs/common";
 
 @Table
 export class User extends Model<User> {
@@ -22,7 +23,10 @@ export class User extends Model<User> {
 
     @Column phoneNumber: string;
 
-    @Column email: string;
+    @Column({
+        unique: "true"
+    })
+    email: string;
 
     @Column passwordHash: string;
 

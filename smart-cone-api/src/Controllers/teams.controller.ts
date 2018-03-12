@@ -1,17 +1,17 @@
 import { Controller, Post, Body } from "@nestjs/common";
 import { AddTeamData } from "../../../field-trainer/field-trainer/src/app/models/add-team-data";
-import { DatabaseComponent } from "./database.component";
+import { TeamsService } from "../Services/teams.service";
 
 @Controller("teams")
 export class TeamsController {
-    constructor(private database: DatabaseComponent) {}
+    constructor(private teamsService: TeamsService) {}
 
     @Post()
     create(@Body() teamData: AddTeamData) {
         console.log(teamData);
         console.log("POST for Teams Controller hit!");
 
-        this.database
+        this.teamsService
             .addTeam(teamData)
             .then(() => {
                 console.log("Team added!!");
