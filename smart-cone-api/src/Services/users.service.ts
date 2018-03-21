@@ -77,4 +77,29 @@ export class UsersService {
                 });
         });
     }
+
+    async validateCredentials(providedEmail: string, providedPassword: string): Promise<boolean> {
+        return new Promise<boolean>((resolve, reject) => {
+            User.findOne({
+                where: { email: providedEmail }
+            })
+                .then(user => {
+                    // found the user, validate their password
+                    // bcrypt stores the salt as part of the hash, so we only need to provide the hash
+                    bcrypt
+                        .compare(providedPassword, user.passwordHash)
+                        .then(res => {
+                            resolve(res);
+                        })
+                        .catch(err => {
+                            reject(err);
+                        });
+                })
+                .catch(err => {
+                    // probably dont care about this error, just couldn't find a user with this email
+                    console.log(`Could not find account with email ${providedEmail}`);
+                    reject(`Could not find account with email ${providedEmail}`);
+                });
+        });
+    }
 }

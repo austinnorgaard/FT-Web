@@ -9,11 +9,12 @@ import { DatabaseModule } from "./Database/database.module";
 import { UsersService } from "./Services/users.service";
 import { TeamsService } from "./Services/teams.service";
 import { ftProviders } from "./Database/providers";
+import { AuthModule } from "./auth.module";
 
 @Module({
-    imports: [DatabaseModule],
-    controllers: [AppController, StatusController, UsersController, TeamsController],
-    components: [GeneralSocketApi, UsersService, ...ftProviders, TeamsService],
-    modules: [DatabaseModule]
+    imports: [DatabaseModule, AuthModule],
+    controllers: [AppController, StatusController],
+    components: [GeneralSocketApi],
+    modules: [DatabaseModule, AuthModule]
 })
 export class ApplicationModule {}
