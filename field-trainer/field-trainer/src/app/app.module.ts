@@ -56,6 +56,9 @@ import { StatusIndicatorComponent } from "./status-indicator/status-indicator.co
 import { LoginComponent } from "./login/login.component";
 import { UserManagementService } from "./api/user-management.service";
 import { AddTeamComponent } from "./add-team/add-team.component";
+import { AuthGuardService } from "./_services/auth-guard.service";
+import { AuthService } from "./_services/auth.service";
+import { JwtHelper } from "angular2-jwt";
 
 const config: SocketIoConfig = {
     url: c.getSmartConeApiSocketUrl(),
@@ -115,7 +118,10 @@ const config: SocketIoConfig = {
         HttpHelper,
         PlayerSessionService,
         UserManagementService,
-        TeamManagementService
+        TeamManagementService,
+        AuthGuardService,
+        AuthService,
+        JwtHelper
     ],
     bootstrap: [AppComponent]
 })

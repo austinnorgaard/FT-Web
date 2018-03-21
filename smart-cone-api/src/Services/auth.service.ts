@@ -18,9 +18,9 @@ export class AuthService {
         };
     }
 
-    async validateUser(email: string, password: string): Promise<boolean> {
-        // ask database if this email/password combination is correct
-        //return this.usersService.validateCredentials(email, password);
+    async validateUser(signedUser): Promise<boolean> {
+        console.log("validating user!");
+        // What is validateUser used for? Additional check?
         return true;
     }
 }

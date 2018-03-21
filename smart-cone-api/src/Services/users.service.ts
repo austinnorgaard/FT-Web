@@ -79,6 +79,7 @@ export class UsersService {
     }
 
     async validateCredentials(providedEmail: string, providedPassword: string): Promise<boolean> {
+        console.log("Validating credentials!");
         return new Promise<boolean>((resolve, reject) => {
             User.findOne({
                 where: { email: providedEmail }
