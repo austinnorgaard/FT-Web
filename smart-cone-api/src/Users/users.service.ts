@@ -12,7 +12,7 @@ export class UsersService {
     //constructor(@Inject("UsersRepository") private readonly usersRepository: typeof User) {}
 
     async addUser(user: UserData): Promise<DatabaseResponse> {
-        let saltAndHash = await this.generateSaltAndHash(user.password);
+        let hash = await this.generateHash(user.password);
 
         const dbUser = new User({
             firstName: user.firstName,
@@ -25,15 +25,14 @@ export class UsersService {
             country: user.country,
             phoneNumber: user.phoneNumber,
             email: user.email,
-            passwordHash: saltAndHash.hash,
-            passwordSalt: saltAndHash.salt
+            passwordHash: hash
         });
 
         return await this.addUserToDb(dbUser);
     }
 
-    async generateSaltAndHash(password: string): Promise<SaltAndHash> {
-        return new Promise<SaltAndHash>((resolve, reject) => {
+    async generateHash(password: string): Promise<string> {
+        return new Promise<string>((resolve, reject) => {
             bcrypt.genSalt(10, function(err, salt) {
                 if (err) {
                     reject();
@@ -43,10 +42,7 @@ export class UsersService {
                         reject();
                     }
 
-                    let result = new SaltAndHash();
-                    result.hash = hash;
-                    result.salt = salt;
-                    resolve(result);
+                    resolve(hash);
                 });
             });
         });

@@ -27,6 +27,4 @@ export class User extends Model<User> {
     email: string;
 
     @Column passwordHash: string;
-
-    @Column passwordSalt: string;
 }
