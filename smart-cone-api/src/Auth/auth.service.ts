@@ -2,7 +2,7 @@ import * as jwt from "jsonwebtoken";
 import { Component } from "@nestjs/common";
 import { FtJwtSecret } from "./ft-jwt";
 import { User } from "../Database/Models/User";
-import { UsersService } from "../Services/users.service";
+import { UsersService } from "../Users/users.service";
 
 @Component()
 export class AuthService {

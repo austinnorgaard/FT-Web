@@ -3,11 +3,10 @@ import { Module, NestModule, MiddlewaresConsumer, RequestMethod } from "@nestjs/
 import { AuthService } from "./auth.service";
 import { JwtStrategy } from "./jwt.strategy";
 import { AuthController } from "./auth.controller";
-import { UsersService } from "../Services/users.service";
+import { UsersService } from "../Users/users.service";
 import { DatabaseModule } from "../Database/database.module";
 import { ftProviders } from "../Database/providers";
-import { UsersController } from "../Controllers/users.controller";
-import { TeamsController } from "../Controllers/teams.controller";
+import { UsersController } from "../Users/users.controller";
 
 @Module({
     components: [AuthService, JwtStrategy],
@@ -20,6 +19,6 @@ export class AuthModule implements NestModule {
         consumer
             .apply(passport.authenticate("jwt", { session: false }))
             //.forRoutes({ path: "/auth/authorized", method: RequestMethod.ALL });
-            .forRoutes({ path: "/auth/authorized", method: RequestMethod.ALL }, UsersController, TeamsController);
+            .forRoutes({ path: "/auth/authorized", method: RequestMethod.ALL }, UsersController);
     }
 }

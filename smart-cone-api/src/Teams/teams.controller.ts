@@ -1,6 +1,6 @@
-import { Controller, Post, Body, HttpStatus, HttpException } from "@nestjs/common";
+import { Controller, Post, Get, Body, HttpStatus, HttpException } from "@nestjs/common";
 import { AddTeamData } from "../../../field-trainer/field-trainer/src/app/models/add-team-data";
-import { TeamsService } from "../Services/teams.service";
+import { TeamsService } from "./teams.service";
 import { DatabaseFailureType } from "../Database/Data/DatabaseEnums";
 
 @Controller("teams")

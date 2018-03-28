@@ -6,8 +6,6 @@ import { DatabaseFailureType } from "../Database/Data/DatabaseEnums";
 
 @Component()
 export class TeamsService {
-    constructor(@Inject("TeamsRepository") private readonly teamsRepository: typeof Team) {}
-
     async addTeam(team: AddTeamData): Promise<DatabaseResponse> {
         const t = new Team({
             teamName: team.teamName,

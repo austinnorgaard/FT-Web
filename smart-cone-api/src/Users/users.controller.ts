@@ -1,6 +1,6 @@
 import { Controller, Post, Body, HttpException, HttpStatus } from "@nestjs/common";
 import { UserData } from "../Database/Data/UserData";
-import { UsersService } from "../Services/users.service";
+import { UsersService } from "./users.service";
 import { DatabaseFailureType } from "../Database/Data/DatabaseEnums";
 
 @Controller("users")

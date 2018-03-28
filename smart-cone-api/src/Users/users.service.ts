@@ -9,7 +9,7 @@ var bcrypt = require("bcrypt");
 
 @Component()
 export class UsersService {
-    constructor(@Inject("UsersRepository") private readonly usersRepository: typeof User) {}
+    //constructor(@Inject("UsersRepository") private readonly usersRepository: typeof User) {}
 
     async addUser(user: UserData): Promise<DatabaseResponse> {
         let saltAndHash = await this.generateSaltAndHash(user.password);

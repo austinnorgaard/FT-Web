@@ -1,14 +1,16 @@
 import { Module } from "@nestjs/common";
-import { databaseProviders } from "./database.providers";
-import { UsersController } from "../Controllers/users.controller";
-import { TeamsController } from "../Controllers/teams.controller";
-import { UsersService } from "../Services/users.service";
-import { TeamsService } from "../Services/teams.service";
+import { FtSequelize } from "./database.providers";
+import { UsersController } from "../Users/users.controller";
+import { UsersService } from "../Users/users.service";
 import { ftProviders } from "./providers";
 
 @Module({
-    components: [...databaseProviders, UsersService, TeamsService, ...ftProviders],
-    exports: [...databaseProviders, ...ftProviders, UsersService, TeamsService],
-    controllers: [UsersController, TeamsController]
+    components: [FtSequelize, UsersService],
+    exports: [FtSequelize, UsersService],
+    controllers: [UsersController]
 })
-export class DatabaseModule {}
+export class DatabaseModule {
+    constructor() {
+        console.log("Database module loading.");
+    }
+}
