@@ -6,7 +6,7 @@ import { UsersService } from "../Users/users.service";
 
 @Component()
 export class AuthService {
-    constructor(private usersService: UsersService) {}
+    constructor() {}
 
     async createToken(userEmail: string) {
         const expiresIn = 60 * 60; // expressed in seconds, 1 hour

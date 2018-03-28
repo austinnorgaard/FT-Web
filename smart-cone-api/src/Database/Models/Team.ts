@@ -1,7 +1,8 @@
-import { Table, Column, Model } from "sequelize-typescript";
+import { Table, Column, Model, NotNull, AllowNull } from "sequelize-typescript";
 
 @Table
 export class Team extends Model<Team> {
+    @AllowNull(false)
     @Column({
         unique: "uniqueTeam"
     })
