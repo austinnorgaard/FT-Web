@@ -3,14 +3,14 @@
         <h1>Login</h1>
     </div>
     <mat-form-field fxFlex>
-        <input matInput placeholder="Email" />
+        <input [(ngModel)]="this.email" matInput placeholder="Email" />
     </mat-form-field>
     <mat-form-field fxFlex>
-        <input matInput type="password" placeholder="Password" />
+        <input [(ngModel)]="this.password" matInput type="password" placeholder="Password" />
     </mat-form-field>
     <div fxLayout="row center" fxLayoutAlign="center center">
         <div fxFlex class="button-container">
-            <button mat-raised-button color="primary" class="login-form-buttons">Submit</button>
+            <button mat-raised-button color="primary" class="login-form-buttons" (click)="login()">Submit</button>
         </div>
         <div fxFlex class="button-container">
             <button mat-raised-button color="primary" class="login-form-buttons" routerLink="/register">Register</button>
