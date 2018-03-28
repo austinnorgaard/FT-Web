@@ -1,5 +1,5 @@
 import { NestFactory } from "@nestjs/core";
-import { ApplicationModule } from "./app.module";
+import { ApplicationModule } from "./App/app.module";
 import { ValidationPipe } from "@nestjs/common";
 
 var cors = require("cors");
