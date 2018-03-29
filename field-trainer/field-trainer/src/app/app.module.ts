@@ -59,6 +59,7 @@ import { AddTeamComponent } from "./add-team/add-team.component";
 import { AuthGuardService } from "./_services/auth-guard.service";
 import { AuthService } from "./_services/auth.service";
 import { JwtHelper } from "angular2-jwt";
+import { LoginService } from "./api/login.service";
 
 const config: SocketIoConfig = {
     url: c.getSmartConeApiSocketUrl(),
@@ -121,7 +122,8 @@ const config: SocketIoConfig = {
         TeamManagementService,
         AuthGuardService,
         AuthService,
-        JwtHelper
+        JwtHelper,
+        LoginService
     ],
     bootstrap: [AppComponent]
 })

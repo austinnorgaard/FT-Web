@@ -1,6 +1,5 @@
 import { Component, Inject } from "@nestjs/common";
 import { TeamSchema } from "../Database/Models/TeamSchema";
-import { AddTeamData } from "../../../field-trainer/field-trainer/src/app/models/add-team-data";
 import { DatabaseResponse } from "../Database/Data/DatabaseResponse";
 import { DatabaseFailureType } from "../Database/Data/DatabaseEnums";
 import { Team } from "./Team";

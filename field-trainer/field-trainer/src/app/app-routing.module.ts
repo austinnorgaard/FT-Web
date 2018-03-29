@@ -16,8 +16,8 @@ const routes: Routes = [
     { path: "register", component: RegisterPageComponent },
     {
         path: "add-team",
-        component: AddTeamComponent
-        // canActivate: [AuthGuard]
+        component: AddTeamComponent,
+        canActivate: [AuthGuard]
     }
 ];
 
