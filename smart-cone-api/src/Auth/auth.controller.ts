@@ -1,15 +1,22 @@
-import { Controller, Post, HttpStatus, Get, HttpCode, Body } from "@nestjs/common";
+import { Controller, Post, HttpStatus, Get, HttpCode, Body, HttpException } from "@nestjs/common";
 import { AuthService } from "./auth.service";
-import { UserData } from "../Database/Data/UserData";
+import { LoginCredentials } from "./login-credentials";
+import { JwtToken } from "./jwt-token";
 
 @Controller("auth")
 export class AuthController {
     constructor(private readonly authService: AuthService) {}
 
-    @Post("token")
+    @Post("login")
     @HttpCode(HttpStatus.OK)
-    public async getToken(@Body() userData: UserData) {
-        return await this.authService.createToken(userData.email);
+    public async login(@Body() credentials: LoginCredentials): Promise<JwtToken> {
+        //return await this.authService.createToken(userData.email);
+        try {
+            let loginResult = await this.authService.login(credentials);
+            return loginResult;
+        } catch (e) {
+            throw new HttpException("Email or password incorrect.", HttpStatus.UNAUTHORIZED);
+        }
     }
 
     @Get("authorized")
