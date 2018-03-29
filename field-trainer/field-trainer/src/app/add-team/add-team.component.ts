@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { FormControl, Validators } from "@angular/forms";
-import { AddTeamData } from "../models/add-team-data";
+import { TeamModel } from "../models/team";
 import { TeamManagementService } from "../api/team-management.service";
 
 import { DatabaseResponse } from "../../../../../smart-cone-api/src/Database/Data/DatabaseResponse";
@@ -15,7 +15,7 @@ export class AddTeamComponent {
     ageGroups: string[] = ["11-13", "13-15", "15-17"];
     genders: string[] = ["Male", "Female"];
     submitted = false;
-    addTeamData: AddTeamData = new AddTeamData();
+    teamModel = new TeamModel();
     alertShouldBeDisplayed = false;
     alertMessage = "";
     alertType = "success";
@@ -37,7 +37,7 @@ export class AddTeamComponent {
         }
 
         this.teamManagement
-            .createTeam(this.addTeamData)
+            .createTeam(this.teamModel)
             .then(response => {
                 console.log("Team added!");
                 this.showAlert("Team added successfully.", "success", 5000);

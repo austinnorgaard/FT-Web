@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
-import { AddTeamData } from "../models/add-team-data";
+import { Team } from "../../../../../smart-cone-api/src/Teams/team";
 
 import * as config from "../../../global-config";
 import "rxjs/add/operator/toPromise";
@@ -12,7 +12,7 @@ import { Observable } from "rxjs/Observable";
 export class TeamManagementService {
     constructor(private http: HttpClient) {}
 
-    createTeam(team: AddTeamData): Promise<DatabaseResponse> {
+    createTeam(team: Team): Promise<DatabaseResponse> {
         return this.http
             .post<DatabaseResponse>(config.toSmartConeHttp("/teams"), team)
             .toPromise()

@@ -5,13 +5,13 @@
 <div fxLayout="row" class="ft-add-team-container">
     <form #addTeamForm="ngForm" fxFlex fxLayout="column" (ngSubmit)="onSubmit()">
         <mat-form-field>
-            <input matInput [(ngModel)]="addTeamData.teamName" placeholder="Team Name" name="teamName" type="text" [formControl]="teamNameFormControl"
+            <input matInput [(ngModel)]="teamModel.teamName" placeholder="Team Name" name="teamName" type="text" [formControl]="teamNameFormControl"
                 required/>
             <mat-error *ngIf="teamNameFormControl.invalid">Name too short</mat-error>
         </mat-form-field>
 
         <mat-form-field>
-            <mat-select [(ngModel)]="addTeamData.ageGroup" placeholder="Age Group" name="age-group" required>
+            <mat-select [(ngModel)]="teamModel.ageGroup" placeholder="Age Group" name="age-group" required>
                 <mat-option *ngFor="let ageGroup of ageGroups" [value]="ageGroup">
                     {{ageGroup}} years old
                 </mat-option>
@@ -19,7 +19,7 @@
         </mat-form-field>
 
         <mat-form-field>
-            <mat-select [(ngModel)]="addTeamData.teamGender" placeholder="Gender" name="teamGender" required>
+            <mat-select [(ngModel)]="teamModel.teamGender" placeholder="Gender" name="teamGender" required>
                 <mat-option *ngFor="let gender of genders" [value]="gender">
                     {{gender}}
                 </mat-option>
