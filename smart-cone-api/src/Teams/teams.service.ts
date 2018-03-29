@@ -1,22 +1,18 @@
 import { Component, Inject } from "@nestjs/common";
-import { Team } from "../Database/Models/Team";
+import { TeamSchema } from "../Database/Models/TeamSchema";
 import { AddTeamData } from "../../../field-trainer/field-trainer/src/app/models/add-team-data";
 import { DatabaseResponse } from "../Database/Data/DatabaseResponse";
 import { DatabaseFailureType } from "../Database/Data/DatabaseEnums";
+import { Team } from "./Team";
 
 @Component()
 export class TeamsService {
-    async addTeam(team: AddTeamData): Promise<DatabaseResponse> {
-        const t = new Team({
-            teamName: team.teamName,
-            ageGroup: team.ageGroup,
-            teamGender: team.teamGender
-        });
-
+    async addTeam(team: Team): Promise<DatabaseResponse> {
+        const t = new TeamSchema(team);
         return await this.addTeamToDb(t);
     }
 
-    async addTeamToDb(team: Team): Promise<DatabaseResponse> {
+    async addTeamToDb(team: TeamSchema): Promise<DatabaseResponse> {
         return new Promise<DatabaseResponse>((resolve, reject) => {
             team
                 .save()

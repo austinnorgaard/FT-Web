@@ -2,15 +2,16 @@ import { Controller, Post, Get, Body, HttpStatus, HttpException } from "@nestjs/
 import { AddTeamData } from "../../../field-trainer/field-trainer/src/app/models/add-team-data";
 import { TeamsService } from "./teams.service";
 import { DatabaseFailureType } from "../Database/Data/DatabaseEnums";
+import { Team } from "./Team";
 
 @Controller("teams")
 export class TeamsController {
     constructor(private teamsService: TeamsService) {}
 
     @Post()
-    async create(@Body() teamData: AddTeamData) {
+    async create(@Body() team: Team) {
         return await this.teamsService
-            .addTeam(teamData)
+            .addTeam(team)
             .then(response => {
                 console.log("Team added!!");
                 return JSON.stringify(response);
