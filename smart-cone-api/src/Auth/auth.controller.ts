@@ -18,9 +18,4 @@ export class AuthController {
             throw new HttpException("Email or password incorrect.", HttpStatus.UNAUTHORIZED);
         }
     }
-
-    @Get("authorized")
-    public async authorized() {
-        console.log("Authorized!");
-    }
 }

@@ -6,8 +6,8 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { RouterModule } from "@angular/router";
-import { HttpModule } from "@angular/http";
-import { HttpClientModule } from "@angular/common/http";
+import { HttpModule, RequestOptions } from "@angular/http";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import {
     MatListModule,
     MatButtonModule,
@@ -60,6 +60,7 @@ import { AuthGuardService } from "./_services/auth-guard.service";
 import { AuthService } from "./_services/auth.service";
 import { JwtHelper } from "angular2-jwt";
 import { LoginService } from "./api/login.service";
+import { AuthHeaderInterceptor } from "./_services/auth-header-interceptor";
 
 const config: SocketIoConfig = {
     url: c.getSmartConeApiSocketUrl(),
@@ -123,7 +124,12 @@ const config: SocketIoConfig = {
         AuthGuardService,
         AuthService,
         JwtHelper,
-        LoginService
+        LoginService,
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AuthHeaderInterceptor,
+            multi: true
+        }
     ],
     bootstrap: [AppComponent]
 })
