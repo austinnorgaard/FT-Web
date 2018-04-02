@@ -1,9 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { UserManagementService } from "../api/user-management.service";
-import { UserData } from "../../../../../smart-cone-api/src/Database/Data/UserData";
-import { UserRegistrationData } from "../models/user-registration-data";
-
 import { FormControl, Validators } from "@angular/forms";
+import { UserRegistration } from "../../../../../smart-cone-api/src/Users/user-registration";
+import { UserRegistrationModel } from "../models/user-registration";
 
 @Component({
     selector: "ft-app-register-page",
@@ -11,7 +10,7 @@ import { FormControl, Validators } from "@angular/forms";
     styleUrls: ["./register-page.component.css"]
 })
 export class RegisterPageComponent {
-    userData: UserData = new UserData();
+    userRegistration: UserRegistrationModel = new UserRegistrationModel();
 
     readonly prefixes: string[] = ["Mr", "Mrs", "Ms"];
     public alertClosed: boolean = true;
@@ -48,10 +47,9 @@ export class RegisterPageComponent {
         }
 
         this.submitted = true;
-        console.log(this.userData);
 
         this.userManagement
-            .createUser(this.userData)
+            .createUser(this.userRegistration)
             .then(response => {
                 console.log("User created successfully!!");
             })

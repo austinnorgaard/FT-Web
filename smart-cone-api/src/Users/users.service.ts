@@ -1,9 +1,10 @@
 import { Component, Inject } from "@nestjs/common";
-import { User } from "../Database/Models/User";
 import { DatabaseResponse } from "../Database/Data/DatabaseResponse";
-import { UserData } from "../Database/Data/UserData";
 import { SaltAndHash } from "../Database/Data/SaltAndHash";
 import { DatabaseFailureType } from "../Database/Data/DatabaseEnums";
+import { UserRegistration } from "./user-registration";
+import { User } from "./user";
+import { UserSchema } from "../Database/Models/UserSchema";
 
 var bcrypt = require("bcrypt");
 
@@ -11,20 +12,20 @@ var bcrypt = require("bcrypt");
 export class UsersService {
     //constructor(@Inject("UsersRepository") private readonly usersRepository: typeof User) {}
 
-    async addUser(user: UserData): Promise<DatabaseResponse> {
-        let hash = await this.generateHash(user.password);
+    async addUser(userRegistration: UserRegistration): Promise<DatabaseResponse> {
+        let hash = await this.generateHash(userRegistration.password);
 
-        const dbUser = new User({
-            firstName: user.firstName,
-            lastName: user.lastName,
-            address1: user.address1,
-            address2: user.address2,
-            city: user.city,
-            state: user.state,
-            zipCode: user.zipCode,
-            country: user.country,
-            phoneNumber: user.phoneNumber,
-            email: user.email,
+        const dbUser = new UserSchema({
+            firstName: userRegistration.user.firstName,
+            lastName: userRegistration.user.lastName,
+            address1: userRegistration.user.address1,
+            address2: userRegistration.user.address2,
+            city: userRegistration.user.city,
+            state: userRegistration.user.state,
+            zipCode: userRegistration.user.zipCode,
+            country: userRegistration.user.country,
+            phoneNumber: userRegistration.user.phoneNumber,
+            email: userRegistration.user.email,
             passwordHash: hash
         });
 
@@ -48,7 +49,7 @@ export class UsersService {
         });
     }
 
-    async addUserToDb(user: User): Promise<DatabaseResponse> {
+    async addUserToDb(user: UserSchema): Promise<DatabaseResponse> {
         return new Promise<DatabaseResponse>((resolve, reject) => {
             user
                 .save()
@@ -77,7 +78,7 @@ export class UsersService {
     async validateCredentials(providedEmail: string, providedPassword: string): Promise<boolean> {
         console.log("Validating credentials!");
         return new Promise<boolean>((resolve, reject) => {
-            User.findOne({
+            UserSchema.findOne({
                 where: { email: providedEmail }
             })
                 .then(user => {

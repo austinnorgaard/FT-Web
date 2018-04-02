@@ -1,8 +1,11 @@
 import { Table, Column, Model, Unique, DataType } from "sequelize-typescript";
 import { Options } from "@nestjs/common";
+import { User } from "../../Users/user";
 
 @Table
-export class User extends Model<User> {
+export class UserSchema extends Model<UserSchema> implements User {
+    @Column subscribedToNewsLetter: boolean;
+
     @Column firstName: string;
 
     @Column lastName: string;
@@ -26,5 +29,6 @@ export class User extends Model<User> {
     })
     email: string;
 
+    // Field unique to the database, not sent over air
     @Column passwordHash: string;
 }

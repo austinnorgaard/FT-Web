@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { UserData } from "../../../../../smart-cone-api/src/Database/Data/UserData";
+import { UserRegistration } from "../../../../../smart-cone-api/src/Users/user-registration";
 
 import * as config from "../../../global-config";
 import "rxjs/add/operator/toPromise";
@@ -9,7 +9,7 @@ import "rxjs/add/operator/toPromise";
 export class UserManagementService {
     constructor(private http: HttpClient) {}
 
-    createUser(user: UserData): Promise<Object> {
+    createUser(user: UserRegistration): Promise<Object> {
         return this.http
             .post(config.toSmartConeHttp("/users"), user)
             .toPromise();

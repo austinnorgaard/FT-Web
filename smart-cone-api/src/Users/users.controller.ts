@@ -1,18 +1,18 @@
 import { Controller, Post, Body, HttpException, HttpStatus } from "@nestjs/common";
-import { UserData } from "../Database/Data/UserData";
 import { UsersService } from "./users.service";
 import { DatabaseFailureType } from "../Database/Data/DatabaseEnums";
+import { UserRegistration } from "./user-registration";
 
 @Controller("users")
 export class UsersController {
     constructor(private usersService: UsersService) {}
 
     @Post()
-    async create(@Body() userData: UserData) {
+    async create(@Body() userRegistration: UserRegistration) {
         // Adds a user to the database
         console.log("Creating user.");
         await this.usersService
-            .addUser(userData)
+            .addUser(userRegistration)
             .then(() => {
                 console.log("User added!");
             })

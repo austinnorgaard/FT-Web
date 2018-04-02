@@ -1,11 +1,6 @@
-import { IsString } from "class-validator";
+import { IsString, IsBoolean } from "class-validator";
 
-/* 
-* Defines the data for a user, matches the required parameters
-* for adding a user via POST
-*/
-
-export class UserData {
+export abstract class User {
     @IsString() firstName: string;
     @IsString() lastName: string;
     @IsString() address1: string;
@@ -16,5 +11,7 @@ export class UserData {
     @IsString() country: string;
     @IsString() phoneNumber: string;
     @IsString() email: string;
-    @IsString() password: string;
+    @IsBoolean() subscribedToNewsLetter: boolean;
+
+    constructor() {}
 }
