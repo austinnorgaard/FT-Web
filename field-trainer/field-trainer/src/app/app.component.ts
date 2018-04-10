@@ -14,6 +14,10 @@ export class AppComponent {
     currentPath(): string {
         // take the router url and extract a pretty
         // path for our title bar
+        if (this.router.url.toLowerCase().includes("athlete-management")) {
+            return "Field Trainer | Athletes";
+        }
+
         const titleString = this.prettyString(
             this.router.url.replace("/", " | ")
         );
