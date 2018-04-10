@@ -7,6 +7,7 @@ import { WelcomePageComponent } from "./welcome-page/welcome-page.component";
 import { RegisterPageComponent } from "./register-page/register-page.component";
 import { AddTeamComponent } from "./add-team/add-team.component";
 import { AuthGuardService as AuthGuard } from "./_services/auth-guard.service";
+import { AthleteManagementComponent } from "./athlete-management/athlete-management.component";
 
 const routes: Routes = [
     { path: "", redirectTo: "/register", pathMatch: "full" },
@@ -17,6 +18,11 @@ const routes: Routes = [
     {
         path: "add-team",
         component: AddTeamComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: "athlete-management",
+        component: AthleteManagementComponent,
         canActivate: [AuthGuard]
     }
 ];
