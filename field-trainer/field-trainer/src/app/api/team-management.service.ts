@@ -18,4 +18,11 @@ export class TeamManagementService {
             .toPromise()
             .catch(err => Promise.reject(err.error as DatabaseResponse));
     }
+
+    getTeams(): Promise<Team[]> {
+        return this.http
+            .get<Team[]>(config.toSmartConeHttp("/teams"))
+            .toPromise()
+            .catch(err => Promise.reject(err));
+    }
 }

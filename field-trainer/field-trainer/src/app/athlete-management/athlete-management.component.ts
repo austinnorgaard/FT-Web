@@ -1,4 +1,6 @@
 import { Component, OnInit } from "@angular/core";
+import { TeamManagementService } from "../api/team-management.service";
+import { Team } from "../../../../../smart-cone-api/src/Teams/team";
 
 @Component({
     selector: "ft-athlete-management",
@@ -44,9 +46,25 @@ export class AthleteManagementComponent implements OnInit {
         `6'9"`
     ];
 
-    availableTeams: string[] = ["Fake team 1", "Fake team 2"];
+    availableTeams: Team[] = [];
 
-    constructor() {}
+    constructor(private readonly teamService: TeamManagementService) {}
 
-    ngOnInit() {}
+    ngOnInit() {
+        // populate our available teams array when the data is ready
+        this.populateTeams();
+    }
+
+    populateTeams() {
+        this.teamService
+            .getTeams()
+            .then((teams: Team[]) => {
+                // it worked
+                console.log(`Found ${teams.length} teams.`);
+                this.availableTeams = teams;
+            })
+            .catch(err => {
+                console.log(`Failed to query teams. Reason: ${err}`);
+            });
+    }
 }

@@ -83,8 +83,8 @@
                     </h3>
                     <mat-form-field fxFlex>
                         <mat-select placeholder="Athlete's team" name="athletesTeam">
-                            <mat-option *ngFor="let team of availableTeams" [value]="team">
-                                {{team}}
+                            <mat-option *ngFor="let team of availableTeams" [value]="team.teamName">
+                                {{team.teamName}}
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
