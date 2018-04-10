@@ -1,3 +1,98 @@
-<p>
-  athlete-management works!
-</p>
+<div fxLayout="row" class="ft-add-athlete-container">
+    <form #addAthleteForm="ngForm" fxFlex (ngSubmit)="onSubmit()">
+        <div fxLayout="column">
+            <div fxLayout="row" fxLayoutGap="0.5em">
+                <div fxFlex fxLayout="column">
+                    <h3 class="ft-add-athlete-header">
+                        Add Athlete
+                    </h3>
+                    <mat-form-field fxFlex>
+                        <input matInput placeholder="First Name" name="firstName" type="text" required />
+                    </mat-form-field>
+                    <mat-form-field fxFlex>
+                        <input matInput placeholder="Last Name" name="lastName" type="text" required />
+                    </mat-form-field>
+                    <mat-form-field fxFlex>
+                        <input matInput placeholder="Email" name="email" type="email" required />
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-select placeholder="Gender" name="gender" required>
+                            <mat-option *ngFor="let gender of genders" [value]="gender">
+                                {{gender}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div fxFlex fxLayout="column">
+                    <div fxFlex="60%">
+                        Picture Here
+                        <br/> ---
+                        <br/> -----
+                        <br/> ---
+                        <br/> -----
+                        <br/> ---
+                        <br/> -----
+                        <br/> ---
+                    </div>
+                    <mat-form-field fxFlex>
+                        <input matInput placeholder="Weight" name="weight" type="number" required />
+                    </mat-form-field>
+                    <mat-form-field fxFlex>
+                        <mat-select placeholder="Height" name="height" required>
+                            <mat-option *ngFor="let height of heights" [value]="height">
+                                {{height}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayoutGap="0.5em">
+                <div fxFlex fxLayout="column">
+                    <h3>
+                        Parent 1
+                    </h3>
+                    <mat-form-field fxFlex>
+                        <input matInput placeholder="Name" name="parent1Name" type="text" />
+                    </mat-form-field>
+                    <mat-form-field fxFlex>
+                        <input matInput placeholder="Phone" name="parent1Phone" type="tel" />
+                    </mat-form-field>
+                    <mat-form-field fxFlex>
+                        <input matInput placeholder="Email" name="parent1Email" type="email" />
+                    </mat-form-field>
+                </div>
+                <div fxFlex fxLayout="column">
+                    <h3>
+                        Parent 2
+                    </h3>
+                    <mat-form-field fxFlex>
+                        <input matInput placeholder="Name" name="parent2Name" type="text" />
+                    </mat-form-field>
+                    <mat-form-field fxFlex>
+                        <input matInput placeholder="Phone" name="parent2Phone" type="tel" />
+                    </mat-form-field>
+                    <mat-form-field fxFlex>
+                        <input matInput placeholder="Email" name="parent2Email" type="email" />
+                    </mat-form-field>
+                </div>
+            </div>
+            <div fxLayout="row">
+                <div fxLayout="column" fxFlex>
+                    <h3 fxFlex>
+                        Add athlete to team (optional)
+                    </h3>
+                    <mat-form-field fxFlex>
+                        <mat-select placeholder="Athlete's team" name="athletesTeam">
+                            <mat-option *ngFor="let team of availableTeams" [value]="team">
+                                {{team}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div fxLayout="row">
+                <button fxFlex mat-raised-button color="primary" type="submit">Submit</button>
+            </div>
+        </div>
+    </form>
+</div>
