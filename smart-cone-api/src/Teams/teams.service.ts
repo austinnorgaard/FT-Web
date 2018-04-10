@@ -11,6 +11,10 @@ export class TeamsService {
         return await this.addTeamToDb(t);
     }
 
+    async getTeams(): Promise<Team[]> {
+        return TeamSchema.all();
+    }
+
     async addTeamToDb(team: TeamSchema): Promise<DatabaseResponse> {
         return new Promise<DatabaseResponse>((resolve, reject) => {
             team

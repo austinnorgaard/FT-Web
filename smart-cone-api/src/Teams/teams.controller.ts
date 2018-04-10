@@ -1,5 +1,4 @@
 import { Controller, Post, Get, Body, HttpStatus, HttpException } from "@nestjs/common";
-import { AddTeamData } from "../../../field-trainer/field-trainer/src/app/models/add-team-data";
 import { TeamsService } from "./teams.service";
 import { DatabaseFailureType } from "../Database/Data/DatabaseEnums";
 import { Team } from "./Team";
@@ -23,6 +22,21 @@ export class TeamsController {
                 } else {
                     throw new HttpException(reason, HttpStatus.INTERNAL_SERVER_ERROR);
                 }
+            });
+    }
+
+    @Get()
+    async getTeams() {
+        // returns all of the teams
+        return await this.teamsService
+            .getTeams()
+            .then((response: Team[]) => {
+                console.log(`Returning ${response.length} teams.`);
+                return response;
+            })
+            .catch(reason => {
+                console.log(`Failed to get teams. Reason: ${JSON.stringify(reason)}`);
+                throw new HttpException(reason, HttpStatus.INTERNAL_SERVER_ERROR);
             });
     }
 }
