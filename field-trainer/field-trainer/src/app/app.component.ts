@@ -18,6 +18,10 @@ export class AppComponent {
             return "Field Trainer | Athletes";
         }
 
+        if (this.router.url.toLowerCase().includes("add-team")) {
+            return "Field Trainer | Teams";
+        }
+
         const titleString = this.prettyString(
             this.router.url.replace("/", " | ")
         );
