@@ -82,8 +82,8 @@
                         Add athlete to team (optional)
                     </h3>
                     <mat-form-field fxFlex>
-                        <mat-select placeholder="Athlete's team" name="athletesTeam">
-                            <mat-option *ngFor="let team of availableTeams" [value]="team.teamName">
+                        <mat-select placeholder="Athlete's team" name="athletesTeam" [(ngModel)]="this.selectedTeam">
+                            <mat-option *ngFor="let team of availableTeams" [value]="team">
                                 {{team.teamName}}
                             </mat-option>
                         </mat-select>

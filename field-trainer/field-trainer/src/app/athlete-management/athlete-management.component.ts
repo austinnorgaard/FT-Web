@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { TeamManagementService } from "../api/team-management.service";
 import { Team } from "../../../../../smart-cone-api/src/Teams/team";
+import { TeamModel } from "../models/team";
 
 @Component({
     selector: "ft-athlete-management",
@@ -46,7 +47,8 @@ export class AthleteManagementComponent implements OnInit {
         `6'9"`
     ];
 
-    availableTeams: Team[] = [];
+    availableTeams: TeamModel[] = [];
+    selectedTeam: TeamModel = null;
 
     constructor(private readonly teamService: TeamManagementService) {}
 
@@ -58,7 +60,7 @@ export class AthleteManagementComponent implements OnInit {
     populateTeams() {
         this.teamService
             .getTeams()
-            .then((teams: Team[]) => {
+            .then((teams: TeamModel[]) => {
                 // it worked
                 console.log(`Found ${teams.length} teams.`);
                 this.availableTeams = teams;
