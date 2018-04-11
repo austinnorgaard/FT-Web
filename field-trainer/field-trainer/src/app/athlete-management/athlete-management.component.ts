@@ -76,16 +76,15 @@ export class AthleteManagementComponent implements OnInit {
     }
 
     validateParent(): boolean {
-        // Null out parent fields if they are not set
         if (
-            this.athleteForSubmission.parent1.name &&
-            this.athleteForSubmission.parent1.name.length > 1
+            this.athleteForSubmission.parent1Name &&
+            this.athleteForSubmission.parent1Name.length > 1
         ) {
             // if set, validate the rest of the fields
             // phone and email must be set
             if (
-                !this.athleteForSubmission.parent1.phone ||
-                this.athleteForSubmission.parent1.phone.length < 1
+                !this.athleteForSubmission.parent1Phone ||
+                this.athleteForSubmission.parent1Phone.length < 1
             ) {
                 console.log(
                     "Error: If parent 1 name is set, phonenumber should be set too"
@@ -94,28 +93,25 @@ export class AthleteManagementComponent implements OnInit {
             }
 
             if (
-                !this.athleteForSubmission.parent1.email ||
-                this.athleteForSubmission.parent1.email.length < 1
+                !this.athleteForSubmission.parent1Email ||
+                this.athleteForSubmission.parent1Email.length < 1
             ) {
                 console.log(
                     "Error: If parent 1 name is set, email should be set too"
                 );
                 return false;
             }
-        } else {
-            // not being used
-            this.athleteForSubmission.parent1 = null;
         }
 
         if (
-            this.athleteForSubmission.parent2.name &&
-            this.athleteForSubmission.parent2.name.length > 1
+            this.athleteForSubmission.parent2Name &&
+            this.athleteForSubmission.parent2Name.length > 1
         ) {
             // if set, validate the rest of the fields
             // phone and email must be set
             if (
-                !this.athleteForSubmission.parent2.phone ||
-                this.athleteForSubmission.parent2.phone.length < 1
+                !this.athleteForSubmission.parent2Phone ||
+                this.athleteForSubmission.parent2Phone.length < 1
             ) {
                 console.log(
                     "Error: If parent 2 name is set, phonenumber should be set too"
@@ -124,16 +120,14 @@ export class AthleteManagementComponent implements OnInit {
             }
 
             if (
-                !this.athleteForSubmission.parent2.email ||
-                this.athleteForSubmission.parent2.email.length < 1
+                !this.athleteForSubmission.parent2Email ||
+                this.athleteForSubmission.parent2Email.length < 1
             ) {
                 console.log(
                     "Error: If parent 2 name is set, email should be set too"
                 );
                 return false;
             }
-        } else {
-            this.athleteForSubmission.parent2 = null;
         }
 
         return true;
