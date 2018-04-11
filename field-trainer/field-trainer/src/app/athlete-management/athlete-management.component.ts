@@ -152,4 +152,11 @@ export class AthleteManagementComponent implements OnInit {
         console.log("Team for submission");
         console.log(registrationData);
     }
+
+    getTeamDropdownPlaceholderText() {
+        if (this.availableTeams === null || this.availableTeams.length === 0) {
+            return "No teams available";
+        }
+        return "Athlete's team";
+    }
 }
