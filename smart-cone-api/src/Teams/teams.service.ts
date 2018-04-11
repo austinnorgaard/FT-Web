@@ -3,6 +3,7 @@ import { TeamSchema } from "../Database/Models/TeamSchema";
 import { DatabaseResponse } from "../Database/Data/DatabaseResponse";
 import { DatabaseFailureType } from "../Database/Data/DatabaseEnums";
 import { Team } from "./Team";
+import { DatabaseError } from "../Utility/database-error";
 
 @Component()
 export class TeamsService {
@@ -23,23 +24,8 @@ export class TeamsService {
                     let response = new DatabaseResponse(true, "Team added!");
                     resolve(response);
                 })
-                .catch(UniqueConstraitError => {
-                    let response = new DatabaseResponse(
-                        false,
-                        "Unique constraint violated!",
-                        DatabaseFailureType.UniqueConstraintViolated,
-                        UniqueConstraitError.fields
-                    );
-                    reject(response);
-                })
                 .catch(err => {
-                    let response = new DatabaseResponse(
-                        false,
-                        "Unhandled error! Details in data field",
-                        DatabaseFailureType.UnknownError,
-                        err
-                    );
-                    reject(response);
+                    reject(DatabaseError.GetResponse(err));
                 });
         });
     }

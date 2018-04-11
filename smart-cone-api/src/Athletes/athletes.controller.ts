@@ -1,10 +1,10 @@
 import { Controller, Post, Body, Get } from "@nestjs/common";
-import { Athlete } from "./athlete";
+import { AthleteRegistration } from "./athlete-registration";
 
 @Controller("athletes")
 export class AthletesController {
     @Post()
-    async create(@Body() athlete: Athlete) {
+    async create(@Body() athlete: AthleteRegistration) {
         // call service to create athlete in db
     }
 
