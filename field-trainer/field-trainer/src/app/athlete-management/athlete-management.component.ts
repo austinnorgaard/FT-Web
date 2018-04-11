@@ -4,6 +4,8 @@ import { Team } from "../../../../../smart-cone-api/src/Teams/team";
 import { TeamModel } from "../models/team";
 import { AthleteModel } from "../models/athlete";
 import { AthleteRegistrationModel } from "../models/athlete-registration";
+import { AthleteManagementService } from "../api/athlete-management.service";
+import { DatabaseResponse } from "../../../../../smart-cone-api/src/Database/Data/DatabaseResponse";
 
 @Component({
     selector: "ft-athlete-management",
@@ -55,7 +57,10 @@ export class AthleteManagementComponent implements OnInit {
     athlete: AthleteModel = new AthleteModel();
     athleteForSubmission: AthleteModel = new AthleteModel();
 
-    constructor(private readonly teamService: TeamManagementService) {}
+    constructor(
+        private readonly teamService: TeamManagementService,
+        private readonly athletesService: AthleteManagementService
+    ) {}
 
     ngOnInit() {
         // populate our available teams array when the data is ready
@@ -151,6 +156,16 @@ export class AthleteManagementComponent implements OnInit {
 
         console.log("Team for submission");
         console.log(registrationData);
+
+        this.athletesService
+            .createAthlete(registrationData)
+            .then(response => {
+                console.log("Athlete added!");
+            })
+            .catch((err: DatabaseResponse) => {
+                console.log("Failed to add athlete");
+                console.log(err);
+            });
     }
 
     getTeamDropdownPlaceholderText() {

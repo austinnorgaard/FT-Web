@@ -16,6 +16,8 @@ export class AthletesController {
             .addAthlete(athlete.athlete)
             .then(response => {
                 console.log("Athlete added!");
+
+                // TODO: If a team was set, update the team to add this player
             })
             .catch((err: DatabaseResponse) => {
                 console.log(`Failed to add athlete. Reason: ${JSON.stringify(err)}`);

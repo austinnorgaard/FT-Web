@@ -16,7 +16,7 @@ export class TeamManagementService {
         return this.http
             .post<DatabaseResponse>(config.toSmartConeHttp("/teams"), team)
             .toPromise()
-            .catch(err => Promise.reject(err.error as DatabaseResponse));
+            .catch(err => Promise.reject(err as DatabaseResponse));
     }
 
     getTeams(): Promise<Team[]> {
