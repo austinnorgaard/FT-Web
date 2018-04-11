@@ -1,4 +1,4 @@
-import { IsString, IsOptional } from "class-validator";
+import { IsString, IsOptional, IsNumber } from "class-validator";
 import { Parent } from "./parent";
 
 export abstract class Athlete {
@@ -10,7 +10,7 @@ export abstract class Athlete {
 
     @IsString() gender: string;
 
-    @IsString() weight: number;
+    @IsNumber() weight: number;
 
     @IsString() height: string;
 
