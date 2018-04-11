@@ -14,7 +14,11 @@ export abstract class Athlete {
 
     @IsString() height: string;
 
-    @IsOptional() parent1: Parent;
+    @IsOptional() parent1Name: string;
+    @IsOptional() parent1Email: string;
+    @IsOptional() parent1Phone: string;
 
-    @IsOptional() parent2: Parent;
+    @IsOptional() parent2Name: string;
+    @IsOptional() parent2Email: string;
+    @IsOptional() parent2Phone: string;
 }

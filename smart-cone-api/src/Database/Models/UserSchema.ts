@@ -2,7 +2,9 @@ import { Table, Column, Model, Unique, DataType } from "sequelize-typescript";
 import { Options } from "@nestjs/common";
 import { User } from "../../Users/user";
 
-@Table
+@Table({
+    modelName: "Users"
+})
 export class UserSchema extends Model<UserSchema> implements User {
     @Column subscribedToNewsLetter: boolean;
 

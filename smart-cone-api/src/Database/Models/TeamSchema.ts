@@ -1,7 +1,9 @@
 import { Table, Column, Model, NotNull, AllowNull } from "sequelize-typescript";
 import { Team } from "../../Teams/Team";
 
-@Table
+@Table({
+    modelName: "Teams"
+})
 export class TeamSchema extends Model<TeamSchema> implements Team {
     constructor(team?: Team) {
         super();
