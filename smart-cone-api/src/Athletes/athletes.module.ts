@@ -3,8 +3,10 @@ import { DatabaseModule } from "../Database/database.module";
 import { Module, NestModule, MiddlewaresConsumer } from "@nestjs/common";
 
 import * as passport from "passport";
+import { AthletesService } from "./athletes.service";
 
 @Module({
+    components: [AthletesService],
     controllers: [AthletesController],
     imports: [DatabaseModule]
 })

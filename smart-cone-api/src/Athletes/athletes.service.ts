@@ -15,7 +15,7 @@ export class AthletesService {
         return AthleteSchema.all();
     }
 
-    async addAthleteToDb(athlete: AthleteSchema): Promise<DatabaseResponse> {
+    private async addAthleteToDb(athlete: AthleteSchema): Promise<DatabaseResponse> {
         return new Promise<DatabaseResponse>((resolve, reject) => {
             athlete
                 .save()

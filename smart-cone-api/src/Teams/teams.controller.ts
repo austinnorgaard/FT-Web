@@ -13,7 +13,7 @@ export class TeamsController {
             .addTeam(team)
             .then(response => {
                 console.log("Team added!!");
-                return JSON.stringify(response);
+                return;
             })
             .catch(reason => {
                 console.log(`Failed to add team. Reason: ${JSON.stringify(reason)}`);
@@ -34,9 +34,9 @@ export class TeamsController {
                 console.log(`Returning ${response.length} teams.`);
                 return response;
             })
-            .catch(reason => {
-                console.log(`Failed to get teams. Reason: ${JSON.stringify(reason)}`);
-                throw new HttpException(reason, HttpStatus.INTERNAL_SERVER_ERROR);
+            .catch(err => {
+                console.log(`Failed to get teams. Reason: ${JSON.stringify(err)}`);
+                throw new HttpException(err, HttpStatus.INTERNAL_SERVER_ERROR);
             });
     }
 }
