@@ -23,7 +23,8 @@ import {
     MatSidenavModule,
     MatIconModule,
     MatTooltipModule,
-    MatRadioModule
+    MatRadioModule,
+    MatDividerModule
 } from "@angular/material";
 import { ChangeDetectorRef } from "@angular/core";
 
@@ -109,6 +110,7 @@ const config: SocketIoConfig = {
         MatCardModule,
         MatExpansionModule,
         MatGridListModule,
+        MatDividerModule,
         HttpModule,
         HttpClientModule,
         SocketIoModule.forRoot(config),
