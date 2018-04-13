@@ -49,7 +49,7 @@ import { HttpHelper } from "./http-helper";
 
 import { SocketIoModule, SocketIoConfig } from "ng-socket-io";
 import * as c from "../../global-config";
-import { WelcomePageComponent } from "./welcome-page/welcome-page.component";
+import { HomePageComponent } from "./home-page/home-page.component";
 import { RegisterPageComponent } from "./register-page/register-page.component";
 import { NavMenuContentComponent } from "./nav-menu-content/nav-menu-content.component";
 import { StatusIndicatorComponent } from "./status-indicator/status-indicator.component";
@@ -63,7 +63,7 @@ import { LoginService } from "./api/login.service";
 import { AuthHeaderInterceptor } from "./_services/auth-header-interceptor";
 import { AthleteManagementComponent } from "./athlete-management/athlete-management.component";
 import { AthleteManagementService } from "./api/athlete-management.service";
-import { LoginPageComponent } from './login-page/login-page.component';
+import { LoginPageComponent } from "./login-page/login-page.component";
 
 const config: SocketIoConfig = {
     url: c.getSmartConeApiSocketUrl(),
@@ -82,7 +82,7 @@ const config: SocketIoConfig = {
         PlayersComponent,
         PlayerComponent,
         SegmentComponent,
-        WelcomePageComponent,
+        HomePageComponent,
         RegisterPageComponent,
         NavMenuContentComponent,
         StatusIndicatorComponent,
