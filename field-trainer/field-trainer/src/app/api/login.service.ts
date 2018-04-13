@@ -18,6 +18,7 @@ export class LoginService {
             .then(response => {
                 console.log(response);
                 localStorage.setItem("token", response.access_token);
+                console.log(localStorage.getItem("token"));
                 return Promise.resolve(true);
             })
             .catch(err => {
