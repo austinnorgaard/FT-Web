@@ -11,7 +11,7 @@ export class AuthService {
     constructor() {}
 
     generateToken(email: string): JwtToken {
-        const expiresIn = 30; // only for testing!
+        const expiresIn = 60 * 60 * 24; // only for testing!
         const jwtUser = { email: email };
         const token = jwt.sign(jwtUser, FtJwtSecret, { expiresIn });
         return new JwtToken(token, expiresIn);
@@ -36,9 +36,6 @@ export class AuthService {
     }
 
     async validateUser(signedUser): Promise<boolean> {
-        console.log("validating user!");
-        // good place to check that the token isn't expired
-        console.log(signedUser);
         return true;
     }
 }

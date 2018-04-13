@@ -16,9 +16,7 @@ export class LoginService {
             .post<JwtToken>(config.toSmartConeHttp("/auth/login"), credentials)
             .toPromise()
             .then(response => {
-                console.log(response);
                 localStorage.setItem("token", response.access_token);
-                console.log(localStorage.getItem("token"));
                 return Promise.resolve(true);
             })
             .catch(err => {
