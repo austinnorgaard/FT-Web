@@ -23,5 +23,5 @@ export class TeamSchema extends Model<TeamSchema> implements Team {
     teamGender: string;
 
     @BelongsToMany(() => AthleteSchema, () => AthleteTeamSchema)
-    teamAthletes: Athlete[];
+    teamAthletes: AthleteSchema[];
 }
