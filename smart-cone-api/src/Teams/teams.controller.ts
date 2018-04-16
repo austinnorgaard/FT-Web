@@ -1,7 +1,9 @@
-import { Controller, Post, Get, Body, HttpStatus, HttpException } from "@nestjs/common";
+import { Controller, Post, Get, Body, HttpStatus, HttpException, Put } from "@nestjs/common";
 import { TeamsService } from "./teams.service";
 import { DatabaseFailureType } from "../Database/Data/DatabaseEnums";
 import { Team } from "./Team";
+import { TeamSchema } from "../Database/Models/TeamSchema";
+import { AthleteSchema } from "../Database/Models/AthleteSchema";
 
 @Controller("teams")
 export class TeamsController {
@@ -38,5 +40,23 @@ export class TeamsController {
                 console.log(`Failed to get teams. Reason: ${JSON.stringify(err)}`);
                 throw new HttpException(err, HttpStatus.INTERNAL_SERVER_ERROR);
             });
+    }
+
+    @Put()
+    async test() {
+        TeamSchema.findOne({}).then(team => {
+            // add an athlete based on a name
+            AthleteSchema.findOne({
+                where: {
+                    firstName: "Rachel"
+                }
+            }).then(athlete => {
+                console.log(`Found: ${athlete.firstName}`);
+                team.$add("teamAthletes", athlete).then(response => {
+                    console.log("Success");
+                });
+            });
+            //team.teamAthletes.push()
+        });
     }
 }

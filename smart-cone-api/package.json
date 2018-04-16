@@ -16,6 +16,7 @@
     "@nestjs/microservices": "^4.5.8",
     "@nestjs/testing": "^4.5.5",
     "@nestjs/websockets": "^4.5.8",
+    "@types/sequelize": "^4.27.14",
     "bcrypt": "^1.0.3",
     "class-transformer": "^0.1.9",
     "jsonwebtoken": "^8.2.0",

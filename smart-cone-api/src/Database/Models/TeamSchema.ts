@@ -1,20 +1,16 @@
-import { Table, Column, Model, NotNull, AllowNull } from "sequelize-typescript";
+import { Table, Column, Model, NotNull, AllowNull, HasMany, BelongsToMany } from "sequelize-typescript";
 import { Team } from "../../Teams/Team";
+import { Athlete } from "../../Athletes/athlete";
+import { AthleteSchemaTeamSchema } from "./AthleteSchemaTeamSchema";
+import { AthleteSchema } from "./AthleteSchema";
 
-@Table({
-    modelName: "Teams"
-})
+@Table
 export class TeamSchema extends Model<TeamSchema> implements Team {
-    constructor(team?: Team) {
-        super();
-        Object.assign(this, team);
-    }
-
     @AllowNull(false)
     @Column({
         unique: "uniqueTeam"
     })
-    teamName: string;
+    public teamName: string;
 
     @Column({
         unique: "uniqueTeam"
@@ -23,4 +19,7 @@ export class TeamSchema extends Model<TeamSchema> implements Team {
 
     @Column({ unique: "uniqueTeam" })
     teamGender: string;
+
+    @BelongsToMany(() => AthleteSchema, () => AthleteSchemaTeamSchema)
+    teamAthletes: Athlete[];
 }
