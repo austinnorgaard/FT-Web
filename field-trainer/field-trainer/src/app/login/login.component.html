@@ -16,4 +16,6 @@
             <button mat-raised-button color="primary" class="login-form-buttons" routerLink="/register">Register</button>
         </div>
     </div>
+    <br />
+    <ngb-alert [type]="this.alertType" *ngIf="this.alertShown" (click)="this.alertShown=false">Email or password incorrect, try again</ngb-alert>
 </div>

@@ -12,6 +12,9 @@ export class LoginComponent implements OnInit {
     public email: string;
     public password: string;
     private returnUrl: string;
+    private alertShown: boolean = false;
+    private alertType: string = "danger";
+    alertTimeout: NodeJS.Timer;
 
     constructor(
         private loginService: LoginService,
@@ -34,6 +37,12 @@ export class LoginComponent implements OnInit {
                 this.router.navigateByUrl(this.returnUrl);
             } else {
                 console.log("Failed to login. Bad email or password");
+                this.alertShown = true;
+                clearTimeout(this.alertTimeout);
+                this.alertTimeout = setTimeout(
+                    () => (this.alertShown = false),
+                    5000
+                );
             }
         });
     }
