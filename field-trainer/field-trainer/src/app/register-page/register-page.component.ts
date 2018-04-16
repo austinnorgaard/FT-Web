@@ -3,6 +3,7 @@ import { UserManagementService } from "../api/user-management.service";
 import { FormControl, Validators } from "@angular/forms";
 import { UserRegistration } from "../../../../../smart-cone-api/src/Users/user-registration";
 import { UserRegistrationModel } from "../models/user-registration";
+import { Router } from "@angular/router";
 
 @Component({
     selector: "ft-app-register-page",
@@ -38,7 +39,10 @@ export class RegisterPageComponent {
 
     submitted = false;
 
-    constructor(private userManagement: UserManagementService) {}
+    constructor(
+        private userManagement: UserManagementService,
+        private router: Router
+    ) {}
 
     submit(): void {
         if (!this.emailFormControl.valid || !this.passwordFormControl.valid) {
@@ -52,6 +56,7 @@ export class RegisterPageComponent {
             .createUser(this.userRegistration)
             .then(response => {
                 console.log("User created successfully!!");
+                this.router.navigateByUrl("/"); // w/e we have set as our home page
             })
             .catch(err => {
                 console.log(err);
