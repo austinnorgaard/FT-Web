@@ -1,3 +1,17 @@
-<p>
-  team-management works!
-</p>
+<h2 class="ft-page-header">
+    Manage Teams
+</h2>
+<div fxLayout="column" style="margin-left: 0.5em; margin-right: 0.5em">
+    <div fxLayout="row" fxLayoutGap="0.5em">
+        <mat-form-field fxFlex>
+            <mat-select [placeholder]="this.getTeamDropdownPlaceholderText" name="selectedTeam" [(ngModel)]="this.selectedTeam">
+                <mat-option *ngFor="let team of availableTeams" [value]="team">
+                    {{team.teamName}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <div fxFlex="20%">
+            <button> + </button>
+        </div>
+    </div>
+</div>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { TeamModel } from "../models/team";
 
 @Component({
     selector: "ft-team-management-page",
@@ -6,6 +7,9 @@ import { Component, OnInit } from "@angular/core";
     styleUrls: ["./team-management-page.component.css"]
 })
 export class TeamManagementPageComponent implements OnInit {
+    availableTeams: TeamModel[] = [];
+    selectedTeam: TeamModel = null;
+
     constructor() {}
 
     ngOnInit() {}
