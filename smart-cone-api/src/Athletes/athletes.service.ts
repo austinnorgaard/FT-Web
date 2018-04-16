@@ -3,6 +3,7 @@ import { AthleteSchema } from "../Database/Models/AthleteSchema";
 import { Athlete } from "./athlete";
 import { DatabaseResponse } from "../Database/Data/DatabaseResponse";
 import { DatabaseError } from "../Utility/database-error";
+import { TeamSchema } from "../Database/Models/TeamSchema";
 
 @Component()
 export class AthletesService {
@@ -12,7 +13,9 @@ export class AthletesService {
     }
 
     async getAthletes(): Promise<Athlete[]> {
-        return AthleteSchema.all();
+        return AthleteSchema.all({
+            include: [TeamSchema]
+        });
     }
 
     private async addAthleteToDb(athlete: AthleteSchema): Promise<DatabaseResponse> {
