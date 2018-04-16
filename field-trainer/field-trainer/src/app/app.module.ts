@@ -65,7 +65,7 @@ import { AuthHeaderInterceptor } from "./_services/auth-header-interceptor";
 import { AthleteManagementComponent } from "./athlete-management/athlete-management.component";
 import { AthleteManagementService } from "./api/athlete-management.service";
 import { LoginPageComponent } from "./login-page/login-page.component";
-import { TeamManagementComponent } from './team-management/team-management.component';
+import { TeamManagementPageComponent } from "./team-management-page/team-management-page.component";
 
 const config: SocketIoConfig = {
     url: c.getSmartConeApiSocketUrl(),
@@ -92,7 +92,7 @@ const config: SocketIoConfig = {
         AddTeamComponent,
         AthleteManagementComponent,
         LoginPageComponent,
-        TeamManagementComponent
+        TeamManagementPageComponent
     ],
     imports: [
         NgbModule.forRoot(),
