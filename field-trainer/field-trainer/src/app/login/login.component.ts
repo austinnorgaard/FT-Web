@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { LoginService } from "../api/login.service";
 import { LoginCredentialsModel } from "../models/login-credentials";
+import { Router, ActivatedRoute } from "@angular/router";
 
 @Component({
     selector: "ft-login",
@@ -10,10 +11,19 @@ import { LoginCredentialsModel } from "../models/login-credentials";
 export class LoginComponent implements OnInit {
     public email: string;
     public password: string;
+    private returnUrl: string;
 
-    constructor(private loginService: LoginService) {}
+    constructor(
+        private loginService: LoginService,
+        private router: Router,
+        private route: ActivatedRoute
+    ) {}
 
-    ngOnInit() {}
+    ngOnInit() {
+        // grab the return url, default to home if none specified (user clicked
+        // directly onto the login page)
+        this.returnUrl = this.route.snapshot.queryParams["returnUrl"] || "/";
+    }
 
     login() {
         let credentials = new LoginCredentialsModel(this.email, this.password);
@@ -21,6 +31,7 @@ export class LoginComponent implements OnInit {
         this.loginService.login(credentials).then(response => {
             if (response) {
                 console.log("logged in!");
+                this.router.navigateByUrl(this.returnUrl);
             } else {
                 console.log("Failed to login. Bad email or password");
             }
