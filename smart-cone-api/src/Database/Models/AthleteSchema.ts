@@ -1,11 +1,13 @@
 import { Table, Column, AllowNull, Model, BelongsToMany } from "sequelize-typescript";
 import { Athlete } from "../../Athletes/athlete";
 import { Parent } from "../../Athletes/parent";
-import { AthleteSchemaTeamSchema } from "./AthleteSchemaTeamSchema";
+import { AthleteTeamSchema } from "./AthleteTeamSchema";
 import { TeamSchema } from "./TeamSchema";
 import { Team } from "../../Teams/Team";
 
-@Table
+@Table({
+    modelName: "Athletes"
+})
 export class AthleteSchema extends Model<AthleteSchema> implements Athlete {
     @Column firstName: string;
     @Column lastName: string;
@@ -38,6 +40,6 @@ export class AthleteSchema extends Model<AthleteSchema> implements Athlete {
     @Column
     parent2Phone: string;
 
-    @BelongsToMany(() => TeamSchema, () => AthleteSchemaTeamSchema)
+    @BelongsToMany(() => TeamSchema, () => AthleteTeamSchema)
     teams: TeamSchema[];
 }

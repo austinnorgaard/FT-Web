@@ -3,8 +3,10 @@ import { Athlete } from "../../Athletes/athlete";
 import { AthleteSchema } from "./AthleteSchema";
 import { TeamSchema } from "./TeamSchema";
 
-@Table
-export class AthleteSchemaTeamSchema extends Model<AthleteSchemaTeamSchema> {
+@Table({
+    modelName: "AthleteTeam"
+})
+export class AthleteTeamSchema extends Model<AthleteTeamSchema> {
     @ForeignKey(() => TeamSchema)
     @Column
     teamId: number;

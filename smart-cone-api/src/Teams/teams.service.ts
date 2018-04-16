@@ -4,6 +4,7 @@ import { DatabaseResponse } from "../Database/Data/DatabaseResponse";
 import { DatabaseFailureType } from "../Database/Data/DatabaseEnums";
 import { Team } from "./Team";
 import { DatabaseError } from "../Utility/database-error";
+import { AthleteSchema } from "../Database/Models/AthleteSchema";
 
 @Component()
 export class TeamsService {
@@ -13,7 +14,9 @@ export class TeamsService {
     }
 
     async getTeams(): Promise<Team[]> {
-        return TeamSchema.all();
+        return TeamSchema.all({
+            include: [AthleteSchema]
+        });
     }
 
     async addTeamToDb(team: TeamSchema): Promise<DatabaseResponse> {

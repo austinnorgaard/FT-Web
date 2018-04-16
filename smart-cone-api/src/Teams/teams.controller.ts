@@ -33,6 +33,7 @@ export class TeamsController {
         return await this.teamsService
             .getTeams()
             .then((response: Team[]) => {
+                console.log(`Info ${JSON.stringify(response[0].teamAthletes)}`);
                 console.log(`Returning ${response.length} teams.`);
                 return response;
             })
@@ -44,11 +45,15 @@ export class TeamsController {
 
     @Put()
     async test() {
-        TeamSchema.findOne({}).then(team => {
+        TeamSchema.findOne({
+            where: {
+                teamName: "TestTeam2"
+            }
+        }).then(team => {
             // add an athlete based on a name
             AthleteSchema.findOne({
                 where: {
-                    firstName: "Rachel"
+                    firstName: "Keaton"
                 }
             }).then(athlete => {
                 console.log(`Found: ${athlete.firstName}`);
@@ -56,7 +61,6 @@ export class TeamsController {
                     console.log("Success");
                 });
             });
-            //team.teamAthletes.push()
         });
     }
 }
