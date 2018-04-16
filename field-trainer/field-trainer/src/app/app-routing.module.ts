@@ -11,7 +11,7 @@ import { AthleteManagementComponent } from "./athlete-management/athlete-managem
 import { LoginPageComponent } from "./login-page/login-page.component";
 
 const routes: Routes = [
-    { path: "", redirectTo: "/register", pathMatch: "full" },
+    { path: "", redirectTo: "/home", pathMatch: "full" },
     { path: "home", component: HomePageComponent },
     { path: "setup", component: SetupComponent },
     { path: "session", component: FTSessionComponent },
