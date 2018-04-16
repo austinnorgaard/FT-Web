@@ -17,4 +17,9 @@
             </button>
         </div>
     </div>
+    <ul *ngIf="this.selectedTeam !== null && this.selectedTeam.teamAthletes !== null">
+        <li *ngFor="let player of this.selectedTeam.teamAthletes">
+            {{player.firstName}}
+        </li>
+    </ul>
 </div>

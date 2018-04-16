@@ -42,6 +42,9 @@ export class TeamManagementPageComponent implements OnInit {
 
     onTeamChanged() {
         console.log(`Team selected; ${this.selectedTeam.teamName}`);
+        console.log(
+            `This team has ${this.selectedTeam.teamAthletes.length} athletes.`
+        );
 
         // Grab the athletes for this team and set them
     }
