@@ -1,5 +1,5 @@
 <h2 style="margin-left: 0.5em;">Registration</h2>
-<form #userRegisterForm="ngForm" (ngSubmit)="submit()" fxLayout="column" fxLayoutGap="0.5em" class="ft-form-container">
+<form #userRegisterForm="ngForm" autocomplete="false" (ngSubmit)="submit()" fxLayout="column" fxLayoutGap="0.5em" class="ft-form-container">
     <div fxLayoutGap="0.5em">
         <mat-form-field fxFlex>
             <input matInput [(ngModel)]="userRegistration.user.firstName" name="firstName" placeholder="First Name" required />
@@ -53,8 +53,8 @@
     </div>
     <div fxLayoutGap="0.5em">
         <mat-form-field fxFlex>
-            <input matInput [(ngModel)]="userRegistration.password" name="password" type="password" placeholder="Password" [formControl]="passwordFormControl"
-                required />
+            <input matInput [(ngModel)]="userRegistration.password" autocomplete="new-password" name="password" type="password" placeholder="Password"
+                [formControl]="passwordFormControl" required />
             <mat-error *ngIf="passwordFormControl.invalid">Password at least 8 characters</mat-error>
         </mat-form-field>
     </div>
