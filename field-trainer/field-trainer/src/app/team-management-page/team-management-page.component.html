@@ -18,28 +18,55 @@
         </div>
     </div>
     <div fxFlex>
-        <perfect-scrollbar style="max-width: 600px; max-height: 300px">
-            <div>
-                <mat-list role="listbox" *ngIf="this.selectedTeam !== null && this.selectedTeam.teamAthletes !== null">
-                    <mat-list-item role="listitem" *ngFor="let player of this.selectedTeam.teamAthletes">
-                        {{player.firstName}}
-                    </mat-list-item>
-                    <mat-list-item>Keaton</mat-list-item>
-                    <mat-list-item>Keaton</mat-list-item>
-                    <mat-list-item>Keaton</mat-list-item>
-                    <mat-list-item>Keaton</mat-list-item>
-                    <mat-list-item>Keaton</mat-list-item>
-                    <mat-list-item>Keaton</mat-list-item>
-                    <mat-list-item>Keaton</mat-list-item>
-                    <mat-list-item>Keaton</mat-list-item>
-                    <mat-list-item>Keaton</mat-list-item>
-                    <mat-list-item>Keaton</mat-list-item>
-                    <mat-list-item>Keaton</mat-list-item>
-                    <mat-list-item>Keaton</mat-list-item>
+        <div fxLayout="row">
+            <div fxFlex>
+                <h3>On Team</h3>
+                <perfect-scrollbar style="position: relative; max-height: 300px">
 
-                </mat-list>
+                    <div>
+                        <mat-list role="listbox" *ngIf="this.selectedTeam !== null && this.selectedTeam.teamAthletes !== null">
+                            <mat-list-item role="listitem" *ngFor="let player of this.selectedTeam.teamAthletes">
+                                {{player.firstName}}
+                            </mat-list-item>
+                            <mat-list-item>Keaton</mat-list-item>
+                            <mat-list-item>Keaton</mat-list-item>
+                            <mat-list-item>Keaton</mat-list-item>
+                            <mat-list-item>Keaton</mat-list-item>
+                            <mat-list-item>Keaton</mat-list-item>
+                            <mat-list-item>Keaton</mat-list-item>
+                            <mat-list-item>Keaton</mat-list-item>
+                            <mat-list-item>Keaton</mat-list-item>
+                            <mat-list-item>Keaton</mat-list-item>
+                            <mat-list-item>Keaton</mat-list-item>
+                            <mat-list-item>Keaton</mat-list-item>
+                            <mat-list-item>Keaton</mat-list-item>
+
+                        </mat-list>
+                    </div>
+                </perfect-scrollbar>
             </div>
-        </perfect-scrollbar>
+            <div fxFlex>
+                <h3>Available</h3>
+                <perfect-scrollbar style="position: relative; max-height: 300px">
+                    <div>
+                        <mat-list role="listbox">
+                            <mat-list-item>Keaton</mat-list-item>
+                            <mat-list-item>Keaton</mat-list-item>
+                            <mat-list-item>Keaton</mat-list-item>
+                            <mat-list-item>Keaton</mat-list-item>
+                            <mat-list-item>Keaton</mat-list-item>
+                            <mat-list-item>Keaton</mat-list-item>
+                            <mat-list-item>Keaton</mat-list-item>
+                            <mat-list-item>Keaton</mat-list-item>
+                            <mat-list-item>Keaton</mat-list-item>
+                            <mat-list-item>Keaton</mat-list-item>
+                            <mat-list-item>Keaton</mat-list-item>
+                            <mat-list-item>Keaton</mat-list-item>
+                        </mat-list>
+                    </div>
+                </perfect-scrollbar>
+            </div>
+        </div>
     </div>
     <div fxFlex>
         THi is some
