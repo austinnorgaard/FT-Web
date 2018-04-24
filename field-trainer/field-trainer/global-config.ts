@@ -1,26 +1,27 @@
-// Set this field to the IP of the start-cone or device hosting the front-end
-export const start_cone_ip = "192.168.1.115";
+export class FieldTrainerConfig {
+    constructor(
+        public startConeIp?: string,
+        public frontEndPort?: string,
+        public smartConeApiHttpPort?: string,
+        public coneApiSocketPort?: string,
+        public smartConeApiSocketPort?: string,
+        public coneApiHttpPort?: string
+    ) {}
 
-// The port the front-end website is hosted on
-export const front_end_port = "4200";
+    public toSmartConeHttp(route: string = "/"): string {
+        return `http://${this.startConeIp}:${this.smartConeApiHttpPort}${route}`;
+    }
 
-// The port the smart_cone is hosting their http server on
-export const smart_cone_api_http_port = "3000";
-
-// The port the smart_cone is hosting the cone_api server on (cone -> smart_cone)
-export const cone_api_socket_port = "3001";
-
-// The port the smart_cone is hosting the smart_cone_api server on (front-end -> smart_cone)
-export const smart_cone_api_socket_port = "3000";
-
-// The port each cone (except the smart_cone) is hosting their http server on
-export const cone_api_http_port = "3100";
-
-// Given a route, returns the correct path to the start cone's http server
-export function toSmartConeHttp(route = "/"): string {
-    return `http://${start_cone_ip}:${smart_cone_api_http_port}${route}`;
+    public getSmartConeApiSocketUrl(): string {
+        return `http://${this.startConeIp}:${this.smartConeApiSocketPort}`;
+    }
 }
 
-export function getSmartConeApiSocketUrl(): string {
-    return `http://${start_cone_ip}:${smart_cone_api_socket_port}`;
-}
+export const FT_CONFIG: FieldTrainerConfig = new FieldTrainerConfig({
+    startConeIp: "192.168.1.115",
+    frontEndPort: "4200",
+    smartConeApiHttpPort: "3000",
+    coneApiSocketPort: "3001",
+    smartConeApiSocketPort: "3000",
+    coneApiHttpPort: "3100"
+} as any); // As 'any' so we can get named params to make this easier to change in future
