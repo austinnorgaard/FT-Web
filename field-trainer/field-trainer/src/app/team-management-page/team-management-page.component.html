@@ -21,7 +21,7 @@
                 <h4>On Team</h4>
                 <perfect-scrollbar style="position: relative; max-height: 300px">
                     <div>
-                        <mat-list role="listbox" *ngIf="this.selectedTeam !== null && this.selectedTeam.teamAthletes !== null">
+                        <mat-list #teamAthletesList role="listbox">
                             <mat-list-item role="listitem" *ngFor="let player of this.selectedTeam.teamAthletes">
                                 <span>{{player.id}} - {{player.firstName}} {{player.lastName}}</span>
                             </mat-list-item>

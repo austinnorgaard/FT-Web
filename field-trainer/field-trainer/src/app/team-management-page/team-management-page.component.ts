@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild, AfterViewInit, ElementRef } from "@angular/core";
 import { TeamModel } from "../models/team";
 import { Router } from "@angular/router";
 import { TeamManagementService } from "../api/team-management.service";
@@ -6,6 +6,7 @@ import { AthleteModel } from "../models/athlete";
 import { AthleteManagementService } from "../api/athlete-management.service";
 import { Team } from "../../../../../smart-cone-api/src/Teams/team";
 import { Athlete } from "../../../../../smart-cone-api/src/Athletes/athlete";
+import { MatSelectionList, MatSelectionListChange } from "@angular/material";
 
 @Component({
     selector: "ft-team-management-page",
