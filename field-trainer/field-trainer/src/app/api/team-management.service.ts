@@ -1,12 +1,12 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Team } from "../../../../../smart-cone-api/src/Teams/team";
-
-import * as config from "../../../global-config";
-import "rxjs/add/operator/toPromise";
-import "rxjs/add/operator/map";
+import { FT_CONFIG } from "../../../global-config";
 import { DatabaseResponse } from "../../../../../smart-cone-api/src/Database/Data/DatabaseResponse";
 import { Observable } from "rxjs/Observable";
+
+import "rxjs/add/operator/toPromise";
+import "rxjs/add/operator/map";
 
 @Injectable()
 export class TeamManagementService {
@@ -14,14 +14,14 @@ export class TeamManagementService {
 
     createTeam(team: Team): Promise<DatabaseResponse> {
         return this.http
-            .post<DatabaseResponse>(config.toSmartConeHttp("/teams"), team)
+            .post<DatabaseResponse>(FT_CONFIG.toSmartConeHttp("/teams"), team)
             .toPromise()
             .catch(err => Promise.reject(err as DatabaseResponse));
     }
 
     getTeams(): Promise<Team[]> {
         return this.http
-            .get<Team[]>(config.toSmartConeHttp("/teams"))
+            .get<Team[]>(FT_CONFIG.toSmartConeHttp("/teams"))
             .toPromise()
             .catch(err => Promise.reject(err));
     }

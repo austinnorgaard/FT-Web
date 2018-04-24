@@ -57,7 +57,7 @@ import { TeamManagementService } from "./api/team-management.service";
 import { HttpHelper } from "./http-helper";
 
 import { SocketIoModule, SocketIoConfig } from "ng-socket-io";
-import * as c from "../../global-config";
+import { FT_CONFIG } from "../../global-config";
 import { HomePageComponent } from "./home-page/home-page.component";
 import { RegisterPageComponent } from "./register-page/register-page.component";
 import { NavMenuContentComponent } from "./nav-menu-content/nav-menu-content.component";
@@ -76,7 +76,7 @@ import { LoginPageComponent } from "./login-page/login-page.component";
 import { TeamManagementPageComponent } from "./team-management-page/team-management-page.component";
 
 const config: SocketIoConfig = {
-    url: c.getSmartConeApiSocketUrl(),
+    url: FT_CONFIG.getSmartConeApiSocketUrl(),
     options: {}
 };
 

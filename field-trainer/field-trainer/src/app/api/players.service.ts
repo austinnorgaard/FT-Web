@@ -2,8 +2,8 @@ import { Injectable } from "@angular/core";
 import { Player } from "../models/player";
 import { HttpUtil } from "../utility";
 import { HttpClient } from "@angular/common/http";
+import { FT_CONFIG } from "../../../global-config";
 
-import * as config from "../../../global-config";
 import "rxjs/add/operator/toPromise";
 
 @Injectable()
@@ -11,7 +11,7 @@ export class PlayersService {
     constructor(private http: HttpClient) {}
 
     getPlayers(): Promise<Player[]> {
-        return HttpUtil.get(config.toSmartConeHttp("/get_players"))
+        return HttpUtil.get(FT_CONFIG.toSmartConeHttp("/get_players"))
             .then(response => {
                 return response.players as Player[];
             })
@@ -20,14 +20,14 @@ export class PlayersService {
 
     addPlayer(name: string): Promise<void> {
         return this.http
-            .post(config.toSmartConeHttp("/add_player"), { name: name })
+            .post(FT_CONFIG.toSmartConeHttp("/add_player"), { name: name })
             .toPromise()
             .then(response => {});
     }
 
     removePlayer(name: string): Promise<void> {
         return this.http
-            .post(config.toSmartConeHttp("/remove_player"), { name: name })
+            .post(FT_CONFIG.toSmartConeHttp("/remove_player"), { name: name })
             .toPromise()
             .then(response => {});
     }

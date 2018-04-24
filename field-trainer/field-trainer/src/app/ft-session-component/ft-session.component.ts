@@ -14,7 +14,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core";
 import { Socket } from "ng-socket-io";
 
 import * as io from "socket.io";
-import * as config from "../../../global-config";
+import { FT_CONFIG } from "../../../global-config";
 
 @Component({
     selector: "ft-session",
@@ -45,11 +45,7 @@ export class FTSessionComponent implements OnInit {
         const segment_a: Segment = new Segment(1, 2, "jog", false, 0.0);
         const segment_b: Segment = new Segment(2, 3, "run", false, 0.0);
         const segment_c: Segment = new Segment(3, 4, "walk", false, 0.0);
-        const course: TrainingCourse = new TrainingCourse([
-            segment_a,
-            segment_b,
-            segment_c
-        ]);
+        const course: TrainingCourse = new TrainingCourse([segment_a, segment_b, segment_c]);
 
         this.playersService.getPlayers().then(players => {
             console.log(players);
@@ -61,23 +57,16 @@ export class FTSessionComponent implements OnInit {
                 this.player_sessions.push(session);
             });
 
-            console.log(
-                "Created " + this.player_sessions.length + " player sessions."
-            );
+            console.log("Created " + this.player_sessions.length + " player sessions.");
             console.log(this.player_sessions);
 
             console.log("sending: " + JSON.stringify(this.player_sessions));
 
             // set the initial state
-            this.http
-                .post(
-                    config.toSmartConeHttp("/set_player_data"),
-                    this.player_sessions
-                )
-                .subscribe(res => {
-                    console.log("Post done.");
-                    console.log(res);
-                });
+            this.http.post(FT_CONFIG.toSmartConeHttp("/set_player_data"), this.player_sessions).subscribe(res => {
+                console.log("Post done.");
+                console.log(res);
+            });
         });
 
         console.log("Try connect");
@@ -93,16 +82,12 @@ export class FTSessionComponent implements OnInit {
             // the current state
             console.log("Getting current data...");
 
-            self.http
-                .get<PlayerSession[]>(
-                    config.toSmartConeHttp("/get_player_data")
-                )
-                .subscribe(data => {
-                    console.log("Got player data!");
-                    self.player_sessions = data;
+            self.http.get<PlayerSession[]>(FT_CONFIG.toSmartConeHttp("/get_player_data")).subscribe(data => {
+                console.log("Got player data!");
+                self.player_sessions = data;
 
-                    console.log(self.player_sessions);
-                });
+                console.log(self.player_sessions);
+            });
         });
     }
 

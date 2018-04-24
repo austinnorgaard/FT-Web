@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Headers, Http } from "@angular/http";
 import { HttpClient } from "@angular/common/http";
-import * as config from "../../../global-config";
+import { FT_CONFIG } from "../../../global-config";
 
 import "rxjs/add/operator/toPromise";
 
@@ -11,9 +11,7 @@ export class PlayerSessionService {
 
     public startSession(uuid: string) {
         // start a session for a player referenced by uuid
-        return this.http
-            .post(config.toSmartConeHttp("/player_start"), { uuid: uuid })
-            .toPromise();
+        return this.http.post(FT_CONFIG.toSmartConeHttp("/player_start"), { uuid: uuid }).toPromise();
     }
 
     private handleError(error: any): Promise<any> {
