@@ -1,4 +1,4 @@
-import { Table, Column, AllowNull, Model, BelongsToMany } from "sequelize-typescript";
+import { Table, Column, AllowNull, Model, BelongsToMany, PrimaryKey } from "sequelize-typescript";
 import { Athlete } from "../../Athletes/athlete";
 import { Parent } from "../../Athletes/parent";
 import { AthleteTeamSchema } from "./AthleteTeamSchema";
@@ -9,6 +9,10 @@ import { Team } from "../../Teams/Team";
     modelName: "Athletes"
 })
 export class AthleteSchema extends Model<AthleteSchema> implements Athlete {
+    @PrimaryKey
+    @Column
+    id: number;
+
     @Column firstName: string;
     @Column lastName: string;
     @Column email: string;

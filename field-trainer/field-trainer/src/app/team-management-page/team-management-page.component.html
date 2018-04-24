@@ -1,74 +1,49 @@
-<h2 class="ft-page-header">
-    Manage Teams
-</h2>
-<div fxLayout="column" style="margin-left: 1.5em; margin-right: 1.5em">
-    <div fxLayout="row" fxLayoutGap="0.5em" fxLayoutAlign="center center">
-        <mat-form-field fxFlex>
-            <mat-select (selectionChange)="onTeamChanged()" [placeholder]="this.getTeamDropdownPlaceholderText()" name="selectedTeam"
-                [(ngModel)]="this.selectedTeam">
-                <mat-option *ngFor="let team of availableTeams" [value]="team">
-                    {{team.teamName}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-        <div fxFlex="10%">
-            <button mat-icon-button (click)="addPlayer()">
-                <mat-icon style="font-size: 2em; color: green;" class="material-icons">add_box</mat-icon>
-            </button>
+<div fxFlexFill fxLayout="column">
+    <div fxFlex="10%" style="margin-left: 1em; margin-right: 1em">
+        <div fxLayout="row" fxLayoutGap="0.5em" fxLayoutAlign="center center">
+            <mat-form-field fxFlex>
+                <mat-select (selectionChange)="onTeamChanged()" [placeholder]="this.getTeamDropdownPlaceholderText()" name="selectedTeam" [(ngModel)]="this.selectedTeam">
+                    <mat-option *ngFor="let team of availableTeams" [value]="team">
+                        {{team.teamName}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <div fxFlex="10%">
+                <button mat-icon-button (click)="addPlayer()">
+                    <mat-icon style="font-size: 2em; color: green;" class="material-icons">add_box</mat-icon>
+                </button>
+            </div>
         </div>
     </div>
-    <div fxFlex>
+    <div fxFlex="50%" *ngIf="this.selectedTeam !== null" style="margin-left: 1em; margin-right: 1em">
         <div fxLayout="row">
             <div fxFlex>
-                <h3>On Team</h3>
+                <h4>On Team</h4>
                 <perfect-scrollbar style="position: relative; max-height: 300px">
-
                     <div>
                         <mat-list role="listbox" *ngIf="this.selectedTeam !== null && this.selectedTeam.teamAthletes !== null">
                             <mat-list-item role="listitem" *ngFor="let player of this.selectedTeam.teamAthletes">
-                                {{player.firstName}}
+                                <span>{{player.id}} - {{player.firstName}} {{player.lastName}}</span>
                             </mat-list-item>
-                            <mat-list-item>Keaton</mat-list-item>
-                            <mat-list-item>Keaton</mat-list-item>
-                            <mat-list-item>Keaton</mat-list-item>
-                            <mat-list-item>Keaton</mat-list-item>
-                            <mat-list-item>Keaton</mat-list-item>
-                            <mat-list-item>Keaton</mat-list-item>
-                            <mat-list-item>Keaton</mat-list-item>
-                            <mat-list-item>Keaton</mat-list-item>
-                            <mat-list-item>Keaton</mat-list-item>
-                            <mat-list-item>Keaton</mat-list-item>
-                            <mat-list-item>Keaton</mat-list-item>
-                            <mat-list-item>Keaton</mat-list-item>
-
                         </mat-list>
                     </div>
                 </perfect-scrollbar>
             </div>
             <div fxFlex>
-                <h3>Available</h3>
+                <h4>Available</h4>
                 <perfect-scrollbar style="position: relative; max-height: 300px">
                     <div>
-                        <mat-list role="listbox">
-                            <mat-list-item>Keaton</mat-list-item>
-                            <mat-list-item>Keaton</mat-list-item>
-                            <mat-list-item>Keaton</mat-list-item>
-                            <mat-list-item>Keaton</mat-list-item>
-                            <mat-list-item>Keaton</mat-list-item>
-                            <mat-list-item>Keaton</mat-list-item>
-                            <mat-list-item>Keaton</mat-list-item>
-                            <mat-list-item>Keaton</mat-list-item>
-                            <mat-list-item>Keaton</mat-list-item>
-                            <mat-list-item>Keaton</mat-list-item>
-                            <mat-list-item>Keaton</mat-list-item>
-                            <mat-list-item>Keaton</mat-list-item>
+                        <mat-list role="listbox" *ngIf="this.availableAthletes.length !== 0">
+                            <mat-list-item role="listitem" *ngFor="let athlete of this.availableAthletes">
+                                <span>{{athlete.firstName}} {{athlete.lastName}}</span>
+                            </mat-list-item>
                         </mat-list>
                     </div>
                 </perfect-scrollbar>
             </div>
         </div>
     </div>
-    <div fxFlex>
+    <div fxFlex="30%" fxLayoutAlign="start end" style="background: grey" style="margin-left: 1em; margin-right: 1em">
         THi is some
         <br /> Foot content
         <br /> that takes up some

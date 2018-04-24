@@ -1,4 +1,4 @@
-import { Table, Column, Model, NotNull, AllowNull, HasMany, BelongsToMany } from "sequelize-typescript";
+import { Table, Column, Model, NotNull, AllowNull, HasMany, BelongsToMany, PrimaryKey } from "sequelize-typescript";
 import { Team } from "../../Teams/Team";
 import { Athlete } from "../../Athletes/athlete";
 import { AthleteSchema } from "./AthleteSchema";
@@ -8,6 +8,10 @@ import { AthleteTeamSchema } from "./AthleteTeamSchema";
     modelName: "Teams"
 })
 export class TeamSchema extends Model<TeamSchema> implements Team {
+    @PrimaryKey
+    @Column
+    id: number;
+
     @AllowNull(false)
     @Column({
         unique: "uniqueTeam"

@@ -1,7 +1,11 @@
-import { IsString, IsOptional, IsNumber } from "class-validator";
+import { IsString, IsOptional, IsNumber, ValidateNested } from "class-validator";
 import { Parent } from "./parent";
+import { Team } from "../Teams/team";
+import { Type } from "class-transformer";
 
 export abstract class Athlete {
+    @IsNumber() id: number;
+
     @IsString() firstName: string;
 
     @IsString() lastName: string;
@@ -21,4 +25,8 @@ export abstract class Athlete {
     @IsOptional() parent2Name: string;
     @IsOptional() parent2Email: string;
     @IsOptional() parent2Phone: string;
+
+    @ValidateNested()
+    @Type(() => Team)
+    teams: Team[];
 }
