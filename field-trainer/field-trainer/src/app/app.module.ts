@@ -75,6 +75,8 @@ import { AthleteManagementService } from "./api/athlete-management.service";
 import { LoginPageComponent } from "./login-page/login-page.component";
 import { TeamManagementPageComponent } from "./team-management-page/team-management-page.component";
 
+import { DragulaModule } from "ng2-dragula";
+
 const config: SocketIoConfig = {
     url: FT_CONFIG.getSmartConeApiSocketUrl(),
     options: {}
@@ -130,7 +132,8 @@ const config: SocketIoConfig = {
         MatIconModule,
         MatTooltipModule,
         MatRadioModule,
-        PerfectScrollbarModule
+        PerfectScrollbarModule,
+        DragulaModule
     ],
     providers: [
         ConesService,
