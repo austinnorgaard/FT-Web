@@ -13,15 +13,16 @@ export class FieldTrainerConfig {
     }
 
     public getSmartConeApiSocketUrl(): string {
+        console.log(`returning: http://${this.startConeIp}:${this.smartConeApiSocketPort}`);
         return `http://${this.startConeIp}:${this.smartConeApiSocketPort}`;
     }
 }
 
-export const FT_CONFIG: FieldTrainerConfig = new FieldTrainerConfig({
-    startConeIp: "192.168.1.115",
-    frontEndPort: "4200",
-    smartConeApiHttpPort: "3000",
-    coneApiSocketPort: "3001",
-    smartConeApiSocketPort: "3000",
-    coneApiHttpPort: "3100"
-} as any); // As 'any' so we can get named params to make this easier to change in future
+export const FT_CONFIG: FieldTrainerConfig = new FieldTrainerConfig(
+    "192.168.1.115",
+    "4200",
+    "3000",
+    "3001",
+    "3000",
+    "3100"
+);
