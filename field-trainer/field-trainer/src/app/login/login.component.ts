@@ -12,15 +12,11 @@ export class LoginComponent implements OnInit {
     public email: string;
     public password: string;
     private returnUrl: string;
-    private alertShown: boolean = false;
-    private alertType: string = "danger";
+    public alertShown: boolean = false;
+    public alertType: string = "danger";
     alertTimeout: NodeJS.Timer;
 
-    constructor(
-        private loginService: LoginService,
-        private router: Router,
-        private route: ActivatedRoute
-    ) {}
+    constructor(private loginService: LoginService, private router: Router, private route: ActivatedRoute) {}
 
     ngOnInit() {
         // grab the return url, default to home if none specified (user clicked
@@ -39,10 +35,7 @@ export class LoginComponent implements OnInit {
                 console.log("Failed to login. Bad email or password");
                 this.alertShown = true;
                 clearTimeout(this.alertTimeout);
-                this.alertTimeout = setTimeout(
-                    () => (this.alertShown = false),
-                    5000
-                );
+                this.alertTimeout = setTimeout(() => (this.alertShown = false), 5000);
             }
         });
     }

@@ -76,10 +76,11 @@ import { LoginPageComponent } from "./login-page/login-page.component";
 import { TeamManagementPageComponent } from "./team-management-page/team-management-page.component";
 
 import { DragulaModule } from "ng2-dragula";
-import { TeamManagementAthleteComponent } from './team-management-athlete/team-management-athlete.component';
+import { TeamManagementAthleteComponent } from "./team-management-athlete/team-management-athlete.component";
 
+//let ip = FT_CONFIG.getSmartConeApiSocketUrl();
 const config: SocketIoConfig = {
-    url: FT_CONFIG.getSmartConeApiSocketUrl(),
+    url: "192.168.1.115:3001",
     options: {}
 };
 

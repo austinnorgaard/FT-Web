@@ -3,6 +3,10 @@ import { Parent } from "./parent";
 import { Team } from "../Teams/team";
 import { Type } from "class-transformer";
 
+function t() {
+    return Team;
+}
+
 export abstract class Athlete {
     @IsOptional()
     @IsNumber()
@@ -29,6 +33,6 @@ export abstract class Athlete {
     @IsOptional() parent2Phone: string;
 
     @ValidateNested()
-    @Type(() => Team)
+    @Type(t)
     teams: Team[];
 }

@@ -3,13 +3,20 @@ import { Team } from "../Teams/Team";
 import { IsOptional, ValidateNested, IsDefined } from "class-validator";
 import { Type } from "class-transformer";
 
+function a() {
+    return Athlete;
+}
+function t() {
+    return Team;
+}
 export abstract class AthleteRegistration {
     @ValidateNested()
-    @Type(() => Athlete)
+    @Type(a)
     @IsDefined()
     athlete: Athlete;
 
     @ValidateNested()
-    @Type(() => Team)
-    @IsOptional() team: Team;
+    @Type(t)
+    @IsOptional()
+    team: Team;
 }
