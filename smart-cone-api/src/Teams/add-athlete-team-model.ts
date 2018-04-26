@@ -1,16 +1,10 @@
 import { Athlete } from "../Athletes/athlete";
 import { Team } from "./Team";
-import { IsDefined, ValidateNested } from "class-validator";
+import { IsDefined, ValidateNested, IsNumber } from "class-validator";
 import { Type } from "class-transformer";
 
 export class AddAthleteTeamModel {
-    @ValidateNested()
-    @Type(() => Team)
-    @IsDefined()
-    athlete: Athlete;
+    @IsNumber() athleteId: number;
 
-    @ValidateNested()
-    @Type(() => Team)
-    @IsDefined()
-    team: Team;
+    @IsNumber() teamId: number;
 }

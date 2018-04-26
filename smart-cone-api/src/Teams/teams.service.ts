@@ -34,19 +34,19 @@ export class TeamsService {
         });
     }
 
-    async addAthleteToTeam(team: Team, athlete: Athlete): Promise<DatabaseResponse> {
+    async addAthleteToTeam(teamId: number, athleteId: number): Promise<DatabaseResponse> {
         // We have an Athlete id and
         return new Promise<DatabaseResponse>((resolve, reject) => {
             TeamSchema.findOne({
                 where: {
-                    id: team.id
+                    id: teamId
                 }
             })
                 .then(team => {
                     // Found our team, lets find our Athlete next
                     AthleteSchema.findOne({
                         where: {
-                            id: athlete.id
+                            id: athleteId
                         }
                     })
                         .then(athlete => {
@@ -62,12 +62,12 @@ export class TeamsService {
                                 });
                         })
                         .catch(err => {
-                            console.log(`Could not find athlete with id ${athlete.id}`);
+                            console.log(`Could not find athlete with id ${athleteId}`);
                             reject(DatabaseError.GetResponse(err));
                         });
                 })
                 .catch(err => {
-                    console.log(`Could not find team with id ${team.id}`);
+                    console.log(`Could not find team with id ${teamId}`);
                     reject(DatabaseError.GetResponse(err));
                 });
         });

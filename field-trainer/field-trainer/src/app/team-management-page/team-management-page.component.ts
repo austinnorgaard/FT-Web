@@ -7,6 +7,8 @@ import { AthleteManagementService } from "../api/athlete-management.service";
 import { Team } from "../../../../../smart-cone-api/src/Teams/team";
 import { Athlete } from "../../../../../smart-cone-api/src/Athletes/athlete";
 import { MatSelectionList, MatSelectionListChange } from "@angular/material";
+import { AddAthleteTeamModel } from "../../../../../smart-cone-api/src/Teams/add-athlete-team-model";
+import { DatabaseResponse } from "../../../../../smart-cone-api/src/Database/Data/DatabaseResponse";
 
 @Component({
     selector: "ft-team-management-page",
@@ -19,11 +21,7 @@ export class TeamManagementPageComponent implements OnInit {
 
     availableAthletes: AthleteModel[] = [];
 
-    constructor(
-        private router: Router,
-        private teamsService: TeamManagementService,
-        private athletesService: AthleteManagementService
-    ) {}
+    constructor(private router: Router, private teamsService: TeamManagementService, private athletesService: AthleteManagementService) {}
 
     ngOnInit() {
         this.teamsService
@@ -88,5 +86,21 @@ export class TeamManagementPageComponent implements OnInit {
 
     onAthleteAdded(athlete: AthleteModel) {
         console.log(`${athlete.firstName} ${athlete.lastName} added`);
+        var data: AddAthleteTeamModel = {
+            athleteId: athlete.id,
+            teamId: this.selectedTeam.id
+        } as AddAthleteTeamModel;
+
+        console.log(JSON.stringify(data));
+
+        this.teamsService
+            .addAthleteToTeam(data)
+            .then(response => {
+                console.log(`Athlete added successfully to team`);
+            })
+            .catch((error: DatabaseResponse) => {
+                console.log(`Failed to add athlete.`);
+                console.log(error);
+            });
     }
 }

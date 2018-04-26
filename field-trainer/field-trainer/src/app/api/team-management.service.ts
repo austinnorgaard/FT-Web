@@ -3,6 +3,7 @@ import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Team } from "../../../../../smart-cone-api/src/Teams/team";
 import { FT_CONFIG } from "../../../global-config";
 import { DatabaseResponse } from "../../../../../smart-cone-api/src/Database/Data/DatabaseResponse";
+import { AddAthleteTeamModel } from "../../../../../smart-cone-api/src/Teams/add-athlete-team-model";
 import { Observable } from "rxjs/Observable";
 
 import "rxjs/add/operator/toPromise";
@@ -27,7 +28,12 @@ export class TeamManagementService {
             .catch(err => Promise.reject(err));
     }
 
-    addAthleteToTeam(athlete: Athlete) {}
+    addAthleteToTeam(data: AddAthleteTeamModel) {
+        return this.http
+            .post<DatabaseResponse>(FT_CONFIG.toSmartConeHttp("/teams/add-athlete"), data)
+            .toPromise()
+            .catch(err => Promise.reject(err as DatabaseResponse));
+    }
 
     removeAthleteFromTeam(athlete: Athlete) {}
 }

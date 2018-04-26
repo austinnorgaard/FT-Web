@@ -45,13 +45,14 @@ export class TeamsController {
             });
     }
 
-    @Post("add-athlete")
+    @Post("/add-athlete")
     async addAthleteToTeam(@Body() data: AddAthleteTeamModel) {
+        console.log("Add-athlete");
         return await this.teamsService
-            .addAthleteToTeam(data.team, data.athlete)
+            .addAthleteToTeam(data.teamId, data.athleteId)
             .then(response => {
                 console.log("Athlete added successfully.");
-                return;
+                return new DatabaseResponse(true, "Added to team successfully.");
             })
             .catch((response: DatabaseResponse) => {
                 console.log(`Failed to add athlete to team. Reason: ${JSON.stringify(response)}`);
