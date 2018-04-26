@@ -1,5 +1,5 @@
-<div fxFlexFill fxLayout="column">
-    <div fxFlex="10%" style="margin-left: 1em; margin-right: 1em">
+<div fxLayout="column">
+    <div fxFlex style="margin-left: 1em; margin-right: 1em">
         <div fxLayout="row" fxLayoutGap="0.5em" fxLayoutAlign="center center">
             <mat-form-field fxFlex>
                 <mat-select (selectionChange)="onTeamChanged()" [placeholder]="this.getTeamDropdownPlaceholderText()" name="selectedTeam" [(ngModel)]="this.selectedTeam">
@@ -15,40 +15,34 @@
             </div>
         </div>
     </div>
-    <div fxFlex="50%" *ngIf="this.selectedTeam !== null" style="margin-left: 1em; margin-right: 1em">
-        <div fxLayout="row">
-            <div fxFlex>
-                <h4>On Team</h4>
-                <perfect-scrollbar style="position: relative; max-height: 300px">
-                    <div>
-                        <mat-list #teamAthletesList role="listbox">
-                            <mat-list-item role="listitem" *ngFor="let player of this.selectedTeam.teamAthletes">
-                                <span>{{player.id}} - {{player.firstName}} {{player.lastName}}</span>
-                            </mat-list-item>
-                        </mat-list>
-                    </div>
-                </perfect-scrollbar>
-            </div>
-            <div fxFlex>
-                <h4>Available</h4>
-                <perfect-scrollbar style="position: relative; max-height: 300px">
-                    <div>
-                        <mat-list role="listbox" *ngIf="this.availableAthletes.length !== 0">
-                            <mat-list-item role="listitem" *ngFor="let athlete of this.availableAthletes">
-                                <span>{{athlete.firstName}} {{athlete.lastName}}</span>
-                            </mat-list-item>
-                        </mat-list>
-                    </div>
-                </perfect-scrollbar>
+    <div fxFlex>
+        <div *ngIf="this.selectedTeam !== null" style="margin-left: 1em; margin-right: 1em">
+            <div fxLayout="row">
+                <div fxFlex>
+                    <h4>On Team</h4>
+                    <perfect-scrollbar style="position: relative; max-height: 300px">
+                        <div>
+                            <mat-list #teamAthletesList role="listbox">
+                                <mat-list-item role="listitem" *ngFor="let player of this.selectedTeam.teamAthletes">
+                                    <span>{{player.id}} - {{player.firstName}} {{player.lastName}}</span>
+                                </mat-list-item>
+                            </mat-list>
+                        </div>
+                    </perfect-scrollbar>
+                </div>
+                <div fxFlex>
+                    <h4>Available</h4>
+                    <perfect-scrollbar style="position: relative; max-height: 300px">
+                        <div>
+                            <mat-list role="listbox" *ngIf="this.availableAthletes.length !== 0">
+                                <mat-list-item role="listitem" *ngFor="let athlete of this.availableAthletes">
+                                    <span>{{athlete.firstName}} {{athlete.lastName}}</span>
+                                </mat-list-item>
+                            </mat-list>
+                        </div>
+                    </perfect-scrollbar>
+                </div>
             </div>
         </div>
-    </div>
-    <div fxFlex="30%" fxLayoutAlign="start end" style="background: grey" style="margin-left: 1em; margin-right: 1em">
-        THi is some
-        <br /> Foot content
-        <br /> that takes up some
-        <br /> space that i am
-        <br /> just testing out
-        <br />
     </div>
 </div>
