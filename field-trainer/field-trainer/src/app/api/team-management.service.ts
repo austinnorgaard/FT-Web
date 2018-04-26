@@ -7,6 +7,7 @@ import { Observable } from "rxjs/Observable";
 
 import "rxjs/add/operator/toPromise";
 import "rxjs/add/operator/map";
+import { Athlete } from "../../../../../smart-cone-api/src/Athletes/athlete";
 
 @Injectable()
 export class TeamManagementService {
@@ -25,4 +26,8 @@ export class TeamManagementService {
             .toPromise()
             .catch(err => Promise.reject(err));
     }
+
+    addAthleteToTeam(athlete: Athlete) {}
+
+    removeAthleteFromTeam(athlete: Athlete) {}
 }

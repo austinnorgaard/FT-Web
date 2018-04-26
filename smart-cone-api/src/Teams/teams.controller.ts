@@ -4,6 +4,8 @@ import { DatabaseFailureType } from "../Database/Data/DatabaseEnums";
 import { Team } from "./Team";
 import { TeamSchema } from "../Database/Models/TeamSchema";
 import { AthleteSchema } from "../Database/Models/AthleteSchema";
+import { AddAthleteTeamModel } from "./add-athlete-team-model";
+import { DatabaseResponse } from "../Database/Data/DatabaseResponse";
 
 @Controller("teams")
 export class TeamsController {
@@ -40,6 +42,20 @@ export class TeamsController {
             .catch(err => {
                 console.log(`Failed to get teams. Reason: ${JSON.stringify(err)}`);
                 throw new HttpException(err, HttpStatus.INTERNAL_SERVER_ERROR);
+            });
+    }
+
+    @Post("add-athlete")
+    async addAthleteToTeam(@Body() data: AddAthleteTeamModel) {
+        return await this.teamsService
+            .addAthleteToTeam(data.team, data.athlete)
+            .then(response => {
+                console.log("Athlete added successfully.");
+                return;
+            })
+            .catch((response: DatabaseResponse) => {
+                console.log(`Failed to add athlete to team. Reason: ${JSON.stringify(response)}`);
+                throw new HttpException(response, HttpStatus.INTERNAL_SERVER_ERROR);
             });
     }
 
