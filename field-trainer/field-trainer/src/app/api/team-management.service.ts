@@ -43,5 +43,10 @@ export class TeamManagementService {
             .catch(err => Promise.reject(err as DatabaseResponse));
     }
 
-    removeAthleteFromTeam(athlete: Athlete) {}
+    removeAthleteFromTeam(data: AddAthleteTeamModel) {
+        return this.http
+            .post<DatabaseResponse>(FT_CONFIG.toSmartConeHttp("/teams/remove-athlete"), data)
+            .toPromise()
+            .catch(err => Promise.reject(err as DatabaseResponse));
+    }
 }

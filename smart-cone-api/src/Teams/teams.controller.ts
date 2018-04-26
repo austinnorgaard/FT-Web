@@ -74,6 +74,21 @@ export class TeamsController {
             });
     }
 
+    @Post("remove-athlete")
+    async removeAthleteFromTeam(@Body() data: AddAthleteTeamModel) {
+        console.log("Remove athlete");
+        return await this.teamsService
+            .removeAthleteFromTeam(data.teamId, data.athleteId)
+            .then(response => {
+                console.log("Athlete removed successfully.");
+                return response;
+            })
+            .catch((response: DatabaseResponse) => {
+                console.log(`Failed to remove athlete from team. Reason: ${JSON.stringify(response)}`);
+                throw new HttpException(response, HttpStatus.INTERNAL_SERVER_ERROR);
+            });
+    }
+
     @Put()
     async test() {
         TeamSchema.findOne({

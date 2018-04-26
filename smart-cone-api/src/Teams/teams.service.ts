@@ -84,23 +84,42 @@ export class TeamsService {
         });
     }
 
-    // async test() {
-    //     TeamSchema.findOne({
-    //         where: {
-    //             teamName: "TestTeam2"
-    //         }
-    //     }).then(team => {
-    //         // add an athlete based on a name
-    //         AthleteSchema.findOne({
-    //             where: {
-    //                 firstName: "Keaton"
-    //             }
-    //         }).then(athlete => {
-    //             console.log(`Found: ${athlete.firstName}`);
-    //             team.$add("teamAthletes", athlete).then(response => {
-    //                 console.log("Success");
-    //             });
-    //         });
-    //     });
-    // }
+    async removeAthleteFromTeam(teamId: number, athleteId: number): Promise<DatabaseResponse> {
+        return new Promise<DatabaseResponse>((resolve, reject) => {
+            TeamSchema.findOne({
+                where: {
+                    id: teamId
+                }
+            })
+                .then(team => {
+                    AthleteSchema.findOne({
+                        where: {
+                            id: athleteId
+                        }
+                    })
+                        .then(athlete => {
+                            console.log(`Got athlete ${athlete.id} team ${team.id}`);
+                            team
+                                .$remove("teamAthletes", athlete)
+                                .then(response => {
+                                    console.log(`Removed athlete ${athlete.firstName} ${athlete.lastName} from team ${team.teamName}`);
+                                    resolve(new DatabaseResponse(true, "Removed athlete from team."));
+                                })
+                                .catch(err => {
+                                    console.log("Failed to remove athlete from team.");
+                                    console.log(err);
+                                    reject(DatabaseError.GetResponse(err));
+                                });
+                        })
+                        .catch(err => {
+                            console.log(`Could not find athlete with id ${athleteId}`);
+                            reject(DatabaseError.GetResponse(err));
+                        });
+                })
+                .catch(err => {
+                    console.log(`Could not find team with id ${teamId}`);
+                    reject(DatabaseError.GetResponse(err));
+                });
+        });
+    }
 }

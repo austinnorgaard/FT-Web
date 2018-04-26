@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, AfterViewInit, ElementRef } from "@angular/core";
 import { TeamModel } from "../models/team";
-import { Router } from "@angular/router";
+import { Router, Data } from "@angular/router";
 import { TeamManagementService } from "../api/team-management.service";
 import { AthleteModel } from "../models/athlete";
 import { AthleteManagementService } from "../api/athlete-management.service";
@@ -101,6 +101,27 @@ export class TeamManagementPageComponent implements OnInit {
 
     onAthleteRemoved(athlete: AthleteModel) {
         console.log(`${athlete.firstName} ${athlete.lastName} removed.`);
+        // in hindsight, silly name. The "AddAthleteTeamModel" is just an
+        // athlete/team combo
+        var data: AddAthleteTeamModel = {
+            athleteId: athlete.id,
+            teamId: this.selectedTeam.id
+        } as AddAthleteTeamModel;
+
+        console.log(JSON.stringify(data));
+
+        this.teamsService
+            .removeAthleteFromTeam(data)
+            .then((response: DatabaseResponse) => {
+                console.log("Athlete removed from team");
+
+                this.updateAthletes();
+                this.updateTeamAthletes();
+            })
+            .catch((error: DatabaseResponse) => {
+                console.log("Failed to remove athlete");
+                console.log(error);
+            });
     }
 
     onAthleteAdded(athlete: AthleteModel) {
