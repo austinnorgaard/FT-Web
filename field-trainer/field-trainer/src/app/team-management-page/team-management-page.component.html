@@ -1,4 +1,4 @@
-<div fxLayout="column">
+<div fxLayout="column" style="margin-top: 0.5em">
     <div fxFlex style="margin-left: 1em; margin-right: 1em">
         <div fxLayout="row" fxLayoutGap="0.5em" fxLayoutAlign="center center">
             <mat-form-field fxFlex>
@@ -17,32 +17,26 @@
     </div>
     <div fxFlex>
         <div *ngIf="this.selectedTeam !== null" style="margin-left: 1em; margin-right: 1em">
-            <div fxLayout="row">
+            <div fxLayout="column">
                 <div fxFlex>
                     <h4>On Team</h4>
-                    <perfect-scrollbar style="position: relative; max-height: 300px">
-                        <div>
-                            <mat-list #teamAthletesList role="listbox">
-                                <mat-list-item role="listitem" *ngFor="let player of this.selectedTeam.teamAthletes">
-                                    <span>{{player.id}} - {{player.firstName}} {{player.lastName}}</span>
-                                </mat-list-item>
-                            </mat-list>
-                        </div>
+                    <perfect-scrollbar *ngIf="this.selectedTeam !== null" style="position: relative; max-height: 300px">
+                        <mat-accordion *ngFor="let player of this.selectedTeam.teamAthletes">
+                            <ft-team-management-athlete [athlete]="player"></ft-team-management-athlete>
+                        </mat-accordion>
                     </perfect-scrollbar>
                 </div>
                 <div fxFlex>
                     <h4>Available</h4>
-                    <perfect-scrollbar style="position: relative; max-height: 300px">
-                        <div>
-                            <mat-list role="listbox" *ngIf="this.availableAthletes.length !== 0">
-                                <mat-list-item role="listitem" *ngFor="let athlete of this.availableAthletes">
-                                    <span>{{athlete.firstName}} {{athlete.lastName}}</span>
-                                </mat-list-item>
-                            </mat-list>
-                        </div>
+                    <perfect-scrollbar *ngIf="this.availableAthletes.length !== 0" style="position: relative; max-height: 300px">
+                        <mat-accordion *ngFor="let athlete of this.availableAthletes">
+                            <ft-team-management-athlete [athlete]="athlete"></ft-team-management-athlete>
+                        </mat-accordion>
                     </perfect-scrollbar>
+                    <span *ngIf="this.availableAthletes.length === 0">No athletes remaining</span>
                 </div>
             </div>
         </div>
+        <span *ngIf="this.selectedTeam === null" style="margin-left: 1em;">Select a team from the dropdown</span>
     </div>
 </div>
