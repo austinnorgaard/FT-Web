@@ -40,26 +40,25 @@
     </div>
     <div fxLayoutGap="0.5em">
         <mat-form-field fxFlex>
-            <input matInput [(ngModel)]="userRegistration.user.phoneNumber" name="phoneNumber" type="tel" placeholder="Phone Number"
-                required />
+            <input matInput [(ngModel)]="userRegistration.user.phoneNumber" name="phoneNumber" type="tel" placeholder="Phone Number" required />
         </mat-form-field>
     </div>
     <div fxLayoutGap="0.5em">
         <mat-form-field fxFlex>
-            <input matInput [(ngModel)]="userRegistration.user.email" name="emailAddress" type="text" required placeholder="Email Address (this is your login!)"
-                [formControl]="emailFormControl" />
+            <input matInput [(ngModel)]="userRegistration.user.email" name="emailAddress" type="text" required placeholder="Email Address (this is your login!)" [formControl]="emailFormControl"
+            />
             <mat-error *ngIf="emailFormControl.invalid">Email format is invalid</mat-error>
         </mat-form-field>
     </div>
     <div fxLayoutGap="0.5em">
         <mat-form-field fxFlex>
-            <input matInput [(ngModel)]="userRegistration.password" autocomplete="new-password" name="password" type="password" placeholder="Password"
-                [formControl]="passwordFormControl" required />
+            <input matInput [(ngModel)]="userRegistration.password" autocomplete="new-password" name="password" type="password" placeholder="Password" [formControl]="passwordFormControl"
+                required />
             <mat-error *ngIf="passwordFormControl.invalid">Password at least 8 characters</mat-error>
         </mat-form-field>
     </div>
     <div fxLayoutGap="0.5em">
-        <mat-checkbox [(ngModel)]="userRegistration.user.subscribeToNewsletter" name="subscribe">Subscribe to newsletter</mat-checkbox>
+        <mat-checkbox [(ngModel)]="userRegistration.user.subscribedToNewsLetter" name="subscribe">Subscribe to newsletter</mat-checkbox>
     </div>
     <ngb-alert type="danger" *ngIf="!this.alertClosed" (close)="this.alertClosed = true;">Email address is already in use!</ngb-alert>
     <div fxLayoutAlign="space-around">

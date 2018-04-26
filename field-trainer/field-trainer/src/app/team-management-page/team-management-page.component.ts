@@ -81,4 +81,12 @@ export class TeamManagementPageComponent implements OnInit {
                 console.log("Could not find any athletes.");
             });
     }
+
+    onAthleteRemoved(athlete: AthleteModel) {
+        console.log(`${athlete.firstName} ${athlete.lastName} removed.`);
+    }
+
+    onAthleteAdded(athlete: AthleteModel) {
+        console.log(`${athlete.firstName} ${athlete.lastName} added`);
+    }
 }

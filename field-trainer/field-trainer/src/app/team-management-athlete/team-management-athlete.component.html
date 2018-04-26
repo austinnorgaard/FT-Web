@@ -4,5 +4,19 @@
             <span>{{athlete.firstName}} {{athlete.lastName}}</span>
         </mat-panel-title>
     </mat-expansion-panel-header>
-    Content!
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+        <div fxFlex="1 1 auto">
+            <!-- Athlete info-->
+            {{athlete.height}} {{athlete.weight}} lbs
+        </div>
+        <div fxFlex>
+            <!-- Add or delete button-->
+            <button mat-raised-button mat-button color="primary" *ngIf="this.mode === 'add'" (click)="this.add()">
+                Add to team
+            </button>
+            <button mat-raised-button mat-button color="primary" *ngIf="this.mode === 'remove'" (click)="this.remove()">
+                Remove from team
+            </button>
+        </div>
+    </div>
 </mat-expansion-panel>

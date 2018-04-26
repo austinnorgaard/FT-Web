@@ -28,8 +28,9 @@
  * 
  */
 
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, Output } from "@angular/core";
 import { AthleteModel } from "../models/athlete";
+import { EventEmitter } from "@angular/core";
 
 @Component({
     selector: "ft-team-management-athlete",
@@ -41,7 +42,19 @@ export class TeamManagementAthleteComponent implements OnInit {
     // "add" or "remove", anything else is invalid and may throw
     @Input() mode: string;
 
+    @Output() added: EventEmitter<AthleteModel> = new EventEmitter<AthleteModel>();
+
+    @Output() removed: EventEmitter<AthleteModel> = new EventEmitter<AthleteModel>();
+
     constructor() {}
 
     ngOnInit() {}
+
+    add() {
+        this.added.emit(this.athlete);
+    }
+
+    remove() {
+        this.removed.emit(this.athlete);
+    }
 }
