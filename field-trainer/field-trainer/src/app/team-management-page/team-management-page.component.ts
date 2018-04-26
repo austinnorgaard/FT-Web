@@ -24,16 +24,8 @@ export class TeamManagementPageComponent implements OnInit {
     constructor(private router: Router, private teamsService: TeamManagementService, private athletesService: AthleteManagementService) {}
 
     ngOnInit() {
-        this.teamsService
-            .getTeams()
-            .then((teams: TeamModel[]) => {
-                this.availableTeams = teams;
-            })
-            .catch(err => {
-                console.log("Could not find any teams.");
-            });
-
         this.updateAthletes();
+        this.updateTeams();
     }
 
     addPlayer() {
@@ -80,6 +72,33 @@ export class TeamManagementPageComponent implements OnInit {
             });
     }
 
+    updateTeams() {
+        this.teamsService
+            .getTeams()
+            .then((teams: TeamModel[]) => {
+                this.availableTeams = teams;
+            })
+            .catch(err => {
+                console.log("Could not find any teams.");
+            });
+    }
+
+    updateTeamAthletes() {
+        // updates the local athletes list model for the selected team
+        // Ask the server for the team details
+        this.teamsService
+            .getTeamById(this.selectedTeam.id)
+            .then((team: Team) => {
+                console.log("updateTeamAthletes -> Got Team");
+                // update our local copy of the team with the one we just grabbed
+                this.selectedTeam.teamAthletes = team.teamAthletes;
+            })
+            .catch(err => {
+                console.log(`ERROR: Failed to get team with id: ${this.selectedTeam.id}. This should NOT happen!`);
+                return;
+            });
+    }
+
     onAthleteRemoved(athlete: AthleteModel) {
         console.log(`${athlete.firstName} ${athlete.lastName} removed.`);
     }
@@ -95,8 +114,11 @@ export class TeamManagementPageComponent implements OnInit {
 
         this.teamsService
             .addAthleteToTeam(data)
-            .then(response => {
-                console.log(`Athlete added successfully to team`);
+            .then((response: DatabaseResponse) => {
+                console.log("Athlete added successfully to team");
+
+                this.updateAthletes();
+                this.updateTeamAthletes();
             })
             .catch((error: DatabaseResponse) => {
                 console.log(`Failed to add athlete.`);

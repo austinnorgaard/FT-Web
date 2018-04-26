@@ -20,6 +20,16 @@ export class TeamsService {
         });
     }
 
+    async getTeamById(teamId: number): Promise<Team> {
+        return TeamSchema.findOne({
+            where: {
+                id: teamId
+            },
+            include: [AthleteSchema],
+            rejectOnEmpty: true
+        });
+    }
+
     async addTeamToDb(team: TeamSchema): Promise<DatabaseResponse> {
         return new Promise<DatabaseResponse>((resolve, reject) => {
             team
@@ -55,6 +65,7 @@ export class TeamsService {
                                 .$add("teamAthletes", athlete)
                                 .then(response => {
                                     console.log(`Added athlete ${athlete.firstName} ${athlete.lastName} to team ${team.teamName}`);
+                                    resolve(new DatabaseResponse(true, "Added athlete to team."));
                                 })
                                 .catch(err => {
                                     console.log("Failed to add athlete to team.");

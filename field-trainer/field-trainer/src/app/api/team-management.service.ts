@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpErrorResponse } from "@angular/common/http";
+import { HttpClient, HttpErrorResponse, HttpParams } from "@angular/common/http";
 import { Team } from "../../../../../smart-cone-api/src/Teams/team";
 import { FT_CONFIG } from "../../../global-config";
 import { DatabaseResponse } from "../../../../../smart-cone-api/src/Database/Data/DatabaseResponse";
@@ -24,6 +24,14 @@ export class TeamManagementService {
     getTeams(): Promise<Team[]> {
         return this.http
             .get<Team[]>(FT_CONFIG.toSmartConeHttp("/teams"))
+            .toPromise()
+            .catch(err => Promise.reject(err));
+    }
+
+    getTeamById(id: number): Promise<Team> {
+        let params = new HttpParams().set("id", id.toString());
+        return this.http
+            .get<Team>(FT_CONFIG.toSmartConeHttp("/teams/by-id"), { params: params })
             .toPromise()
             .catch(err => Promise.reject(err));
     }
