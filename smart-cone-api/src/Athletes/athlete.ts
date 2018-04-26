@@ -4,7 +4,9 @@ import { Team } from "../Teams/team";
 import { Type } from "class-transformer";
 
 export abstract class Athlete {
-    @IsNumber() id: number;
+    @IsOptional()
+    @IsNumber()
+    id: number;
 
     @IsString() firstName: string;
 
