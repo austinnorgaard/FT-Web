@@ -103,7 +103,7 @@ export class TeamManagementPageComponent implements OnInit {
         console.log(`${athlete.firstName} ${athlete.lastName} removed.`);
         // in hindsight, silly name. The "AddAthleteTeamModel" is just an
         // athlete/team combo
-        let data: AddAthleteTeamModel = {
+        const data: AddAthleteTeamModel = {
             athleteId: athlete.id,
             teamId: this.selectedTeam.id
         } as AddAthleteTeamModel;
@@ -126,7 +126,7 @@ export class TeamManagementPageComponent implements OnInit {
 
     onAthleteAdded(athlete: AthleteModel) {
         console.log(`${athlete.firstName} ${athlete.lastName} added`);
-        var data: AddAthleteTeamModel = {
+        const data: AddAthleteTeamModel = {
             athleteId: athlete.id,
             teamId: this.selectedTeam.id
         } as AddAthleteTeamModel;

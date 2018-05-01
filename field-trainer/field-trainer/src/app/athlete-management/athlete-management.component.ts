@@ -149,7 +149,7 @@ export class AthleteManagementComponent implements OnInit {
         console.log(this.athleteForSubmission);
 
         // create registration data
-        let registrationData = {
+        const registrationData = {
             athlete: this.athleteForSubmission,
             team: this.selectedTeam
         } as AthleteRegistrationModel;

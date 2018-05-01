@@ -14,7 +14,7 @@ export class RegisterPageComponent {
     userRegistration: UserRegistrationModel = new UserRegistrationModel();
 
     readonly prefixes: string[] = ["Mr", "Mrs", "Ms"];
-    public alertClosed: boolean = true;
+    public alertClosed = true;
 
     public emailFormControl = new FormControl("", [
         Validators.required,

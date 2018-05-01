@@ -21,10 +21,7 @@ export class AddTeamComponent {
     alertType = "success";
     alertTimeout: NodeJS.Timer;
 
-    public teamNameFormControl = new FormControl("", [
-        Validators.required,
-        Validators.minLength(3)
-    ]);
+    public teamNameFormControl = new FormControl("", [Validators.required, Validators.minLength(3)]);
 
     public ageGroupFormControl = new FormControl("", [Validators.required]);
 
@@ -44,11 +41,8 @@ export class AddTeamComponent {
             })
             .catch((err: DatabaseResponse) => {
                 console.log("Caught error!");
-                let message =
-                    err.failureType ===
-                    DatabaseFailureType.UniqueConstraintViolated
-                        ? "This team already exists."
-                        : "Unknown server error!";
+                const message =
+                    err.failureType === DatabaseFailureType.UniqueConstraintViolated ? "This team already exists." : "Unknown server error!";
 
                 this.showAlert(message, "danger", 5000);
             });
@@ -57,10 +51,7 @@ export class AddTeamComponent {
     showAlert(message: string, type: string, timeout: number) {
         this.alertShouldBeDisplayed = true;
         clearTimeout(this.alertTimeout);
-        this.alertTimeout = setTimeout(
-            () => (this.alertShouldBeDisplayed = false),
-            timeout
-        );
+        this.alertTimeout = setTimeout(() => (this.alertShouldBeDisplayed = false), timeout);
         this.alertMessage = message;
         this.alertType = type;
     }

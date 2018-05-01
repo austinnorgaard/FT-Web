@@ -29,7 +29,7 @@ export class TeamManagementService {
     }
 
     getTeamById(id: number): Promise<Team> {
-        let params = new HttpParams().set("id", id.toString());
+        const params = new HttpParams().set("id", id.toString());
         return this.http
             .get<Team>(FT_CONFIG.toSmartConeHttp("/teams/by-id"), { params: params })
             .toPromise()

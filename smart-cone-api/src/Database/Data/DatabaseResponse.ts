@@ -5,6 +5,6 @@ export class DatabaseResponse {
         public success?: boolean,
         public message?: string,
         public failureType?: DatabaseFailureType,
-        public data?: any
+        public data?: any,
     ) {}
 }

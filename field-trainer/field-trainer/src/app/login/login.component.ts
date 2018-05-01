@@ -12,8 +12,8 @@ export class LoginComponent implements OnInit {
     public email: string;
     public password: string;
     private returnUrl: string;
-    public alertShown: boolean = false;
-    public alertType: string = "danger";
+    public alertShown = false;
+    public alertType = "danger";
     alertTimeout: NodeJS.Timer;
 
     constructor(private loginService: LoginService, private router: Router, private route: ActivatedRoute) {}
@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
     }
 
     login() {
-        let credentials = new LoginCredentialsModel(this.email, this.password);
+        const credentials = new LoginCredentialsModel(this.email, this.password);
 
         this.loginService.login(credentials).then(response => {
             if (response) {
