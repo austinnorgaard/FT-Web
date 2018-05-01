@@ -3,7 +3,7 @@ import { TeamSchema } from "../Database/Models/TeamSchema";
 import { DatabaseResponse } from "../Database/Data/DatabaseResponse";
 import { DatabaseFailureType } from "../Database/Data/DatabaseEnums";
 import { Team } from "./Team";
-import { DatabaseError } from "../Utility/database-error";
+import { GetDatabaseResponse } from "../Utility/database-error";
 import { AthleteSchema } from "../Database/Models/AthleteSchema";
 import { Athlete } from "../Athletes/athlete";
 
@@ -16,17 +16,17 @@ export class TeamsService {
 
     async getTeams(): Promise<Team[]> {
         return TeamSchema.all({
-            include: [AthleteSchema]
+            include: [AthleteSchema],
         });
     }
 
     async getTeamById(teamId: number): Promise<Team> {
         return TeamSchema.findOne({
             where: {
-                id: teamId
+                id: teamId,
             },
             include: [AthleteSchema],
-            rejectOnEmpty: true
+            rejectOnEmpty: true,
         });
     }
 
@@ -39,7 +39,7 @@ export class TeamsService {
                     resolve(response);
                 })
                 .catch(err => {
-                    reject(DatabaseError.GetResponse(err));
+                    reject(GetDatabaseResponse(err));
                 });
         });
     }
@@ -49,15 +49,15 @@ export class TeamsService {
         return new Promise<DatabaseResponse>((resolve, reject) => {
             TeamSchema.findOne({
                 where: {
-                    id: teamId
-                }
+                    id: teamId,
+                },
             })
                 .then(team => {
                     // Found our team, lets find our Athlete next
                     AthleteSchema.findOne({
                         where: {
-                            id: athleteId
-                        }
+                            id: athleteId,
+                        },
                     })
                         .then(athlete => {
                             // found our athlete, add him to the team
@@ -69,17 +69,17 @@ export class TeamsService {
                                 })
                                 .catch(err => {
                                     console.log("Failed to add athlete to team.");
-                                    reject(DatabaseError.GetResponse(err));
+                                    reject(GetDatabaseResponse(err));
                                 });
                         })
                         .catch(err => {
                             console.log(`Could not find athlete with id ${athleteId}`);
-                            reject(DatabaseError.GetResponse(err));
+                            reject(GetDatabaseResponse(err));
                         });
                 })
                 .catch(err => {
                     console.log(`Could not find team with id ${teamId}`);
-                    reject(DatabaseError.GetResponse(err));
+                    reject(GetDatabaseResponse(err));
                 });
         });
     }
@@ -88,14 +88,14 @@ export class TeamsService {
         return new Promise<DatabaseResponse>((resolve, reject) => {
             TeamSchema.findOne({
                 where: {
-                    id: teamId
-                }
+                    id: teamId,
+                },
             })
                 .then(team => {
                     AthleteSchema.findOne({
                         where: {
-                            id: athleteId
-                        }
+                            id: athleteId,
+                        },
                     })
                         .then(athlete => {
                             console.log(`Got athlete ${athlete.id} team ${team.id}`);
@@ -108,17 +108,17 @@ export class TeamsService {
                                 .catch(err => {
                                     console.log("Failed to remove athlete from team.");
                                     console.log(err);
-                                    reject(DatabaseError.GetResponse(err));
+                                    reject(GetDatabaseResponse(err));
                                 });
                         })
                         .catch(err => {
                             console.log(`Could not find athlete with id ${athleteId}`);
-                            reject(DatabaseError.GetResponse(err));
+                            reject(GetDatabaseResponse(err));
                         });
                 })
                 .catch(err => {
                     console.log(`Could not find team with id ${teamId}`);
-                    reject(DatabaseError.GetResponse(err));
+                    reject(GetDatabaseResponse(err));
                 });
         });
     }

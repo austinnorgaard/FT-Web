@@ -3,7 +3,7 @@ import { FtSequelize } from "./database.providers";
 
 @Module({
     components: [FtSequelize],
-    exports: [FtSequelize]
+    exports: [FtSequelize],
 })
 export class DatabaseModule {
     constructor() {

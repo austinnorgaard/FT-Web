@@ -93,14 +93,14 @@ export class TeamsController {
     async test() {
         TeamSchema.findOne({
             where: {
-                teamName: "TestTeam2"
-            }
+                teamName: "TestTeam2",
+            },
         }).then(team => {
             // add an athlete based on a name
             AthleteSchema.findOne({
                 where: {
-                    firstName: "Keaton"
-                }
+                    firstName: "Keaton",
+                },
             }).then(athlete => {
                 console.log(`Found: ${athlete.firstName}`);
                 team.$add("teamAthletes", athlete).then(response => {

@@ -11,9 +11,9 @@ export class JwtStrategy extends Strategy {
             {
                 jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
                 passReqToCallback: true,
-                secretOrKey: FtJwtSecret
+                secretOrKey: FtJwtSecret,
             },
-            async (req, payload, next) => await this.verify(req, payload, next)
+            async (req, payload, next) => await this.verify(req, payload, next),
         );
         passport.use(this);
         console.log("jwt constructed");

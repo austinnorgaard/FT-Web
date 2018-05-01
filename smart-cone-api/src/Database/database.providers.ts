@@ -10,9 +10,9 @@ export const FtSequelize = {
             password: "",
             storage: "./db/field-trainer-db.db",
             modelPaths: [__dirname + "/Models"],
-            logging: false
+            logging: false,
         });
         await sequelize.sync();
         return sequelize;
-    }
+    },
 };

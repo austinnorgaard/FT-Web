@@ -20,26 +20,26 @@ const routes: Routes = [
     {
         path: "add-team",
         component: AddTeamComponent,
-        canActivate: [AuthGuard]
+        canActivate: [AuthGuard],
     },
     {
         path: "athlete-management",
         component: AthleteManagementComponent,
-        canActivate: [AuthGuard]
+        canActivate: [AuthGuard],
     },
     {
         path: "login",
-        component: LoginPageComponent
+        component: LoginPageComponent,
     },
     {
         path: "team-management",
         component: TeamManagementPageComponent,
-        canActivate: [AuthGuard]
-    }
+        canActivate: [AuthGuard],
+    },
 ];
 
 @NgModule({
     imports: [RouterModule.forRoot(routes)],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class AppRoutingModule {}

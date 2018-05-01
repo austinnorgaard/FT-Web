@@ -6,7 +6,7 @@ import { DatabaseModule } from "../Database/database.module";
 @Module({
     components: [UsersService],
     controllers: [UsersController],
-    imports: [DatabaseModule]
+    imports: [DatabaseModule],
 })
 export class UsersModule {
     constructor() {

@@ -9,7 +9,7 @@ import { DatabaseModule } from "../Database/database.module";
 @Module({
     components: [AuthService, JwtStrategy],
     controllers: [AuthController],
-    imports: [DatabaseModule]
+    imports: [DatabaseModule],
 })
 export class AuthModule implements NestModule {
     public configure(consumer: MiddlewaresConsumer) {

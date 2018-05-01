@@ -8,7 +8,7 @@ import { AthletesService } from "./athletes.service";
 @Module({
     components: [AthletesService],
     controllers: [AthletesController],
-    imports: [DatabaseModule]
+    imports: [DatabaseModule],
 })
 export class AthletesModule implements NestModule {
     public configure(consumer: MiddlewaresConsumer): void | MiddlewaresConsumer {

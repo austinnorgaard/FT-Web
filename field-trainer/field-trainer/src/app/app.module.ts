@@ -24,7 +24,7 @@ import {
     MatIconModule,
     MatTooltipModule,
     MatRadioModule,
-    MatDividerModule
+    MatDividerModule,
 } from "@angular/material";
 import { ChangeDetectorRef } from "@angular/core";
 
@@ -81,7 +81,7 @@ import { TeamManagementAthleteComponent } from "./team-management-athlete/team-m
 // let ip = FT_CONFIG.getSmartConeApiSocketUrl();
 const config: SocketIoConfig = {
     url: "192.168.1.115:3001",
-    options: {}
+    options: {},
 };
 
 @NgModule({
@@ -105,7 +105,7 @@ const config: SocketIoConfig = {
         AthleteManagementComponent,
         LoginPageComponent,
         TeamManagementPageComponent,
-        TeamManagementAthleteComponent
+        TeamManagementAthleteComponent,
     ],
     imports: [
         NgbModule.forRoot(),
@@ -136,7 +136,7 @@ const config: SocketIoConfig = {
         MatTooltipModule,
         MatRadioModule,
         PerfectScrollbarModule,
-        DragulaModule
+        DragulaModule,
     ],
     providers: [
         ConesService,
@@ -152,14 +152,14 @@ const config: SocketIoConfig = {
         {
             provide: HTTP_INTERCEPTORS,
             useClass: AuthHeaderInterceptor,
-            multi: true
+            multi: true,
         },
         AthleteManagementService,
         {
             provide: PERFECT_SCROLLBAR_CONFIG,
-            useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
-        }
+            useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
+        },
     ],
-    bootstrap: [AppComponent]
+    bootstrap: [AppComponent],
 })
 export class AppModule {}

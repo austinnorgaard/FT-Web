@@ -14,7 +14,7 @@ export class AthletesService {
 
     async getAthletes(): Promise<Athlete[]> {
         return AthleteSchema.all({
-            include: [TeamSchema]
+            include: [TeamSchema],
         });
     }
 

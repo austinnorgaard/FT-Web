@@ -6,7 +6,7 @@ import { UserRegistration } from "./user-registration";
 import { User } from "./user";
 import { UserSchema } from "../Database/Models/UserSchema";
 
-var bcrypt = require("bcrypt");
+import bcrypt = require("bcrypt");
 
 @Component()
 export class UsersService {
@@ -26,7 +26,7 @@ export class UsersService {
             country: userRegistration.user.country,
             phoneNumber: userRegistration.user.phoneNumber,
             email: userRegistration.user.email,
-            passwordHash: hash
+            passwordHash: hash,
         });
 
         return await this.addUserToDb(dbUser);
@@ -34,11 +34,11 @@ export class UsersService {
 
     async generateHash(password: string): Promise<string> {
         return new Promise<string>((resolve, reject) => {
-            bcrypt.genSalt(10, function(err, salt) {
+            bcrypt.genSalt(10, (err, salt) => {
                 if (err) {
                     reject();
                 }
-                bcrypt.hash(password, salt, function(err, hash) {
+                bcrypt.hash(password, salt, (err, hash) => {
                     if (err) {
                         reject();
                     }
@@ -64,7 +64,7 @@ export class UsersService {
                         false,
                         "Unique constraint violated!",
                         DatabaseFailureType.UniqueConstraintViolated,
-                        UniqueConstraintError.fields
+                        UniqueConstraintError.fields,
                     );
                     reject(response);
                 })
@@ -79,7 +79,7 @@ export class UsersService {
         console.log("Validating credentials!");
         return new Promise<boolean>((resolve, reject) => {
             UserSchema.findOne({
-                where: { email: providedEmail }
+                where: { email: providedEmail },
             })
                 .then(user => {
                     // found the user, validate their password

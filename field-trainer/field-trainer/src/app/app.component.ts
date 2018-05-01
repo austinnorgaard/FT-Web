@@ -4,7 +4,7 @@ import { Router } from "@angular/router";
 @Component({
     selector: "ft-app-root",
     templateUrl: "./app.component.html",
-    styleUrls: ["./app.component.css"]
+    styleUrls: ["./app.component.css"],
 })
 export class AppComponent {
     constructor(private router: Router) {
@@ -22,9 +22,7 @@ export class AppComponent {
             return "Field Trainer | Teams";
         }
 
-        const titleString = this.prettyString(
-            this.router.url.replace("/", " | ")
-        );
+        const titleString = this.prettyString(this.router.url.replace("/", " | "));
         return `Field Trainer ${titleString}`;
     }
 

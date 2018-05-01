@@ -2,7 +2,7 @@ import { NestFactory } from "@nestjs/core";
 import { ApplicationModule } from "./App/app.module";
 import { ValidationPipe } from "@nestjs/common";
 
-var cors = require("cors");
+import cors = require("cors");
 
 async function bootstrap() {
     const app = await NestFactory.create(ApplicationModule);

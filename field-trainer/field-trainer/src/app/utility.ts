@@ -4,7 +4,7 @@ export class HttpUtil {
     static get(path: string) {
         const options = {
             uri: path,
-            json: true
+            json: true,
         };
 
         return rp(options);

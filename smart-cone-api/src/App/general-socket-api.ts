@@ -1,10 +1,4 @@
-import {
-    WebSocketGateway,
-    WsResponse,
-    SubscribeMessage,
-    OnGatewayConnection,
-    OnGatewayDisconnect
-} from "@nestjs/websockets";
+import { WebSocketGateway, WsResponse, SubscribeMessage, OnGatewayConnection, OnGatewayDisconnect } from "@nestjs/websockets";
 
 @WebSocketGateway()
 export class GeneralSocketApi implements OnGatewayConnection, OnGatewayDisconnect {

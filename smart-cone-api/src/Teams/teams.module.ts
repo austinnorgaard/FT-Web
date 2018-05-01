@@ -8,7 +8,7 @@ import * as passport from "passport";
 @Module({
     components: [TeamsService],
     controllers: [TeamsController],
-    imports: [DatabaseModule]
+    imports: [DatabaseModule],
 })
 export class TeamsModule implements NestModule {
     public configure(consumer: MiddlewaresConsumer) {

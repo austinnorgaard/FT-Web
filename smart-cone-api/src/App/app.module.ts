@@ -16,6 +16,6 @@ import { AthletesModule } from "../Athletes/athletes.module";
     imports: [DatabaseModule, AuthModule, TeamsModule, UsersModule, AthletesModule],
     controllers: [AppController, StatusController],
     components: [GeneralSocketApi],
-    modules: [DatabaseModule, AuthModule, TeamsModule, UsersModule, AthletesModule]
+    modules: [DatabaseModule, AuthModule, TeamsModule, UsersModule, AthletesModule],
 })
 export class ApplicationModule {}
