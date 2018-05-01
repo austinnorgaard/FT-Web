@@ -10,6 +10,7 @@ do
     :
     echo Prettifying $i
     # run prettier on this file, using default config specified above
+    set -f
     args="--config=${config} --write ${i}/**/*.ts"
     echo Using args: $args
     prettier $args
