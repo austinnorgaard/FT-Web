@@ -6,7 +6,7 @@ import { TeamSchema } from "./TeamSchema";
 import { Team } from "../../Teams/Team";
 
 @Table({
-    modelName: "Athletes"
+    modelName: "Athletes",
 })
 export class AthleteSchema extends Model<AthleteSchema> implements Athlete {
     @PrimaryKey

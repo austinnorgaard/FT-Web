@@ -5,7 +5,7 @@ import { PlayerSessionService } from "../api/player-session.service";
 @Component({
     selector: "ft-player-session",
     templateUrl: "./player-session.component.html",
-    styleUrls: ["./player-session.component.css"]
+    styleUrls: ["./player-session.component.css"],
 })
 export class PlayerSessionComponent implements OnInit {
     @Input() data: PlayerSession;
@@ -17,16 +17,10 @@ export class PlayerSessionComponent implements OnInit {
     constructor(private playerSessionService: PlayerSessionService) {}
 
     startClicked(): void {
-        console.log(
-            `Starting session for ${
-                this.data.player.name
-            } at ${getCurrentTime()}!`
-        );
+        console.log(`Starting session for ${this.data.player.name} at ${getCurrentTime()}!`);
 
-        this.playerSessionService
-            .startSession(this.data.player.uuid)
-            .then(() => {
-                console.log("session started!");
-            });
+        this.playerSessionService.startSession(this.data.player.uuid).then(() => {
+            console.log("session started!");
+        });
     }
 }

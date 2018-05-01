@@ -4,7 +4,7 @@ import { AthleteSchema } from "./AthleteSchema";
 import { TeamSchema } from "./TeamSchema";
 
 @Table({
-    modelName: "AthleteTeam"
+    modelName: "AthleteTeam",
 })
 export class AthleteTeamSchema extends Model<AthleteTeamSchema> {
     @ForeignKey(() => TeamSchema)

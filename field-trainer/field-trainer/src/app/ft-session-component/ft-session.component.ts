@@ -19,7 +19,7 @@ import { FT_CONFIG } from "../../../global-config";
 @Component({
     selector: "ft-session",
     templateUrl: "./ft-session.component.html",
-    styleUrls: ["./ft-session.component.css"]
+    styleUrls: ["./ft-session.component.css"],
 })
 export class FTSessionComponent implements OnInit {
     player_sessions: PlayerSession[] = [];
@@ -31,7 +31,7 @@ export class FTSessionComponent implements OnInit {
         private playersService: PlayersService,
         private http: HttpClient,
         private socket: Socket,
-        private ref: ChangeDetectorRef
+        private ref: ChangeDetectorRef,
     ) {
         this.ref.markForCheck();
     }

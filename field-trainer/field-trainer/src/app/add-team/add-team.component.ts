@@ -9,7 +9,7 @@ import { DatabaseFailureType } from "../../../../../smart-cone-api/src/Database/
 @Component({
     selector: "ft-add-team",
     templateUrl: "./add-team.component.html",
-    styleUrls: ["./add-team.component.css"]
+    styleUrls: ["./add-team.component.css"],
 })
 export class AddTeamComponent {
     ageGroups: string[] = ["11-13", "13-15", "15-17"];

@@ -13,7 +13,7 @@ import { DatabaseResponse } from "../../../../../smart-cone-api/src/Database/Dat
 @Component({
     selector: "ft-team-management-page",
     templateUrl: "./team-management-page.component.html",
-    styleUrls: ["./team-management-page.component.css"]
+    styleUrls: ["./team-management-page.component.css"],
 })
 export class TeamManagementPageComponent implements OnInit {
     availableTeams: TeamModel[] = [];
@@ -105,7 +105,7 @@ export class TeamManagementPageComponent implements OnInit {
         // athlete/team combo
         const data: AddAthleteTeamModel = {
             athleteId: athlete.id,
-            teamId: this.selectedTeam.id
+            teamId: this.selectedTeam.id,
         } as AddAthleteTeamModel;
 
         console.log(JSON.stringify(data));
@@ -128,7 +128,7 @@ export class TeamManagementPageComponent implements OnInit {
         console.log(`${athlete.firstName} ${athlete.lastName} added`);
         const data: AddAthleteTeamModel = {
             athleteId: athlete.id,
-            teamId: this.selectedTeam.id
+            teamId: this.selectedTeam.id,
         } as AddAthleteTeamModel;
 
         console.log(JSON.stringify(data));

@@ -10,7 +10,7 @@ import { DatabaseResponse } from "../../../../../smart-cone-api/src/Database/Dat
 @Component({
     selector: "ft-athlete-management",
     templateUrl: "./athlete-management.component.html",
-    styleUrls: ["./athlete-management.component.css"]
+    styleUrls: ["./athlete-management.component.css"],
 })
 export class AthleteManagementComponent implements OnInit {
     genders: string[] = ["Male", "Female"];
@@ -48,7 +48,7 @@ export class AthleteManagementComponent implements OnInit {
         `6'6"`,
         `6'7"`,
         `6'8"`,
-        `6'9"`
+        `6'9"`,
     ];
 
     availableTeams: TeamModel[] = [];
@@ -57,10 +57,7 @@ export class AthleteManagementComponent implements OnInit {
     athlete: AthleteModel = new AthleteModel();
     athleteForSubmission: AthleteModel = new AthleteModel();
 
-    constructor(
-        private readonly teamService: TeamManagementService,
-        private readonly athletesService: AthleteManagementService
-    ) {}
+    constructor(private readonly teamService: TeamManagementService, private readonly athletesService: AthleteManagementService) {}
 
     ngOnInit() {
         // populate our available teams array when the data is ready
@@ -81,56 +78,30 @@ export class AthleteManagementComponent implements OnInit {
     }
 
     validateParent(): boolean {
-        if (
-            this.athleteForSubmission.parent1Name &&
-            this.athleteForSubmission.parent1Name.length > 1
-        ) {
+        if (this.athleteForSubmission.parent1Name && this.athleteForSubmission.parent1Name.length > 1) {
             // if set, validate the rest of the fields
             // phone and email must be set
-            if (
-                !this.athleteForSubmission.parent1Phone ||
-                this.athleteForSubmission.parent1Phone.length < 1
-            ) {
-                console.log(
-                    "Error: If parent 1 name is set, phonenumber should be set too"
-                );
+            if (!this.athleteForSubmission.parent1Phone || this.athleteForSubmission.parent1Phone.length < 1) {
+                console.log("Error: If parent 1 name is set, phonenumber should be set too");
                 return false;
             }
 
-            if (
-                !this.athleteForSubmission.parent1Email ||
-                this.athleteForSubmission.parent1Email.length < 1
-            ) {
-                console.log(
-                    "Error: If parent 1 name is set, email should be set too"
-                );
+            if (!this.athleteForSubmission.parent1Email || this.athleteForSubmission.parent1Email.length < 1) {
+                console.log("Error: If parent 1 name is set, email should be set too");
                 return false;
             }
         }
 
-        if (
-            this.athleteForSubmission.parent2Name &&
-            this.athleteForSubmission.parent2Name.length > 1
-        ) {
+        if (this.athleteForSubmission.parent2Name && this.athleteForSubmission.parent2Name.length > 1) {
             // if set, validate the rest of the fields
             // phone and email must be set
-            if (
-                !this.athleteForSubmission.parent2Phone ||
-                this.athleteForSubmission.parent2Phone.length < 1
-            ) {
-                console.log(
-                    "Error: If parent 2 name is set, phonenumber should be set too"
-                );
+            if (!this.athleteForSubmission.parent2Phone || this.athleteForSubmission.parent2Phone.length < 1) {
+                console.log("Error: If parent 2 name is set, phonenumber should be set too");
                 return false;
             }
 
-            if (
-                !this.athleteForSubmission.parent2Email ||
-                this.athleteForSubmission.parent2Email.length < 1
-            ) {
-                console.log(
-                    "Error: If parent 2 name is set, email should be set too"
-                );
+            if (!this.athleteForSubmission.parent2Email || this.athleteForSubmission.parent2Email.length < 1) {
+                console.log("Error: If parent 2 name is set, email should be set too");
                 return false;
             }
         }
@@ -151,7 +122,7 @@ export class AthleteManagementComponent implements OnInit {
         // create registration data
         const registrationData = {
             athlete: this.athleteForSubmission,
-            team: this.selectedTeam
+            team: this.selectedTeam,
         } as AthleteRegistrationModel;
 
         console.log("Team for submission");

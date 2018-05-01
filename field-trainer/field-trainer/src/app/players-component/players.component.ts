@@ -6,7 +6,7 @@ import { PlayerSession } from "../models/player-session";
 @Component({
     selector: "ft-players",
     templateUrl: "./players.component.html",
-    styleUrls: ["./players.component.css"]
+    styleUrls: ["./players.component.css"],
 })
 export class PlayersComponent implements OnInit {
     players: Player[];

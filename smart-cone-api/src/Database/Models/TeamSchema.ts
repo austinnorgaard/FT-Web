@@ -5,7 +5,7 @@ import { AthleteSchema } from "./AthleteSchema";
 import { AthleteTeamSchema } from "./AthleteTeamSchema";
 
 @Table({
-    modelName: "Teams"
+    modelName: "Teams",
 })
 export class TeamSchema extends Model<TeamSchema> implements Team {
     @PrimaryKey
@@ -14,12 +14,12 @@ export class TeamSchema extends Model<TeamSchema> implements Team {
 
     @AllowNull(false)
     @Column({
-        unique: "uniqueTeam"
+        unique: "uniqueTeam",
     })
     public teamName: string;
 
     @Column({
-        unique: "uniqueTeam"
+        unique: "uniqueTeam",
     })
     ageGroup: string;
 

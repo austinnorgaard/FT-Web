@@ -3,7 +3,7 @@ import { Options } from "@nestjs/common";
 import { User } from "../../Users/user";
 
 @Table({
-    modelName: "Users"
+    modelName: "Users",
 })
 export class UserSchema extends Model<UserSchema> implements User {
     @Column subscribedToNewsLetter: boolean;
@@ -27,7 +27,7 @@ export class UserSchema extends Model<UserSchema> implements User {
     @Column phoneNumber: string;
 
     @Column({
-        unique: "true"
+        unique: "true",
     })
     email: string;
 

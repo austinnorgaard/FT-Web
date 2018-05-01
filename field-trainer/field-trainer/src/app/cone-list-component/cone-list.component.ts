@@ -6,7 +6,7 @@ import { ConesService } from "../api/cones.service";
 @Component({
     selector: "ft-cone-list",
     templateUrl: "./cone-list.component.html",
-    styleUrls: ["./cone-list.component.css"]
+    styleUrls: ["./cone-list.component.css"],
 })
 export class ConeListComponent implements OnInit {
     private refreshInProgress: boolean;

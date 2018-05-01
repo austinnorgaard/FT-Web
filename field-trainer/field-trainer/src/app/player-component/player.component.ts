@@ -5,7 +5,7 @@ import { PlayersService } from "../api/players.service";
 @Component({
     selector: "ft-player",
     templateUrl: "./player.component.html",
-    styleUrls: ["./player.component.css"]
+    styleUrls: ["./player.component.css"],
 })
 export class PlayerComponent {
     @Input() player: Player;
