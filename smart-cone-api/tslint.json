@@ -25,7 +25,9 @@
         "variable-name": [false],
         "one-line": [false],
         "one-variable-per-declaration": [false],
-        "no-console": false
+        "no-console": false,
+        "no-require-imports": false,
+        "no-var-requires": false
     },
     "rulesDirectory": []
 }

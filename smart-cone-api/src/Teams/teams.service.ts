@@ -35,7 +35,7 @@ export class TeamsService {
             team
                 .save()
                 .then(() => {
-                    let response = new DatabaseResponse(true, "Team added!");
+                    const response = new DatabaseResponse(true, "Team added!");
                     resolve(response);
                 })
                 .catch(err => {

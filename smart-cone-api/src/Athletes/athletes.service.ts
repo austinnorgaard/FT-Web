@@ -24,7 +24,7 @@ export class AthletesService {
                 .save()
                 .then(() => {
                     // success
-                    let response = new DatabaseResponse(true, "Athlete added!");
+                    const response = new DatabaseResponse(true, "Athlete added!");
                     resolve(response);
                 })
                 .catch(err => {

@@ -10,10 +10,8 @@ import bcrypt = require("bcrypt");
 
 @Component()
 export class UsersService {
-    //constructor(@Inject("UsersRepository") private readonly usersRepository: typeof User) {}
-
     async addUser(userRegistration: UserRegistration): Promise<DatabaseResponse> {
-        let hash = await this.generateHash(userRegistration.password);
+        const hash = await this.generateHash(userRegistration.password);
 
         const dbUser = new UserSchema({
             firstName: userRegistration.user.firstName,
@@ -34,12 +32,12 @@ export class UsersService {
 
     async generateHash(password: string): Promise<string> {
         return new Promise<string>((resolve, reject) => {
-            bcrypt.genSalt(10, (err, salt) => {
-                if (err) {
+            bcrypt.genSalt(10, (saltErr, salt) => {
+                if (saltErr) {
                     reject();
                 }
-                bcrypt.hash(password, salt, (err, hash) => {
-                    if (err) {
+                bcrypt.hash(password, salt, (hashErr, hash) => {
+                    if (hashErr) {
                         reject();
                     }
 
@@ -54,13 +52,13 @@ export class UsersService {
             user
                 .save()
                 .then(() => {
-                    let response = new DatabaseResponse(true, "User added!");
+                    const response = new DatabaseResponse(true, "User added!");
                     resolve(response);
                 })
                 .catch(UniqueConstraintError => {
                     console.log("User already existed in the database!");
 
-                    let response = new DatabaseResponse(
+                    const response = new DatabaseResponse(
                         false,
                         "Unique constraint violated!",
                         DatabaseFailureType.UniqueConstraintViolated,
@@ -69,7 +67,7 @@ export class UsersService {
                     reject(response);
                 })
                 .catch(err => {
-                    let response = new DatabaseResponse(false, err);
+                    const response = new DatabaseResponse(false, err);
                     reject(response);
                 });
         });

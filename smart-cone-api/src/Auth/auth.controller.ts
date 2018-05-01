@@ -10,9 +10,8 @@ export class AuthController {
     @Post("login")
     @HttpCode(HttpStatus.OK)
     public async login(@Body() credentials: LoginCredentials): Promise<JwtToken> {
-        //return await this.authService.createToken(userData.email);
         try {
-            let loginResult = await this.authService.login(credentials);
+            const loginResult = await this.authService.login(credentials);
             return loginResult;
         } catch (e) {
             throw new HttpException("Email or password incorrect.", HttpStatus.UNAUTHORIZED);

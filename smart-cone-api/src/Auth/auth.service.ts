@@ -4,7 +4,7 @@ import { FtJwtSecret } from "./ft-jwt";
 import { LoginCredentials } from "./login-credentials";
 import { JwtToken } from "./jwt-token";
 import { UserSchema } from "../Database/Models/UserSchema";
-var bcrypt = require("bcrypt");
+const bcrypt = require("bcrypt"); // ts-lint
 
 @Component()
 export class AuthService {
@@ -12,18 +12,18 @@ export class AuthService {
 
     generateToken(email: string): JwtToken {
         const expiresIn = 60 * 60 * 24; // only for testing!
-        const jwtUser = { email: email };
+        const jwtUser = { email };
         const token = jwt.sign(jwtUser, FtJwtSecret, { expiresIn });
         return new JwtToken(token, expiresIn);
     }
 
     async login(credentials: LoginCredentials): Promise<JwtToken> {
         try {
-            let user = await UserSchema.findOne({ where: { email: credentials.email }, rejectOnEmpty: true });
+            const user = await UserSchema.findOne({ where: { email: credentials.email }, rejectOnEmpty: true });
             console.log("Found user.");
 
             // Take the passed in password, hash it, then compare to the hash on the user we retrieved
-            let result = await bcrypt.compare(credentials.password, user.passwordHash);
+            const result = await bcrypt.compare(credentials.password, user.passwordHash);
 
             if (result) {
                 return this.generateToken(user.email);
