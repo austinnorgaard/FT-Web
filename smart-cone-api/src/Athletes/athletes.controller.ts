@@ -17,9 +17,6 @@ export class AthletesController {
         return await this.athletesService
             .addAthlete(athlete.athlete)
             .then(response => {
-                console.log("Athlete added!");
-                console.log(response);
-
                 // Check if we need to add this athlete to a team
                 if (athlete.team && athlete.team !== null) {
                     // someone passed in a team, lets try and get the ID and add them
@@ -55,7 +52,6 @@ export class AthletesController {
         return await this.athletesService
             .getAthletes()
             .then((response: Athlete[]) => {
-                console.log(`Returning ${response.length} athletes.`);
                 return response;
             })
             .catch(err => {

@@ -35,8 +35,6 @@ export class TeamsController {
         return await this.teamsService
             .getTeams()
             .then((response: Team[]) => {
-                console.log(`Info ${JSON.stringify(response[0].teamAthletes)}`);
-                console.log(`Returning ${response.length} teams.`);
                 return response;
             })
             .catch(err => {
