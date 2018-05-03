@@ -1,5 +1,5 @@
-<div fxLayout="column" style="margin-top: 0.5em">
-    <div fxFlex style="margin-left: 1em; margin-right: 1em">
+<div fxLayout="column" fxLayoutAlign="stretch" fxFlex style="margin-top: 0.5em; margin-bottom: 0.5em">
+    <div fxFlex="0 0 auto" style="margin-left: 1em; margin-right: 1em">
         <div fxLayout="row" fxLayoutGap="0.5em" fxLayoutAlign="center center">
             <mat-form-field fxFlex>
                 <mat-select (selectionChange)="onTeamChanged()" [placeholder]="this.getTeamDropdownPlaceholderText()" name="selectedTeam" [(ngModel)]="this.selectedTeam">
@@ -15,28 +15,24 @@
             </div>
         </div>
     </div>
-    <div fxFlex>
-        <div *ngIf="this.selectedTeam !== null" style="margin-left: 1em; margin-right: 1em">
-            <div fxLayout="column">
-                <div fxFlex>
-                    <h4>On Team</h4>
-                    <perfect-scrollbar *ngIf="this.selectedTeam !== null" style="position: relative; max-height: 300px">
-                        <mat-accordion *ngFor="let player of this.selectedTeam.teamAthletes">
-                            <ft-team-management-athlete [athlete]="player" [mode]="'remove'" (removed)="this.onAthleteRemoved($event)"></ft-team-management-athlete>
-                        </mat-accordion>
-                    </perfect-scrollbar>
-                </div>
-                <div fxFlex>
-                    <h4>Available</h4>
-                    <perfect-scrollbar *ngIf="this.availableAthletes.length !== 0" style="position: relative; max-height: 300px">
-                        <mat-accordion *ngFor="let athlete of this.availableAthletes">
-                            <ft-team-management-athlete [athlete]="athlete" [mode]="'add'" (added)="this.onAthleteAdded($event)"></ft-team-management-athlete>
-                        </mat-accordion>
-                    </perfect-scrollbar>
-                    <span *ngIf="this.availableAthletes.length === 0">No athletes remaining</span>
-                </div>
-            </div>
+    <div fxLayout="column" fxFlex *ngIf="this.selectedTeam !== null" style="margin-left: 1em; margin-right: 1em">
+        <div fxFlex fxLayout="column">
+            <h4>On Team</h4>
+            <perfect-scrollbar fxFlex="auto" *ngIf="this.selectedTeam !== null">
+                <mat-accordion *ngFor="let player of this.selectedTeam.teamAthletes">
+                    <ft-team-management-athlete [athlete]="player" [mode]="'remove'" (removed)="this.onAthleteRemoved($event)"></ft-team-management-athlete>
+                </mat-accordion>
+            </perfect-scrollbar>
         </div>
-        <span *ngIf="this.selectedTeam === null" style="margin-left: 1em;">Select a team from the dropdown</span>
+        <div fxFlex fxLayout="column">
+            <h4>Available</h4>
+            <perfect-scrollbar fxFlex="auto" *ngIf="this.availableAthletes.length !== 0">
+                <mat-accordion *ngFor="let athlete of this.availableAthletes">
+                    <ft-team-management-athlete [athlete]="athlete" [mode]="'add'" (added)="this.onAthleteAdded($event)"></ft-team-management-athlete>
+                </mat-accordion>
+            </perfect-scrollbar>
+            <span *ngIf="this.availableAthletes.length === 0">No athletes remaining</span>
+        </div>
     </div>
+    <span *ngIf="this.selectedTeam === null" style="margin-left: 1em;">Select a team from the dropdown</span>
 </div>
