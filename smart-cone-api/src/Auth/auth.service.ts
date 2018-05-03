@@ -28,14 +28,28 @@ export class AuthService {
             if (result) {
                 return this.generateToken(user.email);
             } else {
-                throw Error("Email or password incorrect");
+                throw new PasswordIncorrectError("Password incorrect");
             }
         } catch (e) {
-            throw Error("Email or password incorrect");
+            throw new EmailNotFoundError("Email not found");
         }
     }
 
     async validateUser(signedUser): Promise<boolean> {
         return true;
+    }
+}
+
+export class EmailNotFoundError extends Error {
+    constructor(m: string) {
+        super(m);
+        Object.setPrototypeOf(this, new.target.prototype);
+    }
+}
+
+export class PasswordIncorrectError extends Error {
+    constructor(m: string) {
+        super(m);
+        Object.setPrototypeOf(this, new.target.prototype);
     }
 }

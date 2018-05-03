@@ -1,5 +1,5 @@
 import { Controller, Post, HttpStatus, Get, HttpCode, Body, HttpException } from "@nestjs/common";
-import { AuthService } from "./auth.service";
+import { AuthService, EmailNotFoundError, PasswordIncorrectError } from "./auth.service";
 import { LoginCredentials } from "./login-credentials";
 import { JwtToken } from "./jwt-token";
 
@@ -14,7 +14,14 @@ export class AuthController {
             const loginResult = await this.authService.login(credentials);
             return loginResult;
         } catch (e) {
-            throw new HttpException("Email or password incorrect.", HttpStatus.UNAUTHORIZED);
+            if (e instanceof EmailNotFoundError) {
+                throw new HttpException("Email not found", HttpStatus.UNAUTHORIZED);
+            } else if (e instanceof PasswordIncorrectError) {
+                throw new HttpException("Password incorrect", HttpStatus.UNAUTHORIZED);
+            } else {
+                // unknown exception, return general server failure
+                throw new HttpException(`Unknown error: ${e}`, HttpStatus.INTERNAL_SERVER_ERROR);
+            }
         }
     }
 }
