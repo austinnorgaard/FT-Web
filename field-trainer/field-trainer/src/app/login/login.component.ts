@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { LoginService } from "../api/login.service";
 import { LoginCredentialsModel } from "../models/login-credentials";
 import { Router, ActivatedRoute } from "@angular/router";
+import { FormControl, Validators } from "@angular/forms";
 
 @Component({
     selector: "ft-login",
@@ -16,6 +17,9 @@ export class LoginComponent implements OnInit {
     public alertType = "danger";
     public errorMessage: string = "None";
     alertTimeout: NodeJS.Timer;
+
+    public emailFormControl = new FormControl("", [Validators.required, Validators.email]);
+    public passwordFormControl = new FormControl("", [Validators.required]);
 
     constructor(private loginService: LoginService, private router: Router, private route: ActivatedRoute) {}
 
