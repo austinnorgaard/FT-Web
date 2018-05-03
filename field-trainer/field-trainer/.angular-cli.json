@@ -15,10 +15,7 @@
             "tsconfig": "tsconfig.app.json",
             "testTsconfig": "tsconfig.spec.json",
             "prefix": "ft",
-            "styles": [
-                "styles.css",
-                "../node_modules/@angular/material/prebuilt-themes/indigo-pink.css"
-            ],
+            "styles": ["styles.css", "../node_modules/@angular/material/prebuilt-themes/indigo-pink.css"],
             "scripts": [],
             "environmentSource": "environments/environment.ts",
             "environments": {
@@ -50,6 +47,9 @@
     },
     "defaults": {
         "styleExt": "css",
-        "component": {}
+        "component": {},
+        "serve": {
+            "port": 80
+        }
     }
 }

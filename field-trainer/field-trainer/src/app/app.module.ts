@@ -78,9 +78,9 @@ import { TeamManagementPageComponent } from "./team-management-page/team-managem
 import { DragulaModule } from "ng2-dragula";
 import { TeamManagementAthleteComponent } from "./team-management-athlete/team-management-athlete.component";
 
-// let ip = FT_CONFIG.getSmartConeApiSocketUrl();
+let ip = FT_CONFIG.getSmartConeApiSocketUrl();
 const config: SocketIoConfig = {
-    url: "192.168.1.115:3001",
+    url: ip,
     options: {},
 };
 
