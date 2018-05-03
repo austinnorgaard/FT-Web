@@ -1,12 +1,12 @@
-<div fxLayout="column" class="login-container">
+<form #loginForm="ngForm" (ngSubmit)="login()" fxLayout="column" class="login-container">
     <div fxFlex>
         <h1>Login</h1>
     </div>
     <mat-form-field fxFlex>
-        <input [(ngModel)]="this.email" matInput placeholder="Email" />
+        <input [(ngModel)]="this.email" matInput placeholder="Email" name="email" />
     </mat-form-field>
     <mat-form-field fxFlex>
-        <input [(ngModel)]="this.password" matInput type="password" placeholder="Password" />
+        <input [(ngModel)]="this.password" matInput type="password" placeholder="Password" name="password" />
     </mat-form-field>
     <div fxLayout="row center" fxLayoutAlign="center center">
         <div fxFlex class="button-container">
@@ -18,4 +18,4 @@
     </div>
     <br />
     <ngb-alert [type]="this.alertType" *ngIf="this.alertShown" (click)="this.alertShown=false">{{this.errorMessage}}</ngb-alert>
-</div>
+</form>
