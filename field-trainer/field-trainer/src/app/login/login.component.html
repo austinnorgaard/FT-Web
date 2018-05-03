@@ -17,5 +17,5 @@
         </div>
     </div>
     <br />
-    <ngb-alert [type]="this.alertType" *ngIf="this.alertShown" (click)="this.alertShown=false">Email or password incorrect, try again</ngb-alert>
+    <ngb-alert [type]="this.alertType" *ngIf="this.alertShown" (click)="this.alertShown=false">{{this.errorMessage}}</ngb-alert>
 </div>

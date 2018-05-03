@@ -11,17 +11,17 @@ export class LoginService {
 
     // Consider Promise<DatabaseResponse> if we ever do more than:
     // true = Logged in, false = email/password wrong (purposefully combining the two)
-    login(credentials: LoginCredentials): Promise<boolean> {
+    login(credentials: LoginCredentials): Promise<string> {
         return this.http
             .post<JwtToken>(FT_CONFIG.toSmartConeHttp("/auth/login"), credentials)
             .toPromise()
             .then(response => {
                 localStorage.setItem("token", response.access_token);
-                return Promise.resolve(true);
+                return Promise.resolve("Success");
             })
             .catch(err => {
                 console.log(err);
-                return Promise.resolve(false);
+                return Promise.reject(err);
             });
     }
 }

@@ -18,20 +18,18 @@ export class AuthService {
     }
 
     async login(credentials: LoginCredentials): Promise<JwtToken> {
-        try {
-            const user = await UserSchema.findOne({ where: { email: credentials.email }, rejectOnEmpty: true });
-            console.log("Found user.");
-
-            // Take the passed in password, hash it, then compare to the hash on the user we retrieved
-            const result = await bcrypt.compare(credentials.password, user.passwordHash);
-
-            if (result) {
-                return this.generateToken(user.email);
-            } else {
-                throw new PasswordIncorrectError("Password incorrect");
-            }
-        } catch (e) {
+        const user = await UserSchema.findOne({ where: { email: credentials.email } });
+        if (!user) {
             throw new EmailNotFoundError("Email not found");
+        }
+
+        // Take the passed in password, hash it, then compare to the hash on the user we retrieved
+        const result = await bcrypt.compare(credentials.password, user.passwordHash);
+
+        if (result) {
+            return this.generateToken(user.email);
+        } else {
+            throw new PasswordIncorrectError("Password incorrect");
         }
     }
 

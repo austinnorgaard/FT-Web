@@ -17,6 +17,7 @@ export class AuthController {
             if (e instanceof EmailNotFoundError) {
                 throw new HttpException("Email not found", HttpStatus.UNAUTHORIZED);
             } else if (e instanceof PasswordIncorrectError) {
+                console.log("Password incorrect (controller)");
                 throw new HttpException("Password incorrect", HttpStatus.UNAUTHORIZED);
             } else {
                 // unknown exception, return general server failure

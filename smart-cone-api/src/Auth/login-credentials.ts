@@ -9,4 +9,9 @@ export abstract class LoginCredentials {
 
     @IsString() email: string;
     @IsString() password: string;
+
+    isValid(): boolean {
+        // return false if the fields are undefined or empty
+        return this.email !== undefined && this.email.length !== 0 && this.password !== undefined && this.password.length !== 0;
+    }
 }
