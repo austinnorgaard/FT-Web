@@ -4,9 +4,10 @@ import { Module, NestModule, MiddlewaresConsumer } from "@nestjs/common";
 
 import * as passport from "passport";
 import { AthletesService } from "./athletes.service";
+import { TeamsService } from "../Teams/teams.service";
 
 @Module({
-    components: [AthletesService],
+    components: [AthletesService, TeamsService],
     controllers: [AthletesController],
     imports: [DatabaseModule],
 })

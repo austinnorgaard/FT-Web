@@ -1,6 +1,9 @@
-import { IsString, IsBoolean } from "class-validator";
+import { IsString, IsBoolean, IsOptional, IsNumber } from "class-validator";
 
 export abstract class User {
+    @IsOptional()
+    @IsNumber()
+    id: number;
     @IsString() firstName: string;
     @IsString() lastName: string;
     @IsString() address1: string;

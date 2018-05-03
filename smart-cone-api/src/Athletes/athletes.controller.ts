@@ -5,10 +5,12 @@ import { Athlete } from "./athlete";
 import { HttpException } from "@nestjs/core";
 import { DatabaseResponse } from "../Database/Data/DatabaseResponse";
 import { DatabaseFailureType } from "../Database/Data/DatabaseEnums";
+import { AthleteTeamSchema } from "../Database/Models/AthleteTeamSchema";
+import { TeamsService } from "../Teams/teams.service";
 
 @Controller("athletes")
 export class AthletesController {
-    constructor(private athletesService: AthletesService) {}
+    constructor(private athletesService: AthletesService, private teamsService: TeamsService) {}
     @Post()
     async create(@Body() athlete: AthleteRegistration) {
         // call service to create athlete in db
@@ -16,8 +18,26 @@ export class AthletesController {
             .addAthlete(athlete.athlete)
             .then(response => {
                 console.log("Athlete added!");
+                console.log(response);
 
-                // TODO: If a team was set, update the team to add this player
+                // Check if we need to add this athlete to a team
+                if (athlete.team && athlete.team !== null) {
+                    // someone passed in a team, lets try and get the ID and add them
+                    this.teamsService
+                        .addAthleteToTeam(athlete.team.id, response.data.athleteId)
+                        .then(response => {
+                            console.log("Successfully added to team as well");
+                        })
+                        .catch(err => {
+                            console.log(err);
+                            // This is a serious error, we should probably blow up here
+                            // this constitutes a serious problem with frontend as this should be
+                            // impossible
+                            throw Error(
+                                `Could not add athlete ${athlete.athlete.firstName} ${athlete.athlete.lastName} to team ${athlete.team.teamName}`,
+                            );
+                        });
+                }
             })
             .catch((err: DatabaseResponse) => {
                 console.log(`Failed to add athlete. Reason: ${JSON.stringify(err)}`);

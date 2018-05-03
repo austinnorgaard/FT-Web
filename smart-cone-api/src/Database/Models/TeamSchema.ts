@@ -9,7 +9,7 @@ import { AthleteTeamSchema } from "./AthleteTeamSchema";
 })
 export class TeamSchema extends Model<TeamSchema> implements Team {
     @PrimaryKey
-    @Column
+    @Column({ autoIncrement: true })
     id: number;
 
     @AllowNull(false)

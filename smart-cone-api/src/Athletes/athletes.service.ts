@@ -2,8 +2,9 @@ import { Component } from "@nestjs/common";
 import { AthleteSchema } from "../Database/Models/AthleteSchema";
 import { Athlete } from "./athlete";
 import { DatabaseResponse } from "../Database/Data/DatabaseResponse";
-import { DatabaseError } from "../Utility/database-error";
 import { TeamSchema } from "../Database/Models/TeamSchema";
+import { GetDatabaseResponse } from "../Utility/database-error";
+import { DatabaseFailureType } from "../Database/Data/DatabaseEnums";
 
 @Component()
 export class AthletesService {
@@ -22,13 +23,16 @@ export class AthletesService {
         return new Promise<DatabaseResponse>((resolve, reject) => {
             athlete
                 .save()
-                .then(() => {
+                .then(createdAthlete => {
+                    console.log(createdAthlete);
                     // success
-                    const response = new DatabaseResponse(true, "Athlete added!");
+                    const response = new DatabaseResponse(true, "Athlete added!", null, {
+                        athleteId: createdAthlete.id, // allow caller to get at the created athlete
+                    });
                     resolve(response);
                 })
                 .catch(err => {
-                    reject(DatabaseError.GetResponse(err));
+                    reject(GetDatabaseResponse(err));
                 });
         });
     }

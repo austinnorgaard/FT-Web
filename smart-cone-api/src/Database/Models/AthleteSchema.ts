@@ -10,7 +10,7 @@ import { Team } from "../../Teams/Team";
 })
 export class AthleteSchema extends Model<AthleteSchema> implements Athlete {
     @PrimaryKey
-    @Column
+    @Column({ autoIncrement: true })
     id: number;
 
     @Column firstName: string;
