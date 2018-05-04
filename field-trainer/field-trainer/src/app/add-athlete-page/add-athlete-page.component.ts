@@ -8,11 +8,11 @@ import { AthleteManagementService } from "../api/athlete-management.service";
 import { DatabaseResponse } from "../../../../../smart-cone-api/src/Database/Data/DatabaseResponse";
 
 @Component({
-    selector: "ft-athlete-management",
-    templateUrl: "./athlete-management.component.html",
-    styleUrls: ["./athlete-management.component.css"],
+    selector: "ft-add-athlete-page",
+    templateUrl: "./add-athlete-page.component.html",
+    styleUrls: ["./add-athlete-page.component.css"],
 })
-export class AthleteManagementComponent implements OnInit {
+export class AddAthletePageComponent implements OnInit {
     genders: string[] = ["Male", "Female"];
     heights: string[] = [
         `4'0"`,
