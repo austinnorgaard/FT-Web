@@ -1,5 +1,5 @@
-import { Component, OnInit } from "@angular/core";
-import { FormControl, Validators } from "@angular/forms";
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { FormControl, Validators, NgForm } from "@angular/forms";
 import { TeamModel } from "../models/team";
 import { TeamManagementService } from "../api/team-management.service";
 
@@ -25,6 +25,8 @@ export class AddTeamComponent {
 
     public ageGroupFormControl = new FormControl("", [Validators.required]);
 
+    @ViewChild("addTeamForm") form: NgForm;
+
     constructor(private teamManagement: TeamManagementService) {}
 
     onSubmit(): void {
@@ -37,6 +39,8 @@ export class AddTeamComponent {
             .createTeam(this.teamModel)
             .then(response => {
                 console.log("Team added!");
+                this.form.resetForm();
+                this.teamNameFormControl.reset();
                 this.showAlert("Team added successfully.", "success", 5000);
             })
             .catch((err: DatabaseResponse) => {
