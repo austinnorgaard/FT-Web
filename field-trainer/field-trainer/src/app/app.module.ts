@@ -63,6 +63,7 @@ import { SetupComponent } from "./setup-component/setup.component";
 import { StatusIndicatorComponent } from "./status-indicator/status-indicator.component";
 import { TeamManagementAthleteComponent } from "./team-management-athlete/team-management-athlete.component";
 import { TeamManagementPageComponent } from "./team-management-page/team-management-page.component";
+import { SessionSetupPageComponent } from './session-setup-page/session-setup-page.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     // w/e
@@ -97,6 +98,7 @@ const config: SocketIoConfig = {
         TeamManagementPageComponent,
         TeamManagementAthleteComponent,
         AthleteManagementPageComponent,
+        SessionSetupPageComponent,
     ],
     imports: [
         NgbModule.forRoot(),
