@@ -46,6 +46,11 @@ export class TeamManagementPageComponent implements OnInit {
     }
 
     removeUnavailableAthletes() {
+        // We can't prune athletes if no team is selected
+        if (this.selectedTeam === null) {
+            return;
+        }
+
         // remove any athletes which belong to the selected team
         this.availableAthletes = this.availableAthletes.filter((athlete: Athlete) => {
             // check every athlete's currently subscribed teams to see if any of them
@@ -60,13 +65,14 @@ export class TeamManagementPageComponent implements OnInit {
         this.athletesService
             .getAthletes()
             .then((athletes: AthleteModel[]) => {
+                console.log(athletes);
                 this.availableAthletes = athletes;
 
                 // immediately prune
                 this.removeUnavailableAthletes();
             })
             .catch(err => {
-                console.log("Could not find any athletes.");
+                console.log(`Could not find any athletes. Err: ${err}`);
             });
     }
 
