@@ -41,8 +41,6 @@ export class TeamManagementPageComponent implements OnInit {
     }
 
     onTeamChanged() {
-        console.log(`Team selected; ${this.selectedTeam.teamName}`);
-        console.log(`This team has ${this.selectedTeam.teamAthletes.length} athletes.`);
         this.updateAthletes();
         // Grab the athletes for this team and set them
     }
@@ -89,7 +87,6 @@ export class TeamManagementPageComponent implements OnInit {
         this.teamsService
             .getTeamById(this.selectedTeam.id)
             .then((team: Team) => {
-                console.log("updateTeamAthletes -> Got Team");
                 // update our local copy of the team with the one we just grabbed
                 this.selectedTeam.teamAthletes = team.teamAthletes;
             })
@@ -100,7 +97,6 @@ export class TeamManagementPageComponent implements OnInit {
     }
 
     onAthleteRemoved(athlete: AthleteModel) {
-        console.log(`${athlete.firstName} ${athlete.lastName} removed.`);
         // in hindsight, silly name. The "AddAthleteTeamModel" is just an
         // athlete/team combo
         const data: AddAthleteTeamModel = {
@@ -113,8 +109,6 @@ export class TeamManagementPageComponent implements OnInit {
         this.teamsService
             .removeAthleteFromTeam(data)
             .then((response: DatabaseResponse) => {
-                console.log("Athlete removed from team");
-
                 this.updateAthletes();
                 this.updateTeamAthletes();
             })
@@ -131,13 +125,9 @@ export class TeamManagementPageComponent implements OnInit {
             teamId: this.selectedTeam.id,
         } as AddAthleteTeamModel;
 
-        console.log(JSON.stringify(data));
-
         this.teamsService
             .addAthleteToTeam(data)
             .then((response: DatabaseResponse) => {
-                console.log("Athlete added successfully to team");
-
                 this.updateAthletes();
                 this.updateTeamAthletes();
             })
