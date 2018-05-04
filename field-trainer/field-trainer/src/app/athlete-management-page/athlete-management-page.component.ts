@@ -25,7 +25,24 @@ export class AthleteManagementPageComponent implements OnInit {
     }
 
     onAthleteRemoved(athlete: AthleteModel) {
-        console.log(`Removed athlete: ${athlete.firstName} ${athlete.lastName}`);
+        this.athletesService
+            .removeAthlete(athlete.id)
+            .then(response => {
+                // remove the athlete from the current list of athletes
+                let index = this.athletes.findIndex(a => {
+                    return a.id == athlete.id;
+                });
+
+                if (index === -1) {
+                    console.log("Internal error, findIndex returned -1! Fix this!");
+                    return;
+                }
+
+                this.athletes.splice(index, 1);
+            })
+            .catch(err => {
+                console.log(`Could not remove athlete. Reason: ${err}`);
+            });
     }
 
     addAthlete() {

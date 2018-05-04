@@ -19,6 +19,22 @@ export class AthletesService {
         });
     }
 
+    async removeAthleteById(id: number): Promise<DatabaseResponse> {
+        return new Promise<DatabaseResponse>((resolve, reject) => {
+            AthleteSchema.destroy({
+                where: { id: id },
+            })
+                .then(res => {
+                    const response = new DatabaseResponse(true, `Athlete id ${id} deleted`);
+                    resolve(response);
+                })
+                .catch(err => {
+                    const response = new DatabaseResponse(false, `Could not delete athlete with id ${id}`);
+                    reject(response);
+                });
+        });
+    }
+
     private async addAthleteToDb(athlete: AthleteSchema): Promise<DatabaseResponse> {
         return new Promise<DatabaseResponse>((resolve, reject) => {
             athlete

@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Get, HttpStatus } from "@nestjs/common";
+import { Controller, Post, Body, Get, HttpStatus, Delete, Query } from "@nestjs/common";
 import { AthleteRegistration } from "./athlete-registration";
 import { AthletesService } from "./athletes.service";
 import { Athlete } from "./athlete";
@@ -57,6 +57,21 @@ export class AthletesController {
             .catch(err => {
                 console.log(`Failed to get athletes. Reason: ${JSON.stringify(err)}`);
                 throw new HttpException(err, HttpStatus.INTERNAL_SERVER_ERROR);
+            });
+    }
+
+    @Delete("by-id")
+    async deleteAthlete(@Query("id") id: number) {
+        console.log(`Removing athlete with id ${id}`);
+
+        return await this.athletesService
+            .removeAthleteById(id)
+            .then(response => {
+                return;
+            })
+            .catch(err => {
+                console.log(`Database error removing athlete: ${err}`);
+                throw new HttpException(err.message, HttpStatus.INTERNAL_SERVER_ERROR);
             });
     }
 }
