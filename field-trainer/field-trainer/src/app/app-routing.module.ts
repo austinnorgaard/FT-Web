@@ -11,6 +11,7 @@ import { AthleteManagementPageComponent } from "./athlete-management-page/athlet
 import { LoginPageComponent } from "./login-page/login-page.component";
 import { TeamManagementPageComponent } from "./team-management-page/team-management-page.component";
 import { AddAthletePageComponent } from "./add-athlete-page/add-athlete-page.component";
+import { SessionSetupPageComponent } from "./session-setup-page/session-setup-page.component";
 
 const routes: Routes = [
     { path: "", redirectTo: "/home", pathMatch: "full" },
@@ -40,6 +41,11 @@ const routes: Routes = [
     {
         path: "add-athlete",
         component: AddAthletePageComponent,
+        canActivate: [AuthGuard],
+    },
+    {
+        path: "session-setup",
+        component: SessionSetupPageComponent,
         canActivate: [AuthGuard],
     },
 ];
