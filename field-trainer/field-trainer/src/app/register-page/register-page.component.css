@@ -1,8 +1,7 @@
 .ft-form-container {
     margin-left: 1em;
     margin-right: 1em;
-    margin-top: 2.5em;
-    margin-bottom: 2.5em;
+    margin-bottom: 1em;
 }
 
 ::ng-deep .mat-form-field .mat-form-field-infix {

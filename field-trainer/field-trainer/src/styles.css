@@ -27,6 +27,6 @@ router-outlet.router-flex + * {
     flex-direction: column;
 }
 
-.mat-form-field .mat-form-field-infix {
+::ng-deep .mat-form-field .mat-form-field-infix {
     width: auto;
 }
