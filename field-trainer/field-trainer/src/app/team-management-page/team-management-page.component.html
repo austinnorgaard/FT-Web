@@ -17,7 +17,7 @@
     </div>
     <div fxLayout="column" fxFlex *ngIf="this.selectedTeam !== null" style="margin-left: 1em; margin-right: 1em;">
         <div fxFlex fxLayout="column">
-            <h4>On Team</h4>
+            <h2>On Team</h2>
             <perfect-scrollbar fxFlex="auto" *ngIf="this.selectedTeam !== null">
                 <mat-accordion *ngFor="let player of this.selectedTeam.teamAthletes">
                     <ft-team-management-athlete [athlete]="player" [mode]="'remove'" (removed)="this.onAthleteRemoved($event)"></ft-team-management-athlete>
@@ -25,7 +25,7 @@
             </perfect-scrollbar>
         </div>
         <div fxFlex fxLayout="column">
-            <h4>Available</h4>
+            <h2>Available</h2>
             <perfect-scrollbar fxFlex="auto" *ngIf="this.availableAthletes.length !== 0">
                 <mat-accordion *ngFor="let athlete of this.availableAthletes">
                     <ft-team-management-athlete [athlete]="athlete" [mode]="'add'" (added)="this.onAthleteAdded($event)"></ft-team-management-athlete>

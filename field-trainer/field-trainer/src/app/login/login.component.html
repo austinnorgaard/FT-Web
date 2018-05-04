@@ -1,7 +1,4 @@
 <form #loginForm="ngForm" (ngSubmit)="login()" fxLayout="column" class="login-container">
-    <div fxFlex>
-        <h1>Login</h1>
-    </div>
     <mat-form-field fxFlex>
         <input [(ngModel)]="this.email" matInput placeholder="Email" name="email" required />
         <mat-error *ngIf="emailFormControl.invalid">Email required</mat-error>
