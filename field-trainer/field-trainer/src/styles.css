@@ -30,3 +30,7 @@ router-outlet.router-flex + * {
 ::ng-deep .mat-form-field .mat-form-field-infix {
     width: auto;
 }
+
+h1 {
+    margin-top: 0.5em !important;
+}
