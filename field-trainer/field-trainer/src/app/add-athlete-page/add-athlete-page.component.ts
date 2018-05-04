@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { TeamManagementService } from "../api/team-management.service";
 import { Team } from "../../../../../smart-cone-api/src/Teams/team";
 import { TeamModel } from "../models/team";
@@ -6,6 +6,7 @@ import { AthleteModel } from "../models/athlete";
 import { AthleteRegistrationModel } from "../models/athlete-registration";
 import { AthleteManagementService } from "../api/athlete-management.service";
 import { DatabaseResponse } from "../../../../../smart-cone-api/src/Database/Data/DatabaseResponse";
+import { NgForm } from "@angular/forms";
 
 @Component({
     selector: "ft-add-athlete-page",
@@ -56,6 +57,8 @@ export class AddAthletePageComponent implements OnInit {
 
     athlete: AthleteModel = new AthleteModel();
     athleteForSubmission: AthleteModel = new AthleteModel();
+
+    @ViewChild("addAthleteForm") form: NgForm;
 
     constructor(private readonly teamService: TeamManagementService, private readonly athletesService: AthleteManagementService) {}
 
@@ -132,6 +135,7 @@ export class AddAthletePageComponent implements OnInit {
             .createAthlete(registrationData)
             .then(response => {
                 console.log("Athlete added!");
+                this.form.resetForm();
             })
             .catch((err: DatabaseResponse) => {
                 console.log("Failed to add athlete");
