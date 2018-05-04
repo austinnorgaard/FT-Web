@@ -96,7 +96,7 @@ A course has a reference to the field it is connected to, and has a list of cone
         },
         course: {
             cones: [1, 2, 3, 4], # in this case we are using all cones available from the field
-            actions: [ # list of actions
+            segments: [ # list of actions
                 {
                     from: 1,    # each cone has a start, and end cone, along with an action
                     to: 2,
