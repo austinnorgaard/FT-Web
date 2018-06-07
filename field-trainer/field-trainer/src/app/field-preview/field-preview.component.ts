@@ -68,7 +68,7 @@ export class FieldPreviewComponent implements OnInit {
     fitToContainer() {
         this.canvasRef.nativeElement.style.width = "100%";
         this.canvasRef.nativeElement.style.height = "100%";
-        this.canvasRef.nativeElement.width = this.canvasRef.nativeElement.offsetWidth * 0.53;
+        this.canvasRef.nativeElement.width = this.canvasRef.nativeElement.offsetWidth;
         this.canvasRef.nativeElement.height = this.canvasRef.nativeElement.offsetHeight;
     }
 
@@ -77,6 +77,10 @@ export class FieldPreviewComponent implements OnInit {
             x: this.canvasRef.nativeElement.width / 2,
             y: this.canvasRef.nativeElement.height / 2,
         };
+    }
+
+    fieldResize() {
+        this.fitToContainer();
     }
 }
 
