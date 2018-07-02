@@ -41,8 +41,8 @@
             {{course.name}}
         </mat-option>
     </mat-select>
-    <div *ngIf="this.selectedField !== null" fxFlex style="margin-top: 1em; width: 100%" #fieldPreviewDiv>
-        <ft-field-preview #fieldPreview></ft-field-preview>
+    <div fxFlex fxLayout="column" *ngIf="this.selectedField !== null" style="margin-top: 1em; width: 100%;" #fieldPreviewDiv>
+        <ft-field-preview fxFlexAlign="center" #fieldPreview></ft-field-preview>
     </div>
-    <button fxFlex="0 0 auto" mat-raised-button color="primary" (click)="onClick()">Next</button>
+    <button fxFlex="0 0 auto" style="margin-top: 1em" mat-raised-button color="primary" (click)="onClick()">Next</button>
 </div>
