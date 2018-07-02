@@ -29,22 +29,19 @@
     </mat-vertical-stepper>
 </div> -->
 
-<div fxLayout="column" fxFlex fxLayoutAlign="center center" style="padding-left: 1em; padding-right: 1em; padding-bottom: 1em; background: grey">
+<div fxLayout="column" fxFlex fxLayoutAlign="center center" style="padding-left: 1em; padding-right: 1em; padding-bottom: 1em;">
     <h1 fxFlex="0 0 auto">Select Field</h1>
     <mat-select [(ngModel)]="this.selectedField" (selectionChange)="onFieldChanged()" fxFlex="0 0 auto" placeholder="Select field">
         <mat-option *ngFor="let field of this.fields" [value]="field">
             {{field.name}}
         </mat-option>
     </mat-select>
-    <mat-select style="margin-top: 1em" fxFlex="0 0 auto" placeholder="Select Course">
-        <mat-option>
-            Course 1
-        </mat-option>
-        <mat-option>
-            Course 2
+    <mat-select [(ngModel)]="this.selectedCourse" (selectionChange)="onCourseChanged()" style="margin-top: 1em" fxFlex="0 0 auto" placeholder="Select Course">
+        <mat-option *ngFor="let course of this.courses" [value]="course">
+            {{course.name}}
         </mat-option>
     </mat-select>
-    <div fxFlex style="background: red; margin-top: 1em; width: 100%" #fieldPreviewDiv>
+    <div *ngIf="this.selectedField !== null" fxFlex style="margin-top: 1em; width: 100%" #fieldPreviewDiv>
         <ft-field-preview #fieldPreview></ft-field-preview>
     </div>
     <button fxFlex="0 0 auto" mat-raised-button color="primary" (click)="onClick()">Next</button>

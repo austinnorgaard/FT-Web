@@ -1,4 +1,3 @@
 export class Point {
-    x: number;
-    y: number;
+    public constructor(public x?: number, public y?: number) {}
 }

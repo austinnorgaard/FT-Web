@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef, HostListener, AfterViewInit }
 import { Field } from "../models/field";
 import { FieldsService } from "../api/fields.service";
 import { FieldPreviewComponent } from "../field-preview/field-preview.component";
+import { Course } from "../models/course";
 
 @Component({
     selector: "ft-session-setup-page",
@@ -13,11 +14,13 @@ export class SessionSetupPageComponent implements OnInit, AfterViewInit {
     @ViewChild("fieldPreview") fieldPreview: FieldPreviewComponent;
 
     selectedField: Field;
+    selectedCourse: Course;
     constructor(private fieldsService: FieldsService) {
         this.getFields();
     }
 
     fields: Field[] = null;
+    courses: Course[] = null;
 
     ngAfterViewInit(): void {
         this.fieldPreview.resize(this.fieldPreviewDiv.nativeElement.offsetWidth, this.fieldPreviewDiv.nativeElement.offsetHeight);
@@ -39,9 +42,25 @@ export class SessionSetupPageComponent implements OnInit, AfterViewInit {
         });
     }
 
+    getCourses() {
+        if (this.selectedField === null) {
+            return;
+        }
+
+        return this.fieldsService.getCourses(this.selectedField).then(courses => {
+            this.courses = courses;
+        });
+    }
+
     onFieldChanged() {
+        this.getCourses();
+
         const width = this.fieldPreviewDiv.nativeElement.offsetWidth;
         const height = this.fieldPreviewDiv.nativeElement.offsetHeight;
         this.fieldPreview.loadField(this.selectedField, width, height);
+    }
+
+    onCourseChanged() {
+        this.fieldPreview.loadCourse(this.selectedCourse);
     }
 }

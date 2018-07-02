@@ -4,6 +4,7 @@ import { Point } from "../models/point";
 import { FieldDrawablePixi } from "../field-drawable/field-drawable-2";
 import { FieldsService } from "../api/fields.service";
 import { Field } from "../models/field";
+import { Course } from "../models/course";
 
 @Component({
     selector: "ft-field-preview",
@@ -44,6 +45,10 @@ export class FieldPreviewComponent implements OnInit {
 
     public loadField(field: Field, width: number, height: number) {
         this.field.loadField(field, width, height);
+    }
+
+    public loadCourse(course: Course) {
+        this.field.loadCourse(course);
     }
 
     @HostListener("window:resize", ["$event"])
