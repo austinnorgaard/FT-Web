@@ -9,18 +9,20 @@ import { Point } from "../models/point";
 export class FieldDrawable {
     // These are the values to multiply points against to translate
     // them to the scaled up field
-    private scale: Point;
-    private origin: Point;
+    private scale: Point = new Point();
+    private origin: Point = new Point();
     private context: CanvasRenderingContext2D = null;
     private canvas: ElementRef;
     private backgroundColor = "darkgreen";
     private coneColor = "orange";
+    private dimensions: Point = new Point();
 
     // The width and height should represent real-life values, such as yards
     public constructor(canvas: ElementRef, width: number, height: number) {
-        this.fieldResize();
         this.canvas = canvas;
         this.context = canvas.nativeElement.getContext("2d");
+        this.dimensions.x = width;
+        this.dimensions.y = height;
         this.scale.x = canvas.nativeElement.width / width;
         this.scale.y = canvas.nativeElement.height / height;
         this.origin.x = this.getMidPoint().x;
@@ -37,6 +39,8 @@ export class FieldDrawable {
     // Public method to call if the field is resized
     public fieldResize() {
         this.fitToContainer();
+        this.context.fillStyle = this.backgroundColor;
+        this.context.fillRect(0, 0, this.canvas.nativeElement.offsetWidth, this.canvas.nativeElement.offsetHeight);
     }
 
     // Draws a cone at the given point
@@ -49,10 +53,12 @@ export class FieldDrawable {
     // This method will fill the container it is in
     // Will need to be called if resizing occurs
     private fitToContainer() {
+        const ratio = this.dimensions.x / this.dimensions.y; // football field of 50x103 is roughly .5
         this.canvas.nativeElement.style.width = "100%";
         this.canvas.nativeElement.style.height = "100%";
         this.canvas.nativeElement.width = this.canvas.nativeElement.offsetWidth;
         this.canvas.nativeElement.height = this.canvas.nativeElement.offsetHeight;
+        console.log(`${this.canvas.nativeElement.width} x ${this.canvas.nativeElement.height}`);
     }
 
     private getMidPoint(): Point {

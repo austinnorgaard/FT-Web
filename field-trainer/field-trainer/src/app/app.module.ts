@@ -20,6 +20,7 @@ import {
     MatSidenavModule,
     MatToolbarModule,
     MatTooltipModule,
+    MatStepperModule,
 } from "@angular/material";
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
@@ -63,14 +64,16 @@ import { SetupComponent } from "./setup-component/setup.component";
 import { StatusIndicatorComponent } from "./status-indicator/status-indicator.component";
 import { TeamManagementAthleteComponent } from "./team-management-athlete/team-management-athlete.component";
 import { TeamManagementPageComponent } from "./team-management-page/team-management-page.component";
-import { SessionSetupPageComponent } from './session-setup-page/session-setup-page.component';
-import { FieldPreviewComponent } from './field-preview/field-preview.component';
+import { SessionSetupPageComponent } from "./session-setup-page/session-setup-page.component";
+import { FieldPreviewComponent } from "./field-preview/field-preview.component";
+import { PixiModule } from "angular2pixi";
+import { FieldsService } from "./api/fields.service";
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     // w/e
 };
 
-let ip = FT_CONFIG.getSmartConeApiSocketUrl();
+const ip = FT_CONFIG.getSmartConeApiSocketUrl();
 const config: SocketIoConfig = {
     url: ip,
     options: {},
@@ -132,6 +135,8 @@ const config: SocketIoConfig = {
         MatRadioModule,
         PerfectScrollbarModule,
         DragulaModule,
+        PixiModule,
+        MatStepperModule,
     ],
     providers: [
         ConesService,
@@ -154,6 +159,7 @@ const config: SocketIoConfig = {
             provide: PERFECT_SCROLLBAR_CONFIG,
             useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
         },
+        FieldsService,
     ],
     bootstrap: [AppComponent],
 })

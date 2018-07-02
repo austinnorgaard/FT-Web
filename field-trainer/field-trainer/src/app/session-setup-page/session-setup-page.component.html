@@ -1,7 +1,51 @@
-<div fxLayout="column" fxFlex style="margin-left: 1em; margin-right: 1em" fxLayoutAlign="start center">
+<!-- <div fxLayout="column" fxFlex style="margin-left: 1em; margin-right: 1em" fxLayoutAlign="start center">
     <h1 fxFlex="0 0 auto" fxFlexAlign="center" style="margin-top: 0.5em;">Session Setup</h1>
     <h2 fxFlex="0 0 auto" fxFlexAlign="start">Field Setup</h2>
-    <div fxFlex>
-        <ft-field-preview></ft-field-preview>
+
+    <div style="background: grey; width: 100%; height: 100%" #fieldPreviewDiv>
+        <ft-field-preview #fieldPreview></ft-field-preview>
     </div>
+    <button>Next</button>
+</div> -->
+<!-- <div fxLayout style="height: 100%">
+    <mat-vertical-stepper fxLayout="column" fxFlex="100%">
+        <mat-step label="Select Field" fxFlex="100%" fxLayout="column" fxLayoutAlign="center center" style="background: grey">
+            <div fxLayout="row" fxLayoutAlign="center center">
+                <mat-select fxFlex placeholder="Select field...">
+                    <mat-option>
+                        Field1
+                    </mat-option>
+                    <mat-option>
+                        Field2
+                    </mat-option>
+                </mat-select>
+            </div>
+            <ft-field-preview fxFlex style="width: 100%; height: 100%; background: grey"></ft-field-preview>
+        </mat-step>
+        <mat-step label="Select Course">
+        </mat-step>
+        <mat-step label="Select Athletes">
+        </mat-step>
+    </mat-vertical-stepper>
+</div> -->
+
+<div fxLayout="column" fxFlex fxLayoutAlign="center center" style="padding-left: 1em; padding-right: 1em; padding-bottom: 1em; background: grey">
+    <h1 fxFlex="0 0 auto">Select Field</h1>
+    <mat-select [(ngModel)]="this.selectedField" (selectionChange)="onFieldChanged()" fxFlex="0 0 auto" placeholder="Select field">
+        <mat-option *ngFor="let field of this.fields" [value]="field">
+            {{field.name}}
+        </mat-option>
+    </mat-select>
+    <mat-select style="margin-top: 1em" fxFlex="0 0 auto" placeholder="Select Course">
+        <mat-option>
+            Course 1
+        </mat-option>
+        <mat-option>
+            Course 2
+        </mat-option>
+    </mat-select>
+    <div fxFlex style="background: red; margin-top: 1em; width: 100%" #fieldPreviewDiv>
+        <ft-field-preview #fieldPreview></ft-field-preview>
+    </div>
+    <button fxFlex="0 0 auto" mat-raised-button color="primary" (click)="onClick()">Next</button>
 </div>
