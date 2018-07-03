@@ -12,7 +12,7 @@ import { Course } from "../models/course";
 export class SessionSetupPageComponent implements AfterViewInit {
     @ViewChild("fieldPreviewDiv") fieldPreviewDiv: ElementRef;
     @ViewChild("fieldPreview") fieldPreview: FieldPreviewComponent;
-    selectedField: Field;
+    selectedField: Field = null;
     selectedCourse: Course;
     fields: Field[] = null;
     courses: Course[] = null;
@@ -22,7 +22,7 @@ export class SessionSetupPageComponent implements AfterViewInit {
     }
 
     ngAfterViewInit(): void {
-        this.fieldPreview.resize(this.fieldPreviewDiv.nativeElement.offsetWidth, this.fieldPreviewDiv.nativeElement.offsetHeight);
+        // Uncomment if we are going to default to a field
     }
 
     onClick() {}

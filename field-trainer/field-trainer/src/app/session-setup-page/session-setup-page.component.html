@@ -1,5 +1,5 @@
-<div fxLayout="column" fxFlex fxLayoutAlign="center center" class="session-setup-container">
-    <h1 fxFlex="0 0 auto">Select Field</h1>
+<div fxLayout="column" fxFlex fxLayoutAlign="start center" class="session-setup-container">
+    <h1 fxFlex="0 0 auto">Field & Course Setup</h1>
     <mat-select [(ngModel)]="this.selectedField" (selectionChange)="onFieldChanged()" fxFlex="0 0 auto" placeholder="Select field">
         <mat-option *ngFor="let field of this.fields" [value]="field">
             {{field.name}}
@@ -10,8 +10,9 @@
             {{course.name}}
         </mat-option>
     </mat-select>
-    <div fxFlex fxLayout="column" *ngIf="this.selectedField !== null" style="margin-top: 1em; width: 100%;" #fieldPreviewDiv>
+    <div fxLayout="column" fxFlex style="margin-top: 1em; width: 100%;" #fieldPreviewDiv>
         <ft-field-preview fxFlexAlign="center" #fieldPreview></ft-field-preview>
+        <h3 fxFlex fxFlexAlign="center" *ngIf="this.selectedField === null" class="select-field-text">Select a field</h3>
     </div>
     <button fxFlex="0 0 auto" style="margin-top: 1em" mat-raised-button color="primary" (click)="onClick()">Next</button>
 </div>

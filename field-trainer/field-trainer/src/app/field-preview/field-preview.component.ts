@@ -12,34 +12,17 @@ import { Course } from "../models/course";
 })
 export class FieldPreviewComponent implements OnInit {
     @ViewChild("fieldCanvas") canvasRef: ElementRef;
-    @Input() public width: number;
-    @Input() public height: number;
-    // private fieldDrawable: FieldDrawable = null;
-    // private points: Point[];
 
     private field: FieldDrawable;
 
-    constructor(private fieldService: FieldsService) {
-        // this.points = mockFieldData;
-    }
+    constructor(private fieldService: FieldsService) {}
 
     ngOnInit() {
-        // For testing, use football field dimensions
-        // this.fieldDrawable = new FieldDrawable(this.canvasRef, 50, 103);
-        // this.fieldDrawable.load(this.points);
         this.field = new FieldDrawable(this.canvasRef);
     }
 
-    private getParentWidth(): number {
-        return 0;
-    }
-
-    private getParentHeight(): number {
-        return 0;
-    }
-
     public resize(width: number, height: number) {
-        this.field.resize(height * 0.5, height);
+        this.field.resize(height, height);
     }
 
     public loadField(field: Field, width: number, height: number) {

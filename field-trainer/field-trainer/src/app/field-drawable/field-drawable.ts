@@ -14,7 +14,7 @@ export class FieldDrawable {
 
     constructor(field: ElementRef) {
         console.log(field);
-        this.app = new PIXI.Application({ width: 1, height: 1, view: field.nativeElement });
+        this.app = new PIXI.Application({ width: 0, height: 0, view: field.nativeElement });
         this.container = new PIXI.Container();
         this.textContainer = new PIXI.Container();
         this.app.stage.addChild(this.container);
