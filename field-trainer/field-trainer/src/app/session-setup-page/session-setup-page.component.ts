@@ -9,48 +9,23 @@ import { Course } from "../models/course";
     templateUrl: "./session-setup-page.component.html",
     styleUrls: ["./session-setup-page.component.css"],
 })
-export class SessionSetupPageComponent implements OnInit, AfterViewInit {
+export class SessionSetupPageComponent implements AfterViewInit {
     @ViewChild("fieldPreviewDiv") fieldPreviewDiv: ElementRef;
     @ViewChild("fieldPreview") fieldPreview: FieldPreviewComponent;
-
     selectedField: Field;
     selectedCourse: Course;
+    fields: Field[] = null;
+    courses: Course[] = null;
+
     constructor(private fieldsService: FieldsService) {
         this.getFields();
     }
-
-    fields: Field[] = null;
-    courses: Course[] = null;
 
     ngAfterViewInit(): void {
         this.fieldPreview.resize(this.fieldPreviewDiv.nativeElement.offsetWidth, this.fieldPreviewDiv.nativeElement.offsetHeight);
     }
 
-    ngOnInit() {}
-
-    @HostListener("window:resize", ["$event"])
-    onResize(event) {}
-
-    onClick() {
-        // console.log(`${JSON.stringify(this.fieldPreviewDiv)}`);
-        // console.log(`${this.fieldPreviewDiv.nativeElement.offsetWidth} x ${this.fieldPreviewDiv.nativeElement.offsetHeight}`);
-    }
-
-    getFields() {
-        return this.fieldsService.getFields().then(fields => {
-            this.fields = fields;
-        });
-    }
-
-    getCourses() {
-        if (this.selectedField === null) {
-            return;
-        }
-
-        return this.fieldsService.getCourses(this.selectedField).then(courses => {
-            this.courses = courses;
-        });
-    }
+    onClick() {}
 
     onFieldChanged() {
         this.getCourses();
@@ -62,5 +37,21 @@ export class SessionSetupPageComponent implements OnInit, AfterViewInit {
 
     onCourseChanged() {
         this.fieldPreview.loadCourse(this.selectedCourse);
+    }
+
+    private getFields() {
+        return this.fieldsService.getFields().then(fields => {
+            this.fields = fields;
+        });
+    }
+
+    private getCourses() {
+        if (this.selectedField === null) {
+            return;
+        }
+
+        return this.fieldsService.getCourses(this.selectedField).then(courses => {
+            this.courses = courses;
+        });
     }
 }
