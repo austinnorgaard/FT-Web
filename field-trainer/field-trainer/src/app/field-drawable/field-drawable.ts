@@ -4,20 +4,20 @@ import { Point } from "../models/point";
 import { Course } from "../models/course";
 
 export class FieldDrawable {
-    app: any;
-    container: any;
-    coneTexture: any;
-    textContainer: any;
+    app: PIXI.Application;
+    coneContainer: PIXI.Container;
+    textContainer: PIXI.Container;
+    coneTexture: PIXI.Texture;
+
     private scale: Point = new Point();
     private origin: Point = new Point();
     private field: Field;
 
-    constructor(field: ElementRef) {
-        console.log(field);
-        this.app = new PIXI.Application({ width: 0, height: 0, view: field.nativeElement });
-        this.container = new PIXI.Container();
+    constructor(canvas: ElementRef) {
+        this.app = new PIXI.Application({ width: 0, height: 0, view: canvas.nativeElement });
+        this.coneContainer = new PIXI.Container();
         this.textContainer = new PIXI.Container();
-        this.app.stage.addChild(this.container);
+        this.app.stage.addChild(this.coneContainer);
         this.app.stage.addChild(this.textContainer);
         this.coneTexture = PIXI.Texture.fromImage("./assets/cone.png");
         this.app.renderer.backgroundColor = 0x101010;
@@ -29,58 +29,49 @@ export class FieldDrawable {
         this.origin.y = this.app.renderer.height;
     }
 
-    public loadField(field: Field, parentWidth: number, parentHeight: number) {
-        if (this.app.stage.children.length > 0) {
-            this.app.stage.removeChild(this.app.stage.children[0]); // only 1 container so far..
-        }
-        // re-create the container and add it back
-        this.container = new PIXI.Container();
-        this.app.stage.addChild(this.container);
+    public clearField() {
+        this.coneContainer.removeChildren();
+        this.textContainer.removeChildren();
+    }
 
-        // the parent width/height tells us how much room we have to fit into
-
+    public getScaledDimensions(field: Field, width: number, height: number): Point {
         let scaledWidth = 0;
         let scaledHeight = 0;
 
-        console.log(`Parent dimensions: ${parentWidth} x ${parentHeight}`);
-
-        // if the width is greater than the height, we'll scale the height down to fit
-        // otherwise the other way
+        // Check our field's width/height to determine the aspect ratio to adhere to
         if (field.height > field.width) {
-            // Leave the height alone, scale the width by the passed in ratio
-            console.log(`Field dimensions; ${field.width} x ${field.height}`);
             const ratio = field.width / field.height;
-            console.log(`ratio: ${ratio}`);
-            scaledWidth = parentHeight * ratio;
-            scaledHeight = parentHeight;
+            scaledWidth = height * ratio;
+            scaledHeight = height;
         } else {
             const ratio = field.height / field.width;
-            scaledHeight = parentWidth * ratio;
-            scaledWidth = parentWidth;
+            scaledHeight = width * ratio;
+            scaledWidth = width;
         }
 
-        console.log(`Scaled dimensions; ${scaledWidth} x ${scaledHeight}`);
+        return new Point(scaledWidth, scaledHeight);
+    }
 
-        this.app.renderer.resize(scaledWidth, scaledHeight);
+    public loadField(field: Field, parentWidth: number, parentHeight: number) {
+        this.clearField();
+        const dimensions = this.getScaledDimensions(field, parentWidth, parentHeight);
 
-        this.scale.x = scaledWidth / field.width;
-        this.scale.y = scaledHeight / field.height;
+        this.app.renderer.resize(dimensions.x, dimensions.y);
+
+        this.scale.x = dimensions.x / field.width;
+        this.scale.y = dimensions.y / field.height;
 
         field.cones.forEach(cone => {
             const coneSprite = new PIXI.Sprite(this.coneTexture);
-            coneSprite.scale = new PIXI.Point(0.4, 0.4);
+            coneSprite.scale = new PIXI.Point(0.4, 0.4); // TODO find decent solution to make the cones more visible
             coneSprite.x = cone.position.x * this.scale.x;
             coneSprite.y = cone.position.y * this.scale.y;
 
-            this.container.addChild(coneSprite);
+            this.coneContainer.addChild(coneSprite);
         });
     }
 
     public loadCourse(course: Course) {
-        console.log(`${JSON.stringify(course)}`);
-        // Load a course related to this field.
-        // Draw text in a separate container over top of the existing container
-        // Just draw text between the cones with the action name
         for (let i = 0; i < course.segments.length; ++i) {
             // each segment we draw text..
             const text = new PIXI.Text(course.segments[i].action, { fontFamily: "Arial", fontSize: 10, fill: 0xdddddd, align: "center" });
