@@ -38,7 +38,7 @@ export function getMockFields(): Field[] {
     ];
 }
 
-export const mockField1Courses: Course[] = [
+export const mockCourses: Course[] = [
     {
         name: "Conditioning",
         field: new Field(getMockCones3(), 80, 60, "Senior Soccer Half Field"),
@@ -73,7 +73,7 @@ export const mockField1Courses: Course[] = [
     },
     {
         name: "Conditioning",
-        field: new Field(getMockCones1(), 54, 102, "Football field 1"),
+        field: new Field(getMockCones1(), 54, 102, "Football Field 1"),
         conesSubset: [0, 1, 2, 3, 4, 5],
         segments: [
             {

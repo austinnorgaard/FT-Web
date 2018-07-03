@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, HostListener, Input } from "@angular/core";
-import { FieldDrawable } from "../field-drawable/field-drawable";
 import { Point } from "../models/point";
-import { FieldDrawablePixi } from "../field-drawable/field-drawable-2";
+import { FieldDrawable } from "../field-drawable/field-drawable";
 import { FieldsService } from "../api/fields.service";
 import { Field } from "../models/field";
 import { Course } from "../models/course";
@@ -18,7 +17,7 @@ export class FieldPreviewComponent implements OnInit {
     // private fieldDrawable: FieldDrawable = null;
     // private points: Point[];
 
-    private field: FieldDrawablePixi;
+    private field: FieldDrawable;
 
     constructor(private fieldService: FieldsService) {
         // this.points = mockFieldData;
@@ -28,7 +27,7 @@ export class FieldPreviewComponent implements OnInit {
         // For testing, use football field dimensions
         // this.fieldDrawable = new FieldDrawable(this.canvasRef, 50, 103);
         // this.fieldDrawable.load(this.points);
-        this.field = new FieldDrawablePixi(this.canvasRef);
+        this.field = new FieldDrawable(this.canvasRef);
     }
 
     private getParentWidth(): number {

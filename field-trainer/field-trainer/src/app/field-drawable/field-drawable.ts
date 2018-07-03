@@ -1,70 +1,102 @@
 import { ElementRef } from "@angular/core";
+import { Field } from "../models/field";
 import { Point } from "../models/point";
-
-/*
-    A FieldDrawable takes a canvas element and some settings and will
-    render the Field.
-*/
+import { Course } from "../models/course";
 
 export class FieldDrawable {
-    // These are the values to multiply points against to translate
-    // them to the scaled up field
+    app: any;
+    container: any;
+    coneTexture: any;
+    textContainer: any;
     private scale: Point = new Point();
     private origin: Point = new Point();
-    private context: CanvasRenderingContext2D = null;
-    private canvas: ElementRef;
-    private backgroundColor = "darkgreen";
-    private coneColor = "orange";
-    private dimensions: Point = new Point();
+    private field: Field;
 
-    // The width and height should represent real-life values, such as yards
-    public constructor(canvas: ElementRef, width: number, height: number) {
-        this.canvas = canvas;
-        this.context = canvas.nativeElement.getContext("2d");
-        this.dimensions.x = width;
-        this.dimensions.y = height;
-        this.scale.x = canvas.nativeElement.width / width;
-        this.scale.y = canvas.nativeElement.height / height;
+    constructor(field: ElementRef) {
+        console.log(field);
+        this.app = new PIXI.Application({ width: 1, height: 1, view: field.nativeElement });
+        this.container = new PIXI.Container();
+        this.textContainer = new PIXI.Container();
+        this.app.stage.addChild(this.container);
+        this.app.stage.addChild(this.textContainer);
+        this.coneTexture = PIXI.Texture.fromImage("./assets/cone.png");
+        this.app.renderer.backgroundColor = 0x101010;
+    }
+
+    public resize(width: number, height: number) {
+        this.app.renderer.resize(width, height);
         this.origin.x = this.getMidPoint().x;
-        this.origin.y = this.canvas.nativeElement.height;
-
-        this.context.fillStyle = this.backgroundColor;
-        this.context.fillRect(0, 0, canvas.nativeElement.width, canvas.nativeElement.height);
+        this.origin.y = this.app.renderer.height;
     }
 
-    public load(points: Point[]) {
-        points.forEach(p => {});
+    public loadField(field: Field, parentWidth: number, parentHeight: number) {
+        if (this.app.stage.children.length > 0) {
+            this.app.stage.removeChild(this.app.stage.children[0]); // only 1 container so far..
+        }
+        // re-create the container and add it back
+        this.container = new PIXI.Container();
+        this.app.stage.addChild(this.container);
+
+        // the parent width/height tells us how much room we have to fit into
+
+        let scaledWidth = 0;
+        let scaledHeight = 0;
+
+        console.log(`Parent dimensions: ${parentWidth} x ${parentHeight}`);
+
+        // if the width is greater than the height, we'll scale the height down to fit
+        // otherwise the other way
+        if (field.height > field.width) {
+            // Leave the height alone, scale the width by the passed in ratio
+            console.log(`Field dimensions; ${field.width} x ${field.height}`);
+            const ratio = field.width / field.height;
+            console.log(`ratio: ${ratio}`);
+            scaledWidth = parentHeight * ratio;
+            scaledHeight = parentHeight;
+        } else {
+            const ratio = field.height / field.width;
+            scaledHeight = parentWidth * ratio;
+            scaledWidth = parentWidth;
+        }
+
+        console.log(`Scaled dimensions; ${scaledWidth} x ${scaledHeight}`);
+
+        this.app.renderer.resize(scaledWidth, scaledHeight);
+
+        this.scale.x = scaledWidth / field.width;
+        this.scale.y = scaledHeight / field.height;
+
+        field.cones.forEach(cone => {
+            const coneSprite = new PIXI.Sprite(this.coneTexture);
+            coneSprite.scale = new PIXI.Point(0.4, 0.4);
+            coneSprite.x = cone.position.x * this.scale.x;
+            coneSprite.y = cone.position.y * this.scale.y;
+
+            this.container.addChild(coneSprite);
+        });
     }
 
-    // Public method to call if the field is resized
-    public fieldResize() {
-        this.fitToContainer();
-        this.context.fillStyle = this.backgroundColor;
-        this.context.fillRect(0, 0, this.canvas.nativeElement.offsetWidth, this.canvas.nativeElement.offsetHeight);
-    }
-
-    // Draws a cone at the given point
-    // For now, we will draw orange squares
-    private drawConeAtPoint(location: Point) {
-        this.context.fillStyle = this.coneColor;
-        this.context.fillRect(location.x, location.y, 1.0 * this.scale.x, 1.0 * this.scale.y);
-    }
-
-    // This method will fill the container it is in
-    // Will need to be called if resizing occurs
-    private fitToContainer() {
-        const ratio = this.dimensions.x / this.dimensions.y; // football field of 50x103 is roughly .5
-        this.canvas.nativeElement.style.width = "100%";
-        this.canvas.nativeElement.style.height = "100%";
-        this.canvas.nativeElement.width = this.canvas.nativeElement.offsetWidth;
-        this.canvas.nativeElement.height = this.canvas.nativeElement.offsetHeight;
-        console.log(`${this.canvas.nativeElement.width} x ${this.canvas.nativeElement.height}`);
+    public loadCourse(course: Course) {
+        console.log(`${JSON.stringify(course)}`);
+        // Load a course related to this field.
+        // Draw text in a separate container over top of the existing container
+        // Just draw text between the cones with the action name
+        for (let i = 0; i < course.segments.length; ++i) {
+            // each segment we draw text..
+            const text = new PIXI.Text(course.segments[i].action, { fontFamily: "Arial", fontSize: 10, fill: 0xdddddd, align: "center" });
+            const cone1 = course.field.cones[course.segments[i].from];
+            const cone2 = course.field.cones[course.segments[i].to];
+            const location = new Point((cone1.position.x + cone2.position.x) / 2, (cone1.position.y + cone2.position.y) / 2);
+            console.log(`Location: ${location.x} x ${location.y}`);
+            text.position = new PIXI.Point(location.x * this.scale.x, location.y * this.scale.y);
+            this.textContainer.addChild(text);
+        }
     }
 
     private getMidPoint(): Point {
         return {
-            x: this.canvas.nativeElement.width / 2,
-            y: this.canvas.nativeElement.height / 2,
+            x: this.app.renderer.width / 2,
+            y: this.app.renderer.height / 2,
         };
     }
 }
