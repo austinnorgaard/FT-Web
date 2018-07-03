@@ -46,7 +46,7 @@ export class FieldDrawablePixi {
 
         // if the width is greater than the height, we'll scale the height down to fit
         // otherwise the other way
-        if (parentHeight > parentWidth) {
+        if (field.height > field.width) {
             // Leave the height alone, scale the width by the passed in ratio
             console.log(`Field dimensions; ${field.width} x ${field.height}`);
             const ratio = field.width / field.height;
