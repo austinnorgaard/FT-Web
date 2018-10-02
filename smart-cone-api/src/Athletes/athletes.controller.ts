@@ -22,7 +22,7 @@ export class AthletesController {
                     // someone passed in a team, lets try and get the ID and add them
                     this.teamsService
                         .addAthleteToTeam(athlete.team.id, response.data.athleteId)
-                        .then(response => {
+                        .then(() => {
                             console.log("Successfully added to team as well");
                         })
                         .catch(err => {
