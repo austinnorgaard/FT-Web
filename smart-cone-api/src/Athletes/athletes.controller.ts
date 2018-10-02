@@ -2,7 +2,7 @@ import { Controller, Post, Body, Get, HttpStatus, Delete, Query } from "@nestjs/
 import { AthleteRegistration } from "./athlete-registration";
 import { AthletesService } from "./athletes.service";
 import { Athlete } from "./athlete";
-import { HttpException } from "@nestjs/core";
+import { HttpException } from "@nestjs/common";
 import { DatabaseResponse } from "../Database/Data/DatabaseResponse";
 import { DatabaseFailureType } from "../Database/Data/DatabaseEnums";
 import { AthleteTeamSchema } from "../Database/Models/AthleteTeamSchema";

@@ -1,5 +1,5 @@
 import * as passport from "passport";
-import { Module, NestModule, MiddlewaresConsumer, RequestMethod } from "@nestjs/common";
+import { Module, NestModule, MiddlewareConsumer, RequestMethod } from "@nestjs/common";
 
 import { AuthService } from "./auth.service";
 import { JwtStrategy } from "./jwt.strategy";
@@ -12,7 +12,7 @@ import { DatabaseModule } from "../Database/database.module";
     imports: [DatabaseModule],
 })
 export class AuthModule implements NestModule {
-    public configure(consumer: MiddlewaresConsumer) {
+    public configure(consumer: MiddlewareConsumer) {
         console.log("auth module configuring");
         // consumer
         //     .apply(passport.authenticate("jwt", { session: false }))
