@@ -1,4 +1,4 @@
-import { IStateMachineState } from "./StateMachine/IStateMachineState";
+import { IStateMachineState } from "./StateMachine/i-state-machine-state";
 import { Course } from "./course";
 import { Athlete } from "../Athletes/athlete";
 

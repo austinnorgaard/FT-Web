@@ -11,9 +11,10 @@ import { AuthModule } from "../Auth/auth.module";
 import { TeamsModule } from "../Teams/teams.module";
 import { UsersModule } from "../Users/users.module";
 import { AthletesModule } from "../Athletes/athletes.module";
+import { TrainingModule } from "../Training/training.module";
 
 @Module({
-    imports: [DatabaseModule, AuthModule, TeamsModule, UsersModule, AthletesModule],
+    imports: [DatabaseModule, AuthModule, TeamsModule, UsersModule, AthletesModule, TrainingModule],
     controllers: [AppController, StatusController],
     components: [GeneralSocketApi],
     modules: [DatabaseModule, AuthModule, TeamsModule, UsersModule, AthletesModule],

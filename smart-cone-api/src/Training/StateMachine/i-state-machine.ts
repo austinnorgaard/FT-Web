@@ -1,4 +1,4 @@
-import { IStateMachineState } from "./IStateMachineState";
+import { IStateMachineState } from "./i-state-machine-state";
 
 export abstract class IStateMachine {
     // List of possible states

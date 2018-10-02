@@ -1,6 +1,6 @@
-import { IStateMachine } from "./StateMachine/IStateMachine";
-import { PreSessionState } from "./PreSessionState";
-import { IStateMachineState } from "./StateMachine/IStateMachineState";
+import { IStateMachine } from "./StateMachine/i-state-machine";
+import { PreSessionState } from "./pre-session-state";
+import { IStateMachineState } from "./StateMachine/i-state-machine-state";
 
 export enum SessionStateMachineStates {
     Pre = 0,
