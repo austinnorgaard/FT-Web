@@ -67,7 +67,8 @@ import { TeamManagementPageComponent } from "./team-management-page/team-managem
 import { FieldPreviewComponent } from "./field-preview/field-preview.component";
 import { PixiModule } from "angular2pixi";
 import { FieldsService } from "./api/fields.service";
-import { FieldCourseSetupComponent } from "./session-setup-page/field-course-setup.component";
+import { FieldCourseSetupComponent } from "./field-course-setup/field-course-setup.component";
+import { SessionSetupPageComponent } from "./session-setup-page/session-setup-page.component";
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     // w/e
@@ -104,6 +105,7 @@ const config: SocketIoConfig = {
         AthleteManagementPageComponent,
         FieldPreviewComponent,
         FieldCourseSetupComponent,
+        SessionSetupPageComponent,
     ],
     imports: [
         NgbModule.forRoot(),

@@ -11,6 +11,7 @@ import { AthleteManagementPageComponent } from "./athlete-management-page/athlet
 import { LoginPageComponent } from "./login-page/login-page.component";
 import { TeamManagementPageComponent } from "./team-management-page/team-management-page.component";
 import { AddAthletePageComponent } from "./add-athlete-page/add-athlete-page.component";
+import { FieldCourseSetupComponent } from "./field-course-setup/field-course-setup.component";
 import { SessionSetupPageComponent } from "./session-setup-page/session-setup-page.component";
 
 const routes: Routes = [
@@ -47,6 +48,11 @@ const routes: Routes = [
         path: "session-setup",
         component: SessionSetupPageComponent,
         canActivate: [AuthGuard],
+        children: [
+            { path: "", redirectTo: "field-select", pathMatch: "full" },
+            { path: "field-select", component: FieldCourseSetupComponent },
+            { path: "athlete-select", component: LoginPageComponent }, // TODO: REPLACE THIS!!!!
+        ],
     },
 ];
 

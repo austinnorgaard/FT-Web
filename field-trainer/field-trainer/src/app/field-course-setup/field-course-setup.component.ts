@@ -43,8 +43,6 @@ export class FieldCourseSetupComponent implements AfterViewInit {
         return this.fieldsService.getFields().then(fields => {
             this.fields = fields;
         });
-        if (10 === 10) {
-        }
     }
 
     private getCourses() {
