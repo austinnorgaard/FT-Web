@@ -24,28 +24,32 @@ export class FieldCourseSetupComponent implements AfterViewInit, OnInit {
         this.getFields();
     }
 
-    ngOnInit(): void {
+    // Set state from current state in service
+    async ngOnInit() {
         console.log("Field-Course-Setup Init");
         // Get the current state in case we have navigated back
         const state = this.sessionService.getCurrentSessionSetupState();
         this.selectedField = state.field;
-
+        this.selectedCourse = state.course;
         if (this.selectedField) {
             this.loadedExistingData = true;
-            // Need to load the courses, so we can select
-            this.getCourses()
-                .then(() => {
-                    if (state.course) {
-                        this.selectedCourse = state.course;
-                    }
-                })
-                .catch(err => {
-                    // report, but not interesting i dont think
-                    console.log(err);
-                });
         }
 
         console.log(this.selectedCourse, this.selectedField);
+    }
+
+    async ngAfterViewInit() {
+        if (this.loadedExistingData) {
+            if (this.selectedField) {
+                this.loadFieldPreview();
+                if (this.selectedCourse) {
+                    // make sure the courses got loaded, otherwise it wont appear in the list
+                    this.getCourses().then(() => {
+                        this.fieldPreview.loadCourse(this.selectedCourse);
+                    });
+                }
+            }
+        }
     }
 
     fieldCompareFn(o1: Field, o2: Field): boolean {
@@ -61,18 +65,6 @@ export class FieldCourseSetupComponent implements AfterViewInit, OnInit {
             return false;
         }
         return o1.name === o2.name;
-    }
-
-    ngAfterViewInit(): void {
-        // Uncomment if we are going to default to a field
-        if (this.loadedExistingData) {
-            if (this.selectedField) {
-                this.loadFieldPreview();
-                if (this.selectedCourse) {
-                    this.fieldPreview.loadCourse(this.selectedCourse);
-                }
-            }
-        }
     }
 
     onClick() {

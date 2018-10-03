@@ -28,11 +28,7 @@ export class SessionService {
     }
 
     getCurrentSessionSetupState(): SessionSetupData {
-        return {
-            field: this.selectedField,
-            course: this.selectedCourse,
-            athletes: this.selectedAthletes,
-        };
+        return { field: this.selectedField, course: this.selectedCourse, athletes: this.selectedAthletes };
     }
 
     private handleError(error: any): Promise<any> {
