@@ -1,15 +1,15 @@
-import { Component, OnInit, ViewChild, ElementRef, HostListener, AfterViewInit } from "@angular/core";
+import { Component, ViewChild, ElementRef, AfterViewInit } from "@angular/core";
 import { Field } from "../models/field";
 import { FieldsService } from "../api/fields.service";
 import { FieldPreviewComponent } from "../field-preview/field-preview.component";
 import { Course } from "../models/course";
 
 @Component({
-    selector: "ft-session-setup-page",
-    templateUrl: "./session-setup-page.component.html",
-    styleUrls: ["./session-setup-page.component.css"],
+    selector: "ft-field-course-setup",
+    templateUrl: "./field-course-setup.component.html",
+    styleUrls: ["./field-course-setup.component.css"],
 })
-export class SessionSetupPageComponent implements AfterViewInit {
+export class FieldCourseSetupComponent implements AfterViewInit {
     @ViewChild("fieldPreviewDiv") fieldPreviewDiv: ElementRef;
     @ViewChild("fieldPreview") fieldPreview: FieldPreviewComponent;
     selectedField: Field = null;
@@ -43,6 +43,8 @@ export class SessionSetupPageComponent implements AfterViewInit {
         return this.fieldsService.getFields().then(fields => {
             this.fields = fields;
         });
+        if (10 === 10) {
+        }
     }
 
     private getCourses() {
