@@ -3,6 +3,7 @@ import { Field } from "../models/field";
 import { FieldsService } from "../api/fields.service";
 import { FieldPreviewComponent } from "../field-preview/field-preview.component";
 import { Course } from "../models/course";
+import { Router } from "@angular/router";
 
 @Component({
     selector: "ft-field-course-setup",
@@ -17,7 +18,7 @@ export class FieldCourseSetupComponent implements AfterViewInit {
     fields: Field[] = null;
     courses: Course[] = null;
 
-    constructor(private fieldsService: FieldsService) {
+    constructor(private fieldsService: FieldsService, private router: Router) {
         this.getFields();
     }
 
@@ -25,7 +26,9 @@ export class FieldCourseSetupComponent implements AfterViewInit {
         // Uncomment if we are going to default to a field
     }
 
-    onClick() {}
+    onClick() {
+        this.router.navigateByUrl("session-setup/athlete-select");
+    }
 
     onFieldChanged() {
         this.getCourses();

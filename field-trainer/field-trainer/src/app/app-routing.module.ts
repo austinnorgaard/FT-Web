@@ -13,6 +13,7 @@ import { TeamManagementPageComponent } from "./team-management-page/team-managem
 import { AddAthletePageComponent } from "./add-athlete-page/add-athlete-page.component";
 import { FieldCourseSetupComponent } from "./field-course-setup/field-course-setup.component";
 import { SessionSetupPageComponent } from "./session-setup-page/session-setup-page.component";
+import { AthleteSelectComponent } from "./athlete-select/athlete-select.component";
 
 const routes: Routes = [
     { path: "", redirectTo: "/home", pathMatch: "full" },
@@ -51,7 +52,7 @@ const routes: Routes = [
         children: [
             { path: "", redirectTo: "field-select", pathMatch: "full" },
             { path: "field-select", component: FieldCourseSetupComponent },
-            { path: "athlete-select", component: LoginPageComponent }, // TODO: REPLACE THIS!!!!
+            { path: "athlete-select", component: AthleteSelectComponent },
         ],
     },
 ];
