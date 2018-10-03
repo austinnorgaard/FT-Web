@@ -69,7 +69,8 @@ import { PixiModule } from "angular2pixi";
 import { FieldsService } from "./api/fields.service";
 import { FieldCourseSetupComponent } from "./field-course-setup/field-course-setup.component";
 import { SessionSetupPageComponent } from "./session-setup-page/session-setup-page.component";
-import { AthleteSelectComponent } from './athlete-select/athlete-select.component';
+import { AthleteSelectComponent } from "./athlete-select/athlete-select.component";
+import { SessionService } from "./api/session.service";
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     // w/e
@@ -164,6 +165,7 @@ const config: SocketIoConfig = {
             useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
         },
         FieldsService,
+        SessionService,
     ],
     bootstrap: [AppComponent],
 })
