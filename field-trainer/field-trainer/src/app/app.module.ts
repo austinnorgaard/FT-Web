@@ -139,9 +139,9 @@ const config: SocketIoConfig = {
         MatTooltipModule,
         MatRadioModule,
         PerfectScrollbarModule,
-        DragulaModule,
         PixiModule,
         MatStepperModule,
+        DragulaModule.forRoot(),
     ],
     providers: [
         ConesService,
