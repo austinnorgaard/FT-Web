@@ -4,7 +4,7 @@ import { Team } from "../../../../../smart-cone-api/src/Teams/team";
 import { FT_CONFIG } from "../../../global-config";
 import { DatabaseResponse } from "../../../../../smart-cone-api/src/Database/Data/DatabaseResponse";
 import { AddAthleteTeamModel } from "../../../../../smart-cone-api/src/Teams/add-athlete-team-model";
-import { Observable } from "rxjs/Observable";
+import { Observable } from "rxjs";
 
 import "rxjs/add/operator/toPromise";
 import "rxjs/add/operator/map";
