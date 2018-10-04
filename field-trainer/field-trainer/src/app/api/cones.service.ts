@@ -1,16 +1,17 @@
 import { Injectable, OnInit } from "@angular/core";
 import { Cone } from "../models/cone";
-import { HttpUtil } from "../utility";
 import { FT_CONFIG } from "../../../global-config";
 
 import "rxjs/add/operator/toPromise";
+import { HttpClient } from "@angular/common/http";
+//import { toPromise } from 'rxjs/operators';
 
 @Injectable()
 export class ConesService {
     private interval = null;
     private autoRefreshInterval = null;
 
-    constructor() {
+    constructor(private http: HttpClient) {
         // we are starting fresh, so reset the cones
         // this.refresh();
 
@@ -23,13 +24,13 @@ export class ConesService {
     }
 
     getCones(): Promise<Cone[]> {
-        return HttpUtil.get(FT_CONFIG.toSmartConeHttp("/get_cones"))
-            .then(response => response.cones as Cone[])
-            .catch(this.handleError);
+        return this.http.get<Cone[]>(FT_CONFIG.toSmartConeHttp("/get_cones")).toPromise();
     }
 
     refresh() {
-        HttpUtil.get(FT_CONFIG.toSmartConeHttp("/reset_cones"))
+        this.http
+            .get(FT_CONFIG.toSmartConeHttp("/reset_cones"))
+            .toPromise()
             .then(function(response) {
                 console.log("Reset cones list.");
             })
@@ -43,7 +44,9 @@ export class ConesService {
         }
 
         this.interval = setInterval(() => {
-            HttpUtil.get(FT_CONFIG.toSmartConeHttp("/refresh"))
+            this.http
+                .get(FT_CONFIG.toSmartConeHttp("/refresh"))
+                .toPromise()
                 .then(function(response) {})
                 .catch(function(error) {
                     console.log(error);

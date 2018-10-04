@@ -11,7 +11,9 @@ export class AuthController {
     @HttpCode(HttpStatus.OK)
     public async login(@Body() credentials: LoginCredentials): Promise<JwtToken> {
         try {
+            console.log("what?");
             const loginResult = await this.authService.login(credentials);
+            console.log(loginResult);
             return loginResult;
         } catch (e) {
             if (e instanceof EmailNotFoundError) {
@@ -20,6 +22,7 @@ export class AuthController {
                 console.log("Password incorrect (controller)");
                 throw new HttpException("Password incorrect", HttpStatus.UNAUTHORIZED);
             } else {
+                console.log("here?");
                 // unknown exception, return general server failure
                 throw new HttpException(`Unknown error: ${e}`, HttpStatus.INTERNAL_SERVER_ERROR);
             }

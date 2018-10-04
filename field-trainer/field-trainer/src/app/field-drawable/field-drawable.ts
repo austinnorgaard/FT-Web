@@ -3,6 +3,8 @@ import { Field } from "../models/field";
 import { Point } from "../models/point";
 import { Course } from "../models/course";
 
+import * as PIXI from "pixi.js";
+
 export class FieldDrawable {
     app: PIXI.Application;
     coneContainer: PIXI.Container;

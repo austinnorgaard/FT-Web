@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { Socket } from "ng-socket-io";
+import { Socket } from "ngx-socket-io";
 
 @Component({
     selector: "ft-status-indicator",

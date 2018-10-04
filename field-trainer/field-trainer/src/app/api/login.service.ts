@@ -20,6 +20,7 @@ export class LoginService {
                 return Promise.resolve("Success");
             })
             .catch(err => {
+                console.log("error??", err);
                 return Promise.reject(err);
             });
     }

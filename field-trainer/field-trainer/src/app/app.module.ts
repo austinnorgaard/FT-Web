@@ -24,9 +24,8 @@ import {
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
-import { JwtHelper } from "angular2-jwt";
-import { SocketIoConfig, SocketIoModule } from "ng-socket-io";
-import { DndModule } from "ng2-dnd";
+import { JwtModule } from "@auth0/angular-jwt";
+import { SocketIoConfig, SocketIoModule } from "ngx-socket-io";
 import { DragulaModule } from "ng2-dragula";
 import { PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarConfigInterface, PerfectScrollbarModule } from "ngx-perfect-scrollbar";
 import { FT_CONFIG } from "../../global-config";
@@ -64,7 +63,6 @@ import { StatusIndicatorComponent } from "./status-indicator/status-indicator.co
 import { TeamManagementAthleteComponent } from "./team-management-athlete/team-management-athlete.component";
 import { TeamManagementPageComponent } from "./team-management-page/team-management-page.component";
 import { FieldPreviewComponent } from "./field-preview/field-preview.component";
-import { PixiModule } from "angular2pixi";
 import { FieldsService } from "./api/fields.service";
 import { FieldCourseSetupComponent } from "./field-course-setup/field-course-setup.component";
 import { SessionSetupPageComponent } from "./session-setup-page/session-setup-page.component";
@@ -80,6 +78,10 @@ const config: SocketIoConfig = {
     url: ip,
     options: {},
 };
+
+export function tokenGetter() {
+    return localStorage.getItem("token") || null;
+}
 
 @NgModule({
     declarations: [
@@ -130,16 +132,19 @@ const config: SocketIoConfig = {
         MatDividerModule,
         HttpClientModule,
         SocketIoModule.forRoot(config),
-        DndModule.forRoot(),
         FormsModule,
         ReactiveFormsModule,
         MatIconModule,
         MatTooltipModule,
         MatRadioModule,
         PerfectScrollbarModule,
-        PixiModule,
         MatStepperModule,
         DragulaModule.forRoot(),
+        JwtModule.forRoot({
+            config: {
+                tokenGetter: tokenGetter,
+            },
+        }),
     ],
     providers: [
         ConesService,
@@ -150,7 +155,6 @@ const config: SocketIoConfig = {
         TeamManagementService,
         AuthGuardService,
         AuthService,
-        JwtHelper,
         LoginService,
         {
             provide: HTTP_INTERCEPTORS,

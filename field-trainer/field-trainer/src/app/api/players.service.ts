@@ -1,6 +1,5 @@
 import { Injectable } from "@angular/core";
 import { Player } from "../models/player";
-import { HttpUtil } from "../utility";
 import { HttpClient } from "@angular/common/http";
 import { FT_CONFIG } from "../../../global-config";
 
@@ -11,9 +10,11 @@ export class PlayersService {
     constructor(private http: HttpClient) {}
 
     getPlayers(): Promise<Player[]> {
-        return HttpUtil.get(FT_CONFIG.toSmartConeHttp("/get_players"))
+        return this.http
+            .get(FT_CONFIG.toSmartConeHttp("/get_players"))
+            .toPromise()
             .then(response => {
-                return response.players as Player[];
+                return response as Player[];
             })
             .catch(this.handleError);
     }

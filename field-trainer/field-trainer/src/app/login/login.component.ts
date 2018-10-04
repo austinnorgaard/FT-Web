@@ -45,6 +45,7 @@ export class LoginComponent implements OnInit {
                 this.router.navigateByUrl(this.returnUrl);
             })
             .catch(err => {
+                console.log(JSON.stringify(err));
                 // Error, figure out which one then pop message
                 if (err.error.message.toLowerCase().includes("password incorrect")) {
                     this.showErrorMessage("Password incorrect!");

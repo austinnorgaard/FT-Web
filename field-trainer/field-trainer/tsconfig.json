@@ -1,22 +1,30 @@
 {
-  "compileOnSave": false,
-  "compilerOptions": {
-    "outDir": "./dist/out-tsc",
-    "sourceMap": true,
-    "declaration": false,
-    "moduleResolution": "node",
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "target": "es5",
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "lib": [
-      "es2017",
-      "dom"
-    ],
-    "allowJs": true,
-    "module": "es2015",
-    "baseUrl": "./"
-  }
+    "compileOnSave": false,
+    "compilerOptions": {
+        "outDir": "./dist/out-tsc",
+        "sourceMap": true,
+        "declaration": false,
+        "moduleResolution": "node",
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "target": "es5",
+        "typeRoots": ["node_modules/@types"],
+        "lib": ["es2017", "dom"],
+        "allowJs": true,
+        "module": "es2015",
+        "baseUrl": "./",
+        "paths": {
+            "fs": ["./shims/noop"],
+            "http": ["./shims/noop"],
+            "https": ["./shims/noop"],
+            "path": ["./shims/noop"],
+            "stream": ["./shims/noop"],
+            "crypto": ["./shims/noop"],
+            "zlib_bindings": ["./shims/noop"],
+            "net": ["./shims/noop"],
+            "os": ["./shims/noop"],
+            "tls": ["./shims/noop"],
+            "zlib": ["./shims/noop"]
+        }
+    }
 }

@@ -11,7 +11,7 @@ import { Player } from "../models/player";
 import { HttpClient } from "@angular/common/http";
 import { ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core";
 
-import { Socket } from "ng-socket-io";
+import { Socket } from "ngx-socket-io";
 
 import * as io from "socket.io";
 import { FT_CONFIG } from "../../../global-config";
