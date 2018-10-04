@@ -2,7 +2,6 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
 import { NgModule } from "@angular/core";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { HttpModule } from "@angular/http";
 import {
     MatButtonModule,
     MatCardModule,
@@ -129,7 +128,6 @@ const config: SocketIoConfig = {
         MatExpansionModule,
         MatGridListModule,
         MatDividerModule,
-        HttpModule,
         HttpClientModule,
         SocketIoModule.forRoot(config),
         DndModule.forRoot(),
