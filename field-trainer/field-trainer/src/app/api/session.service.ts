@@ -1,6 +1,4 @@
 import { Injectable } from "@angular/core";
-import { Headers, Http } from "@angular/http";
-import { Cone } from "../models/cone";
 import { PlayerSession } from "../models/player-session";
 
 import "rxjs/add/operator/toPromise";
@@ -14,7 +12,7 @@ export class SessionService {
     private selectedCourse: Course;
     private selectedField: Field;
     private selectedAthletes: Athlete[];
-    constructor(private http: Http) {}
+    constructor() {}
 
     setState(sessions: PlayerSession[]) {}
 

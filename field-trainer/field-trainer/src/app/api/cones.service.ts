@@ -1,5 +1,4 @@
 import { Injectable, OnInit } from "@angular/core";
-import { Headers, Http } from "@angular/http";
 import { Cone } from "../models/cone";
 import { HttpUtil } from "../utility";
 import { FT_CONFIG } from "../../../global-config";
@@ -8,11 +7,10 @@ import "rxjs/add/operator/toPromise";
 
 @Injectable()
 export class ConesService {
-    private headers = new Headers({ "Content-Type": "application/json" });
     private interval = null;
     private autoRefreshInterval = null;
 
-    constructor(private http: Http) {
+    constructor() {
         // we are starting fresh, so reset the cones
         // this.refresh();
 

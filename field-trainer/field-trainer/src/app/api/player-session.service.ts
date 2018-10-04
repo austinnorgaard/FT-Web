@@ -1,5 +1,4 @@
 import { Injectable } from "@angular/core";
-import { Headers, Http } from "@angular/http";
 import { HttpClient } from "@angular/common/http";
 import { FT_CONFIG } from "../../../global-config";
 
