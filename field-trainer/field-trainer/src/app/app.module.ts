@@ -68,6 +68,7 @@ import { FieldCourseSetupComponent } from "./field-course-setup/field-course-set
 import { SessionSetupPageComponent } from "./session-setup-page/session-setup-page.component";
 import { AthleteSelectComponent } from "./athlete-select/athlete-select.component";
 import { SessionService } from "./api/session.service";
+import { AthleteComponent } from './athlete/athlete.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     // w/e
@@ -110,6 +111,7 @@ export function tokenGetter() {
         FieldCourseSetupComponent,
         SessionSetupPageComponent,
         AthleteSelectComponent,
+        AthleteComponent,
     ],
     imports: [
         NgbModule.forRoot(),

@@ -3,6 +3,7 @@ import { Router } from "@angular/router";
 import { TeamModel } from "../models/team";
 import { TeamManagementService } from "../api/team-management.service";
 import { AthleteManagementService } from "../api/athlete-management.service";
+import { AthleteModel } from "../models/athlete";
 
 @Component({
     selector: "ft-athlete-select",
@@ -23,7 +24,7 @@ export class AthleteSelectComponent implements OnInit {
     }
 
     onTeamChanged() {
-        console.log("Team changed!");
+        // maybe nothing to do?
     }
 
     loadAvailableTeams() {
