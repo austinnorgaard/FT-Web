@@ -12,7 +12,7 @@
     <div fxFlex class="ft-athlete-container">
         <perfect-scrollbar fxFlex="auto" *ngIf="this.selectedTeam && this.selectedTeam.teamAthletes">
             <div *ngFor="let athlete of this.selectedTeam.teamAthletes">
-                <ft-athlete [model]=athlete></ft-athlete>
+                <ft-athlete [model]="athlete" (moveUp)="this.onMoveAthleteUp($event)" (moveDown)="this.onMoveAthleteDown($event)" (setInactive)="this.onSetAthleteInactive($event)"></ft-athlete>
             </div>
         </perfect-scrollbar>
     </div>

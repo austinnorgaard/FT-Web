@@ -37,4 +37,16 @@ export class AthleteSelectComponent implements OnInit {
                 console.log("Athlete-select: Could not load available teams..");
             });
     }
+
+    onMoveAthleteUp(athlete: AthleteModel) {
+        console.log("Move-up: ", athlete);
+    }
+
+    onMoveAthleteDown(athlete: AthleteModel) {
+        console.log("Move-down: ", athlete);
+    }
+
+    onSetAthleteInactive(athlete: AthleteModel) {
+        console.log("Set-Inactive: ", athlete);
+    }
 }

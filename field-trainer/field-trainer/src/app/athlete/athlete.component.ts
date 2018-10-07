@@ -11,9 +11,9 @@ import { YesNoDialogComponent } from "../dialogs/yes-no/yes-no-dialog.component"
 export class AthleteComponent implements OnInit {
     @Input() public model: AthleteModel;
 
-    @Output() moveUp: EventEmitter<AthleteModel>;
-    @Output() moveDown: EventEmitter<AthleteModel>;
-    @Output() setInactive: EventEmitter<AthleteModel>;
+    @Output() moveUp: EventEmitter<AthleteModel> = new EventEmitter<AthleteModel>();
+    @Output() moveDown: EventEmitter<AthleteModel> = new EventEmitter<AthleteModel>();
+    @Output() setInactive: EventEmitter<AthleteModel> = new EventEmitter<AthleteModel>();
 
     constructor(public dialog: MatDialog) {}
 
@@ -25,7 +25,18 @@ export class AthleteComponent implements OnInit {
         });
 
         dialogRef.afterClosed().subscribe(result => {
-            console.log(result);
+            if (result.yes) {
+                // Athlete needs to be set to inactive, so signal any observers
+                this.setInactive.emit(this.model);
+            }
         });
+    }
+
+    onClickUp() {
+        this.moveUp.emit(this.model);
+    }
+
+    onClickDown() {
+        this.moveDown.emit(this.model);
     }
 }
