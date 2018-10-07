@@ -46,4 +46,8 @@ export class TrainingSessionPageComponent implements OnInit {
     constructor() {}
 
     ngOnInit() {}
+
+    onGo() {
+        console.log("Next player go!!");
+    }
 }
