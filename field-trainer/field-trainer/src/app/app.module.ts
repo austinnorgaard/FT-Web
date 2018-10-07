@@ -20,6 +20,7 @@ import {
     MatToolbarModule,
     MatTooltipModule,
     MatStepperModule,
+    MatDialogModule,
 } from "@angular/material";
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
@@ -68,7 +69,8 @@ import { FieldCourseSetupComponent } from "./field-course-setup/field-course-set
 import { SessionSetupPageComponent } from "./session-setup-page/session-setup-page.component";
 import { AthleteSelectComponent } from "./athlete-select/athlete-select.component";
 import { SessionService } from "./api/session.service";
-import { AthleteComponent } from './athlete/athlete.component';
+import { AthleteComponent } from "./athlete/athlete.component";
+import { YesNoDialogComponent } from "./dialogs/yes-no/yes-no-dialog.component";
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     // w/e
@@ -112,6 +114,7 @@ export function tokenGetter() {
         SessionSetupPageComponent,
         AthleteSelectComponent,
         AthleteComponent,
+        YesNoDialogComponent,
     ],
     imports: [
         NgbModule.forRoot(),
@@ -138,6 +141,7 @@ export function tokenGetter() {
         ReactiveFormsModule,
         MatIconModule,
         MatTooltipModule,
+        MatDialogModule,
         MatRadioModule,
         PerfectScrollbarModule,
         MatStepperModule,
@@ -172,5 +176,6 @@ export function tokenGetter() {
         SessionService,
     ],
     bootstrap: [AppComponent],
+    entryComponents: [YesNoDialogComponent],
 })
 export class AppModule {}

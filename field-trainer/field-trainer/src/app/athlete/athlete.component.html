@@ -1,3 +1,10 @@
-<p>
-  athlete works!
-</p>
+<mat-card>
+    <div fxLayout="row">
+        <span fxFlex>{{this.model.firstName}} {{this.model.lastName}}</span>
+        <div fxFlex fxLayout="row-reverse" fxLayoutAlign="center center">
+            <mat-icon fxFlex (click)="onClickClear()" color="warn" matListIcon style="text-align: center" class="material-icons">clear</mat-icon>
+            <mat-icon fxFlex (click)="onClickUp()" color="primary" matListIcon style="text-align:center" class="material-icons">arrow_upward</mat-icon>
+            <mat-icon fxFlex (click)="onClickDown()" color="primary" matListIcon style="text-align: center" class="material-icons">arrow_downward</mat-icon>
+        </div>
+    </div>
+</mat-card>

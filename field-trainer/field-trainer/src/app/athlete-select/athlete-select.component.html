@@ -11,16 +11,9 @@
     </div>
     <div fxFlex class="ft-athlete-container">
         <perfect-scrollbar fxFlex="auto" *ngIf="this.selectedTeam && this.selectedTeam.teamAthletes">
-            <mat-card *ngFor="let athlete of this.selectedTeam.teamAthletes">
-                <div fxLayout="row">
-                    <span fxFlex>{{athlete.firstName}} {{athlete.lastName}}</span>
-                    <div fxFlex fxLayout="row-reverse">
-                        <mat-icon fxFlex color="primary" matListIcon class="material-icons">clear</mat-icon>
-                        <mat-icon fxFlex matListIcon class="material-icons">arrow_upward</mat-icon>
-                        <mat-icon fxFlex matListIcon class="material-icons">arrow_downward</mat-icon>
-                    </div>
-                </div>
-            </mat-card>
+            <div *ngFor="let athlete of this.selectedTeam.teamAthletes">
+                <ft-athlete [model]=athlete></ft-athlete>
+            </div>
         </perfect-scrollbar>
     </div>
 </div>
