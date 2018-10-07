@@ -14,6 +14,7 @@ import { AddAthletePageComponent } from "./add-athlete-page/add-athlete-page.com
 import { FieldCourseSetupComponent } from "./field-course-setup/field-course-setup.component";
 import { SessionSetupPageComponent } from "./session-setup-page/session-setup-page.component";
 import { AthleteSelectComponent } from "./athlete-select/athlete-select.component";
+import { TrainingSessionPageComponent } from "./training-session-page/training-session-page.component";
 
 const routes: Routes = [
     { path: "", redirectTo: "/home", pathMatch: "full" },
@@ -54,6 +55,11 @@ const routes: Routes = [
             { path: "field-select", component: FieldCourseSetupComponent },
             { path: "athlete-select", component: AthleteSelectComponent },
         ],
+    },
+    {
+        path: "training-session",
+        component: TrainingSessionPageComponent,
+        canActivate: [AuthGuard],
     },
 ];
 

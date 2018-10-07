@@ -1,6 +1,6 @@
 <div class="ft-athlete-select-page-container" fxFlex fxLayout="column" style="margin-left: 1em; margin-right: 1em;">
     <h1 fxFlex="0 0 auto" fxFlexAlign="center">Select Athletes</h1>
-    <div fxFlex="0 0 auto">
+    <div fxFlex="0 1 auto">
         <mat-form-field fxFlex>
             <mat-select (selectionChange)="onTeamChanged()" placeholder="Select a team to start training" name="selectedTeam" [(ngModel)]="this.selectedTeam">
                 <mat-option *ngFor="let team of availableTeams" [value]="team">
@@ -15,5 +15,8 @@
                 <ft-athlete [model]="athlete" (moveUp)="this.onMoveAthleteUp($event)" (moveDown)="this.onMoveAthleteDown($event)" (setInactive)="this.onSetAthleteInactive($event)"></ft-athlete>
             </div>
         </perfect-scrollbar>
+    </div>
+    <div fxFlex="0 0 auto" fxFlexAlign="center" style="margin-bottom: 1em; margin-top: 1em">
+        <button mat-raised-button color="primary" (click)="onNext()">Start Session</button>
     </div>
 </div>

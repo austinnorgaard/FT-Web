@@ -28,6 +28,10 @@ export class AthleteSelectComponent implements OnInit {
         // maybe nothing to do?
     }
 
+    onNext() {
+        this.router.navigateByUrl("/training-session");
+    }
+
     loadAvailableTeams() {
         this.teamsService
             .getTeams()
