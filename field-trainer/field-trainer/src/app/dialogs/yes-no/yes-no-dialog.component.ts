@@ -14,10 +14,14 @@ export class YesNoDialogComponent {
     constructor(public dialogRef: MatDialogRef<YesNoDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: YesNoDialogData) {}
 
     onNoClick(): void {
-        this.dialogRef.close();
+        this.data.no = true;
+        this.data.yes = false;
+        this.dialogRef.close(this.data);
     }
 
     onYesClick(): void {
-        this.dialogRef.close();
+        this.data.no = false;
+        this.data.yes = true;
+        this.dialogRef.close(this.data);
     }
 }
