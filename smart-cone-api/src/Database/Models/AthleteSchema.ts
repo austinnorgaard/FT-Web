@@ -3,7 +3,7 @@ import { Athlete } from "../../Athletes/athlete";
 import { Parent } from "../../Athletes/parent";
 import { AthleteTeamSchema } from "./AthleteTeamSchema";
 import { TeamSchema } from "./TeamSchema";
-import { Team } from "../../Teams/Team";
+import { Team } from "../../Teams/team";
 
 @Table({
     modelName: "Athletes",

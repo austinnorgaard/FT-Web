@@ -46,10 +46,4 @@ export abstract class Athlete {
     @ValidateNested()
     @Type(t)
     teams: Team[];
-
-    // Add more fields to check if we ever get concerned about collisions
-    // But first/last and email has got to be pretty unique
-    public isEqualTo(other: Athlete): boolean {
-        return this.firstName === other.firstName && this.lastName === other.lastName && this.email === other.email;
-    }
 }

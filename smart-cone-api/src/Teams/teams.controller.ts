@@ -1,7 +1,7 @@
 import { Controller, Post, Get, Body, HttpStatus, HttpException, Put, Query } from "@nestjs/common";
 import { TeamsService } from "./teams.service";
 import { DatabaseFailureType } from "../Database/Data/DatabaseEnums";
-import { Team } from "./Team";
+import { Team } from "./team";
 import { TeamSchema } from "../Database/Models/TeamSchema";
 import { AthleteSchema } from "../Database/Models/AthleteSchema";
 import { AddAthleteTeamModel } from "./add-athlete-team-model";

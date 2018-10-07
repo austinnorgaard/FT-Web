@@ -1,5 +1,5 @@
 import { Athlete } from "./athlete";
-import { Team } from "../Teams/Team";
+import { Team } from "../Teams/team";
 import { IsOptional, ValidateNested, IsDefined } from "class-validator";
 import { Type } from "class-transformer";
 
