@@ -1,5 +1,5 @@
 import { Table, Column, Model, NotNull, AllowNull, HasMany, BelongsToMany, PrimaryKey } from "sequelize-typescript";
-import { Team } from "../../Teams/Team";
+import { Team } from "../../Teams/team";
 import { Athlete } from "../../Athletes/athlete";
 import { AthleteSchema } from "./AthleteSchema";
 import { AthleteTeamSchema } from "./AthleteTeamSchema";

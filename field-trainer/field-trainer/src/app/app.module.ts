@@ -27,7 +27,6 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { JwtModule } from "@auth0/angular-jwt";
 import { SocketIoConfig, SocketIoModule } from "ngx-socket-io";
-import { DragulaModule } from "ng2-dragula";
 import { PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarConfigInterface, PerfectScrollbarModule } from "ngx-perfect-scrollbar";
 import { FT_CONFIG } from "../../global-config";
 import { AuthGuardService } from "./_services/auth-guard.service";
@@ -147,7 +146,6 @@ export function tokenGetter() {
         MatRadioModule,
         PerfectScrollbarModule,
         MatStepperModule,
-        DragulaModule.forRoot(),
         JwtModule.forRoot({
             config: {
                 tokenGetter: tokenGetter,
