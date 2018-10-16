@@ -21,13 +21,14 @@
         "arrow-parens": false,
         "object-literal-sort-keys": false,
         "no-unused-expression": false,
-        "max-classes-per-file": [false],
+        "max-classes-per-file": false,
         "variable-name": [false],
         "one-line": [false],
         "one-variable-per-declaration": [false],
         "no-console": false,
         "no-require-imports": false,
-        "no-var-requires": false
+        "no-var-requires": false,
+        "no-trailing-whitespace": false
     },
     "rulesDirectory": []
 }
