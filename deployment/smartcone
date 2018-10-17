@@ -23,7 +23,8 @@ start)
     echo "Starting Field Cone service."
     echo "TODO: WE SHOULD BE KILLING THE SERVICE HERE!!!!"
     date > /var/tmp/last-start-time
-    cd /home/pi/FT-WEB/serve-frontend/ && node index.js
+    nohup cd /home/pi/FT-WEB/serve-frontend/ && node index.js &
+    nohup cd /home/pi/FT-WEB/smart-cone-api && npm run start:prod &
     ;;
 
 *)
