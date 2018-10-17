@@ -1,0 +1,32 @@
+#!/bin/sh
+
+### BEGIN INIT INFO
+# Provides:         smartcone
+# Required-Start:   $local_fs $remote_fs $network $time
+# Required-Stop:
+# Should-Stop:
+# X-Start-Before: 
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Start Smart Cone node.js server.
+# Description: This includes the smart-cone-api and the field-trainer frontend
+### END INIT INFO
+
+case "$1" in
+stop)
+    echo "Killing Field Cone service."
+    echo "TODO: WE SHOULD BE KILLING THE SERVICE HERE!!!!"
+    time > /var/tmp/last-stop-time
+    ;;
+
+start)
+    echo "Starting Field Cone service."
+    echo "TODO: WE SHOULD BE KILLING THE SERVICE HERE!!!!"
+    time > /var/tmp/last-start-time
+    ;;
+
+*)
+    echo "Usage: ${0:-} {start|stop}" >&2
+    exit 1
+    ;;
+esac
