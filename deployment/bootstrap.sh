@@ -10,3 +10,6 @@ sudo apt-get install -y git sqlite3
 sudo rm -rf ~/FT-WEB
 echo "Github API Key: " ${GH_API_KEY}
 git clone https://${GH_API_KEY}@github.com/darrenmsmith/FT-WEB.git
+
+# Now that the repo has been cloned, we can access the deployment scripts located at
+# ./FT-WEB/deployment:w
