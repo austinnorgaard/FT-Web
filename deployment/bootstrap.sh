@@ -7,7 +7,7 @@ then
 fi
 
 # Make sure its either 'field' or 'smart', we dont support anything else
-if [ "$1" != "field" ] || [ "$1" != "smart" ]
+if [ "$1" != "field" ] && [ "$1" != "smart" ]
 then
     echo "You must specify a cone type (smart or field). Usage: ./bootstrap.sh [field | smart]"
     exit -1
