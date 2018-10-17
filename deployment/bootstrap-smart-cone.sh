@@ -10,6 +10,6 @@ fi
 
 sudo cp ./smartcone /etc/init.d/smartcone
 sudo chmod +x /etc/init.d/smartcone
-update-rc.d smartcone defaults
+sudo update-rc.d smartcone defaults
 
 echo "smartcone" > /var/tmp/.cone-type
