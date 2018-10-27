@@ -37,6 +37,9 @@ sudo chmod 644 /etc/hostapd/hostapd.conf
 sudo mv ~/FT-WEB/deployment/hostapd /etc/init.d/hostapd
 sudo chmod 755 /etc/init.d/hostapd
 
+sudo mv ~/FT-WEB/deployment/dhcpcd.conf /etc/dhcpcd.conf
+sudo chmod 664
+
 echo "Configs installed"
 sudo systemctl daemon-reload
 
