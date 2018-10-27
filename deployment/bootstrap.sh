@@ -15,7 +15,7 @@ fi
 
 sudo apt-get update -y
 
-sudo apt-get install -y git sqlite, dos2unix
+sudo apt-get install -y git sqlite dos2unix
 
 # Sanitize everything in the deployment foder, maybe just the entire repo??
 find ~/FT-WEB/deployment -type f -print0 | xargs -0 -n 1 -P 4 dos2unix
