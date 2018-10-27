@@ -15,7 +15,7 @@ fi
 
 sudo apt-get update -y
 
-sudo apt-get install -y git sqlite3, dos2unix
+sudo apt-get install -y git sqlite, dos2unix
 
 # Sanitize everything in the deployment foder, maybe just the entire repo??
 find ~/FT-WEB/deployment -type f -print0 | xargs -0 -n 1 -P 4 dos2unix
@@ -34,12 +34,14 @@ git clone https://${GH_API_KEY}@github.com/darrenmsmith/FT-WEB.git
 # Call the correct specific deployment script
 if [ "$1" == "smart" ]
 then
+    cd ~/FT-WEB/deployment
     chmod +x ./bootstrap-smart-cone.sh
     ./bootstrap-smart-cone.sh
 fi
 
 if [ "$1" == "field" ]
 then
+    cd ~/FT-WEB/deployment
     chmod +x ./bootstrap-field-cone.sh
     ./bootstrap-field-cone.sh
 fi
