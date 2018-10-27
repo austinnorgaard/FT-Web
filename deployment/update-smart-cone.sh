@@ -11,6 +11,6 @@ cd ~/FT-WEB/smart-cone-api/ && npm install
 
 # Build the frontend and deploy it
 
-cd ./field-trainer/field-trainer && npm run build && mv ./dist ../../serve-frontend
+cd ~/FT-WEB/field-trainer/field-trainer && npm run build && mv ./dist ../../serve-frontend
 
 # Restart the frontend & backend services
