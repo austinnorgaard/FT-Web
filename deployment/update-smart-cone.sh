@@ -14,3 +14,5 @@ cd ~/FT-WEB/smart-cone-api/ && npm install
 cd ~/FT-WEB/field-trainer/field-trainer && npm run build && mv ./dist ../../serve-frontend
 
 # Restart the frontend & backend services
+sudo /etc/init.d/smartcone stop
+sudo /etc/init.d/smartcone start
