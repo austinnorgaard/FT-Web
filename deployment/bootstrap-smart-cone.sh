@@ -37,7 +37,9 @@ sudo chmod 644 /etc/hostapd/hostapd.conf
 sudo mv ~/FT-WEB/deployment/hostapd /etc/init.d/hostapd
 sudo chmod 755 /etc/init.d/hostapd
 
-
+echo "Configs installed"
 sudo systemctl daemon-reload
+
+echo "Rebooting!"
 
 sudo reboot
