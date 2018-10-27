@@ -5,6 +5,7 @@
 if [ -f ./bootstrap.sh ]
 then
     echo "This script must be run from the deployment folder!!"
+    echo "Currently in the `pwd` folder!"
     exit 1
 fi
 
