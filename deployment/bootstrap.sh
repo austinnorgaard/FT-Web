@@ -15,12 +15,16 @@ fi
 
 sudo apt-get update -y
 
-sudo apt-get install -y git sqlite3
+sudo apt-get install -y git sqlite3, dos2unix
+
+# Sanitize everything in the deployment foder, maybe just the entire repo??
+find ~/FT-WEB/deployment -type f -print0 | xargs -0 -n 1 -P 4 dos2unix
 
 # Clone the repo, we expect the access token to be the first arg
 # Our work directory will be ~/FT-WEB (which is auto-created on clone)
 
 sudo rm -rf ~/FT-WEB
+cd ~
 echo "Github API Key: " ${GH_API_KEY}
 git clone https://${GH_API_KEY}@github.com/darrenmsmith/FT-WEB.git
 
