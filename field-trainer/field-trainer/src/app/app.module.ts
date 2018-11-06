@@ -78,7 +78,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 
 // const ip = FT_CONFIG.getSmartConeApiSocketUrl();
 const config: SocketIoConfig = {
-    url: "192.168.1.115:5000",
+    url: "192.168.42.1:5000",
     options: {},
 };
 
