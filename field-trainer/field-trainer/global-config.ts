@@ -45,7 +45,7 @@ export class FieldTrainerConfig {
 }
 
 export const FT_CONFIG: FieldTrainerConfig = new FieldTrainerConfig(
-    "192.168.42.1", // IP - This is the only thing which should change on deploy! Find a way to script it...
+    "192.168.1.115", // IP - This is the only thing which should change on deploy! Find a way to script it...
     "80", // Port for front-end, default HTTP port so browser has no issues
     "5200", // Port for backend REST service
     "6000", // Socket port for Dumb Cone Socket (possibly unneeded? This would be backend->cone comms)

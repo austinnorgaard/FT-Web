@@ -1,13 +1,16 @@
-var express = require('express');
+var express = require("express");
+var console = require("console");
 var app = express();
-var path = require('path');
-var public = path.join(__dirname, 'dist');
+var path = require("path");
+var cors = require("cors");
+var public = path.join(__dirname, "dist");
 
-// viewed at http://localhost:8080
-app.get('/', function(req, res) {
-    res.sendFile(path.join(public, 'index.html'));
+app.use(cors());
+
+app.use(express.static(__dirname + "/dist"));
+
+app.all("/*", function(req, res, next) {
+    res.sendFile("index.html", { root: __dirname + "/dist" });
 });
-
-app.use('/', express.static(public));
 
 app.listen(80);
