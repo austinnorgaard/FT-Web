@@ -4,6 +4,7 @@ import { Inject, Component } from "@angular/core";
 export interface YesNoDialogData {
     yes: boolean;
     no: boolean; // Ergonomics? Haha
+    message: string;
 }
 
 @Component({

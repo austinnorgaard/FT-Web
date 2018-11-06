@@ -12,8 +12,8 @@ import { Athlete } from "../../../../../smart-cone-api/src/Athletes/athlete";
     styleUrls: ["./athlete-select.component.css"],
 })
 export class AthleteSelectComponent implements OnInit {
-    protected selectedTeam: TeamModel;
-    protected availableTeams: TeamModel[];
+    public selectedTeam: TeamModel;
+    public availableTeams: TeamModel[];
     constructor(private router: Router, private teamsService: TeamManagementService, private athletesService: AthleteManagementService) {
         this.loadAvailableTeams();
     }
