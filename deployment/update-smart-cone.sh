@@ -7,8 +7,8 @@ cd ~/FT-WEB && git checkout master && git pull
 
 # We have the latest now, rebuild the front-end and backend
 cd ~/FT-WEB/field-trainer/field-trainer && npm install
-cd ~/FT-WEB/smart-cone-api/ && npm install
-cd ~/FT-WEB/serve-frontend/ && npm install
+cd ~/FT-WEB/smart-cone-api/ && env JOBS=4 npm install
+cd ~/FT-WEB/serve-frontend/ && env JOBS=4 npm install
 
 # Build the frontend and deploy it
 

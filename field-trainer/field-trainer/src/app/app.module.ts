@@ -70,15 +70,15 @@ import { AthleteSelectComponent } from "./athlete-select/athlete-select.componen
 import { SessionService } from "./api/session.service";
 import { AthleteComponent } from "./athlete/athlete.component";
 import { YesNoDialogComponent } from "./dialogs/yes-no/yes-no-dialog.component";
-import { TrainingSessionPageComponent } from './training-session-page/training-session-page.component';
+import { TrainingSessionPageComponent } from "./training-session-page/training-session-page.component";
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     // w/e
 };
 
-const ip = FT_CONFIG.getSmartConeApiSocketUrl();
+//const ip = FT_CONFIG.getSmartConeApiSocketUrl();
 const config: SocketIoConfig = {
-    url: ip,
+    url: "192.168.42.1",
     options: {},
 };
 
