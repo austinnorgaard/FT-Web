@@ -1,9 +1,7 @@
-import { Component, Inject } from "@nestjs/common";
+import { Component } from "@nestjs/common";
 import { DatabaseResponse } from "../Database/Data/DatabaseResponse";
-import { SaltAndHash } from "../Database/Data/SaltAndHash";
 import { DatabaseFailureType } from "../Database/Data/DatabaseEnums";
 import { UserRegistration } from "./user-registration";
-import { User } from "./user";
 import { UserSchema } from "../Database/Models/UserSchema";
 
 import bcrypt = require("bcrypt");
@@ -49,8 +47,7 @@ export class UsersService {
 
     async addUserToDb(user: UserSchema): Promise<DatabaseResponse> {
         return new Promise<DatabaseResponse>((resolve, reject) => {
-            user
-                .save()
+            user.save()
                 .then(() => {
                     const response = new DatabaseResponse(true, "User added!");
                     resolve(response);

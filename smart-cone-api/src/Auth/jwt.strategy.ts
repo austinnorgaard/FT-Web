@@ -1,6 +1,6 @@
 import * as passport from "passport";
 import { ExtractJwt, Strategy } from "passport-jwt";
-import { Component, Inject } from "@nestjs/common";
+import { Component } from "@nestjs/common";
 import { AuthService } from "./auth.service";
 import { FtJwtSecret } from "./ft-jwt";
 

@@ -1,4 +1,4 @@
-import { Controller, Post, HttpStatus, Get, HttpCode, Body, HttpException } from "@nestjs/common";
+import { Controller, Post, HttpStatus, HttpCode, Body, HttpException } from "@nestjs/common";
 import { AuthService, EmailNotFoundError, PasswordIncorrectError } from "./auth.service";
 import { LoginCredentials } from "./login-credentials";
 import { JwtToken } from "./jwt-token";

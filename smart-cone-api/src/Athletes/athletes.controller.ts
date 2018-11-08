@@ -5,7 +5,6 @@ import { Athlete } from "./athlete";
 import { HttpException } from "@nestjs/common";
 import { DatabaseResponse } from "../Database/Data/DatabaseResponse";
 import { DatabaseFailureType } from "../Database/Data/DatabaseEnums";
-import { AthleteTeamSchema } from "../Database/Models/AthleteTeamSchema";
 import { TeamsService } from "../Teams/teams.service";
 
 @Controller("athletes")

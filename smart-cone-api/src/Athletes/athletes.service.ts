@@ -4,7 +4,6 @@ import { Athlete } from "./athlete";
 import { DatabaseResponse } from "../Database/Data/DatabaseResponse";
 import { TeamSchema } from "../Database/Models/TeamSchema";
 import { GetDatabaseResponse } from "../Utility/database-error";
-import { DatabaseFailureType } from "../Database/Data/DatabaseEnums";
 
 @Component()
 export class AthletesService {
@@ -22,7 +21,7 @@ export class AthletesService {
     async removeAthleteById(id: number): Promise<DatabaseResponse> {
         return new Promise<DatabaseResponse>((resolve, reject) => {
             AthleteSchema.destroy({
-                where: { id: id },
+                where: { id },
             })
                 .then(res => {
                     const response = new DatabaseResponse(true, `Athlete id ${id} deleted`);
