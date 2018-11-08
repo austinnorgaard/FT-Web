@@ -9,9 +9,7 @@
         "test": "ng test",
         "lint": "ng lint",
         "e2e": "ng e2e",
-        "predeploy": "cp ./src/styles_production.css ./src/styles.css",
-        "deploy": "npm run build && rm -rf ../../serve-frontend/dist && mv ./dist ../../serve-frontend/ && npm run copy:files",
-        "copy:files": "cp ./src/assets/MaterialIcons-Regular.woff ../../serve-frontend/dist"
+        "deploy": "npm run build && rm -rf ../../serve-frontend/dist && mv ./dist ../../serve-frontend/"
     },
     "private": true,
     "dependencies": {
