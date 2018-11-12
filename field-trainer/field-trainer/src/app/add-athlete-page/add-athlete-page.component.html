@@ -3,9 +3,7 @@
         <div fxLayout="column">
             <div fxLayout="row" fxLayoutGap="0.5em">
                 <div fxFlex fxLayout="column">
-                    <h1 class="ft-add-athlete-header">
-                        Add Athlete
-                    </h1>
+                    <h1 class="ft-add-athlete-header">Add Athlete</h1>
                     <mat-form-field fxFlex>
                         <input matInput [(ngModel)]="this.athlete.firstName" placeholder="First Name" name="firstName" type="text" required />
                     </mat-form-field>
@@ -17,40 +15,33 @@
                     </mat-form-field>
                     <mat-form-field>
                         <mat-select [(ngModel)]="this.athlete.gender" placeholder="Gender" name="gender" required>
-                            <mat-option *ngFor="let gender of genders" [value]="gender">
-                                {{gender}}
-                            </mat-option>
+                            <mat-option *ngFor="let gender of genders" [value]="gender"> {{ gender }} </mat-option>
                         </mat-select>
                     </mat-form-field>
                 </div>
-                <div fxFlex fxLayout="column">
-                    <div fxFlex="60%">
-                        Picture Here
-                        <br/> ---
-                        <br/> -----
-                        <br/> ---
-                        <br/> -----
-                        <br/> ---
-                        <br/> -----
-                        <br/> ---
+                <div fxLayout="column" fxLayoutAlign="end center">
+                    <div>
+                        ---------------------------- <br />
+                        ---- PICTURE <br />
+                        ---- HERE <br />
+                        ---------------------------- <br />
                     </div>
-                    <mat-form-field fxFlex>
+                    <mat-form-field>
+                        <input matInput [(ngModel)]="this.athlete.phoneNumber" placeholder="Phone" name="phoneNumber" type="tel" required />
+                    </mat-form-field>
+                    <mat-form-field>
                         <input matInput [(ngModel)]="this.athlete.weight" placeholder="Weight" name="weight" type="number" required />
                     </mat-form-field>
-                    <mat-form-field fxFlex>
+                    <mat-form-field>
                         <mat-select [(ngModel)]="this.athlete.height" placeholder="Height" name="height" required>
-                            <mat-option *ngFor="let height of heights" [value]="height">
-                                {{height}}
-                            </mat-option>
+                            <mat-option *ngFor="let height of heights" [value]="height"> {{ height }} </mat-option>
                         </mat-select>
                     </mat-form-field>
                 </div>
             </div>
             <div fxLayout="row" fxLayoutGap="0.5em">
                 <div fxFlex fxLayout="column">
-                    <h3>
-                        Parent 1
-                    </h3>
+                    <h3>Parent 1</h3>
                     <mat-form-field fxFlex>
                         <input matInput [(ngModel)]="this.athlete.parent1Name" placeholder="Name" name="parent1Name" type="text" />
                     </mat-form-field>
@@ -62,9 +53,7 @@
                     </mat-form-field>
                 </div>
                 <div fxFlex fxLayout="column">
-                    <h3>
-                        Parent 2
-                    </h3>
+                    <h3>Parent 2</h3>
                     <mat-form-field fxFlex>
                         <input matInput [(ngModel)]="this.athlete.parent2Name" placeholder="Name" name="parent2Name" type="text" />
                     </mat-form-field>
@@ -78,20 +67,18 @@
             </div>
             <div fxLayout="row">
                 <div fxLayout="column" fxFlex>
-                    <h3 fxFlex>
-                        Add athlete to team (optional)
-                    </h3>
+                    <h3 fxFlex>Add athlete to team (optional)</h3>
                     <mat-form-field fxFlex>
-                        <mat-select [placeholder]="this.getTeamDropdownPlaceholderText()" name="athletesTeam" [(ngModel)]="this.selectedTeam">
-                            <mat-option *ngFor="let team of availableTeams" [value]="team">
-                                {{team.teamName}}
-                            </mat-option>
+                        <mat-select [placeholder]="getTeamDropdownPlaceholderText()" name="athletesTeam" [(ngModel)]="this.selectedTeam">
+                            <mat-option *ngFor="let team of availableTeams" [value]="team"> {{ team.teamName }} </mat-option>
                         </mat-select>
                     </mat-form-field>
                 </div>
             </div>
             <div fxLayout="row">
-                <button fxFlex mat-raised-button color="primary" type="submit" (submit)="onSubmit()">Submit</button>
+                <button fxFlex mat-raised-button [disabled]="addAthleteForm.invalid" color="primary" type="submit" (submit)="onSubmit()">
+                    Submit
+                </button>
             </div>
         </div>
     </form>
