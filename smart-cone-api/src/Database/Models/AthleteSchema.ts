@@ -13,14 +13,22 @@ export class AthleteSchema extends Model<AthleteSchema> implements Athlete {
 
     @Column
     firstName: string;
+
     @Column
     lastName: string;
+
     @Column
     email: string;
+
+    @Column
+    phoneNumber: string;
+
     @Column
     gender: string;
+
     @Column
     weight: number;
+
     @Column
     height: string;
 
