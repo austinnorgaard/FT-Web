@@ -1,4 +1,4 @@
-import { IsString, IsOptional, IsNumber, ValidateNested } from "class-validator";
+import { IsString, IsOptional, IsNumber, ValidateNested, IsPhoneNumber } from "class-validator";
 import { Team } from "../Teams/team";
 import { Type } from "class-transformer";
 
@@ -19,6 +19,9 @@ export abstract class Athlete {
 
     @IsString()
     email: string;
+
+    @IsPhoneNumber("US")
+    phoneNumber: string;
 
     @IsString()
     gender: string;
