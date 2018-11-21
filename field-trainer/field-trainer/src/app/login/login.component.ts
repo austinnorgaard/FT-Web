@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
     private returnUrl: string;
     public alertShown = false;
     public alertType = "danger";
-    public errorMessage: string = "None";
+    public errorMessage = "None";
     alertTimeout: any;
 
     public emailFormControl = new FormControl("", [Validators.required, Validators.email]);
