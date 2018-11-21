@@ -1,9 +1,9 @@
-<div fxLayout="row" class="ft-add-athlete-container">
+<div fxLayout="column" class="ft-add-athlete-container">
+    <h1 fxFlex="0 0 auto" fxFlexAlign="center">Add Athlete</h1>
     <form #addAthleteForm="ngForm" fxFlex (ngSubmit)="onSubmit()">
         <div fxLayout="column">
             <div fxLayout="row" fxLayoutGap="0.5em">
-                <div fxFlex fxLayout="column">
-                    <h1 class="ft-add-athlete-header">Add Athlete</h1>
+                <div fxFlex fxLayout="row wrap" fxLayoutGap="0.5em">
                     <mat-form-field fxFlex>
                         <input matInput [(ngModel)]="this.athlete.firstName" placeholder="First Name" name="firstName" type="text" required />
                     </mat-form-field>
@@ -13,26 +13,18 @@
                     <mat-form-field fxFlex>
                         <input matInput [(ngModel)]="this.athlete.email" placeholder="Email" name="email" type="email" required />
                     </mat-form-field>
-                    <mat-form-field>
+                    <mat-form-field fxFlex>
                         <mat-select [(ngModel)]="this.athlete.gender" placeholder="Gender" name="gender" required>
                             <mat-option *ngFor="let gender of genders" [value]="gender"> {{ gender }} </mat-option>
                         </mat-select>
                     </mat-form-field>
-                </div>
-                <div fxLayout="column" fxLayoutAlign="end center">
-                    <div>
-                        ---------------------------- <br />
-                        ---- PICTURE <br />
-                        ---- HERE <br />
-                        ---------------------------- <br />
-                    </div>
-                    <mat-form-field>
+                    <mat-form-field fxFlex>
                         <input matInput [(ngModel)]="this.athlete.phoneNumber" placeholder="Phone" name="phoneNumber" type="tel" required />
                     </mat-form-field>
-                    <mat-form-field>
+                    <mat-form-field fxFlex>
                         <input matInput [(ngModel)]="this.athlete.weight" placeholder="Weight" name="weight" type="number" required />
                     </mat-form-field>
-                    <mat-form-field>
+                    <mat-form-field fxFlex="50%">
                         <mat-select [(ngModel)]="this.athlete.height" placeholder="Height" name="height" required>
                             <mat-option *ngFor="let height of heights" [value]="height"> {{ height }} </mat-option>
                         </mat-select>
