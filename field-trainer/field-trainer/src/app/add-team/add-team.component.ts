@@ -19,7 +19,7 @@ export class AddTeamComponent {
     alertShouldBeDisplayed = false;
     alertMessage = "";
     alertType = "success";
-    alertTimeout: NodeJS.Timer;
+    alertTimeout: any;
 
     public teamNameFormControl = new FormControl("", [Validators.required, Validators.minLength(3)]);
 

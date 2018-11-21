@@ -1,6 +1,5 @@
 import { Player } from "./player";
 import { TrainingCourse } from "./training-course";
-import { clone } from "../utility";
 
 export class PlayerSession {
     /*
@@ -11,8 +10,8 @@ export class PlayerSession {
     constructor(public player?: Player, public course?: TrainingCourse, public started?: boolean) {}
 
     create(player: Player, course: TrainingCourse): void {
-        this.course = clone(course);
-        this.player = clone(player);
+        this.course = JSON.parse(JSON.stringify(course));
+        this.player = JSON.parse(JSON.stringify(player));
         this.started = false;
     }
 }

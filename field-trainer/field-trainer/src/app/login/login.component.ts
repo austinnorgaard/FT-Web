@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
     public alertShown = false;
     public alertType = "danger";
     public errorMessage: string = "None";
-    alertTimeout: NodeJS.Timer;
+    alertTimeout: any;
 
     public emailFormControl = new FormControl("", [Validators.required, Validators.email]);
     public passwordFormControl = new FormControl("", [Validators.required]);

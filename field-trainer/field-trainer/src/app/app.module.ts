@@ -37,27 +37,17 @@ import { AddTeamComponent } from "./add-team/add-team.component";
 import { AthleteManagementService } from "./api/athlete-management.service";
 import { ConesService } from "./api/cones.service";
 import { LoginService } from "./api/login.service";
-import { PlayerSessionService } from "./api/player-session.service";
 import { PlayersService } from "./api/players.service";
 import { TeamManagementService } from "./api/team-management.service";
 import { UserManagementService } from "./api/user-management.service";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { AthleteManagementPageComponent } from "./athlete-management-page/athlete-management-page.component";
-import { ConeListComponent } from "./cone-list-component/cone-list.component";
-import { FTSessionComponent } from "./ft-session-component/ft-session.component";
 import { HomePageComponent } from "./home-page/home-page.component";
-import { HttpHelper } from "./http-helper";
 import { LoginPageComponent } from "./login-page/login-page.component";
 import { LoginComponent } from "./login/login.component";
 import { NavMenuContentComponent } from "./nav-menu-content/nav-menu-content.component";
-import { PlayerComponent } from "./player-component/player.component";
-import { PlayerSessionComponent } from "./player-session-component/player-session.component";
-import { PlayersComponent } from "./players-component/players.component";
 import { RegisterPageComponent } from "./register-page/register-page.component";
-import { SegmentComponent } from "./segment-component/segment.component";
-import { SessionConeComponent } from "./session-cone-component/session-cone.component";
-import { SetupComponent } from "./setup-component/setup.component";
 import { StatusIndicatorComponent } from "./status-indicator/status-indicator.component";
 import { TeamManagementAthleteComponent } from "./team-management-athlete/team-management-athlete.component";
 import { TeamManagementPageComponent } from "./team-management-page/team-management-page.component";
@@ -66,10 +56,10 @@ import { FieldsService } from "./api/fields.service";
 import { FieldCourseSetupComponent } from "./field-course-setup/field-course-setup.component";
 import { SessionSetupPageComponent } from "./session-setup-page/session-setup-page.component";
 import { AthleteSelectComponent } from "./athlete-select/athlete-select.component";
-import { SessionService } from "./api/session.service";
 import { AthleteComponent } from "./athlete/athlete.component";
 import { YesNoDialogComponent } from "./dialogs/yes-no/yes-no-dialog.component";
 import { TrainingSessionPageComponent } from "./training-session-page/training-session-page.component";
+import { SessionService } from "./api/session.service";
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     // w/e
@@ -88,14 +78,6 @@ export function tokenGetter() {
 @NgModule({
     declarations: [
         AppComponent,
-        ConeListComponent,
-        SetupComponent,
-        FTSessionComponent,
-        SessionConeComponent,
-        PlayerSessionComponent,
-        PlayersComponent,
-        PlayerComponent,
-        SegmentComponent,
         HomePageComponent,
         RegisterPageComponent,
         NavMenuContentComponent,
@@ -153,8 +135,6 @@ export function tokenGetter() {
     providers: [
         ConesService,
         PlayersService,
-        HttpHelper,
-        PlayerSessionService,
         UserManagementService,
         TeamManagementService,
         AuthGuardService,

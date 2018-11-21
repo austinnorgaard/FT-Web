@@ -1,8 +1,6 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes, CanActivate } from "@angular/router";
 
-import { SetupComponent } from "./setup-component/setup.component";
-import { FTSessionComponent } from "./ft-session-component/ft-session.component";
 import { HomePageComponent } from "./home-page/home-page.component";
 import { RegisterPageComponent } from "./register-page/register-page.component";
 import { AddTeamComponent } from "./add-team/add-team.component";
@@ -19,8 +17,6 @@ import { TrainingSessionPageComponent } from "./training-session-page/training-s
 const routes: Routes = [
     { path: "", redirectTo: "/home", pathMatch: "full" },
     { path: "home", component: HomePageComponent },
-    { path: "setup", component: SetupComponent },
-    { path: "session", component: FTSessionComponent },
     { path: "register", component: RegisterPageComponent },
     {
         path: "add-team",
