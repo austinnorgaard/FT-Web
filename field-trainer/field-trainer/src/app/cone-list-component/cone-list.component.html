@@ -1,9 +1,0 @@
-<button (click)="refresh()" [disabled]="refreshing()">refresh</button>
-<div fxLayout="row" fxLayoutWrap fxLayoutAlign="center">
-    <div *ngFor="let cone of cones">
-        <ft-cone [cone]="cone"></ft-cone>
-    </div>
-    <div *ngIf="conesEmpty()">
-        No cones detected yet...
-    </div>
-</div>

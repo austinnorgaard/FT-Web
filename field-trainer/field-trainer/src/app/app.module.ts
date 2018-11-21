@@ -44,7 +44,6 @@ import { UserManagementService } from "./api/user-management.service";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { AthleteManagementPageComponent } from "./athlete-management-page/athlete-management-page.component";
-import { ConeComponent } from "./cone-component/cone.component";
 import { ConeListComponent } from "./cone-list-component/cone-list.component";
 import { FTSessionComponent } from "./ft-session-component/ft-session.component";
 import { HomePageComponent } from "./home-page/home-page.component";
@@ -89,7 +88,6 @@ export function tokenGetter() {
 @NgModule({
     declarations: [
         AppComponent,
-        ConeComponent,
         ConeListComponent,
         SetupComponent,
         FTSessionComponent,
