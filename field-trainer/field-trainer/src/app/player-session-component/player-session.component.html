@@ -1,9 +1,0 @@
-<span class="statusLayout">{{data.player.name}}</span>
-<br/>
-<button mat-raised-button color="primary" (click)="startClicked()">Start!</button>
-<div fxLayout="row" fxLayoutWrap>
-    <div *ngFor="let segment of data.course.segments">
-        <ft-segment [details]=segment></ft-segment>
-        <br/>
-    </div>
-</div>
