@@ -29,14 +29,14 @@ import { JwtModule } from "@auth0/angular-jwt";
 import { SocketIoConfig, SocketIoModule } from "ngx-socket-io";
 import { PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarConfigInterface, PerfectScrollbarModule } from "ngx-perfect-scrollbar";
 import { FT_CONFIG } from "../../global-config";
-import { AuthGuardService } from "./_services/auth-guard.service";
-import { AuthHeaderInterceptor } from "./_services/auth-header-interceptor";
-import { AuthService } from "./_services/auth.service";
+import { AuthGuardService } from "./authentication/auth-guard.service";
+import { AuthHeaderInterceptor } from "./authentication/auth-header-interceptor";
+import { AuthService } from "./authentication/auth.service";
 import { AddAthletePageComponent } from "./add-athlete-page/add-athlete-page.component";
 import { AddTeamComponent } from "./add-team/add-team.component";
 import { AthleteManagementService } from "./api/athlete-management.service";
 import { ConesService } from "./api/cones.service";
-import { LoginService } from "./api/login.service";
+import { LoginService } from "./authentication/login.service";
 import { PlayersService } from "./api/players.service";
 import { TeamManagementService } from "./api/team-management.service";
 import { UserManagementService } from "./api/user-management.service";
@@ -60,6 +60,8 @@ import { AthleteComponent } from "./athlete/athlete.component";
 import { YesNoDialogComponent } from "./dialogs/yes-no/yes-no-dialog.component";
 import { TrainingSessionPageComponent } from "./training-session-page/training-session-page.component";
 import { SessionService } from "./api/session.service";
+
+import { AuthenticationModule } from "./authentication/authentication.module";
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     // w/e
@@ -131,20 +133,13 @@ export function tokenGetter() {
                 tokenGetter: tokenGetter,
             },
         }),
+        AuthenticationModule,
     ],
     providers: [
         ConesService,
         PlayersService,
         UserManagementService,
         TeamManagementService,
-        AuthGuardService,
-        AuthService,
-        LoginService,
-        {
-            provide: HTTP_INTERCEPTORS,
-            useClass: AuthHeaderInterceptor,
-            multi: true,
-        },
         AthleteManagementService,
         {
             provide: PERFECT_SCROLLBAR_CONFIG,
