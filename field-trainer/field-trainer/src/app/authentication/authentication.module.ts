@@ -2,9 +2,9 @@ import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { AuthHeaderInterceptor } from "./auth-header-interceptor";
-import { AuthGuardService } from "./auth-guard.service";
-import { AuthService } from "./auth.service";
-import { LoginService } from "./login.service";
+import { AuthGuardService } from "./services/auth-guard.service";
+import { AuthService } from "./services/auth.service";
+import { LoginService } from "./services/login.service";
 
 @NgModule({
     imports: [CommonModule],

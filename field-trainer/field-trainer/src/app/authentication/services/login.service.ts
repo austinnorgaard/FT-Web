@@ -1,9 +1,9 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
-import { LoginCredentials } from "../../../../../smart-cone-api/src/Auth/login-credentials";
-import { JwtToken } from "../../../../../smart-cone-api/src/Auth/jwt-token";
+import { LoginCredentials } from "../../../../../../smart-cone-api/src/Auth/login-credentials";
+import { JwtToken } from "../../../../../../smart-cone-api/src/Auth/jwt-token";
 
-import { FT_CONFIG } from "../../../global-config";
+import { FT_CONFIG } from "../../../../global-config";
 
 @Injectable()
 export class LoginService {
