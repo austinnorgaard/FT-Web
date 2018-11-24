@@ -1,18 +1,18 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes, CanActivate } from "@angular/router";
 
-import { HomePageComponent } from "./home-page/home-page.component";
-import { RegisterPageComponent } from "./register-page/register-page.component";
-import { AddTeamComponent } from "./add-team/add-team.component";
 import { AuthGuardService as AuthGuard } from "./authentication/services/auth-guard.service";
-import { AthleteManagementPageComponent } from "./athlete-management-page/athlete-management-page.component";
-import { LoginPageComponent } from "./login-page/login-page.component";
-import { TeamManagementPageComponent } from "./team-management-page/team-management-page.component";
-import { AddAthletePageComponent } from "./add-athlete-page/add-athlete-page.component";
-import { FieldCourseSetupComponent } from "./field-course-setup/field-course-setup.component";
-import { SessionSetupPageComponent } from "./session-setup-page/session-setup-page.component";
-import { AthleteSelectComponent } from "./athlete-select/athlete-select.component";
-import { TrainingSessionPageComponent } from "./training-session-page/training-session-page.component";
+import { AthleteManagementPageComponent } from "./athletes/components/athlete-management-page/athlete-management-page.component";
+import { AthleteSelectComponent } from "./session/components/athlete-select/athlete-select.component";
+import { HomePageComponent } from "./home/components/home-page/home-page.component";
+import { RegisterPageComponent } from "./user/components/register-page/register-page.component";
+import { AddTeamComponent } from "./teams/components/add-team/add-team.component";
+import { LoginPageComponent } from "./authentication/components/login-page/login-page.component";
+import { TeamManagementPageComponent } from "./teams/components/team-management-page/team-management-page.component";
+import { AddAthletePageComponent } from "./athletes/components/add-athlete-page/add-athlete-page.component";
+import { SessionSetupPageComponent } from "./session/components/session-setup-page/session-setup-page.component";
+import { TrainingSessionPageComponent } from "./session/components/training-session-page/training-session-page.component";
+import { FieldCourseSetupComponent } from "./session/components/field-course-setup/field-course-setup.component";
 
 const routes: Routes = [
     { path: "", redirectTo: "/home", pathMatch: "full" },

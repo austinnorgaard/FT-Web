@@ -5,10 +5,26 @@ import { AuthHeaderInterceptor } from "./auth-header-interceptor";
 import { AuthGuardService } from "./services/auth-guard.service";
 import { AuthService } from "./services/auth.service";
 import { LoginService } from "./services/login.service";
+import { LoginComponent } from "./components/login/login.component";
+import { LoginPageComponent } from "./components/login-page/login-page.component";
+import { MatFormFieldModule, MatButtonModule, MatInputModule } from "@angular/material";
+import { FormsModule } from "@angular/forms";
+import { NgbAlertModule } from "@ng-bootstrap/ng-bootstrap";
+import { FlexLayoutModule } from "@angular/flex-layout";
 
 @NgModule({
-    imports: [CommonModule],
-    declarations: [],
+    imports: [
+        CommonModule,
+        FormsModule,
+        MatFormFieldModule,
+        NgbAlertModule,
+        FlexLayoutModule,
+        FormsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+    ],
+    declarations: [LoginComponent, LoginPageComponent],
     providers: [
         AuthGuardService,
         AuthService,

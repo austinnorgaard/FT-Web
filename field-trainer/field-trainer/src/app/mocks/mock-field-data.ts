@@ -1,7 +1,7 @@
-import { Point } from "../models/point";
-import { FieldCone } from "../models/field-cone";
-import { Field } from "../models/field";
-import { Course } from "../models/course";
+import { Point } from "../session/models/point";
+import { FieldCone } from "../session/models/field-cone";
+import { Field } from "../session/models/field";
+import { Course } from "../session/models/course";
 
 export const mockPoints1: Point[] = [{ x: 0, y: 0 }, { x: 5, y: 10 }, { x: 5, y: 20 }, { x: 25, y: 40 }, { x: 45, y: 50 }, { x: 45, y: 90 }];
 
