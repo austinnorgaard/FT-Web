@@ -30,6 +30,7 @@ export class LoginComponent implements OnInit {
     }
 
     login() {
+        console.log("login");
         const credentials = new LoginCredentialsModel(this.email, this.password);
         // Do not allow user to submit if they haven't filled out the form
         if (!credentials.isValid()) {
@@ -51,8 +52,14 @@ export class LoginComponent implements OnInit {
                     this.showErrorMessage("Password incorrect!");
                 } else if (err.error.message.toLowerCase().includes("email not found")) {
                     this.showErrorMessage("Email address not found!");
+                } else {
+                    this.showErrorMessage("Unknown error");
                 }
             });
+    }
+
+    register() {
+        this.router.navigateByUrl("register");
     }
 
     showErrorMessage(message: string) {
