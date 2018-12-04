@@ -35,12 +35,10 @@ export class FieldTrainerConfig {
     ) {}
 
     public toSmartConeHttp(route: string = "/"): string {
-        console.log(`sending http://${this.startConeIp}:${this.smartConeApiHttpPort}${route}`);
         return `http://${this.startConeIp}:${this.smartConeApiHttpPort}${route}`;
     }
 
     public getSmartConeApiSocketUrl(): string {
-        console.log(`returning: http://${this.startConeIp}:${this.smartConeApiSocketPort}`);
         return `http://${this.startConeIp}:${this.smartConeApiSocketPort}`;
     }
 }

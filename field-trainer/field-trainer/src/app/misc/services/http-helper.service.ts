@@ -29,10 +29,6 @@ export class HttpHelperService {
      * ```
      */
     async post<T>(path: string, body: any): Promise<T> {
-        console.log("hello?");
-        console.log(`${JSON.stringify(environment.config)}`);
-        let test = environment.config.toSmartConeHttp(path);
-        console.log(`Hey: ${environment.config.toSmartConeHttp(path)}`);
         return this.http.post<T>(environment.config.toSmartConeHttp(path), body).toPromise();
     }
 

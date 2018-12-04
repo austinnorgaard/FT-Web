@@ -42,18 +42,18 @@ export class TeamManagementService {
         }
     }
 
-    async addAthleteToTeam(data: AddAthleteTeamModel) {
+    async addAthleteToTeam(teamId: number, athleteId: number) {
         try {
-            const result = await this.http.post<DatabaseResponse>(`/teams/${data.teamId}/athletes`, data);
+            const result = await this.http.post<DatabaseResponse>(`/teams/${teamId}/athletes`, { athleteId });
             return result;
         } catch (err) {
             throw err;
         }
     }
 
-    async removeAthleteFromTeam(data: AddAthleteTeamModel) {
+    async removeAthleteFromTeam(teamId: number, athleteId: number) {
         try {
-            const result = await this.http.post<DatabaseResponse>(`/teams/${data.teamId}/athletes/${data.athleteId}`, data);
+            const result = await this.http.delete(`/teams/${teamId}/athletes/${athleteId}`);
             return result;
         } catch (err) {
             throw err;

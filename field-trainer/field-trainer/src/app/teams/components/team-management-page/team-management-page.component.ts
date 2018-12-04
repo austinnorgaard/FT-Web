@@ -102,17 +102,8 @@ export class TeamManagementPageComponent implements OnInit {
     }
 
     onAthleteRemoved(athlete: AthleteModel) {
-        // in hindsight, silly name. The "AddAthleteTeamModel" is just an
-        // athlete/team combo
-        const data: AddAthleteTeamModel = {
-            athleteId: athlete.id,
-            teamId: this.selectedTeam.id,
-        } as AddAthleteTeamModel;
-
-        console.log(JSON.stringify(data));
-
         this.teamsService
-            .removeAthleteFromTeam(data)
+            .removeAthleteFromTeam(this.selectedTeam.id, athlete.id)
             .then((response: DatabaseResponse) => {
                 this.updateAthletes();
                 this.updateTeamAthletes();
@@ -124,14 +115,8 @@ export class TeamManagementPageComponent implements OnInit {
     }
 
     onAthleteAdded(athlete: AthleteModel) {
-        console.log(`${athlete.firstName} ${athlete.lastName} added`);
-        const data: AddAthleteTeamModel = {
-            athleteId: athlete.id,
-            teamId: this.selectedTeam.id,
-        } as AddAthleteTeamModel;
-
         this.teamsService
-            .addAthleteToTeam(data)
+            .addAthleteToTeam(this.selectedTeam.id, athlete.id)
             .then((response: DatabaseResponse) => {
                 this.updateAthletes();
                 this.updateTeamAthletes();
