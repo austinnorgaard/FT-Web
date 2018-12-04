@@ -1,8 +1,7 @@
 import { NestFactory } from "@nestjs/core";
 import { ApplicationModule } from "./App/app.module";
 import { ValidationPipe } from "@nestjs/common";
-import { FT_CONFIG } from "../../field-trainer/field-trainer/global-config";
-
+import { environment } from "../../field-trainer/field-trainer/src/environments/environment";
 import cors = require("cors");
 
 async function bootstrap() {
@@ -10,7 +9,7 @@ async function bootstrap() {
     app.use(cors());
     app.useGlobalPipes(new ValidationPipe());
     // tslint:disable-next-line:radix
-    await app.listen(parseInt(FT_CONFIG.smartConeApiHttpPort));
+    await app.listen(parseInt(environment.config.smartConeApiHttpPort));
 }
 // start
 bootstrap();
