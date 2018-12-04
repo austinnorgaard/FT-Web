@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Get, HttpStatus, Delete, Query } from "@nestjs/common";
+import { Controller, Post, Body, Get, HttpStatus, Delete, Query, Param } from "@nestjs/common";
 import { AthleteRegistration } from "./athlete-registration";
 import { AthletesService } from "./athletes.service";
 import { Athlete } from "./athlete";
@@ -59,8 +59,13 @@ export class AthletesController {
             });
     }
 
-    @Delete("by-id")
-    async deleteAthlete(@Query("id") id: number) {
+    @Get(":id")
+    async getAthlete(@Param("id") id: number) {
+        return await this.athletesService.getAthlete(id);
+    }
+
+    @Delete(":id")
+    async deleteAthlete(@Param("id") id: number) {
         console.log(`Removing athlete with id ${id}`);
 
         return await this.athletesService

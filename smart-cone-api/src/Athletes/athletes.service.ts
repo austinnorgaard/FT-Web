@@ -18,6 +18,10 @@ export class AthletesService {
         });
     }
 
+    async getAthlete(id: number): Promise<Athlete> {
+        return AthleteSchema.findById(id);
+    }
+
     async removeAthleteById(id: number): Promise<DatabaseResponse> {
         return new Promise<DatabaseResponse>((resolve, reject) => {
             AthleteSchema.destroy({
