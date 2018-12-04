@@ -11,26 +11,19 @@ export class AthleteSchema extends Model<AthleteSchema> implements Athlete {
     @Column({ autoIncrement: true })
     id: number;
 
-    @Column
-    firstName: string;
+    @Column firstName: string;
 
-    @Column
-    lastName: string;
+    @Column lastName: string;
 
-    @Column
-    email: string;
+    @Column email: string;
 
-    @Column
-    phoneNumber: string;
+    @Column phoneNumber: string;
 
-    @Column
-    gender: string;
+    @Column gender: string;
 
-    @Column
-    weight: number;
+    @Column weight: number;
 
-    @Column
-    height: string;
+    @Column height: string;
 
     @AllowNull(true)
     @Column

@@ -1,15 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 
 @Component({
-  selector: 'ft-session-setup-page',
-  templateUrl: './session-setup-page.component.html',
-  styleUrls: ['./session-setup-page.component.css']
+    selector: "ft-session-setup-page",
+    templateUrl: "./session-setup-page.component.html",
+    styleUrls: ["./session-setup-page.component.css"],
 })
 export class SessionSetupPageComponent implements OnInit {
+    constructor() {}
 
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+    ngOnInit() {}
 }

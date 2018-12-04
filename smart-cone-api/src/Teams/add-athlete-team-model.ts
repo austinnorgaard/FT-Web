@@ -1,9 +1,7 @@
 import { IsNumber } from "class-validator";
 
 export class AddAthleteTeamModel {
-    @IsNumber()
-    athleteId: number;
+    @IsNumber() athleteId: number;
 
-    @IsNumber()
-    teamId: number;
+    @IsNumber() teamId: number;
 }

@@ -5,35 +5,25 @@ import { User } from "../../Users/user";
     modelName: "Users",
 })
 export class UserSchema extends Model<UserSchema> implements User {
-    @Column
-    subscribedToNewsLetter: boolean;
+    @Column subscribedToNewsLetter: boolean;
 
-    @Column
-    firstName: string;
+    @Column firstName: string;
 
-    @Column
-    lastName: string;
+    @Column lastName: string;
 
-    @Column
-    address1: string;
+    @Column address1: string;
 
-    @Column
-    address2: string;
+    @Column address2: string;
 
-    @Column
-    city: string;
+    @Column city: string;
 
-    @Column
-    state: string;
+    @Column state: string;
 
-    @Column
-    zipCode: string;
+    @Column zipCode: string;
 
-    @Column
-    country: string;
+    @Column country: string;
 
-    @Column
-    phoneNumber: string;
+    @Column phoneNumber: string;
 
     @Column({
         unique: "true",
@@ -41,6 +31,5 @@ export class UserSchema extends Model<UserSchema> implements User {
     email: string;
 
     // Field unique to the database, not sent over air
-    @Column
-    passwordHash: string;
+    @Column passwordHash: string;
 }

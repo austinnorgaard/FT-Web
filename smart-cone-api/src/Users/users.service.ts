@@ -47,7 +47,8 @@ export class UsersService {
 
     async addUserToDb(user: UserSchema): Promise<DatabaseResponse> {
         return new Promise<DatabaseResponse>((resolve, reject) => {
-            user.save()
+            user
+                .save()
                 .then(() => {
                     const response = new DatabaseResponse(true, "User added!");
                     resolve(response);
