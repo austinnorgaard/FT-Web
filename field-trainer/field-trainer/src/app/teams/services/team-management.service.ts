@@ -1,9 +1,8 @@
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpErrorResponse, HttpParams } from "@angular/common/http";
+import { HttpParams } from "@angular/common/http";
 import { Team } from "../../../../../../smart-cone-api/src/Teams/team";
 import { DatabaseResponse } from "../../../../../../smart-cone-api/src/Database/Data/DatabaseResponse";
 import { AddAthleteTeamModel } from "../../../../../../smart-cone-api/src/Teams/add-athlete-team-model";
-import { Observable } from "rxjs";
 
 import "rxjs/add/operator/toPromise";
 import "rxjs/add/operator/map";
@@ -24,10 +23,6 @@ export class TeamManagementService {
     }
 
     async getTeams(): Promise<Team[]> {
-        /*return this.http
-            .get<Team[]>(FT_CONFIG.toSmartConeHttp("/teams"))
-            .toPromise()
-            .catch(err => Promise.reject(err));*/
         try {
             const result = await this.http.get<Team[]>("/teams");
             return result;
@@ -48,12 +43,8 @@ export class TeamManagementService {
     }
 
     async addAthleteToTeam(data: AddAthleteTeamModel) {
-        /*return this.http
-            .post<DatabaseResponse>(FT_CONFIG.toSmartConeHttp("/teams/add-athlete"), data)
-            .toPromise()
-            .catch(err => Promise.reject(err as DatabaseResponse));*/
         try {
-            const result = await this.http.post<DatabaseResponse>("/teams/add-athlete", data);
+            const result = await this.http.post<DatabaseResponse>(`/teams/${data.teamId}/athletes`, data);
             return result;
         } catch (err) {
             throw err;
@@ -61,12 +52,8 @@ export class TeamManagementService {
     }
 
     async removeAthleteFromTeam(data: AddAthleteTeamModel) {
-        /*return this.http
-            .post<DatabaseResponse>(FT_CONFIG.toSmartConeHttp("/teams/remove-athlete"), data)
-            .toPromise()
-            .catch(err => Promise.reject(err as DatabaseResponse));*/
         try {
-            const result = await this.http.post<DatabaseResponse>("/teams/removeathlete", data);
+            const result = await this.http.post<DatabaseResponse>(`/teams/${data.teamId}/athletes/${data.athleteId}`, data);
             return result;
         } catch (err) {
             throw err;

@@ -1,4 +1,4 @@
-import { Controller, Post, Get, Body, HttpStatus, HttpException, Put, Query } from "@nestjs/common";
+import { Controller, Post, Get, Body, HttpStatus, HttpException, Put, Query, Param, Delete } from "@nestjs/common";
 import { TeamsService } from "./teams.service";
 import { DatabaseFailureType } from "../Database/Data/DatabaseEnums";
 import { Team } from "./team";
@@ -43,8 +43,8 @@ export class TeamsController {
             });
     }
 
-    @Get("by-id")
-    async getTeamById(@Query("id") id: number) {
+    @Get(":id")
+    async getTeamById(@Param("id") id: number) {
         // get the team with a specific id
         return await this.teamsService
             .getTeamById(id)
@@ -57,11 +57,11 @@ export class TeamsController {
             });
     }
 
-    @Post("add-athlete")
-    async addAthleteToTeam(@Body() data: AddAthleteTeamModel) {
+    @Post(":id/athletes")
+    async addAthleteToTeam(@Param("id") teamId: number, @Body() data: AddAthleteTeamModel) {
         console.log("Add-athlete");
         return await this.teamsService
-            .addAthleteToTeam(data.teamId, data.athleteId)
+            .addAthleteToTeam(teamId, data.athleteId)
             .then(response => {
                 console.log("Athlete added successfully.");
                 return response;
@@ -72,11 +72,11 @@ export class TeamsController {
             });
     }
 
-    @Post("remove-athlete")
-    async removeAthleteFromTeam(@Body() data: AddAthleteTeamModel) {
+    @Delete(":teamId/athletes/:athleteId")
+    async removeAthleteFromTeam(@Param("teamId") teamId: number, @Param("athleteId") athleteId: number) {
         console.log("Remove athlete");
         return await this.teamsService
-            .removeAthleteFromTeam(data.teamId, data.athleteId)
+            .removeAthleteFromTeam(teamId, athleteId)
             .then(response => {
                 console.log("Athlete removed successfully.");
                 return response;
@@ -85,26 +85,5 @@ export class TeamsController {
                 console.log(`Failed to remove athlete from team. Reason: ${JSON.stringify(response)}`);
                 throw new HttpException(response, HttpStatus.INTERNAL_SERVER_ERROR);
             });
-    }
-
-    @Put()
-    async test() {
-        TeamSchema.findOne({
-            where: {
-                teamName: "TestTeam2",
-            },
-        }).then(team => {
-            // add an athlete based on a name
-            AthleteSchema.findOne({
-                where: {
-                    firstName: "Keaton",
-                },
-            }).then(athlete => {
-                console.log(`Found: ${athlete.firstName}`);
-                team.$add("teamAthletes", athlete).then(response => {
-                    console.log("Success");
-                });
-            });
-        });
     }
 }

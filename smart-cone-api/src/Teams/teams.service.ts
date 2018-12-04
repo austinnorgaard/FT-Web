@@ -32,8 +32,7 @@ export class TeamsService {
 
     async addTeamToDb(team: TeamSchema): Promise<DatabaseResponse> {
         return new Promise<DatabaseResponse>((resolve, reject) => {
-            team
-                .save()
+            team.save()
                 .then(() => {
                     const response = new DatabaseResponse(true, "Team added!");
                     resolve(response);
@@ -45,6 +44,7 @@ export class TeamsService {
     }
 
     async addAthleteToTeam(teamId: number, athleteId: number): Promise<DatabaseResponse> {
+        console.log(`TeamID: ${teamId}, AthleteID: ${athleteId}`);
         // We have an Athlete id and
         return new Promise<DatabaseResponse>((resolve, reject) => {
             TeamSchema.findOne({
@@ -61,8 +61,7 @@ export class TeamsService {
                     })
                         .then(athlete => {
                             // found our athlete, add him to the team
-                            team
-                                .$add("teamAthletes", athlete)
+                            team.$add("teamAthletes", athlete)
                                 .then(response => {
                                     console.log(`Added athlete ${athlete.firstName} ${athlete.lastName} to team ${team.teamName}`);
                                     resolve(new DatabaseResponse(true, "Added athlete to team."));
@@ -99,8 +98,7 @@ export class TeamsService {
                     })
                         .then(athlete => {
                             console.log(`Got athlete ${athlete.id} team ${team.id}`);
-                            team
-                                .$remove("teamAthletes", athlete)
+                            team.$remove("teamAthletes", athlete)
                                 .then(response => {
                                     console.log(`Removed athlete ${athlete.firstName} ${athlete.lastName} from team ${team.teamName}`);
                                     resolve(new DatabaseResponse(true, "Removed athlete from team."));
