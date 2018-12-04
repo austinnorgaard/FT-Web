@@ -1,52 +1,75 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpErrorResponse, HttpParams } from "@angular/common/http";
 import { Team } from "../../../../../../smart-cone-api/src/Teams/team";
-import { FT_CONFIG } from "../../../../global-config";
 import { DatabaseResponse } from "../../../../../../smart-cone-api/src/Database/Data/DatabaseResponse";
 import { AddAthleteTeamModel } from "../../../../../../smart-cone-api/src/Teams/add-athlete-team-model";
 import { Observable } from "rxjs";
 
 import "rxjs/add/operator/toPromise";
 import "rxjs/add/operator/map";
-import { Athlete } from "../../../../../../smart-cone-api/src/Athletes/athlete";
+import { HttpHelperService } from "../../misc/services/http-helper.service";
 
 @Injectable()
 export class TeamManagementService {
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpHelperService) {}
 
-    createTeam(team: Team): Promise<DatabaseResponse> {
-        return this.http
-            .post<DatabaseResponse>(FT_CONFIG.toSmartConeHttp("/teams"), team)
-            .toPromise()
-            .catch(err => Promise.reject(err as DatabaseResponse));
+    async createTeam(team: Team): Promise<DatabaseResponse> {
+        try {
+            const result = await this.http.post<DatabaseResponse>("/teams", team);
+            return result;
+        } catch (err) {
+            console.log(`Failed to create team: ${team.teamName}. Error: ${JSON.stringify(err)}`);
+            throw err as DatabaseResponse;
+        }
     }
 
-    getTeams(): Promise<Team[]> {
-        return this.http
+    async getTeams(): Promise<Team[]> {
+        /*return this.http
             .get<Team[]>(FT_CONFIG.toSmartConeHttp("/teams"))
             .toPromise()
-            .catch(err => Promise.reject(err));
+            .catch(err => Promise.reject(err));*/
+        try {
+            const result = await this.http.get<Team[]>("/teams");
+            return result;
+        } catch (err) {
+            console.log(`Failed to get teams. Error: ${JSON.stringify(err)}`);
+            throw err;
+        }
     }
 
-    getTeamById(id: number): Promise<Team> {
+    async getTeamById(id: number): Promise<Team> {
         const params = new HttpParams().set("id", id.toString());
-        return this.http
-            .get<Team>(FT_CONFIG.toSmartConeHttp("/teams/by-id"), { params: params })
-            .toPromise()
-            .catch(err => Promise.reject(err));
+        try {
+            const result = await this.http.get<Team>(`/teams/${id}`);
+            return result;
+        } catch (err) {
+            throw err;
+        }
     }
 
-    addAthleteToTeam(data: AddAthleteTeamModel) {
-        return this.http
+    async addAthleteToTeam(data: AddAthleteTeamModel) {
+        /*return this.http
             .post<DatabaseResponse>(FT_CONFIG.toSmartConeHttp("/teams/add-athlete"), data)
             .toPromise()
-            .catch(err => Promise.reject(err as DatabaseResponse));
+            .catch(err => Promise.reject(err as DatabaseResponse));*/
+        try {
+            const result = await this.http.post<DatabaseResponse>("/teams/add-athlete", data);
+            return result;
+        } catch (err) {
+            throw err;
+        }
     }
 
-    removeAthleteFromTeam(data: AddAthleteTeamModel) {
-        return this.http
+    async removeAthleteFromTeam(data: AddAthleteTeamModel) {
+        /*return this.http
             .post<DatabaseResponse>(FT_CONFIG.toSmartConeHttp("/teams/remove-athlete"), data)
             .toPromise()
-            .catch(err => Promise.reject(err as DatabaseResponse));
+            .catch(err => Promise.reject(err as DatabaseResponse));*/
+        try {
+            const result = await this.http.post<DatabaseResponse>("/teams/removeathlete", data);
+            return result;
+        } catch (err) {
+            throw err;
+        }
     }
 }

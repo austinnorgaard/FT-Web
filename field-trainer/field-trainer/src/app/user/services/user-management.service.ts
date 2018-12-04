@@ -1,15 +1,16 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { UserRegistration } from "../../../../../../smart-cone-api/src/Users/user-registration";
-import { FT_CONFIG } from "../../../../global-config";
 
 import "rxjs/add/operator/toPromise";
+import { HttpHelperService } from "../../misc/services/http-helper.service";
+import { User } from "../../../../../../smart-cone-api/src/Users/user";
 
 @Injectable()
 export class UserManagementService {
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpHelperService) {}
 
-    createUser(user: UserRegistration): Promise<Object> {
-        return this.http.post(FT_CONFIG.toSmartConeHttp("/users"), user).toPromise();
+    createUser(user: UserRegistration): Promise<User> {
+        return this.http.post<User>("/users", user);
     }
 }

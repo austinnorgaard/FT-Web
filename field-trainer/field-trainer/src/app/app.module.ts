@@ -8,7 +8,6 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { JwtModule } from "@auth0/angular-jwt";
 import { SocketIoConfig, SocketIoModule } from "ngx-socket-io";
 import { PerfectScrollbarConfigInterface, PerfectScrollbarModule } from "ngx-perfect-scrollbar";
-import { FT_CONFIG } from "../../global-config";
 import { YesNoDialogComponent } from "./dialogs/yes-no/yes-no-dialog.component";
 
 import { HomeModule } from "./home/home.module";
@@ -20,7 +19,9 @@ import { SessionModule } from "./session/session.module";
 import { UserModule } from "./user/user.module";
 import { AuthenticationModule } from "./authentication/authentication.module";
 
-import { MatListModule, MatIconModule, MatButtonModule, MatCardModule, MatSidenavModule, MatToolbar, MatToolbarModule } from "@angular/material";
+import { MatIconModule, MatButtonModule, MatSidenavModule, MatToolbarModule } from "@angular/material";
+import { MiscModule } from "./misc/misc.module";
+import { environment } from "../environments/environment";
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     // w/e
@@ -28,7 +29,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 
 // const ip = FT_CONFIG.getSmartConeApiSocketUrl();
 const config: SocketIoConfig = {
-    url: "192.168.42.1:5000",
+    url: `${environment.config.startConeIp}:${environment.config.smartConeApiSocketPort}`,
     options: {},
 };
 
@@ -64,6 +65,7 @@ export function tokenGetter() {
         MatIconModule,
         MatButtonModule,
         MatToolbarModule,
+        MiscModule,
     ],
     providers: [],
     bootstrap: [AppComponent],
