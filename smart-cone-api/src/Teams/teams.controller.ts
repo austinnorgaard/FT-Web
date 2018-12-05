@@ -57,11 +57,11 @@ export class TeamsController {
             });
     }
 
-    @Post(":id/athletes")
-    async addAthleteToTeam(@Param("id") teamId: number, @Body() data: AddAthleteTeamModel) {
+    @Put(":teamId/athletes/:athleteId")
+    async addAthleteToTeam(@Param("teamId") teamId: number, @Param("athleteId") athleteId: number) {
         console.log("Add-athlete");
         return await this.teamsService
-            .addAthleteToTeam(teamId, data.athleteId)
+            .addAthleteToTeam(teamId, athleteId)
             .then(response => {
                 console.log("Athlete added successfully.");
                 return response;
