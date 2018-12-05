@@ -44,7 +44,7 @@ export class TeamManagementService {
 
     async addAthleteToTeam(teamId: number, athleteId: number) {
         try {
-            const result = await this.http.post<DatabaseResponse>(`/teams/${teamId}/athletes`, { athleteId });
+            const result = await this.http.put<DatabaseResponse>(`/teams/${teamId}/athletes/${athleteId}`, {});
             return result;
         } catch (err) {
             throw err;
