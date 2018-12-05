@@ -33,7 +33,6 @@ export class TeamManagementService {
     }
 
     async getTeamById(id: number): Promise<Team> {
-        const params = new HttpParams().set("id", id.toString());
         try {
             const result = await this.http.get<Team>(`/teams/${id}`);
             return result;
