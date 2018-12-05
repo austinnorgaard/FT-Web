@@ -8,7 +8,7 @@ import { SessionSetupPageComponent } from "./components/session-setup-page/sessi
 import { TrainingSessionPageComponent } from "./components/training-session-page/training-session-page.component";
 import { FieldsService } from "./services/fields.service";
 import { SessionService } from "./services/session.service";
-import { MatOptionModule, MatFormFieldModule, MatSelectModule, MatButtonModule, MatDialog, MatDialogModule } from "@angular/material";
+import { MatOptionModule, MatFormFieldModule, MatSelectModule, MatButtonModule, MatDialog, MatDialogModule, MatCardModule } from "@angular/material";
 import { FormsModule } from "@angular/forms";
 import { AthleteModule } from "../athletes/athlete.module";
 import { TeamModule } from "../teams/team.module";
@@ -29,6 +29,7 @@ import { FlexLayoutModule } from "@angular/flex-layout";
         FlexLayoutModule,
         MatButtonModule,
         MatDialogModule,
+        MatCardModule,
     ],
     declarations: [AthleteSelectComponent, FieldCourseSetupComponent, FieldPreviewComponent, SessionSetupPageComponent, TrainingSessionPageComponent],
     providers: [FieldsService, SessionService],
