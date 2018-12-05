@@ -17,7 +17,7 @@ export class TeamManagementService {
             const result = await this.http.post<DatabaseResponse>("/teams", team);
             return result;
         } catch (err) {
-            console.log(`Failed to create team: ${team.teamName}. Error: ${JSON.stringify(err)}`);
+            console.log(`Failed to create team: ${team.teamName}. Error:`, err);
             throw err as DatabaseResponse;
         }
     }
@@ -27,7 +27,7 @@ export class TeamManagementService {
             const result = await this.http.get<Team[]>("/teams");
             return result;
         } catch (err) {
-            console.log(`Failed to get teams. Error: ${JSON.stringify(err)}`);
+            console.log(`Failed to get teams. Error:`, err);
             throw err;
         }
     }
@@ -38,6 +38,7 @@ export class TeamManagementService {
             const result = await this.http.get<Team>(`/teams/${id}`);
             return result;
         } catch (err) {
+            console.log(`Failed to get team ${id}. Error: `, err);
             throw err;
         }
     }
@@ -47,6 +48,7 @@ export class TeamManagementService {
             const result = await this.http.put<DatabaseResponse>(`/teams/${teamId}/athletes/${athleteId}`, {});
             return result;
         } catch (err) {
+            console.log(`Failed to add athlete ${athleteId} to team ${teamId},`, err);
             throw err;
         }
     }
@@ -56,6 +58,7 @@ export class TeamManagementService {
             const result = await this.http.delete(`/teams/${teamId}/athletes/${athleteId}`);
             return result;
         } catch (err) {
+            console.log(`Failed to remove athlete ${athleteId} from ${teamId}, error: `, err);
             throw err;
         }
     }
