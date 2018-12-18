@@ -50,4 +50,8 @@ export class TrainingSessionPageComponent implements OnInit {
     onGo() {
         console.log("Next player go!!");
     }
+
+    onSwipe(event: any) {
+        console.log("hello!");
+    }
 }
