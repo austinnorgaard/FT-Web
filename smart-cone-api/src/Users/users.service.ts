@@ -5,9 +5,12 @@ import { UserRegistration } from "./user-registration";
 import { UserSchema } from "../Database/Models/UserSchema";
 
 import bcrypt = require("bcrypt");
+import { FileLogger } from "../Logging/file-logger";
 
 @Component()
 export class UsersService {
+    public constructor(private logger: FileLogger) {}
+
     async addUser(userRegistration: UserRegistration): Promise<DatabaseResponse> {
         const hash = await this.generateHash(userRegistration.password);
 
@@ -47,14 +50,13 @@ export class UsersService {
 
     async addUserToDb(user: UserSchema): Promise<DatabaseResponse> {
         return new Promise<DatabaseResponse>((resolve, reject) => {
-            user
-                .save()
+            user.save()
                 .then(() => {
                     const response = new DatabaseResponse(true, "User added!");
                     resolve(response);
                 })
                 .catch(UniqueConstraintError => {
-                    console.log("User already existed in the database!");
+                    this.logger.log("User already existed in the database!");
 
                     const response = new DatabaseResponse(
                         false,
@@ -72,7 +74,7 @@ export class UsersService {
     }
 
     async validateCredentials(providedEmail: string, providedPassword: string): Promise<boolean> {
-        console.log("Validating credentials!");
+        this.logger.log("Validating credentials!");
         return new Promise<boolean>((resolve, reject) => {
             UserSchema.findOne({
                 where: { email: providedEmail },
@@ -91,7 +93,7 @@ export class UsersService {
                 })
                 .catch(err => {
                     // probably dont care about this error, just couldn't find a user with this email
-                    console.log(`Could not find account with email ${providedEmail}`);
+                    this.logger.log(`Could not find account with email ${providedEmail}`);
                     reject(`Could not find account with email ${providedEmail}`);
                 });
         });

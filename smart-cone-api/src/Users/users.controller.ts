@@ -2,22 +2,23 @@ import { Controller, Post, Body, HttpException, HttpStatus } from "@nestjs/commo
 import { UsersService } from "./users.service";
 import { DatabaseFailureType } from "../Database/Data/DatabaseEnums";
 import { UserRegistration } from "./user-registration";
+import { FileLogger } from "../Logging/file-logger";
 
 @Controller("users")
 export class UsersController {
-    constructor(private usersService: UsersService) {}
+    constructor(private usersService: UsersService, private logger: FileLogger) {}
 
     @Post()
     async create(@Body() userRegistration: UserRegistration) {
         // Adds a user to the database
-        console.log("Creating user.");
+        this.logger.log("Creating user.");
         await this.usersService
             .addUser(userRegistration)
             .then(() => {
-                console.log("User added!");
+                this.logger.log("User added!");
             })
             .catch(reason => {
-                console.log(`Failed to add user. Reason: ${JSON.stringify(reason)}`);
+                this.logger.log(`Failed to add user. Reason: ${JSON.stringify(reason)}`);
                 if (reason.failureType === DatabaseFailureType.UniqueConstraintViolated) {
                     throw new HttpException(reason, HttpStatus.CONFLICT);
                 } else {

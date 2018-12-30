@@ -13,7 +13,6 @@ import { TeamsService } from "../Teams/teams.service";
 })
 export class AthletesModule implements NestModule {
     public configure(consumer: MiddlewareConsumer): void | MiddlewareConsumer {
-        console.log("Athletes Module configuring");
         consumer.apply(passport.authenticate("jwt", { session: false })).forRoutes(AthletesController);
     }
 }

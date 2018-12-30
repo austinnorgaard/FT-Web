@@ -12,10 +12,10 @@ import { TeamsModule } from "../Teams/teams.module";
 import { UsersModule } from "../Users/users.module";
 import { AthletesModule } from "../Athletes/athletes.module";
 import { TrainingModule } from "../Training/training.module";
-import { LoggingModule } from "../Logging/logging.module";
+import { LoggerModule } from "../Logging/logger.module";
 
 @Module({
-    imports: [DatabaseModule, AuthModule, TeamsModule, UsersModule, AthletesModule, TrainingModule, LoggingModule],
+    imports: [DatabaseModule, AuthModule, TeamsModule, UsersModule, AthletesModule, TrainingModule, LoggerModule],
     controllers: [AppController, StatusController],
     components: [GeneralSocketApi],
     modules: [DatabaseModule, AuthModule, TeamsModule, UsersModule, AthletesModule],

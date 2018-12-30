@@ -4,9 +4,12 @@ import { Athlete } from "./athlete";
 import { DatabaseResponse } from "../Database/Data/DatabaseResponse";
 import { TeamSchema } from "../Database/Models/TeamSchema";
 import { GetDatabaseResponse } from "../Utility/database-error";
+import { FileLogger } from "../Logging/file-logger";
 
 @Component()
 export class AthletesService {
+    public constructor(private logger: FileLogger) {}
+
     async addAthlete(athlete: Athlete): Promise<DatabaseResponse> {
         const a = new AthleteSchema(athlete);
         return await this.addAthleteToDb(a);
@@ -43,7 +46,7 @@ export class AthletesService {
             athlete
                 .save()
                 .then(createdAthlete => {
-                    console.log(createdAthlete);
+                    this.logger.log(JSON.stringify(createdAthlete));
                     // success
                     const response = new DatabaseResponse(true, "Athlete added!", null, {
                         athleteId: createdAthlete.id, // allow caller to get at the created athlete

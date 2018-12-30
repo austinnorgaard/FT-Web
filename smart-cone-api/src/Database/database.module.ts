@@ -6,7 +6,5 @@ import { FtSequelize } from "./database.providers";
     exports: [FtSequelize],
 })
 export class DatabaseModule {
-    constructor() {
-        console.log("Database module loading.");
-    }
+    constructor() {}
 }

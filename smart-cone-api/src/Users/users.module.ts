@@ -9,7 +9,5 @@ import { DatabaseModule } from "../Database/database.module";
     imports: [DatabaseModule],
 })
 export class UsersModule {
-    constructor() {
-        console.log("Initializing users module");
-    }
+    constructor() {}
 }

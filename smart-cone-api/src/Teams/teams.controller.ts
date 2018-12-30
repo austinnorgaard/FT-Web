@@ -6,21 +6,22 @@ import { TeamSchema } from "../Database/Models/TeamSchema";
 import { AthleteSchema } from "../Database/Models/AthleteSchema";
 import { AddAthleteTeamModel } from "./add-athlete-team-model";
 import { DatabaseResponse } from "../Database/Data/DatabaseResponse";
+import { FileLogger } from "../Logging/file-logger";
 
 @Controller("teams")
 export class TeamsController {
-    constructor(private teamsService: TeamsService) {}
+    constructor(private teamsService: TeamsService, private logger: FileLogger) {}
 
     @Post()
     async create(@Body() team: Team) {
         return await this.teamsService
             .addTeam(team)
             .then(response => {
-                console.log("Team added!!");
+                this.logger.log("Team added!!");
                 return;
             })
             .catch(reason => {
-                console.log(`Failed to add team. Reason: ${JSON.stringify(reason)}`);
+                this.logger.log(`Failed to add team. Reason: ${JSON.stringify(reason)}`);
                 if (reason.failureType === DatabaseFailureType.UniqueConstraintViolated) {
                     throw new HttpException(reason, HttpStatus.CONFLICT);
                 } else {
@@ -38,7 +39,7 @@ export class TeamsController {
                 return response;
             })
             .catch(err => {
-                console.log(`Failed to get teams. Reason: ${JSON.stringify(err)}`);
+                this.logger.log(`Failed to get teams. Reason: ${JSON.stringify(err)}`);
                 throw new HttpException(err, HttpStatus.INTERNAL_SERVER_ERROR);
             });
     }
@@ -52,37 +53,37 @@ export class TeamsController {
                 return team;
             })
             .catch((err: DatabaseResponse) => {
-                console.log(`Failed to get team with id ${id}. Reason: ${JSON.stringify(err)}`);
+                this.logger.log(`Failed to get team with id ${id}. Reason: ${JSON.stringify(err)}`);
                 throw new HttpException(`Team with id ${id} was not found.`, HttpStatus.NOT_FOUND);
             });
     }
 
     @Put(":teamId/athletes/:athleteId")
     async addAthleteToTeam(@Param("teamId") teamId: number, @Param("athleteId") athleteId: number) {
-        console.log("Add-athlete");
+        this.logger.log("Add-athlete");
         return await this.teamsService
             .addAthleteToTeam(teamId, athleteId)
             .then(response => {
-                console.log("Athlete added successfully.");
+                this.logger.log("Athlete added successfully.");
                 return response;
             })
             .catch((response: DatabaseResponse) => {
-                console.log(`Failed to add athlete to team. Reason: ${JSON.stringify(response)}`);
+                this.logger.log(`Failed to add athlete to team. Reason: ${JSON.stringify(response)}`);
                 throw new HttpException(response, HttpStatus.INTERNAL_SERVER_ERROR);
             });
     }
 
     @Delete(":teamId/athletes/:athleteId")
     async removeAthleteFromTeam(@Param("teamId") teamId: number, @Param("athleteId") athleteId: number) {
-        console.log("Remove athlete");
+        this.logger.log("Remove athlete");
         return await this.teamsService
             .removeAthleteFromTeam(teamId, athleteId)
             .then(response => {
-                console.log("Athlete removed successfully.");
+                this.logger.log("Athlete removed successfully.");
                 return response;
             })
             .catch((response: DatabaseResponse) => {
-                console.log(`Failed to remove athlete from team. Reason: ${JSON.stringify(response)}`);
+                this.logger.log(`Failed to remove athlete from team. Reason: ${JSON.stringify(response)}`);
                 throw new HttpException(response, HttpStatus.INTERNAL_SERVER_ERROR);
             });
     }

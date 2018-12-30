@@ -6,10 +6,11 @@ import { HttpException } from "@nestjs/common";
 import { DatabaseResponse } from "../Database/Data/DatabaseResponse";
 import { DatabaseFailureType } from "../Database/Data/DatabaseEnums";
 import { TeamsService } from "../Teams/teams.service";
+import { FileLogger } from "../Logging/file-logger";
 
 @Controller("athletes")
 export class AthletesController {
-    constructor(private athletesService: AthletesService, private teamsService: TeamsService) {}
+    constructor(private athletesService: AthletesService, private teamsService: TeamsService, private logger: FileLogger) {}
     @Post()
     async create(@Body() athlete: AthleteRegistration) {
         // call service to create athlete in db
@@ -22,10 +23,10 @@ export class AthletesController {
                     this.teamsService
                         .addAthleteToTeam(athlete.team.id, response.data.athleteId)
                         .then(() => {
-                            console.log("Successfully added to team as well");
+                            this.logger.log("Successfully added to team as well");
                         })
                         .catch(err => {
-                            console.log(err);
+                            this.logger.log(err);
                             // This is a serious error, we should probably blow up here
                             // this constitutes a serious problem with frontend as this should be
                             // impossible
@@ -36,7 +37,7 @@ export class AthletesController {
                 }
             })
             .catch((err: DatabaseResponse) => {
-                console.log(`Failed to add athlete. Reason: ${JSON.stringify(err)}`);
+                this.logger.log(`Failed to add athlete. Reason: ${JSON.stringify(err)}`);
                 if (err.failureType === DatabaseFailureType.UniqueConstraintViolated) {
                     throw new HttpException(err, HttpStatus.CONFLICT);
                 } else {
@@ -54,7 +55,7 @@ export class AthletesController {
                 return response;
             })
             .catch(err => {
-                console.log(`Failed to get athletes. Reason: ${JSON.stringify(err)}`);
+                this.logger.log(`Failed to get athletes. Reason: ${JSON.stringify(err)}`);
                 throw new HttpException(err, HttpStatus.INTERNAL_SERVER_ERROR);
             });
     }
@@ -66,7 +67,7 @@ export class AthletesController {
 
     @Delete(":id")
     async deleteAthlete(@Param("id") id: number) {
-        console.log(`Removing athlete with id ${id}`);
+        this.logger.log(`Removing athlete with id ${id}`);
 
         return await this.athletesService
             .removeAthleteById(id)
@@ -74,7 +75,7 @@ export class AthletesController {
                 return;
             })
             .catch(err => {
-                console.log(`Database error removing athlete: ${err}`);
+                this.logger.log(`Database error removing athlete: ${err}`);
                 throw new HttpException(err.message, HttpStatus.INTERNAL_SERVER_ERROR);
             });
     }

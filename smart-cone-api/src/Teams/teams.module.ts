@@ -12,7 +12,6 @@ import * as passport from "passport";
 })
 export class TeamsModule implements NestModule {
     public configure(consumer: MiddlewareConsumer) {
-        console.log("TeamsModule configuring");
         consumer.apply(passport.authenticate("jwt", { session: false })).forRoutes(TeamsController);
     }
 }

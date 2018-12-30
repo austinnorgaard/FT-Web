@@ -11,11 +11,5 @@ import { DatabaseModule } from "../Database/database.module";
     imports: [DatabaseModule],
 })
 export class AuthModule implements NestModule {
-    public configure(consumer: MiddlewareConsumer) {
-        console.log("auth module configuring");
-        // consumer
-        //     .apply(passport.authenticate("jwt", { session: false }))
-        //     //.forRoutes({ path: "/auth/authorized", method: RequestMethod.ALL });
-        //     .forRoutes({ path: "/auth/authorized", method: RequestMethod.ALL }, UsersController);
-    }
+    public configure(consumer: MiddlewareConsumer) {}
 }

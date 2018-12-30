@@ -1,12 +1,13 @@
 import * as passport from "passport";
 import { ExtractJwt, Strategy } from "passport-jwt";
-import { Component } from "@nestjs/common";
+import { Component, Inject, LoggerService } from "@nestjs/common";
 import { AuthService } from "./auth.service";
 import { FtJwtSecret } from "./ft-jwt";
+import { FileLogger } from "../Logging/file-logger";
 
 @Component()
 export class JwtStrategy extends Strategy {
-    constructor(private readonly authService: AuthService) {
+    constructor(private readonly authService: AuthService, private readonly fileLogger: FileLogger) {
         super(
             {
                 jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
@@ -16,7 +17,7 @@ export class JwtStrategy extends Strategy {
             async (req, payload, next) => await this.verify(req, payload, next),
         );
         passport.use(this);
-        console.log("jwt constructed");
+        this.fileLogger.log("JWT Initialized");
     }
 
     public async verify(req, payload, done) {
