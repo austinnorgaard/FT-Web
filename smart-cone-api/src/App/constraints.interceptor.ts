@@ -33,7 +33,8 @@ export class ConstraintsInterceptor implements NestInterceptor {
                         });
                     }
                 }
-                return throwError(new HttpException(err, HttpStatus.INTERNAL_SERVER_ERROR));
+                // by default just return the expected http error
+                return throwError(new HttpException(err, httpError.status));
             }),
         );
     }
