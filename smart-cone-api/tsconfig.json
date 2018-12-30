@@ -10,8 +10,9 @@
         "target": "es6",
         "sourceMap": true,
         "allowJs": true,
-        "outDir": "./dist"
+        "outDir": "./dist",
+        "types": ["mocha"]
     },
     "include": ["src/**/*"],
-    "exclude": ["node_modules", "**/*.spec.ts"]
+    "exclude": ["node_modules"]
 }

@@ -9,7 +9,9 @@
         "start:watch": "nodemon",
         "prestart:prod": "tsc",
         "start:prod": "node dist/smart-cone-api/src/main.js",
-	"prod": "node dist/smart-cone-api/src/main.js"
+        "prod": "node dist/smart-cone-api/src/main.js",
+        "test": "mocha --require ts-node/register --watch-extensions ts \"src/**/*.spec.ts\"",
+        "test:watch": "npm run test -- -w"
     },
     "dependencies": {
         "@nestjs/common": "^5.3.9",
@@ -37,7 +39,11 @@
         "typescript": "^2.9.2"
     },
     "devDependencies": {
+        "@types/chai": "^4.1.7",
+        "@types/mocha": "^5.2.5",
         "@types/node": "^10.11.3",
+        "chai": "^4.2.0",
+        "mocha": "^5.2.0",
         "nodemon": "^1.15.0",
         "ts-node": "^7.0.1"
     }
