@@ -127,18 +127,14 @@ export class AddAthletePageComponent implements OnInit {
             team: this.selectedTeam,
         } as AthleteRegistrationModel;
 
-        console.log("Team for submission");
-        console.log(registrationData);
-
         this.athletesService
             .createAthlete(registrationData)
             .then(response => {
                 console.log("Athlete added!");
                 this.form.resetForm();
             })
-            .catch((err: DatabaseResponse) => {
+            .catch(err => {
                 console.log("Failed to add athlete");
-                console.log(err);
             });
     }
 

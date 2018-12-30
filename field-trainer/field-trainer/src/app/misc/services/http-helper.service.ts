@@ -29,7 +29,16 @@ export class HttpHelperService {
      * ```
      */
     async post<T>(path: string, body: any): Promise<T> {
-        return this.http.post<T>(environment.config.toSmartConeHttp(path), body).toPromise();
+        try {
+            const result = await this.http.post<T>(environment.config.toSmartConeHttp(path), body).toPromise();
+            return result;
+        } catch (err) {
+            if (err.error.status === 400) {
+                // constraints violated, print a helpful error message to the console for debug
+                console.log("The following are the constraints which were violated: ", err.error.failedConstraints);
+                throw err;
+            }
+        }
     }
 
     /**

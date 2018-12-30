@@ -12,6 +12,7 @@ export class AthleteManagementService {
         try {
             return this.http.post<DatabaseResponse>("/athletes", athleteRegistration);
         } catch (err) {
+            console.log(err);
             throw err;
         }
     }
