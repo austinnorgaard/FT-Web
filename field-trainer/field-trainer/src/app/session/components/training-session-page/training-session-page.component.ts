@@ -35,6 +35,31 @@
  *
 */
 
+export interface TestShape {
+    id: number;
+    name: string;
+}
+
+const TEST_DATA: TestShape[] = [
+    { id: 1, name: "Keaton Freude" },
+    { id: 2, name: "Rachel Battey" },
+    { id: 3, name: "Darren Sproles" },
+    { id: 3, name: "Darren Sproles" },
+    { id: 3, name: "Darren Sproles" },
+    { id: 3, name: "Darren Sproles" },
+    { id: 3, name: "Darren Sproles" },
+    { id: 3, name: "Darren Sproles" },
+    { id: 3, name: "Darren Sproles" },
+    { id: 3, name: "Darren Sproles" },
+    { id: 3, name: "Darren Sproles" },
+    { id: 3, name: "Darren Sproles" },
+    { id: 3, name: "Darren Sproles" },
+    { id: 3, name: "Darren Sproles" },
+    { id: 3, name: "Darren Sproles" },
+    { id: 3, name: "Darren Sproles" },
+    { id: 3, name: "Darren Sproles" },
+];
+
 import { Component, OnInit } from "@angular/core";
 
 @Component({
@@ -43,6 +68,8 @@ import { Component, OnInit } from "@angular/core";
     styleUrls: ["./training-session-page.component.css"],
 })
 export class TrainingSessionPageComponent implements OnInit {
+    displayedColumns: string[] = ["id", "name"];
+    dataSource = TEST_DATA;
     constructor() {}
 
     ngOnInit() {}
