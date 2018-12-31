@@ -12,6 +12,9 @@ echo "Disabling Frontend and Backend services"
 
 sudo service smartcone stop
 
+# Make sure any local changes are blown away
+cd ~/FT-WEB && git checkout -- . && git clean -fd
+
 cd ~/FT-WEB && git checkout master && git pull
 
 # We have the latest now, rebuild the front-end and backend
