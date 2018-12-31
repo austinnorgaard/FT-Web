@@ -13,6 +13,7 @@ import { AddAthletePageComponent } from "./athletes/components/add-athlete-page/
 import { SessionSetupPageComponent } from "./session/components/session-setup-page/session-setup-page.component";
 import { TrainingSessionPageComponent } from "./session/components/training-session-page/training-session-page.component";
 import { FieldCourseSetupComponent } from "./session/components/field-course-setup/field-course-setup.component";
+import { SandboxComponent } from "./utility/components/sandbox/sandbox.component";
 
 const routes: Routes = [
     { path: "", redirectTo: "/home", pathMatch: "full" },
@@ -56,6 +57,10 @@ const routes: Routes = [
         path: "training-session",
         component: TrainingSessionPageComponent,
         canActivate: [AuthGuard],
+    },
+    {
+        path: "sandbox",
+        component: SandboxComponent,
     },
 ];
 
