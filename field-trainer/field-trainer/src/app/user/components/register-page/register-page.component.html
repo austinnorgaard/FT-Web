@@ -55,13 +55,14 @@
                 <input
                     matInput
                     [(ngModel)]="userRegistration.user.email"
-                    name="emailAddress"
-                    type="text"
+                    name="email"
+                    type="email"
                     required
+                    email
+                    #email="ngModel"
                     placeholder="Email Address (this is your login!)"
-                    [formControl]="emailFormControl"
                 />
-                <mat-error *ngIf="emailFormControl.invalid">Email format is invalid</mat-error>
+                <mat-error *ngIf="email.errors?.email || email.errors?.required">Email must be a valid email address</mat-error>
             </mat-form-field>
         </div>
         <div fxLayoutGap="0.5em">
@@ -73,10 +74,11 @@
                     name="password"
                     type="password"
                     placeholder="Password"
-                    [formControl]="passwordFormControl"
                     required
+                    #password="ngModel"
+                    minlength="8"
                 />
-                <mat-error *ngIf="passwordFormControl.invalid">Password at least 8 characters</mat-error>
+                <mat-error *ngIf="password.errors?.minlength">Password must be at least 8 characters</mat-error>
             </mat-form-field>
         </div>
         <div fxLayoutGap="0.5em">

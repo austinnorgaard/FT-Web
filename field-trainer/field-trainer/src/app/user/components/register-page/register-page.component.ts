@@ -1,7 +1,5 @@
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import { UserManagementService } from "../../services/user-management.service";
-import { FormControl, Validators } from "@angular/forms";
-import { UserRegistration } from "../../../../../../../smart-cone-api/src/Users/user-registration";
 import { UserRegistrationModel } from "../../models/user-registration";
 import { Router } from "@angular/router";
 
@@ -15,10 +13,6 @@ export class RegisterPageComponent {
 
     readonly prefixes: string[] = ["Mr", "Mrs", "Ms"];
     public alertClosed = true;
-
-    public emailFormControl = new FormControl("", [Validators.required, Validators.email]);
-
-    public passwordFormControl = new FormControl("", [Validators.required, Validators.minLength(8)]);
 
     readonly countries: string[] = [
         "United States",
@@ -36,11 +30,6 @@ export class RegisterPageComponent {
     constructor(private userManagement: UserManagementService, private router: Router) {}
 
     submit(): void {
-        if (!this.emailFormControl.valid || !this.passwordFormControl.valid) {
-            console.log("Either email or password is invalid!");
-            return;
-        }
-
         this.submitted = true;
 
         this.userManagement
