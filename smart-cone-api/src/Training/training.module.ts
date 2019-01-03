@@ -5,7 +5,7 @@ import { MiddlewareConsumer } from "@nestjs/common";
 import * as passport from "passport";
 
 @Module({
-    components: [],
+    providers: [],
     controllers: [TrainingController],
 })
 export class TrainingModule implements NestModule {

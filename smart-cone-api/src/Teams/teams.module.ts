@@ -6,7 +6,7 @@ import { DatabaseModule } from "../Database/database.module";
 import * as passport from "passport";
 
 @Module({
-    components: [TeamsService],
+    providers: [TeamsService],
     controllers: [TeamsController],
     imports: [DatabaseModule],
 })

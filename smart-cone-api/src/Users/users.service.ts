@@ -1,4 +1,4 @@
-import { Component } from "@nestjs/common";
+import { Injectable } from "@nestjs/common";
 import { DatabaseResponse } from "../Database/Data/DatabaseResponse";
 import { DatabaseFailureType } from "../Database/Data/DatabaseEnums";
 import { UserRegistration } from "./user-registration";
@@ -7,7 +7,7 @@ import { UserSchema } from "../Database/Models/UserSchema";
 import bcrypt = require("bcrypt");
 import { FileLogger } from "../Logging/file-logger";
 
-@Component()
+@Injectable()
 export class UsersService {
     public constructor(private logger: FileLogger) {}
 

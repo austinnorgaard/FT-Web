@@ -7,7 +7,7 @@ import { AthletesService } from "./athletes.service";
 import { TeamsService } from "../Teams/teams.service";
 
 @Module({
-    components: [AthletesService, TeamsService],
+    providers: [AthletesService, TeamsService],
     controllers: [AthletesController],
     imports: [DatabaseModule],
 })

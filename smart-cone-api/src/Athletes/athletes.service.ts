@@ -1,4 +1,4 @@
-import { Component } from "@nestjs/common";
+import { Injectable } from "@nestjs/common";
 import { AthleteSchema } from "../Database/Models/AthleteSchema";
 import { Athlete } from "./athlete";
 import { DatabaseResponse } from "../Database/Data/DatabaseResponse";
@@ -6,7 +6,7 @@ import { TeamSchema } from "../Database/Models/TeamSchema";
 import { GetDatabaseResponse } from "../Utility/database-error";
 import { FileLogger } from "../Logging/file-logger";
 
-@Component()
+@Injectable()
 export class AthletesService {
     public constructor(private logger: FileLogger) {}
 

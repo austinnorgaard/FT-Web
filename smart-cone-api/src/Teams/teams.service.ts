@@ -1,13 +1,11 @@
-import { Component, Inject } from "@nestjs/common";
+import { Injectable, Inject } from "@nestjs/common";
 import { TeamSchema } from "../Database/Models/TeamSchema";
 import { DatabaseResponse } from "../Database/Data/DatabaseResponse";
-import { DatabaseFailureType } from "../Database/Data/DatabaseEnums";
 import { Team } from "./team";
 import { GetDatabaseResponse } from "../Utility/database-error";
 import { AthleteSchema } from "../Database/Models/AthleteSchema";
-import { Athlete } from "../Athletes/athlete";
 
-@Component()
+@Injectable()
 export class TeamsService {
     async addTeam(team: Team): Promise<DatabaseResponse> {
         const t = new TeamSchema(team);

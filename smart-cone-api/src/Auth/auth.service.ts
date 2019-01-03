@@ -1,12 +1,12 @@
 import * as jwt from "jsonwebtoken";
-import { Component } from "@nestjs/common";
+import { Injectable } from "@nestjs/common";
 import { FtJwtSecret } from "./ft-jwt";
 import { LoginCredentials } from "./login-credentials";
 import { JwtToken } from "./jwt-token";
 import { UserSchema } from "../Database/Models/UserSchema";
 const bcrypt = require("bcrypt"); // ts-lint
 
-@Component()
+@Injectable()
 export class AuthService {
     constructor() {}
 

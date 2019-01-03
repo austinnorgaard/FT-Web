@@ -1,11 +1,11 @@
 import * as passport from "passport";
 import { ExtractJwt, Strategy } from "passport-jwt";
-import { Component, Inject, LoggerService } from "@nestjs/common";
+import { Injectable } from "@nestjs/common";
 import { AuthService } from "./auth.service";
 import { FtJwtSecret } from "./ft-jwt";
 import { FileLogger } from "../Logging/file-logger";
 
-@Component()
+@Injectable()
 export class JwtStrategy extends Strategy {
     constructor(private readonly authService: AuthService, private readonly fileLogger: FileLogger) {
         super(

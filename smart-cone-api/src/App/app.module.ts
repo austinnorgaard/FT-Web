@@ -17,7 +17,6 @@ import { LoggerModule } from "../Logging/logger.module";
 @Module({
     imports: [DatabaseModule, AuthModule, TeamsModule, UsersModule, AthletesModule, TrainingModule, LoggerModule],
     controllers: [AppController, StatusController],
-    components: [GeneralSocketApi],
-    modules: [DatabaseModule, AuthModule, TeamsModule, UsersModule, AthletesModule],
+    providers: [GeneralSocketApi],
 })
 export class ApplicationModule {}

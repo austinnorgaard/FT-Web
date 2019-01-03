@@ -6,7 +6,7 @@ import { AuthController } from "./auth.controller";
 import { DatabaseModule } from "../Database/database.module";
 
 @Module({
-    components: [AuthService, JwtStrategy],
+    providers: [AuthService, JwtStrategy],
     controllers: [AuthController],
     imports: [DatabaseModule],
 })
