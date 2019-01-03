@@ -38,6 +38,8 @@
 import { Component, OnInit } from "@angular/core";
 import { SessionService } from "../../services/session.service";
 import { AthleteSession } from "../../models/athlete-session";
+import { Course } from "../../models/course";
+import { Field } from "../../models/field";
 
 @Component({
     selector: "ft-training-session-page",
@@ -48,6 +50,8 @@ export class TrainingSessionPageComponent implements OnInit {
     displayedColumns: string[] = ["id", "name"];
     onDeckAthleteName: string;
     athleteSessions: AthleteSession[] = [];
+    course: Course;
+    field: Field;
 
     constructor(private readonly sessionService: SessionService) {}
 
@@ -64,6 +68,9 @@ export class TrainingSessionPageComponent implements OnInit {
         this.sessionService.getAthleteSessions().subscribe(sessions => {
             this.athleteSessions = sessions;
         });
+
+        this.course = this.sessionService.getSelectedCourse();
+        this.field = this.sessionService.getSelectedField();
     }
 
     onGo() {

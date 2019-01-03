@@ -27,6 +27,14 @@ export class SessionService implements OnInit {
         return this.currentAthlete.asObservable();
     }
 
+    public getSelectedCourse(): Course {
+        return this.selectedCourse;
+    }
+
+    public getSelectedField(): Field {
+        return this.selectedField;
+    }
+
     public getAthleteSessions(): Observable<AthleteSession[]> {
         return this.athleteSessions.asObservable();
     }
@@ -54,6 +62,7 @@ export class SessionService implements OnInit {
         this.selectedAthletes = athletes;
         this.currentAthlete.next(this.selectedAthletes[0]);
 
+        this._athleteSessions = [];
         athletes.forEach(a => {
             this._athleteSessions.push(new AthleteSession(a, 0));
         });

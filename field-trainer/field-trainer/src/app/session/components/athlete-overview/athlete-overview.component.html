@@ -1,10 +1,10 @@
 <mat-card fxLayout="row">
     <div fxFlex fxLayout="row" fxFlexAlign="center center">
         <div fxFlex fxFlexAlign="center">
-            Keaton Freude
+            {{athleteSession.athlete.firstName}} {{athleteSession.athlete.lastName}}
         </div>
         <div fxFlex fxFlexAlign="center">
-            6/10 Complete
+            {{athleteSession.conesReached}} / {{maxCones}}
         </div>
     </div>
     <div fxFlex="0 0 auto" fxFlexAlign="end">
