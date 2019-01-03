@@ -35,32 +35,9 @@
  *
 */
 
-export interface TestShape {
-    id: number;
-    name: string;
-}
-
-const TEST_DATA: TestShape[] = [
-    { id: 1, name: "Keaton Freude" },
-    { id: 2, name: "Rachel Battey" },
-    { id: 3, name: "Darren Sproles" },
-    { id: 3, name: "Darren Sproles" },
-    { id: 3, name: "Darren Sproles" },
-    { id: 3, name: "Darren Sproles" },
-    { id: 3, name: "Darren Sproles" },
-    { id: 3, name: "Darren Sproles" },
-    { id: 3, name: "Darren Sproles" },
-    { id: 3, name: "Darren Sproles" },
-    { id: 3, name: "Darren Sproles" },
-    { id: 3, name: "Darren Sproles" },
-    { id: 3, name: "Darren Sproles" },
-    { id: 3, name: "Darren Sproles" },
-    { id: 3, name: "Darren Sproles" },
-    { id: 3, name: "Darren Sproles" },
-    { id: 3, name: "Darren Sproles" },
-];
-
 import { Component, OnInit } from "@angular/core";
+import { SessionService } from "../../services/session.service";
+import { AthleteSession } from "../../models/athlete-session";
 
 @Component({
     selector: "ft-training-session-page",
@@ -69,10 +46,25 @@ import { Component, OnInit } from "@angular/core";
 })
 export class TrainingSessionPageComponent implements OnInit {
     displayedColumns: string[] = ["id", "name"];
-    dataSource = TEST_DATA;
-    constructor() {}
+    onDeckAthleteName: string;
+    athleteSessions: AthleteSession[] = [];
 
-    ngOnInit() {}
+    constructor(private readonly sessionService: SessionService) {}
+
+    ngOnInit() {
+        // get the current athlete, and subscribe for future events
+        this.sessionService.getCurrentAthleteObservable().subscribe(a => {
+            if (a === null) {
+                this.onDeckAthleteName = "";
+                return;
+            }
+            this.onDeckAthleteName = a.firstName;
+        });
+
+        this.sessionService.getAthleteSessions().subscribe(sessions => {
+            this.athleteSessions = sessions;
+        });
+    }
 
     onGo() {
         console.log("Next player go!!");

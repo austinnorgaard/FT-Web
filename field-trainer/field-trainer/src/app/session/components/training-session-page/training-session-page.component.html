@@ -20,31 +20,13 @@
 
 <div fxFlex fxLayout="column" style="margin: 0.5em">
     <perfect-scrollbar fxFlex="1 1 auto" fxLayout="column">
-        <ft-athlete-overview></ft-athlete-overview>
-        <ft-athlete-overview fxFlex="0 0 auto"></ft-athlete-overview>
-        <ft-athlete-overview fxFlex="0 0 auto"></ft-athlete-overview>
-        <ft-athlete-overview fxFlex="0 0 auto"></ft-athlete-overview>
-        <ft-athlete-overview fxFlex="0 0 auto"></ft-athlete-overview>
-        <ft-athlete-overview fxFlex="0 0 auto"></ft-athlete-overview>
-        <ft-athlete-overview fxFlex="0 0 auto"></ft-athlete-overview>
-        <ft-athlete-overview fxFlex="0 0 auto"></ft-athlete-overview>
-        <ft-athlete-overview fxFlex="0 0 auto"></ft-athlete-overview>
-        <ft-athlete-overview fxFlex="0 0 auto"></ft-athlete-overview>
-        <ft-athlete-overview fxFlex="0 0 auto"></ft-athlete-overview>
-        <ft-athlete-overview fxFlex="0 0 auto"></ft-athlete-overview>
-        <ft-athlete-overview fxFlex="0 0 auto"></ft-athlete-overview>
-        <ft-athlete-overview fxFlex="0 0 auto"></ft-athlete-overview>
-        <ft-athlete-overview fxFlex="0 0 auto"></ft-athlete-overview>
-        <ft-athlete-overview fxFlex="0 0 auto"></ft-athlete-overview>
-        <ft-athlete-overview fxFlex="0 0 auto"></ft-athlete-overview>
-        <ft-athlete-overview fxFlex="0 0 auto"></ft-athlete-overview>
-        <ft-athlete-overview fxFlex="0 0 auto"></ft-athlete-overview>
-        <ft-athlete-overview fxFlex="0 0 auto"></ft-athlete-overview>
-        <ft-athlete-overview fxFlex="0 0 auto"></ft-athlete-overview>
-        <ft-athlete-overview fxFlex="0 0 auto"></ft-athlete-overview>
-        <ft-athlete-overview fxFlex="0 0 auto"></ft-athlete-overview>
+        <div *ngFor="let session of this.athleteSessions">
+            <ft-athlete-overview></ft-athlete-overview>
+        </div>
     </perfect-scrollbar>
-    <div fxFlex="0 0 5em" style="margin-top: 1em">
-        <div fxFlex fxLayout="row"><button mat-raised-button color="primary" fxFlex>GO JOHNNY!</button></div>
+    <div fxFlex="0 0 5em" fxLayout="row" style="margin-top: 1em">
+        <div fxFlex="20%"></div>
+        <div fxFlex fxLayout="row"><button mat-raised-button color="primary" fxFlex>GO {{this.onDeckAthleteName}}</button></div>
+        <div fxFlex="20%"></div>
     </div>
 </div>
