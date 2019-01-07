@@ -6,6 +6,7 @@ import { AthleteManagementService } from "../../../athletes/services/athlete-man
 import { AthleteModel } from "../../../athletes/models/athlete";
 import { Athlete } from "../../../../../../../smart-cone-api/src/Athletes/athlete";
 import { SessionSetupService } from "../../services/session-setup.service";
+import { SessionService } from "../../services/session.service";
 
 @Component({
     selector: "ft-athlete-select",
@@ -15,7 +16,12 @@ import { SessionSetupService } from "../../services/session-setup.service";
 export class AthleteSelectComponent implements OnInit {
     public selectedTeam: TeamModel;
     public availableTeams: TeamModel[];
-    constructor(private router: Router, private teamsService: TeamManagementService, private readonly sessionSetup: SessionSetupService) {
+    constructor(
+        private router: Router,
+        private sessionService: SessionService,
+        private teamsService: TeamManagementService,
+        private readonly sessionSetup: SessionSetupService,
+    ) {
         this.loadAvailableTeams();
     }
 
@@ -30,6 +36,7 @@ export class AthleteSelectComponent implements OnInit {
     onNext() {
         // Lock in the selected athletes
         this.sessionSetup.setAthletes(this.selectedTeam.teamAthletes);
+        this.sessionService.start();
         this.router.navigateByUrl("/training-session");
     }
 

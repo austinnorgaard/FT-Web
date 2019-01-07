@@ -40,6 +40,7 @@ import { AthleteSession } from "../../models/athlete-session";
 import { SessionSetupService } from "../../services/session-setup.service";
 import { SessionService } from "../../services/session.service";
 import { SessionSetupData } from "../../models/session-setup-data";
+import { Athlete } from "../../../../../../../smart-cone-api/src/Athletes/athlete";
 
 @Component({
     selector: "ft-training-session-page",
@@ -48,25 +49,31 @@ import { SessionSetupData } from "../../models/session-setup-data";
 })
 export class TrainingSessionPageComponent implements OnInit {
     displayedColumns: string[] = ["id", "name"];
-    onDeckAthleteName: string;
+    onDeckAthlete: Athlete;
     athleteSessions: AthleteSession[] = [];
     sessionFieldData: SessionSetupData;
 
     constructor(private readonly sessionSetup: SessionSetupService, private readonly sessionService: SessionService) {}
 
     ngOnInit() {
-        // get the current athlete, and subscribe for future events
+        // Get the on-deck athlete
+        this.onDeckAthlete = this.sessionService.getOnDeckAthlete();
+
+        // Subscribe for changes on the on-deck athlete
         this.sessionService.getCurrentAthleteObservable().subscribe(a => {
-            if (a === null) {
-                this.onDeckAthleteName = "";
-                return;
-            }
-            this.onDeckAthleteName = a.firstName;
+            this.onDeckAthlete = a;
         });
 
-        this.sessionService.getAthleteSessions().subscribe(sessions => {
+        // Get the current athleteSessions information (all info regarding all athletes status through the course)
+        this.athleteSessions = this.sessionService.getAthleteSessions();
+
+        // Subscribe for changes about the athlete session state
+        this.sessionService.getAthleteSessionsObservable().subscribe(sessions => {
+            console.log(`Received ${sessions.length} athlete sessions!`);
             this.athleteSessions = sessions;
         });
+
+        // Get the field data (course, cones, name, etc)
         this.sessionFieldData = this.sessionSetup.getSessionSetupData();
     }
 
