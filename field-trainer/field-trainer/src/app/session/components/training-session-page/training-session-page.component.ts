@@ -36,10 +36,12 @@
 */
 
 import { Component, OnInit } from "@angular/core";
-import { SessionService } from "../../services/session.service";
 import { AthleteSession } from "../../models/athlete-session";
 import { Course } from "../../models/course";
 import { Field } from "../../models/field";
+import { SessionSetupService } from "../../services/session-setup.service";
+import { SessionService } from "../../services/session.service";
+import { SessionSetupData } from "../../models/session-setup-data";
 
 @Component({
     selector: "ft-training-session-page",
@@ -50,10 +52,9 @@ export class TrainingSessionPageComponent implements OnInit {
     displayedColumns: string[] = ["id", "name"];
     onDeckAthleteName: string;
     athleteSessions: AthleteSession[] = [];
-    course: Course;
-    field: Field;
+    sessionFieldData: SessionSetupData;
 
-    constructor(private readonly sessionService: SessionService) {}
+    constructor(private readonly sessionSetup: SessionSetupService, private readonly sessionService: SessionService) {}
 
     ngOnInit() {
         // get the current athlete, and subscribe for future events
@@ -68,9 +69,7 @@ export class TrainingSessionPageComponent implements OnInit {
         this.sessionService.getAthleteSessions().subscribe(sessions => {
             this.athleteSessions = sessions;
         });
-
-        this.course = this.sessionService.getSelectedCourse();
-        this.field = this.sessionService.getSelectedField();
+        this.sessionFieldData = this.sessionSetup.getSessionSetupData();
     }
 
     onGo() {
