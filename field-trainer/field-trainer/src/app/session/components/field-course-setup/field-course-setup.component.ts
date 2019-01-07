@@ -4,7 +4,7 @@ import { Router } from "@angular/router";
 import { Field } from "../../models/field";
 import { Course } from "../../models/course";
 import { FieldsService } from "../../services/fields.service";
-import { SessionService } from "../../services/session.service";
+import { SessionSetupService } from "../../services/session-setup.service";
 
 @Component({
     selector: "ft-field-course-setup",
@@ -20,7 +20,7 @@ export class FieldCourseSetupComponent implements AfterViewInit, OnInit {
     courses: Course[] = null;
     loadedExistingData = false;
 
-    constructor(private fieldsService: FieldsService, private router: Router, private sessionService: SessionService) {
+    constructor(private fieldsService: FieldsService, private router: Router, private sessionSetup: SessionSetupService) {
         this.getFields();
     }
 
@@ -28,7 +28,7 @@ export class FieldCourseSetupComponent implements AfterViewInit, OnInit {
     async ngOnInit() {
         console.log("Field-Course-Setup Init");
         // Get the current state in case we have navigated back
-        const state = this.sessionService.getCurrentSessionSetupState();
+        const state = this.sessionSetup.getSessionSetupData();
         this.selectedField = state.field;
         this.selectedCourse = state.course;
         if (this.selectedField) {
@@ -74,7 +74,8 @@ export class FieldCourseSetupComponent implements AfterViewInit, OnInit {
     onFieldChanged() {
         this.getCourses();
         this.loadFieldPreview();
-        this.sessionService.setFieldAndCourse(this.selectedField, this.selectedCourse);
+        this.sessionSetup.setField(this.selectedField);
+        this.sessionSetup.setCourse(this.selectedCourse);
     }
 
     loadFieldPreview() {
@@ -85,7 +86,8 @@ export class FieldCourseSetupComponent implements AfterViewInit, OnInit {
 
     onCourseChanged() {
         this.fieldPreview.loadCourse(this.selectedCourse);
-        this.sessionService.setFieldAndCourse(this.selectedField, this.selectedCourse);
+        this.sessionSetup.setField(this.selectedField);
+        this.sessionSetup.setCourse(this.selectedCourse);
     }
 
     private getFields() {
