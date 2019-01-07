@@ -26,6 +26,7 @@ import { TeamModule } from "../teams/team.module";
 import { RouterModule } from "@angular/router";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { AthleteOverviewComponent } from "./components/athlete-overview/athlete-overview.component";
+import { SessionSetupService } from "./services/session-setup.service";
 
 @NgModule({
     imports: [
@@ -54,6 +55,6 @@ import { AthleteOverviewComponent } from "./components/athlete-overview/athlete-
         TrainingSessionPageComponent,
         AthleteOverviewComponent,
     ],
-    providers: [FieldsService, SessionService],
+    providers: [FieldsService, SessionService, SessionSetupService],
 })
 export class SessionModule {}

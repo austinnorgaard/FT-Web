@@ -37,8 +37,6 @@
 
 import { Component, OnInit } from "@angular/core";
 import { AthleteSession } from "../../models/athlete-session";
-import { Course } from "../../models/course";
-import { Field } from "../../models/field";
 import { SessionSetupService } from "../../services/session-setup.service";
 import { SessionService } from "../../services/session.service";
 import { SessionSetupData } from "../../models/session-setup-data";
