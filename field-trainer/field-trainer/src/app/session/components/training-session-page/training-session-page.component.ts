@@ -66,6 +66,7 @@ export class TrainingSessionPageComponent implements OnInit {
 
         // Get the current athleteSessions information (all info regarding all athletes status through the course)
         this.athleteSessions = this.sessionService.getAthleteSessions();
+        console.log(this.athleteSessions);
 
         // Subscribe for changes about the athlete session state
         this.sessionService.getAthleteSessionsObservable().subscribe(sessions => {
@@ -75,6 +76,7 @@ export class TrainingSessionPageComponent implements OnInit {
 
         // Get the field data (course, cones, name, etc)
         this.sessionFieldData = this.sessionSetup.getSessionSetupData();
+        console.log(this.sessionFieldData);
     }
 
     onGo() {

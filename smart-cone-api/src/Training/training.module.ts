@@ -1,11 +1,10 @@
 import { Module, NestModule } from "@nestjs/common";
 import { TrainingController } from "./training.controller";
 import { MiddlewareConsumer } from "@nestjs/common";
-
-import * as passport from "passport";
+import { TrainingService } from "./training.service";
 
 @Module({
-    providers: [],
+    providers: [TrainingService],
     controllers: [TrainingController],
 })
 export class TrainingModule implements NestModule {

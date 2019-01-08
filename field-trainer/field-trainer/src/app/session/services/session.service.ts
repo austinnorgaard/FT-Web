@@ -6,6 +6,7 @@ import { Athlete } from "../../../../../../smart-cone-api/src/Athletes/athlete";
 import { Observable, Subject, BehaviorSubject } from "rxjs";
 import { AthleteSession } from "../models/athlete-session";
 import { SessionSetupService } from "./session-setup.service";
+import { HttpHelperService } from "../../misc/services/http-helper.service";
 
 @Injectable({ providedIn: "root" })
 export class SessionService {
@@ -13,10 +14,10 @@ export class SessionService {
     private athleteSessions: BehaviorSubject<AthleteSession[]> = new BehaviorSubject<AthleteSession[]>([]);
     private _athleteSessions: AthleteSession[] = [];
 
-    constructor(private sessionSetupService: SessionSetupService) {}
+    constructor(private sessionSetupService: SessionSetupService, private readonly http: HttpHelperService) {}
 
     // Call this when ready to start the session (all setup is done)
-    start() {
+    async start() {
         console.log("Session service init!");
         const sessionData = this.sessionSetupService.getSessionSetupData();
         // create all of the required athlete sessions
@@ -32,6 +33,12 @@ export class SessionService {
         // We'll keep any observers updated for the exact current state of athlete
         // sessions
         this.athleteSessions.next(this._athleteSessions);
+        try {
+            await this.http.post("/training/start-session", sessionData);
+            console.log("Session started.");
+        } catch (err) {
+            console.log("Failed to start session!!", err);
+        }
     }
 
     /**

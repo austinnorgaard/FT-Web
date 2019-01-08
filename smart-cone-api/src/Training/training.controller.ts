@@ -1,5 +1,6 @@
 import { Controller, Get, Post, Body } from "@nestjs/common";
 import { TrainingSessionSetup } from "./training-session-setup";
+import { TrainingService } from "./training.service";
 
 /*
  * This controller is the endpoint for requests specific about
@@ -9,7 +10,7 @@ import { TrainingSessionSetup } from "./training-session-setup";
  */
 @Controller("training")
 export class TrainingController {
-    constructor() {}
+    constructor(private readonly trainingService: TrainingService) {}
     // Potentially not very interesting, but maybe we can use this for debug
     @Get()
     async get() {
@@ -18,7 +19,7 @@ export class TrainingController {
 
     @Post("start-session")
     async submitSessionSettings(@Body() sessionData: TrainingSessionSetup) {
-        console.log(sessionData);
+        this.trainingService.startSession(sessionData);
         return "Session data set!";
     }
 }

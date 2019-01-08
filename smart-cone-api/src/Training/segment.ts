@@ -4,4 +4,5 @@ export class Segment {
     from: number;
     to: number;
     action: string;
+    completed: boolean;
 }
