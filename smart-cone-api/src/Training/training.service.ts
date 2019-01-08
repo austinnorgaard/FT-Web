@@ -2,9 +2,12 @@ import { Injectable } from "@nestjs/common";
 import { TrainingSessionSetup } from "./training-session-setup";
 import { AthleteSession } from "./athlete-session";
 import { Segment } from "./segment";
+import { FieldConesService } from "../FieldCones/field-cones.service";
 
 @Injectable()
 export class TrainingService {
+    constructor(private fieldCones: FieldConesService) {}
+
     private athleteSessions: AthleteSession[] = [];
     async startSession(sessionSetupData: TrainingSessionSetup): Promise<void> {
         this.buildSessions(sessionSetupData);
