@@ -1,4 +1,5 @@
-import { Controller, Get, Post } from "@nestjs/common";
+import { Controller, Get, Post, Body } from "@nestjs/common";
+import { TrainingSessionSetup } from "./training-session-setup";
 
 /*
  * This controller is the endpoint for requests specific about
@@ -15,8 +16,9 @@ export class TrainingController {
         return "Nothing for now!";
     }
 
-    @Post("set-session-data")
-    async submitSessionSettings() {
+    @Post("start-session")
+    async submitSessionSettings(@Body() sessionData: TrainingSessionSetup) {
+        console.log(sessionData);
         return "Session data set!";
     }
 }
