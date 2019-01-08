@@ -54,7 +54,7 @@ export class AthleteSelectComponent implements OnInit {
     onMoveAthleteUp(athlete: AthleteModel) {
         console.log("Move-up: ", athlete);
         // Move this athlete up (closer to the front of the array)
-        // First, check if we even need to do anything..
+        // First, check if we even need to do anything.
 
         const index = this.getIndexOfAthlete(athlete);
 

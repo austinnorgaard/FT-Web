@@ -29,8 +29,8 @@ export class AthleteManagementPageComponent implements OnInit {
             .removeAthlete(athlete.id)
             .then(response => {
                 // remove the athlete from the current list of athletes
-                let index = this.athletes.findIndex(a => {
-                    return a.id == athlete.id;
+                const index = this.athletes.findIndex(a => {
+                    return a.id === athlete.id;
                 });
 
                 if (index === -1) {
