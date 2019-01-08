@@ -13,9 +13,10 @@ import { UsersModule } from "../Users/users.module";
 import { AthletesModule } from "../Athletes/athletes.module";
 import { TrainingModule } from "../Training/training.module";
 import { LoggerModule } from "../Logging/logger.module";
+import { FieldConesModule } from "../FieldCones/field-cones.module";
 
 @Module({
-    imports: [DatabaseModule, AuthModule, TeamsModule, UsersModule, AthletesModule, TrainingModule, LoggerModule],
+    imports: [DatabaseModule, AuthModule, TeamsModule, UsersModule, AthletesModule, TrainingModule, LoggerModule, FieldConesModule],
     controllers: [AppController, StatusController],
     providers: [GeneralSocketApi],
 })
