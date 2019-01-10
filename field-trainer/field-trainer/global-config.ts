@@ -41,4 +41,8 @@ export class FieldTrainerConfig {
     public getSmartConeApiSocketUrl(): string {
         return `http://${this.startConeIp}:${this.smartConeApiSocketPort}`;
     }
+
+    public getConeApiSocketUrl(): string {
+        return `http://${this.startConeIp}:${this.coneApiSocketPort}`;
+    }
 }
