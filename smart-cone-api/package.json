@@ -14,11 +14,11 @@
         "test:watch": "npm run test -- -w"
     },
     "dependencies": {
-        "@nestjs/common": "^5.3.9",
-        "@nestjs/core": "^5.3.10",
-        "@nestjs/microservices": "^5.3.8",
-        "@nestjs/testing": "^5.3.8",
-        "@nestjs/websockets": "^5.3.8",
+        "@nestjs/common": "^5.5.0",
+        "@nestjs/core": "^5.5.0",
+        "@nestjs/microservices": "^5.5.0",
+        "@nestjs/testing": "^5.5.0",
+        "@nestjs/websockets": "^5.5.0",
         "@types/sequelize": "^4.27.14",
         "@types/socket.io": "^1.4.33",
         "bcrypt": "^3.0.1",
