@@ -3,7 +3,7 @@ import { GatewayMetadataExplorer } from "@nestjs/websockets/gateway-metadata-exp
 import { environment } from "../../../field-trainer/field-trainer/src/environments/environment";
 import { FileLogger } from "../Logging/file-logger";
 
-@WebSocketGateway(parseInt(environment.config.smartConeApiSocketPort))
+@WebSocketGateway(parseInt(environment.config.smartConeApiSocketPort, 10))
 export class GeneralSocketApi implements OnGatewayConnection, OnGatewayDisconnect {
     public constructor(private readonly logger: FileLogger) {
         this.logger.log("Enabling Websocket Gateway!");
