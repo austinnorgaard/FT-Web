@@ -15,7 +15,7 @@ async function bootstrap() {
     app.useGlobalPipes(new ValidationPipe());
     app.useGlobalInterceptors(new ConstraintsInterceptor());
     // tslint:disable-next-line:radix
-    await app.listen(parseInt(environment.config.smartConeApiHttpPort));
+    await app.listen(parseInt(environment.config.smartConeApiHttpPort, 10));
 }
 // start
 bootstrap();
