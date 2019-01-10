@@ -1,8 +1,8 @@
 import { Module } from "@nestjs/common";
-import { CommsGateway } from "./comms-gateway";
+import { CommsService } from "./comms.service";
 
 @Module({
-    providers: [CommsGateway],
+    providers: [CommsService],
     imports: [],
     controllers: [],
 })
