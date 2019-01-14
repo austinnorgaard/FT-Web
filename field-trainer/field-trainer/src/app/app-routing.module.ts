@@ -14,6 +14,7 @@ import { SessionSetupPageComponent } from "./session/components/session-setup-pa
 import { TrainingSessionPageComponent } from "./session/components/training-session-page/training-session-page.component";
 import { FieldCourseSetupComponent } from "./session/components/field-course-setup/field-course-setup.component";
 import { SandboxComponent } from "./utility/components/sandbox/sandbox.component";
+import { DebugComponent } from "./utility/components/debug/debug.component";
 
 const routes: Routes = [
     { path: "", redirectTo: "/home", pathMatch: "full" },
@@ -61,6 +62,10 @@ const routes: Routes = [
     {
         path: "sandbox",
         component: SandboxComponent,
+    },
+    {
+        path: "debug",
+        component: DebugComponent,
     },
 ];
 
