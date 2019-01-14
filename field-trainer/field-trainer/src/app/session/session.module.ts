@@ -27,6 +27,9 @@ import { RouterModule } from "@angular/router";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { AthleteOverviewComponent } from "./components/athlete-overview/athlete-overview.component";
 import { SessionSetupService } from "./services/session-setup.service";
+import { FieldConesService } from "./services/field-cones.service";
+import { UtilitiesModule } from "../utility/utilities.module";
+import { MiscModule } from "../misc/misc.module";
 
 @NgModule({
     imports: [
@@ -46,6 +49,7 @@ import { SessionSetupService } from "./services/session-setup.service";
         MatTableModule,
         MatIconModule,
         MatDividerModule,
+        MiscModule,
     ],
     declarations: [
         AthleteSelectComponent,
@@ -55,6 +59,6 @@ import { SessionSetupService } from "./services/session-setup.service";
         TrainingSessionPageComponent,
         AthleteOverviewComponent,
     ],
-    providers: [FieldsService, SessionService, SessionSetupService],
+    providers: [FieldsService, SessionService, SessionSetupService, FieldConesService],
 })
 export class SessionModule {}
