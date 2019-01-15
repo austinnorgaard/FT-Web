@@ -20,3 +20,13 @@ update-rc.d fieldcone defaults
 # Write the conetype file to /var/tmp
 echo "fieldcone" > /var/tmp/.cone-type
 
+# Write the cone-id out
+echo "Setting cone ID to $1"
+echo $1 > /var/tmp/.cone-id
+
+echo "Cone settings written"
+sudo systemctl daemon-reload
+
+echo "Rebooting!"
+
+sudo reboot
