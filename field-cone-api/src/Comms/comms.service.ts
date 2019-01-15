@@ -3,14 +3,14 @@ import * as io from "socket.io-client";
 import * as os from "os";
 import { environment } from "../../../field-trainer/field-trainer/src/environments/environment";
 import { FieldConeInfo } from "../../../smart-cone-api/src/FieldCones/field-cone-info";
-import { getFieldConeId } from "../utils/environment-helper";
+import { getFieldConeId, smartConeSocketUrl } from "../utils/environment-helper";
 
 @Injectable()
 export class CommsService {
     private socket: SocketIOClient.Socket = null;
     constructor() {
         // Create our socket to the smart cone
-        this.socket = io(environment.config.getConeApiSocketUrl());
+        this.socket = io(smartConeSocketUrl);
         this.socket.on("connect", async () => {
             console.log("Connected to the smart cone!!");
             const coneInfo = await this.getFieldConeInfo();
