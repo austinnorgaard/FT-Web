@@ -15,18 +15,23 @@
 case "$1" in
 stop)
     echo "Killing Field Cone service."
-    echo "TODO: WE SHOULD BE KILLING THE SERVICE HERE!!!!"
-    time > /var/tmp/last-stop-time
+    sudo killall node
+    date > /var/tmp/last-stop-time
     ;;
 
 start)
     echo "Starting Field Cone service."
-    echo "TODO: WE SHOULD BE KILLING THE SERVICE HERE!!!!"
-    time > /var/tmp/last-start-time
+    date > /var/tmp/last-start-time
+    cd /home/pi/FT-WEB/field-cone-api && npm run prod &
+    ;;
+
+restart)
+    stop
+    start
     ;;
 
 *)
-    echo "Usage: ${0:-} {start|stop}" >&2
+    echo "Usage: ${0:-} {start|stop|restart}" >&2
     exit 1
     ;;
 esac
