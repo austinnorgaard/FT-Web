@@ -3,11 +3,7 @@ import * as io from "socket.io-client";
 import * as os from "os";
 import { environment } from "../../../field-trainer/field-trainer/src/environments/environment";
 import { FieldConeInfo } from "../../../smart-cone-api/src/FieldCones/field-cone-info";
-
-import * as fs from "fs";
-import * as util from "util";
-
-const readFile = util.promisify(fs.readFile);
+import { getFieldConeId } from "../utils/environment-helper";
 
 @Injectable()
 export class CommsService {
@@ -34,19 +30,8 @@ export class CommsService {
             info.ip = interfaces.wlan0.filter(i => i.family === "IPv4")[0].address;
         }
 
-        const coneId = await this.getFieldConeId();
+        const coneId = await getFieldConeId();
         info.id = coneId;
         return info;
-    }
-
-    async getFieldConeId(): Promise<number> {
-        // The field-cone ID is stored at /var/tmp/.cone-id if the device has been bootstrapped
-        // otherwise, we can just return -1 as an obvious indicator of an invalid ID
-        try {
-            const data = await readFile("/var/tmp/.cone-id");
-            return parseInt(data.toString("ascii"), 10);
-        } catch (err) {
-            return -1;
-        }
     }
 }
