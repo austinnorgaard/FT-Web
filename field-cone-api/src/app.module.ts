@@ -5,7 +5,7 @@ import { CommsModule } from "./Comms/comms.module";
 
 import * as util from "util";
 import * as fs from "fs";
-import { getFieldConeId } from "utils/environment-helper";
+import { getFieldConeId } from "./utils/environment-helper";
 import { environment } from "../../field-trainer/field-trainer/src/environments/environment";
 
 const readFile = util.promisify(fs.readFile);
