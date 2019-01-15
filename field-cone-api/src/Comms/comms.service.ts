@@ -10,11 +10,32 @@ export class CommsService {
     private socket: SocketIOClient.Socket = null;
     constructor() {
         // Create our socket to the smart cone
-        this.socket = io(smartConeSocketUrl);
+        this.socket = io(smartConeSocketUrl, {
+            reconnection: true,
+            reconnectionDelayMax: 2000,
+            randomizationFactor: 0.0,
+        });
+        console.log(`Setting up socket client with URL ${smartConeSocketUrl}`);
         this.socket.on("connect", async () => {
             console.log("Connected to the smart cone!!");
             const coneInfo = await this.getFieldConeInfo();
             this.socket.emit("initialContact", coneInfo);
+        });
+
+        this.socket.on("connect_timeout", () => {
+            console.log("Connection_timeout");
+        });
+
+        this.socket.on("connect_error", () => {
+            console.log("Connect_Error");
+        });
+
+        this.socket.on("reconnect", () => {
+            console.log("reconnect successfull");
+        });
+
+        this.socket.on("reconnect_attempt", () => {
+            console.log("reconnect_attempt");
         });
     }
 
