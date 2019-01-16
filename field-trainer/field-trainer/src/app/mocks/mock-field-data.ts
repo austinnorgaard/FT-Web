@@ -69,6 +69,12 @@ export const mockCourses: Course[] = [
                 to: 5,
                 action: "run",
             },
+            {
+                // return action
+                from: 5,
+                to: 0,
+                action: "jog",
+            },
         ],
     },
     {
@@ -100,6 +106,12 @@ export const mockCourses: Course[] = [
                 from: 4,
                 to: 5,
                 action: "walk",
+            },
+            {
+                // return action
+                from: 5,
+                to: 0,
+                action: "jog",
             },
         ],
     },
