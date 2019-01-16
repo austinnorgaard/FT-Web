@@ -2,17 +2,23 @@ import { Injectable } from "@nestjs/common";
 import { WebSocketGateway, OnGatewayConnection, OnGatewayDisconnect, SubscribeMessage } from "@nestjs/websockets";
 import { environment } from "../../../field-trainer/field-trainer/src/environments/environment";
 import { FieldConeInfo } from "./field-cone-info";
-import { Observable, Subject } from "rxjs";
+import { Observable, Subject, BehaviorSubject } from "rxjs";
 
 @Injectable()
 @WebSocketGateway(parseInt(environment.config.coneApiSocketPort, 10))
 export class FieldConesService implements OnGatewayConnection, OnGatewayDisconnect {
     public onConnectSubject: Subject<FieldConeInfo> = new Subject<FieldConeInfo>();
+    public connectedFieldCones: BehaviorSubject<FieldConeInfo[]> = new BehaviorSubject<FieldConeInfo[]>([]);
+
     constructor() {
         console.log("Field Cones Service instantiated!");
         this.onConnectSubject.subscribe({
             next: cone => {
                 console.log(`Received new cone data! ${JSON.stringify(cone)}`);
+
+                const value = this.connectedFieldCones.getValue();
+                value.push(cone);
+                this.connectedFieldCones.next(value);
             },
         });
     }

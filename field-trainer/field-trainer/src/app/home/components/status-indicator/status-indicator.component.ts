@@ -24,6 +24,10 @@ export class StatusIndicatorComponent implements OnInit {
             // indicator to off
             this.connected = false;
         });
+
+        this.socket.on("hello, there!", () => {
+            console.log("got some data!");
+        });
     }
 
     ngOnInit() {}
