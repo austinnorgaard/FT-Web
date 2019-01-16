@@ -22,4 +22,9 @@ export class TrainingController {
         this.trainingService.startSession(sessionData);
         return "Session data set!";
     }
+
+    @Post("next-athlete-starting")
+    async nextAthleteStarting() {
+        console.log("next athlete is starting!!");
+    }
 }

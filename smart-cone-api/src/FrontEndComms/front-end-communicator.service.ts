@@ -11,6 +11,16 @@ export class FrontEndCommunicator implements OnGatewayConnection, OnGatewayDisco
 
     public constructor(private readonly logger: FileLogger, private readonly fieldConesService: FieldConesService) {
         this.logger.log("Enabling Websocket Gateway!");
+
+        // Start tracking the field cones as they are connected
+        this.fieldConesService.connectedFieldCones.subscribe(cones => {
+            console.log(`New update for the connected field cones. Count = ${cones.length}`);
+
+            // Let the frontend know, but only if we are connected to the front end at this point in time
+            if (this.frontEndSocket !== null) {
+                this.frontEndSocket.emit("fieldConesConnected", cones);
+            }
+        });
     }
 
     handleConnection(client: any, ...args: any[]) {
@@ -19,14 +29,6 @@ export class FrontEndCommunicator implements OnGatewayConnection, OnGatewayDisco
         // now that we are connected with the front end, we will want to keep track
         // of the socket
         this.frontEndSocket = client;
-
-        // Start tracking the field cones as they are connected
-        this.fieldConesService.connectedFieldCones.subscribe(cones => {
-            console.log(`New update for the connected field cones. Count = ${cones.length}`);
-
-            // Let the frontend know!
-            this.frontEndSocket.emit("fieldConesConnected", cones);
-        });
     }
 
     handleDisconnect(client: any) {

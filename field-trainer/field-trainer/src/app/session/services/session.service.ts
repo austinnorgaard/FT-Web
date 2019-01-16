@@ -59,4 +59,9 @@ export class SessionService {
     public getOnDeckAthlete(): Athlete {
         return this.currentAthlete.value;
     }
+
+    public async nextAthlete() {
+        // the on-deck athlete is up next
+        await this.http.post("/training/next-athlete-starting", {});
+    }
 }

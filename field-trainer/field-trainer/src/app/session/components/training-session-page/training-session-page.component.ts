@@ -79,8 +79,9 @@ export class TrainingSessionPageComponent implements OnInit {
         console.log(this.sessionFieldData);
     }
 
-    onGo() {
+    async onGo() {
         console.log("Next player go!!");
+        await this.sessionService.nextAthlete();
     }
 
     onSwipe(event: any) {

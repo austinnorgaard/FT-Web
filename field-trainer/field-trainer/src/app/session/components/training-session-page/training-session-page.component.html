@@ -6,7 +6,7 @@
     </perfect-scrollbar>
     <div fxFlex="0 0 5em" fxLayout="row" style="margin-top: 1em">
         <div fxFlex="20%"></div>
-        <div fxFlex fxLayout="row"><button mat-raised-button color="primary" fxFlex>GO {{this.onDeckAthlete?.firstName}}</button></div>
+        <div fxFlex fxLayout="row"><button mat-raised-button (click)="onGo()" color="primary" fxFlex>GO {{this.onDeckAthlete?.firstName}}</button></div>
         <div fxFlex="20%"></div>
     </div>
 </div>

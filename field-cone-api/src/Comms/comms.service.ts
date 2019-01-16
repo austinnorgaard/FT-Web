@@ -41,7 +41,7 @@ export class CommsService {
 
     async getFieldConeInfo(): Promise<FieldConeInfo> {
         const interfaces = os.networkInterfaces();
-        const info: FieldConeInfo = { ip: "unknown", id: -1 };
+        const info = { ip: "unknown", id: -1 } as any;
 
         if (Object.keys(interfaces).some(k => k === "Wi-Fi")) {
             console.log("We are on windows!");
