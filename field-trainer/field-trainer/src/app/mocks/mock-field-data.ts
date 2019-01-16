@@ -9,6 +9,8 @@ export const mockPoints2: Point[] = [{ x: 0, y: 0 }, { x: 20, y: 10 }, { x: 25, 
 
 export const mockPoints3: Point[] = [{ x: 10, y: 10 }, { x: 30, y: 10 }, { x: 60, y: 10 }, { x: 70, y: 30 }, { x: 70, y: 50 }, { x: 30, y: 50 }];
 
+export const mockPoints4: Point[] = [{ x: 10, y: 10 }, { x: 30, y: 10 }];
+
 export function getMockCones1(): FieldCone[] {
     let i = 0;
     return mockPoints1.map(p => {
@@ -30,11 +32,19 @@ export function getMockCones3(): FieldCone[] {
     });
 }
 
+export function getMockCones4(): FieldCone[] {
+    let i = 0;
+    return mockPoints4.map(p => {
+        return new FieldCone(i++, { x: p.x, y: p.y });
+    });
+}
+
 export function getMockFields(): Field[] {
     return [
         new Field(getMockCones1(), 54, 102, "Football Field 1"),
         new Field(getMockCones2(), 54, 102, "Football Field 2"),
         new Field(getMockCones3(), 80, 60, "Senior Soccer Half Field"),
+        new Field(getMockCones4(), 80, 60, "Developer Test Field"),
     ];
 }
 
@@ -129,6 +139,23 @@ export const mockCourses: Course[] = [
                 from: 1,
                 to: 2,
                 action: "jog",
+            },
+        ],
+    },
+    {
+        name: "Mock Course",
+        field: new Field(getMockCones4(), 80, 60, "Developer Test Field"),
+        conesSubset: [0, 1],
+        segments: [
+            {
+                from: 0,
+                to: 1,
+                action: "sprint",
+            },
+            {
+                from: 1,
+                to: 0,
+                action: "sprint",
             },
         ],
     },
