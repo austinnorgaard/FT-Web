@@ -17,7 +17,7 @@
     </div>
     <div fxFlex="0 0 auto" style="margin-top: 2em">
         <div *ngIf="this.selectedCourse !== undefined">
-            <span>Required Field Cones: {{this.selectedCourse.conesSubset.length}}, Connected Field Cones: {{this.numConnectedFieldCones}}</span>
+            <span>Required Field Cones: {{this.getNumRequiredFieldCones()}}, Connected Field Cones: {{this.numConnectedFieldCones}}</span>
         </div>
     </div>
     <button fxFlex="0 0 auto" style="margin-top: 1em" mat-raised-button color="primary" (click)="onClick()" disabled="this.conesReady">Next</button>

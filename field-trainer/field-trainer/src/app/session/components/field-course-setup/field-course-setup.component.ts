@@ -66,6 +66,12 @@ export class FieldCourseSetupComponent implements AfterViewInit, OnInit {
         }
     }
 
+    getNumRequiredFieldCones(): number {
+        if (this.selectedCourse) {
+            return this.selectedCourse.conesSubset.length - 1; // dont count the smart cone!
+        }
+    }
+
     fieldCompareFn(o1: Field, o2: Field): boolean {
         if (!o1 || !o2) {
             return false;
