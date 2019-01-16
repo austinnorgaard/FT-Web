@@ -24,11 +24,16 @@ export class FieldConesService implements OnGatewayConnection, OnGatewayDisconne
     }
 
     handleConnection(client: any, ...args: any[]) {
-        console.log("Gateway connect!");
+        console.log(`Gateway connect from client id ${client.id}`);
     }
 
     handleDisconnect(client: any) {
-        console.log("Gateway disconnect!");
+        console.log(`Gateway disconnect for client id ${client.id}`);
+
+        // remove the cone from the cone list based on the session id
+        let value = this.connectedFieldCones.getValue();
+        value = value.filter(v => v.sessionId !== client.id);
+        this.connectedFieldCones.next(value);
     }
 
     // This is called when a field cone connects to us, they will identify themselves
@@ -36,7 +41,7 @@ export class FieldConesService implements OnGatewayConnection, OnGatewayDisconne
     @SubscribeMessage("initialContact")
     onInitialContact(client, data: FieldConeInfo) {
         console.log(`Contacted by a field cone! Their info, cone ID: ${data.id} at ${data.ip}`);
-        this.onConnectSubject.next(data);
+        this.onConnectSubject.next({ id: data.id, ip: data.ip, sessionId: client.id } as FieldConeInfo);
     }
     initialConnection() {}
 }

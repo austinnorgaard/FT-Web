@@ -5,4 +5,5 @@
 export class FieldConeInfo {
     ip: string;
     id: number;
+    sessionId: string; // the socket session id, unique identifier per session
 }
