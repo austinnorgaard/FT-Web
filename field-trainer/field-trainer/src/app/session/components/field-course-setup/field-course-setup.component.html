@@ -15,5 +15,10 @@
         <ft-field-preview fxFlexAlign="center" #fieldPreview></ft-field-preview>
         <h3 fxFlex fxFlexAlign="center" *ngIf="this.selectedField === null" class="select-field-text">Select a field</h3>
     </div>
-    <button fxFlex="0 0 auto" style="margin-top: 1em" mat-raised-button color="primary" (click)="onClick()">Next</button>
+    <div fxFlex="0 0 auto" style="margin-top: 2em">
+        <div *ngIf="this.selectedCourse !== undefined">
+            <span>Required Field Cones: {{this.selectedCourse.conesSubset.length}}, Connected Field Cones: {{this.numConnectedFieldCones}}</span>
+        </div>
+    </div>
+    <button fxFlex="0 0 auto" style="margin-top: 1em" mat-raised-button color="primary" (click)="onClick()" disabled="this.conesReady">Next</button>
 </div>

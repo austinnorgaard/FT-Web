@@ -5,6 +5,8 @@ import { Field } from "../../models/field";
 import { Course } from "../../models/course";
 import { FieldsService } from "../../services/fields.service";
 import { SessionSetupService } from "../../services/session-setup.service";
+import { FieldConesService } from "../../services/field-cones.service";
+import { FieldCone } from "../../models/field-cone";
 
 @Component({
     selector: "ft-field-course-setup",
@@ -19,9 +21,21 @@ export class FieldCourseSetupComponent implements AfterViewInit, OnInit {
     fields: Field[] = null;
     courses: Course[] = null;
     loadedExistingData = false;
+    conesReady = false;
+    numConnectedFieldCones = 0;
 
-    constructor(private fieldsService: FieldsService, private router: Router, private sessionSetup: SessionSetupService) {
+    constructor(
+        private fieldsService: FieldsService,
+        private router: Router,
+        private sessionSetup: SessionSetupService,
+        private fieldConesService: FieldConesService,
+    ) {
         this.getFields();
+
+        this.fieldConesService.fieldConesSubject.subscribe((fieldCones: FieldCone[]) => {
+            console.log(`Got some new value from the FieldCones subject. There are currently ${fieldCones.length} cones!`);
+            this.numConnectedFieldCones = fieldCones.length;
+        });
     }
 
     // Set state from current state in service
