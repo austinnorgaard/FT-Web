@@ -25,6 +25,7 @@ export class FrontEndCommunicator implements OnGatewayConnection, OnGatewayDisco
             console.log(`New update for the connected field cones. Count = ${cones.length}`);
 
             // Let the frontend know!
+            this.frontEndSocket.emit("fieldConesConnected", cones);
         });
     }
 

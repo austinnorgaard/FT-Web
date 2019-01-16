@@ -7,6 +7,7 @@ import { FieldsService } from "../../services/fields.service";
 import { SessionSetupService } from "../../services/session-setup.service";
 import { FieldConesService } from "../../services/field-cones.service";
 import { FieldCone } from "../../models/field-cone";
+import { Socket } from "ngx-socket-io";
 
 @Component({
     selector: "ft-field-course-setup",
@@ -21,7 +22,6 @@ export class FieldCourseSetupComponent implements AfterViewInit, OnInit {
     fields: Field[] = null;
     courses: Course[] = null;
     loadedExistingData = false;
-    conesReady = false;
     numConnectedFieldCones = 0;
 
     constructor(
@@ -29,12 +29,18 @@ export class FieldCourseSetupComponent implements AfterViewInit, OnInit {
         private router: Router,
         private sessionSetup: SessionSetupService,
         private fieldConesService: FieldConesService,
+        private socket: Socket,
     ) {
         this.getFields();
 
         this.fieldConesService.fieldConesSubject.subscribe((fieldCones: FieldCone[]) => {
             console.log(`Got some new value from the FieldCones subject. There are currently ${fieldCones.length} cones!`);
             this.numConnectedFieldCones = fieldCones.length;
+        });
+
+        socket.on("fieldConesConnected", cones => {
+            console.log(`Got some cones ${JSON.stringify(cones)}`);
+            this.numConnectedFieldCones = cones.length;
         });
     }
 
@@ -70,6 +76,15 @@ export class FieldCourseSetupComponent implements AfterViewInit, OnInit {
         if (this.selectedCourse) {
             return this.selectedCourse.conesSubset.length - 1; // dont count the smart cone!
         }
+    }
+
+    conesReady(): boolean {
+        // course must be selected and the number of connected field cones
+        // needs to equal getNumRequiredFieldCones()
+        if (this.selectedCourse === undefined) {
+            return false;
+        }
+        return this.numConnectedFieldCones === this.getNumRequiredFieldCones();
     }
 
     fieldCompareFn(o1: Field, o2: Field): boolean {
