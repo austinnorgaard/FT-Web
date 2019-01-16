@@ -10,6 +10,7 @@ export class FieldDrawable {
     coneContainer: PIXI.Container;
     textContainer: PIXI.Container;
     coneTexture: PIXI.Texture;
+    smartConeTexture: PIXI.Texture;
 
     private scale: Point = new Point();
     private origin: Point = new Point();
@@ -22,7 +23,8 @@ export class FieldDrawable {
         this.app.stage.addChild(this.coneContainer);
         this.app.stage.addChild(this.textContainer);
         this.coneTexture = PIXI.Texture.fromImage("./assets/cone.png");
-        this.app.renderer.backgroundColor = 0x101010;
+        this.smartConeTexture = PIXI.Texture.fromImage("./assets/smart-cone.png");
+        this.app.renderer.backgroundColor = 0x228b22;
     }
 
     public resize(width: number, height: number) {
@@ -63,7 +65,15 @@ export class FieldDrawable {
         this.scale.x = dimensions.x / field.width;
         this.scale.y = dimensions.y / field.height;
 
-        field.cones.forEach(cone => {
+        // first cone is special
+        const smartConeSprite = new PIXI.Sprite(this.smartConeTexture);
+        smartConeSprite.scale = new PIXI.Point(0.4, 0.4);
+        smartConeSprite.x = field.cones[0].position.x * this.scale.x;
+        smartConeSprite.y = field.cones[0].position.y * this.scale.y;
+
+        this.coneContainer.addChild(smartConeSprite);
+
+        field.cones.slice(1).forEach(cone => {
             const coneSprite = new PIXI.Sprite(this.coneTexture);
             coneSprite.scale = new PIXI.Point(0.4, 0.4); // TODO find decent solution to make the cones more visible
             coneSprite.x = cone.position.x * this.scale.x;
@@ -76,7 +86,7 @@ export class FieldDrawable {
     public loadCourse(course: Course) {
         for (let i = 0; i < course.segments.length; ++i) {
             // each segment we draw text..
-            const text = new PIXI.Text(course.segments[i].action, { fontFamily: "Arial", fontSize: 10, fill: 0xdddddd, align: "center" });
+            const text = new PIXI.Text(course.segments[i].action, { fontFamily: "Arial", fontSize: 12, fill: 0x000000, align: "center" });
             const cone1 = course.field.cones[course.segments[i].from];
             const cone2 = course.field.cones[course.segments[i].to];
             const location = new Point((cone1.position.x + cone2.position.x) / 2, (cone1.position.y + cone2.position.y) / 2);
