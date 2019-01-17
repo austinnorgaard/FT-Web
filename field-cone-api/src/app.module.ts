@@ -12,9 +12,10 @@ import { TiltModule } from "Tilt/tilt.module";
 const readFile = util.promisify(fs.readFile);
 
 @Module({
-    imports: [CommsModule, TiltModule.forRoot()],
+    imports: [CommsModule, TiltModule],
     controllers: [AppController],
     providers: [AppService],
+    exports: [TiltModule],
 })
 export class AppModule implements OnModuleInit {
     constructor() {}

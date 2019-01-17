@@ -9,9 +9,28 @@ import { BaseTiltService } from "./base-tilt-service";
 
 const fsPromise = util.promisify(fs.readFile);
 
-@Module({})
+function isReal(): boolean {
+    try {
+        fs.readFileSync("/var/tmp/.tilt-gpio-pin");
+        return true;
+    } catch (err) {
+        return false;
+    }
+}
+
+@Module({
+    imports: [],
+    exports: [BaseTiltService],
+    providers: [
+        {
+            provide: BaseTiltService,
+            useClass: isReal() ? TiltService : MockTiltService,
+        },
+    ],
+    controllers: [],
+})
 export class TiltModule {
-    static forRoot(): DynamicModule {
+    /*     static forRoot(): DynamicModule {
         // The tilt device writes a value to a single GPIO pin
         // We want this to be easy to change, so the value is written
         // to a file on the Pi.
@@ -47,7 +66,7 @@ export class TiltModule {
             providers: [tiltService],
             exports: [tiltService],
         } as DynamicModule;
-    }
+    } */
 
     constructor() {}
 }

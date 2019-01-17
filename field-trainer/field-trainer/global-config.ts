@@ -26,12 +26,12 @@
 
 export class FieldTrainerConfig {
     constructor(
-        public startConeIp?: string,
-        public frontEndPort?: string,
-        public smartConeApiHttpPort?: string,
-        public coneApiSocketPort?: string,
-        public smartConeApiSocketPort?: string,
-        public coneApiHttpPort?: string,
+        public startConeIp: string,
+        public frontEndPort: string,
+        public smartConeApiHttpPort: string,
+        public coneApiSocketPort: string,
+        public smartConeApiSocketPort: string,
+        public coneApiHttpPort: string,
     ) {}
 
     public toSmartConeHttp(route: string = "/"): string {

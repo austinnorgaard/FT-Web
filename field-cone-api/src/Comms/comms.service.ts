@@ -4,11 +4,12 @@ import * as os from "os";
 import { environment } from "../../../field-trainer/field-trainer/src/environments/environment";
 import { FieldConeInfo } from "../../../smart-cone-api/src/FieldCones/field-cone-info";
 import { getFieldConeId, smartConeSocketUrl } from "../utils/environment-helper";
+import { BaseTiltService } from "Tilt/base-tilt-service";
 
 @Injectable()
 export class CommsService {
-    private socket: SocketIOClient.Socket = null;
-    constructor() {
+    private socket: SocketIOClient.Socket;
+    constructor(private readonly tiltService: BaseTiltService) {
         // Create our socket to the smart cone
         this.socket = io(smartConeSocketUrl, {
             reconnection: true,
@@ -20,6 +21,10 @@ export class CommsService {
             console.log("Connected to the smart cone!!");
             const coneInfo = await this.getFieldConeInfo();
             this.socket.emit("initialContact", coneInfo);
+        });
+
+        this.tiltService.TiltOccured.subscribe(() => {
+            console.log("A tilt occurred!");
         });
     }
 
