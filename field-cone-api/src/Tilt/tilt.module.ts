@@ -1,6 +1,7 @@
 import { Module } from "@nestjs/common";
+import { TiltService } from "./tilt.service";
 
 @Module({
-    providers: [],
+    providers: [TiltService],
 })
 export class TiltModule {}
