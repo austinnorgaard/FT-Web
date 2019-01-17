@@ -7,11 +7,12 @@ import * as util from "util";
 import * as fs from "fs";
 import { getFieldConeId, smartConeSocketUrl } from "./utils/environment-helper";
 import { environment } from "../../field-trainer/field-trainer/src/environments/environment";
+import { TiltModule } from "Tilt/tilt.module";
 
 const readFile = util.promisify(fs.readFile);
 
 @Module({
-    imports: [CommsModule],
+    imports: [CommsModule, TiltModule.forRoot()],
     controllers: [AppController],
     providers: [AppService],
 })

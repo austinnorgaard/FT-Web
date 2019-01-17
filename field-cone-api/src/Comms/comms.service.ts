@@ -21,22 +21,6 @@ export class CommsService {
             const coneInfo = await this.getFieldConeInfo();
             this.socket.emit("initialContact", coneInfo);
         });
-
-        this.socket.on("connect_timeout", () => {
-            console.log("Connection_timeout");
-        });
-
-        this.socket.on("connect_error", () => {
-            console.log("Connect_Error");
-        });
-
-        this.socket.on("reconnect", () => {
-            console.log("reconnect successfull");
-        });
-
-        this.socket.on("reconnect_attempt", () => {
-            console.log("reconnect_attempt");
-        });
     }
 
     async getFieldConeInfo(): Promise<FieldConeInfo> {
