@@ -25,6 +25,7 @@
         "@types/socket.io-client": "^1.4.32",
         "fastify-formbody": "^2.0.3",
         "reflect-metadata": "^0.1.12",
+        "rpi-gpio": "^2.1.2",
         "rxjs": "^6.3.3",
         "socket.io-client": "^2.2.0",
         "typescript": "^3.2.2"
