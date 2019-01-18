@@ -10,7 +10,14 @@ export class FieldConesService {
     // when field cones have connected and react appropriately
     public fieldConesSubject: BehaviorSubject<FieldCone[]> = new BehaviorSubject([]); // start off with no known cones
 
-    constructor(private readonly http: HttpHelperService) {}
+    constructor(private readonly http: HttpHelperService) {
+        console.log("Field cones service!");
+    }
+
+    async updateFieldCones(): Promise<void> {
+        const cones = await this.getFieldCones();
+        this.fieldConesSubject.next(cones);
+    }
 
     async getFieldCones(): Promise<FieldCone[]> {
         const cones = await this.http.get<FieldCone[]>("/field-cones");

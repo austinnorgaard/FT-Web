@@ -37,11 +37,6 @@ export class FieldCourseSetupComponent implements AfterViewInit, OnInit {
             console.log(`Got some new value from the FieldCones subject. There are currently ${fieldCones.length} cones!`);
             this.numConnectedFieldCones = fieldCones.length;
         });
-
-        socket.on("fieldConesConnected", cones => {
-            console.log(`Got some cones ${JSON.stringify(cones)}`);
-            this.numConnectedFieldCones = cones.length;
-        });
     }
 
     // Set state from current state in service
@@ -56,6 +51,9 @@ export class FieldCourseSetupComponent implements AfterViewInit, OnInit {
         }
 
         console.log(this.selectedCourse, this.selectedField);
+
+        // probe the backend for cones
+        await this.fieldConesService.updateFieldCones();
     }
 
     async ngAfterViewInit() {

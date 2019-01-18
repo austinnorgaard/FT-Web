@@ -1,9 +1,10 @@
 import { Module } from "@nestjs/common";
 import { FieldConesService } from "./field-cones.service";
+import { FieldConesController } from "./field-cones.controller";
 
 @Module({
     providers: [FieldConesService],
-    controllers: [],
+    controllers: [FieldConesController],
     imports: [],
     exports: [FieldConesService],
 })
