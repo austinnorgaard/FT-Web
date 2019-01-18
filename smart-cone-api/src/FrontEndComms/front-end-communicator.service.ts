@@ -21,13 +21,6 @@ export class FrontEndCommunicator implements OnGatewayConnection, OnGatewayDisco
                 this.frontEndSocket.emit("fieldConesConnected", cones);
             }
         });
-
-        this.fieldConesService.onTilt.subscribe(cone => {
-            console.log(`Sending a tilt event to the front end for cone ${cone.sessionId}`);
-            if (this.frontEndSocket !== null) {
-                this.frontEndSocket.emit("tiltEvent", cone);
-            }
-        });
     }
 
     handleConnection(client: any, ...args: any[]) {

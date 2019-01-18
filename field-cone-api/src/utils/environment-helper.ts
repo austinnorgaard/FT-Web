@@ -10,7 +10,7 @@ export async function getFieldConeId(): Promise<number> {
         const data = await readFile("/var/tmp/.cone-id");
         return parseInt(data.toString("ascii"), 10);
     } catch (err) {
-        return -1;
+        return 1;
     }
 }
 

@@ -82,7 +82,7 @@ export class FieldCourseSetupComponent implements AfterViewInit, OnInit {
         if (this.selectedCourse === undefined) {
             return false;
         }
-        return this.numConnectedFieldCones === this.getNumRequiredFieldCones();
+        return this.numConnectedFieldCones >= this.getNumRequiredFieldCones();
     }
 
     fieldCompareFn(o1: Field, o2: Field): boolean {
