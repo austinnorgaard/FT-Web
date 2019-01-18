@@ -7,4 +7,8 @@ export class MockTiltService extends BaseTiltService {
         console.log("Using the Mock Tilt Service");
         super();
     }
+
+    emitTilt() {
+        this.TiltOccured.next();
+    }
 }

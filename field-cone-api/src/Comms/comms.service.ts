@@ -25,6 +25,10 @@ export class CommsService {
 
         this.tiltService.TiltOccured.subscribe(() => {
             console.log("A tilt occurred!");
+
+            // need to emit an event back to the smart cone that a tilt occur
+            // TODO: Does the smart cone have all the info it needs for when tilts are emitted??
+            this.socket.emit("tiltOccurred", {});
         });
     }
 

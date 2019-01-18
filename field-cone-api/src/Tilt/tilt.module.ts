@@ -4,6 +4,7 @@ import { MockTiltService } from "./mock-tilt.service";
 import { BaseTiltService } from "./base-tilt-service";
 
 import * as fs from "fs";
+import { TestController } from "./test.controller";
 
 function isReal(): boolean {
     try {
@@ -23,7 +24,7 @@ function isReal(): boolean {
             useClass: isReal() ? TiltService : MockTiltService,
         },
     ],
-    controllers: [],
+    controllers: [TestController],
 })
 export class TiltModule {
     constructor() {}

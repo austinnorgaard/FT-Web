@@ -9,6 +9,7 @@ import { Observable, Subject, BehaviorSubject } from "rxjs";
 export class FieldConesService implements OnGatewayConnection, OnGatewayDisconnect {
     public onConnectSubject: Subject<FieldConeInfo> = new Subject<FieldConeInfo>();
     public connectedFieldCones: BehaviorSubject<FieldConeInfo[]> = new BehaviorSubject<FieldConeInfo[]>([]);
+    public onTilt: Subject<FieldConeInfo> = new Subject<FieldConeInfo>();
 
     constructor() {
         console.log("Field Cones Service instantiated!");
@@ -43,5 +44,13 @@ export class FieldConesService implements OnGatewayConnection, OnGatewayDisconne
         console.log(`Contacted by a field cone! Their info, cone ID: ${data.id} at ${data.ip}`);
         this.onConnectSubject.next({ id: data.id, ip: data.ip, sessionId: client.id } as FieldConeInfo);
     }
-    initialConnection() {}
+
+    @SubscribeMessage("tiltOccurred")
+    onTiltEvent(client, data: any) {
+        console.log("on tilt event!");
+        // data is nothing
+        // Figure out which cone from the client id
+        const cone = this.connectedFieldCones.getValue().find(c => c.sessionId === client.id);
+        this.onTilt.next(cone);
+    }
 }
