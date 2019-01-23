@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpHelperService } from "../../misc/services/http-helper.service";
 import { FieldCone } from "../models/field-cone";
 import { BehaviorSubject } from "rxjs";
+import { Socket } from "ngx-socket-io";
 
 @Injectable({ providedIn: "root" })
 export class FieldConesService {
@@ -10,8 +11,12 @@ export class FieldConesService {
     // when field cones have connected and react appropriately
     public fieldConesSubject: BehaviorSubject<FieldCone[]> = new BehaviorSubject([]); // start off with no known cones
 
-    constructor(private readonly http: HttpHelperService) {
+    constructor(private readonly http: HttpHelperService, private readonly socket: Socket) {
         console.log("Field cones service!");
+        this.socket.on("fieldConesConnected", (cones: FieldCone[]) => {
+            console.log(`Received new field cones from backend. ${JSON.stringify(cones)}`);
+            this.fieldConesSubject.next(cones);
+        });
     }
 
     async updateFieldCones(): Promise<void> {

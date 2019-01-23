@@ -18,7 +18,10 @@ export class FrontEndCommunicator implements OnGatewayConnection, OnGatewayDisco
 
             // Let the frontend know, but only if we are connected to the front end at this point in time
             if (this.frontEndSocket !== null) {
+                console.log("Updating frontend of the new cone which connected or disconnected");
                 this.frontEndSocket.emit("fieldConesConnected", cones);
+            } else {
+                console.log("Not able to notify the frontend of the new cone count, because we are not connected.");
             }
         });
     }
@@ -29,10 +32,15 @@ export class FrontEndCommunicator implements OnGatewayConnection, OnGatewayDisco
         // now that we are connected with the front end, we will want to keep track
         // of the socket
         this.frontEndSocket = client;
+
+        // re-emit the current values
+        this.fieldConesService.connectedFieldCones.next(this.fieldConesService.connectedFieldCones.getValue());
     }
 
     handleDisconnect(client: any) {
         this.logger.log(`Disconnection received from Front End.`);
+
+        this.frontEndSocket = null;
     }
 
     @SubscribeMessage("test")
