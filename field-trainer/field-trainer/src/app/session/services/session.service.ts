@@ -4,9 +4,10 @@ import { PlayerSession } from "../models/player-session";
 import "rxjs/add/operator/toPromise";
 import { Athlete } from "../../../../../../smart-cone-api/src/Athletes/athlete";
 import { Observable, Subject, BehaviorSubject } from "rxjs";
-import { AthleteSession } from "../models/athlete-session";
 import { SessionSetupService } from "./session-setup.service";
 import { HttpHelperService } from "../../misc/services/http-helper.service";
+import { Socket } from "ngx-socket-io";
+import { AthleteSession } from "../../../../../../smart-cone-api/src/Training/athlete-session";
 
 @Injectable({ providedIn: "root" })
 export class SessionService {
@@ -14,7 +15,13 @@ export class SessionService {
     private athleteSessions: BehaviorSubject<AthleteSession[]> = new BehaviorSubject<AthleteSession[]>([]);
     private _athleteSessions: AthleteSession[] = [];
 
-    constructor(private sessionSetupService: SessionSetupService, private readonly http: HttpHelperService) {}
+    constructor(private sessionSetupService: SessionSetupService, private readonly http: HttpHelperService, private readonly socket: Socket) {
+        this.socket.on("sessionStateChanged", (athleteSessions: AthleteSession[]) => {
+            console.log("Received session state change !!");
+            this._athleteSessions = athleteSessions;
+            this.athleteSessions.next(this._athleteSessions);
+        });
+    }
 
     // Call this when ready to start the session (all setup is done)
     async start() {
@@ -23,7 +30,7 @@ export class SessionService {
         // create all of the required athlete sessions
         this._athleteSessions = [];
         sessionData.athletes.forEach(athlete => {
-            this._athleteSessions.push(new AthleteSession(athlete, 0));
+            this._athleteSessions.push(new AthleteSession(athlete));
         });
 
         // Setup our subject values

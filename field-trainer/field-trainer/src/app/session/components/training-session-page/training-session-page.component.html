@@ -1,7 +1,7 @@
 <div fxFlex fxLayout="column" style="margin: 0.5em">
     <perfect-scrollbar fxFlex="1 1 auto" fxLayout="column">
         <div *ngFor="let session of this.athleteSessions">
-            <ft-athlete-overview [athleteSession]=session [maxCones]="this.sessionFieldData.course.conesSubset.length"></ft-athlete-overview>
+            <ft-athlete-overview [athleteSession]=session></ft-athlete-overview>
         </div>
     </perfect-scrollbar>
     <div fxFlex="0 0 5em" fxLayout="row" style="margin-top: 1em">

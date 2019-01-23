@@ -29,19 +29,20 @@ export class TrainingService {
             }
 
             athletes[0].segments.find(s => s.to === cone.id).completed = true;
-            //console.log(athletes[0]);
-            this.athleteSessions.forEach(session => {
-                console.log(`${JSON.stringify(session.segments)}`);
-            });
 
             // update the frontend with the new state
-            this.frontEndComms.frontEndSocket.emit("sessionStateChanged", this.athleteSessions);
+            this.sessionState.next(this.athleteSessions);
+        });
+
+        this.sessionState.subscribe(sessionState => {
+            this.frontEndComms.frontEndSocket.emit("sessionStateChanged", sessionState);
         });
     }
 
     async startSession(sessionSetupData: TrainingSessionSetup): Promise<void> {
         this.buildSessions(sessionSetupData);
         console.log("Sessions built!");
+        console.log(`${JSON.stringify(this.athleteSessions)}`);
         this.sessionState.next(this.athleteSessions);
     }
 

@@ -36,7 +36,7 @@
 */
 
 import { Component, OnInit } from "@angular/core";
-import { AthleteSession } from "../../models/athlete-session";
+import { AthleteSession } from "../../../../../../../smart-cone-api/src/Training/athlete-session";
 import { SessionSetupService } from "../../services/session-setup.service";
 import { SessionService } from "../../services/session.service";
 import { SessionSetupData } from "../../models/session-setup-data";
@@ -66,11 +66,11 @@ export class TrainingSessionPageComponent implements OnInit {
 
         // Get the current athleteSessions information (all info regarding all athletes status through the course)
         this.athleteSessions = this.sessionService.getAthleteSessions();
-        console.log(this.athleteSessions);
 
         // Subscribe for changes about the athlete session state
-        this.sessionService.getAthleteSessionsObservable().subscribe(sessions => {
+        this.sessionService.getAthleteSessionsObservable().subscribe((sessions: AthleteSession[]) => {
             console.log(`Received ${sessions.length} athlete sessions!`);
+            console.log(sessions);
             this.athleteSessions = sessions;
         });
 

@@ -3,8 +3,8 @@
         <div fxFlex fxFlexAlign="center">
             {{athleteSession.athlete.firstName}} {{athleteSession.athlete.lastName}}
         </div>
-        <div fxFlex fxFlexAlign="center">
-            {{athleteSession.conesReached}} / {{maxCones}}
+        <div fxFlex fxFlexAlign="center" *ngIf="this.athleteSession.segments">
+            {{getNumCompleted()}} / {{getTotalSegments()}}
         </div>
     </div>
     <div fxFlex="0 0 auto" fxFlexAlign="end">
