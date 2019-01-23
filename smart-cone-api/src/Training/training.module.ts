@@ -3,9 +3,10 @@ import { TrainingController } from "./training.controller";
 import { MiddlewareConsumer } from "@nestjs/common";
 import { TrainingService } from "./training.service";
 import { FieldConesModule } from "../FieldCones/field-cones.module";
+import { FrontEndCommsModule } from "../FrontEndComms/front-end-comms.module";
 
 @Module({
-    imports: [FieldConesModule],
+    imports: [FieldConesModule, FrontEndCommsModule],
     providers: [TrainingService],
     controllers: [TrainingController],
 })

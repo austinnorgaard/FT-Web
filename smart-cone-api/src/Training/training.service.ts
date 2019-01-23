@@ -4,13 +4,14 @@ import { AthleteSession } from "./athlete-session";
 import { Segment } from "./segment";
 import { FieldConesService } from "../FieldCones/field-cones.service";
 import { Subject } from "rxjs";
+import { FrontEndCommunicator } from "../FrontEndComms/front-end-communicator.service";
 
 @Injectable()
 export class TrainingService {
     sessionState: Subject<AthleteSession[]> = new Subject<AthleteSession[]>();
     private athleteSessions: AthleteSession[] = [];
 
-    constructor(private fieldCones: FieldConesService) {
+    constructor(private fieldCones: FieldConesService, private readonly frontEndComms: FrontEndCommunicator) {
         this.fieldCones.onTilt.subscribe(cone => {
             // tilt has occurred, modify our athletes session state, then re-emit if its changed
             console.log(`Tilt occured from cone with info: ${JSON.stringify(cone)}`);
@@ -28,7 +29,13 @@ export class TrainingService {
             }
 
             athletes[0].segments.find(s => s.to === cone.id).completed = true;
-            console.log(athletes[0]);
+            //console.log(athletes[0]);
+            this.athleteSessions.forEach(session => {
+                console.log(`${JSON.stringify(session.segments)}`);
+            });
+
+            // update the frontend with the new state
+            this.frontEndComms.frontEndSocket.emit("sessionStateChanged", this.athleteSessions);
         });
     }
 
