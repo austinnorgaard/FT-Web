@@ -90,4 +90,12 @@ export class TrainingSessionPageComponent implements OnInit {
     onSwipe(event: any) {
         console.log("hello!");
     }
+
+    getNextAthleteName(): string {
+        if (this.onDeckAthlete) {
+            return `GO ${this.onDeckAthlete.firstName}!`;
+        } else {
+            return "NO ATHLETES LEFT";
+        }
+    }
 }

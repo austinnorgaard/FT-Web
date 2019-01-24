@@ -20,6 +20,14 @@ export class SessionService {
             console.log("Received session state change !!");
             this._athleteSessions = athleteSessions;
             this.athleteSessions.next(this._athleteSessions);
+
+            // update the next athlete up
+            const session = this._athleteSessions.find(a => a.started === false);
+            if (session) {
+                this.currentAthlete.next(session.athlete);
+            } else {
+                this.currentAthlete.next(null); // sentinel value, if the next athlete is null we can show the done state
+            }
         });
     }
 
@@ -30,7 +38,7 @@ export class SessionService {
         // create all of the required athlete sessions
         this._athleteSessions = [];
         sessionData.athletes.forEach(athlete => {
-            this._athleteSessions.push(new AthleteSession(athlete));
+            this._athleteSessions.push(new AthleteSession(athlete, [], false));
         });
 
         // Setup our subject values

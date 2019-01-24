@@ -92,6 +92,9 @@ export class TrainingService {
             }. There are ${this.numAthletesRemainingToStart()} athletes remaining!`,
         );
 
+        // finally emit the new state
+        this.sessionState.next(this.athleteSessions);
+
         return true;
     }
 
