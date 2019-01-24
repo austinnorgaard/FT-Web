@@ -68,4 +68,36 @@ export class TrainingService {
             this.athleteSessions.push(session);
         });
     }
+
+    async nextAthleteStarting(): Promise<boolean> {
+        // User has sent the next athlete into the system --
+        // This is the first athlete in the list which isn't marked as started.
+        // Mark them started and note their start time for the first segment
+        return this.markNextAthleteStarted();
+    }
+
+    // Marks the first athlete found in the list which hasn't started as started
+    // Also sets the time for the athletes start time
+    private markNextAthleteStarted(): boolean {
+        // Do nothing if there are no more athletes left to start
+        if (this.numAthletesRemainingToStart() <= 0) {
+            console.log("Frontend wanted to send another athlete, but there are none left!!");
+            return false;
+        }
+        const athleteSession = this.athleteSessions.find(a => a.started !== true);
+        athleteSession.started = true;
+        athleteSession.segments[0].startTime = new Date(); // DateTime.Now()
+
+        console.log(
+            `Athlete ${athleteSession.athlete.firstName} ${athleteSession.athlete.lastName} has started the course at ${
+                athleteSession.segments[0].startTime
+            }. There are ${this.numAthletesRemainingToStart()} athletes remaining!`,
+        );
+
+        return true;
+    }
+
+    private numAthletesRemainingToStart(): number {
+        return this.athleteSessions.filter(s => !s.started).length;
+    }
 }

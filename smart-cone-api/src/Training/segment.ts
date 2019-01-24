@@ -5,4 +5,6 @@ export class Segment {
     to: number;
     action: string;
     completed: boolean;
+    startTime: Date;
+    endTime: Date;
 }

@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body } from "@nestjs/common";
+import { Controller, Get, Post, Body, HttpException, HttpStatus, Response } from "@nestjs/common";
 import { TrainingSessionSetup } from "./training-session-setup";
 import { TrainingService } from "./training.service";
 
@@ -25,6 +25,16 @@ export class TrainingController {
 
     @Post("next-athlete-starting")
     async nextAthleteStarting() {
-        console.log("next athlete is starting!!");
+        try {
+            const result = this.trainingService.nextAthleteStarting();
+            if (result) {
+                return;
+            } else {
+                throw new HttpException({ message: "No Athletes Left!!" }, HttpStatus.BAD_REQUEST);
+            }
+        } catch (err) {
+            // throw 500 with err info
+            throw new HttpException(err, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }
