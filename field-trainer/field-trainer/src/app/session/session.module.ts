@@ -30,6 +30,7 @@ import { SessionSetupService } from "./services/session-setup.service";
 import { FieldConesService } from "./services/field-cones.service";
 import { UtilitiesModule } from "../utility/utilities.module";
 import { MiscModule } from "../misc/misc.module";
+import { SessionDetailsPageComponent } from './components/session-details-page/session-details-page.component';
 
 @NgModule({
     imports: [
@@ -58,6 +59,7 @@ import { MiscModule } from "../misc/misc.module";
         SessionSetupPageComponent,
         TrainingSessionPageComponent,
         AthleteOverviewComponent,
+        SessionDetailsPageComponent,
     ],
     providers: [FieldsService, SessionService, SessionSetupService, FieldConesService],
 })

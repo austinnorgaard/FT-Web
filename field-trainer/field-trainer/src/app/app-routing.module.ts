@@ -15,6 +15,7 @@ import { TrainingSessionPageComponent } from "./session/components/training-sess
 import { FieldCourseSetupComponent } from "./session/components/field-course-setup/field-course-setup.component";
 import { SandboxComponent } from "./utility/components/sandbox/sandbox.component";
 import { DebugComponent } from "./utility/components/debug/debug.component";
+import { SessionDetailsPageComponent } from "./session/components/session-details-page/session-details-page.component";
 
 const routes: Routes = [
     { path: "", redirectTo: "/home", pathMatch: "full" },
@@ -57,6 +58,11 @@ const routes: Routes = [
     {
         path: "training-session",
         component: TrainingSessionPageComponent,
+        canActivate: [AuthGuard],
+    },
+    {
+        path: "training-session/:id",
+        component: SessionDetailsPageComponent,
         canActivate: [AuthGuard],
     },
     {

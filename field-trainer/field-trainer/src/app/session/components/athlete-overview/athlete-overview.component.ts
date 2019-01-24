@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { AthleteSession } from "../../../../../../../smart-cone-api/src/Training/athlete-session";
+import { Router } from "@angular/router";
 @Component({
     selector: "ft-athlete-overview",
     templateUrl: "./athlete-overview.component.html",
@@ -8,7 +9,7 @@ import { AthleteSession } from "../../../../../../../smart-cone-api/src/Training
 export class AthleteOverviewComponent implements OnInit {
     @Input() public athleteSession: AthleteSession;
 
-    constructor() {}
+    constructor(private readonly router: Router) {}
 
     ngOnInit() {}
 
@@ -26,5 +27,7 @@ export class AthleteOverviewComponent implements OnInit {
                 this.athleteSession.segments.filter(s => s.completed).length
             }`,
         );
+
+        this.router.navigateByUrl(`training-session/${this.athleteSession.athlete.id}`);
     }
 }
