@@ -1,6 +1,7 @@
 import { Controller, Get, Post, Body, HttpException, HttpStatus, Response } from "@nestjs/common";
 import { TrainingSessionSetup } from "./training-session-setup";
 import { TrainingService } from "./training.service";
+import { connectableObservableDescriptor } from "rxjs/internal/observable/ConnectableObservable";
 
 /*
  * This controller is the endpoint for requests specific about
@@ -25,16 +26,11 @@ export class TrainingController {
 
     @Post("next-athlete-starting")
     async nextAthleteStarting() {
-        try {
-            const result = this.trainingService.nextAthleteStarting();
-            if (result) {
-                return;
-            } else {
-                throw new HttpException({ message: "No Athletes Left!!" }, HttpStatus.BAD_REQUEST);
-            }
-        } catch (err) {
-            // throw 500 with err info
-            throw new HttpException(err, HttpStatus.INTERNAL_SERVER_ERROR);
+        const result = await this.trainingService.nextAthleteStarting();
+        if (result) {
+            return;
+        } else {
+            throw new HttpException("No Athletes Left!!", HttpStatus.NOT_FOUND);
         }
     }
 }

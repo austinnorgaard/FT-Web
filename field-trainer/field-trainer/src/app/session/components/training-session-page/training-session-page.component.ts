@@ -80,8 +80,11 @@ export class TrainingSessionPageComponent implements OnInit {
     }
 
     async onGo() {
-        console.log("Next player go!!");
-        await this.sessionService.nextAthlete();
+        try {
+            await this.sessionService.nextAthlete();
+        } catch (err) {
+            // did not work.
+        }
     }
 
     onSwipe(event: any) {

@@ -5,6 +5,7 @@ import { Segment } from "./segment";
 import { FieldConesService } from "../FieldCones/field-cones.service";
 import { Subject } from "rxjs";
 import { FrontEndCommunicator } from "../FrontEndComms/front-end-communicator.service";
+import { Athlete } from "../Athletes/athlete";
 
 @Injectable()
 export class TrainingService {
@@ -50,10 +51,7 @@ export class TrainingService {
         this.athleteSessions = []; // reset if needed
 
         sessionSetupData.athletes.forEach(athlete => {
-            const session = {
-                athlete,
-                segments: [],
-            } as AthleteSession;
+            const session = new AthleteSession(athlete, [], false);
 
             // Add the segments for this athlete
             sessionSetupData.course.segments.forEach(segment => {

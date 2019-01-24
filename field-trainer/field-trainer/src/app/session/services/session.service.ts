@@ -69,6 +69,12 @@ export class SessionService {
 
     public async nextAthlete() {
         // the on-deck athlete is up next
-        await this.http.post("/training/next-athlete-starting", {});
+        try {
+            const response = await this.http.post<any>("/training/next-athlete-starting", {});
+        } catch (err) {
+            // something went wrong
+            console.log(err);
+            throw err; // reject
+        }
     }
 }
