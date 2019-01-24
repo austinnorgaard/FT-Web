@@ -23,9 +23,13 @@ export class TrainingService {
             // TODO: Obviously more validation here..
 
             // Get the first athlete in the list which hasn't completed this cone
-            const athletes = this.athleteSessions.filter(session => session.segments.find(segment => segment.to === cone.id).completed === false);
+            // only include athletes which have actually started to reduce any false positives
+            const athletes = this.athleteSessions.filter(session => {
+                return session.started && session.segments.find(segment => segment.to === cone.id).completed === false;
+            });
             if (athletes.length === 0) {
                 console.log("This shouldn't happen. A tilt occured for a cone for which no athletes were meant to be running (already completed).");
+                console.log(this.athleteSessions);
                 return;
             }
 

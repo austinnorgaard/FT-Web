@@ -19,4 +19,12 @@ export class AthleteOverviewComponent implements OnInit {
     getTotalSegments(): number {
         return this.athleteSession.segments.length;
     }
+
+    public onClick() {
+        console.log(
+            `Need to route to session details for athlete: ${this.athleteSession.athlete.id}. Current # segments: ${
+                this.athleteSession.segments.filter(s => s.completed).length
+            }`,
+        );
+    }
 }
