@@ -1,5 +1,10 @@
 <div fxLayout="column" style="margin: 0.5em">
-    <h2 fxFlex fxFlexAlign="center">Athlete Name</h2>
+    <div *ngIf="this.athleteSession">
+    <h2 fxFlex fxFlexAlign="center">{{this.athleteSession.athlete.firstName}} {{this.athleteSession.athlete.lastName}} Session</h2>
+    </div>
+    <div *ngIf="!this.athleteSession">
+        <span>No athlete..</span>
+    </div>
     <div *ngIf="this.athleteSession" >
         <div *ngFor="let segment of this.athleteSession.segments">
             <ft-segment-details [segment]=segment></ft-segment-details>

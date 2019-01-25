@@ -18,7 +18,12 @@ export class SessionService {
     constructor(private sessionSetupService: SessionSetupService, private readonly http: HttpHelperService, private readonly socket: Socket) {
         this.socket.on("sessionStateChanged", (athleteSessions: AthleteSession[]) => {
             console.log("Received session state change !!");
+
+            // before moving on, turn all of the dates in the segments back into date objects
+            // type isn't maintained over the wire (way to automate this..??)
+
             this._athleteSessions = athleteSessions;
+            this.convertDates();
             this.athleteSessions.next(this._athleteSessions);
 
             // update the next athlete up
@@ -28,6 +33,17 @@ export class SessionService {
             } else {
                 this.currentAthlete.next(null); // sentinel value, if the next athlete is null we can show the done state
             }
+        });
+    }
+
+    convertDates() {
+        this._athleteSessions.forEach(session => {
+            session.segments.forEach(segment => {
+                if (segment.startTime) {
+                    segment.startTime = new Date(segment.startTime);
+                    segment.endTime = new Date(segment.endTime);
+                }
+            });
         });
     }
 

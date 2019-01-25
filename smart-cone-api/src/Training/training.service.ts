@@ -34,6 +34,8 @@ export class TrainingService {
             }
 
             athletes[0].segments.find(s => s.to === cone.id).completed = true;
+            // set the stop time for this segment
+            athletes[0].segments.find(s => s.to === cone.id).endTime = new Date();
 
             // update the frontend with the new state
             this.sessionState.next(this.athleteSessions);

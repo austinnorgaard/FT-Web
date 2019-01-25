@@ -13,9 +13,8 @@ export class SegmentDetailsComponent implements OnInit {
     ngOnInit() {}
 
     getSegmentCompletionTime(): string {
-        //const timeDiff = (this.segment.endTime.getTime() - this.segment.startTime.getTime()) / 1000;
+        const timeDiff = (this.segment.endTime.getTime() - this.segment.startTime.getTime()) / 1000;
 
-        //return `${timeDiff} s`;
-        return "";
+        return `${timeDiff} s`;
     }
 }
