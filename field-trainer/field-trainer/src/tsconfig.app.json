@@ -6,7 +6,7 @@
         "module": "es2015",
         "types": [],
         "paths": {
-            "sc/*": ["../../../smart-cone-api/src/*"],
+            "@SmartCone/*": ["../../../smart-cone-api/src/*"],
             "fs": ["./shims/noop"],
             "http": ["./shims/noop"],
             "https": ["./shims/noop"],

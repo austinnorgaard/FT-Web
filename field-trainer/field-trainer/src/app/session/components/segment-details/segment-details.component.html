@@ -1,11 +1,14 @@
 <mat-card fxLayout="row" style="padding-top: 8px; padding-bottom: 8px">
     <div fxFlex>
-        <span>#1</span>
+        <span>{{this.segment.from + 1}}</span>
     </div>
     <div fxFlex>
-        <span>Action</span>
+        <span>{{this.segment.action}}</span>
     </div>
-    <div fxFlex>
-        <span>16.51 s</span>
+    <div *ngIf="this.segment.completed" fxFlex>
+        <span>{{this.getSegmentCompletionTime()}}</span>
+    </div>
+    <div *ngIf="!this.segment.completed" fxFlex>
+        <span>In progress</span>
     </div>
 </mat-card>

@@ -1,4 +1,11 @@
 <div fxLayout="column" style="margin: 0.5em">
     <h2 fxFlex fxFlexAlign="center">Athlete Name</h2>
-    <ft-segment-details></ft-segment-details>
+    <div *ngIf="this.athleteSession" >
+        <div *ngFor="let segment of this.athleteSession.segments">
+            <ft-segment-details [segment]=segment></ft-segment-details>
+        </div>
+    </div>
+    <div *ngIf="!this.athleteSession">
+        <span>No athlete sessions??</span>
+    </div>
 </div>
