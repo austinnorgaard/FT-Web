@@ -2,9 +2,23 @@
     "extends": "../tsconfig.json",
     "compilerOptions": {
         "outDir": "../out-tsc/app",
-        "baseUrl": "./",
+        "baseUrl": ".",
         "module": "es2015",
-        "types": []
+        "types": [],
+        "paths": {
+            "sc/*": ["../../../smart-cone-api/src/*"],
+            "fs": ["./shims/noop"],
+            "http": ["./shims/noop"],
+            "https": ["./shims/noop"],
+            "path": ["./shims/noop"],
+            "stream": ["./shims/noop"],
+            "crypto": ["./shims/noop"],
+            "zlib_bindings": ["./shims/noop"],
+            "net": ["./shims/noop"],
+            "os": ["./shims/noop"],
+            "tls": ["./shims/noop"],
+            "zlib": ["./shims/noop"]
+        }
     },
     "exclude": ["test.ts", "**/*.spec.ts"]
 }

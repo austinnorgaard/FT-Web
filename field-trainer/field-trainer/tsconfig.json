@@ -12,7 +12,7 @@
         "lib": ["es2017", "dom"],
         "allowJs": true,
         "module": "es2015",
-        "baseUrl": "./",
+        "baseUrl": ".",
         "paths": {
             "fs": ["./shims/noop"],
             "http": ["./shims/noop"],
@@ -24,7 +24,8 @@
             "net": ["./shims/noop"],
             "os": ["./shims/noop"],
             "tls": ["./shims/noop"],
-            "zlib": ["./shims/noop"]
+            "zlib": ["./shims/noop"],
+            "sc/*": ["../../smart-cone-api/src/*"]
         }
     }
 }
