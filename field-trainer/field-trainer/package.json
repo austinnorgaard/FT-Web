@@ -6,7 +6,7 @@
         "ng": "ng",
         "start": "ng serve",
         "build": "ng build --prod",
-        "test": "ng test",
+        "test": "ng test --progress",
         "lint": "ng lint",
         "e2e": "ng e2e",
         "deploy": "npm run build && rm -rf ../../serve-frontend/dist && mv ./dist ../../serve-frontend/"
