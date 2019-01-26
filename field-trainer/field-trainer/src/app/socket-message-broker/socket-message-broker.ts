@@ -60,7 +60,6 @@ export class SocketMessageBroker<SocketTy> {
         const errors = await validate(transformedClass);
 
         if (errors.length !== 0) {
-            console.log("Found issues. Errors: ", errors);
             throw new Error("DISASTER");
         }
 

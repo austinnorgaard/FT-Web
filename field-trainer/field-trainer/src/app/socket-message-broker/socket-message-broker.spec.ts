@@ -17,9 +17,7 @@ describe("SocketMessageBroker", () => {
             name: "keaton",
         };
 
-        observable.subscribe(data => {
-            console.log(`Got data ${data}`);
-        });
+        observable.subscribe(data => {});
 
         const mapping = broker.mappings.find(m => m.eventName === "testEvent");
 
@@ -43,9 +41,7 @@ describe("SocketMessageBroker", () => {
             name: 10,
         };
 
-        observable.subscribe(data => {
-            console.log(`Got data ${data}`);
-        });
+        observable.subscribe(data => {});
 
         const mapping = broker.mappings.find(m => m.eventName === "testEvent");
         try {
