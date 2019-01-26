@@ -6,7 +6,6 @@ import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { JwtModule } from "@auth0/angular-jwt";
-import { SocketIoConfig, SocketIoModule } from "ngx-socket-io";
 import { PerfectScrollbarConfigInterface, PerfectScrollbarModule, PERFECT_SCROLLBAR_CONFIG } from "ngx-perfect-scrollbar";
 import { YesNoDialogComponent } from "./dialogs/yes-no/yes-no-dialog.component";
 
@@ -23,15 +22,10 @@ import { MatIconModule, MatButtonModule, MatSidenavModule, MatToolbarModule } fr
 import { MiscModule } from "./misc/misc.module";
 import { environment } from "../environments/environment";
 import { UtilitiesModule } from "./utility/utilities.module";
+import { SocketMessageBrokerModule } from "./socket-message-broker/socket-message-broker.module";
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     suppressScrollX: true,
-};
-
-// const ip = FT_CONFIG.getSmartConeApiSocketUrl();
-const config: SocketIoConfig = {
-    url: `127.0.0.1:5000`,
-    options: {},
 };
 
 export function tokenGetter() {
@@ -47,7 +41,6 @@ export function tokenGetter() {
         BrowserAnimationsModule,
         AppRoutingModule,
         HttpClientModule,
-        SocketIoModule.forRoot(config),
         FormsModule,
         ReactiveFormsModule,
         PerfectScrollbarModule,
@@ -68,6 +61,7 @@ export function tokenGetter() {
         MatToolbarModule,
         MiscModule,
         UtilitiesModule,
+        SocketMessageBrokerModule,
     ],
     providers: [
         {

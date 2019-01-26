@@ -7,7 +7,6 @@ import { FieldsService } from "../../services/fields.service";
 import { SessionSetupService } from "../../services/session-setup.service";
 import { FieldConesService } from "../../services/field-cones.service";
 import { FieldCone } from "../../models/field-cone";
-import { Socket } from "ngx-socket-io";
 
 @Component({
     selector: "ft-field-course-setup",
@@ -29,7 +28,6 @@ export class FieldCourseSetupComponent implements AfterViewInit, OnInit {
         private router: Router,
         private sessionSetup: SessionSetupService,
         private fieldConesService: FieldConesService,
-        private socket: Socket,
     ) {
         this.getFields();
 

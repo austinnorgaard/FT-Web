@@ -31,5 +31,6 @@ module.exports = function(config) {
         autoWatch: true,
         browsers: ["Chrome"],
         singleRun: false,
+        files: [{ pattern: "./src/**/*spec.ts", watched: false, served: true, included: true }],
     });
 };

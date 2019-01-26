@@ -6,7 +6,6 @@ import { Athlete } from "../../../../../../smart-cone-api/src/Athletes/athlete";
 import { Observable, Subject, BehaviorSubject } from "rxjs";
 import { SessionSetupService } from "./session-setup.service";
 import { HttpHelperService } from "../../misc/services/http-helper.service";
-import { Socket } from "ngx-socket-io";
 import { AthleteSession } from "../../../../../../smart-cone-api/src/Training/athlete-session";
 
 @Injectable({ providedIn: "root" })
@@ -15,7 +14,7 @@ export class SessionService {
     private athleteSessions: BehaviorSubject<AthleteSession[]> = new BehaviorSubject<AthleteSession[]>([]);
     private _athleteSessions: AthleteSession[] = [];
 
-    constructor(private sessionSetupService: SessionSetupService, private readonly http: HttpHelperService, private readonly socket: Socket) {
+    constructor(private sessionSetupService: SessionSetupService, private readonly http: HttpHelperService) {
         this.socket.on("sessionStateChanged", (athleteSessions: AthleteSession[]) => {
             console.log("Received session state change !!");
 

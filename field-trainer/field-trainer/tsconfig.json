@@ -25,7 +25,8 @@
             "os": ["./shims/noop"],
             "tls": ["./shims/noop"],
             "zlib": ["./shims/noop"],
-            "@SmartCone/*": ["../../smart-cone-api/src/*"]
+            "@SmartCone/*": ["../../smart-cone-api/src/*"],
+            "@FieldTrainer/*": ["./app/*"]
         }
     }
 }

@@ -35,6 +35,10 @@ export class FrontEndCommunicator implements OnGatewayConnection, OnGatewayDisco
 
         // re-emit the current values
         this.fieldConesService.connectedFieldCones.next(this.fieldConesService.connectedFieldCones.getValue());
+
+        return {
+            id: 10,
+        };
     }
 
     handleDisconnect(client: any) {
