@@ -54,6 +54,25 @@ This section refers to plain objects which look like this:
 ]
 ```
 
+The above will _NOT_ work. Make sure this always get transformed to look like:
+
+```
+{
+    items: [
+        {
+            id: 10,
+            name: "test"
+        },
+        {
+            id: 11,
+            name: "test2"
+        }
+    ]
+}
+```
+
+In other words, we need the array to be a sub-item of an object with some generic name.
+
 This is common when your backend just returns some array of objects. _not when an object contains an array as a named element._
 
 The key difference is that we can't pass the type `Array<T>` to the RegisterEventObservable method.
@@ -63,7 +82,9 @@ Maybe this can be resolved, but until then, the best way is like so:
 ```
 // Create a wrapper type to be used
 class ArrayTestDto {
-    @IsArray()
+    @IsArray({
+        each: true // required!
+    })
     @Type(() => TestDto)
     items: Array<TestDto>
 }

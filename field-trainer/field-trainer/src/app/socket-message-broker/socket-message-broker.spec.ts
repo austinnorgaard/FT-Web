@@ -1,7 +1,8 @@
 import { SocketMessageBroker } from "./socket-message-broker";
-import { IsNumber, IsString, IsArray } from "class-validator";
+import { IsNumber, IsString, IsArray, ValidateNested } from "class-validator";
 import { PassThrough } from "stream";
 import { plainToClass, Type } from "class-transformer";
+import { validate } from "class-validator";
 
 export class TestDto {
     @IsNumber() id: number;
@@ -13,31 +14,24 @@ export class TestDto {
 }
 
 export class ArrayDto {
-    @IsArray()
     @Type(() => TestDto)
+    @IsArray({
+        each: true,
+    })
     items: Array<TestDto>;
 }
 
 describe("SocketMessageBroker", () => {
-    it("blah", () => {
-        /*const plain = {
+    fit("Top-level Array - Negative (wrong type)", async done => {
+        const broker = new SocketMessageBroker(null);
+        const observable = broker.RegisterEventObservable("testEvent", ArrayDto);
+
+        // In this case, lets screw up the type internally
+        const plain = {
             items: [
                 {
                     id: 10,
-                    name: "test",
-                },
-                {
-                    id: 11,
-                    name: "test2",
-                },
-            ],
-        };*/
-
-        const plain = {
-            anything: [
-                {
-                    id: 10,
-                    name: "test",
+                    name: 10,
                 },
                 {
                     id: 11,
@@ -46,8 +40,50 @@ describe("SocketMessageBroker", () => {
             ],
         };
 
+        observable.subscribe((data: ArrayDto) => {
+            // shouldn't have gotten here
+            fail("The broker should've rejected!");
+            done();
+        });
+
+        setTimeout(() => {
+            fail("Timed out, should have gotten response");
+            done();
+        }, 2000);
+
+        const mapping = broker.mappings.find(m => m.eventName === "testEvent");
+        try {
+            await broker.TransformValidateEmitFlow(mapping, plain);
+
+            // no good! should've thrown
+            fail("Broker should have thrown!");
+            done();
+        } catch (err) {
+            // expected
+            expect(true).toBeTruthy();
+            done();
+        }
+    });
+    it("blah", async done => {
+        const plain = [
+            {
+                id: 10,
+                name: 12,
+            },
+            {
+                id: 11,
+                name: "test2",
+            },
+        ];
+
         const test = plainToClass(ArrayDto, plain);
         console.log(`BLAH: ${JSON.stringify(test)}`);
+        validate(test).then(errs => {
+            console.log(errs);
+            console.log(errs.length);
+
+            done();
+        });
 
         expect(true).toBeTruthy();
     });
@@ -106,13 +142,10 @@ describe("SocketMessageBroker", () => {
         }
     });
 
-    it("Should pass - Array", async done => {
-        const testDto: TestDto[] = [];
+    it("Top-level Array - Positive", async done => {
         const broker = new SocketMessageBroker(null);
-
         const observable = broker.RegisterEventObservable("testEvent", ArrayDto);
 
-        // incoming plain object should map cleanly to the above type
         const plain = [
             {
                 id: 10,
@@ -126,8 +159,6 @@ describe("SocketMessageBroker", () => {
 
         observable.subscribe((data: ArrayDto) => {
             // good
-            console.log(`Data: ${JSON.stringify(data)}`);
-            data.testFunction();
             expect(true).toBeTruthy();
             done();
         });
