@@ -1,8 +1,6 @@
 import { SocketMessageBroker } from "./socket-message-broker";
-import { IsNumber, IsString, IsArray, ValidateNested } from "class-validator";
-import { PassThrough } from "stream";
-import { plainToClass, Type, plainToClassFromExist } from "class-transformer";
-import { validate } from "class-validator";
+import { IsNumber, IsString, IsArray, ValidateNested, Validate } from "class-validator";
+import { Type } from "class-transformer";
 
 export class TestDto {
     @IsNumber() id: number;
@@ -13,9 +11,8 @@ export class TestDto {
 
 export class ArrayDto {
     @Type(() => TestDto)
-    @IsArray({
-        each: true,
-    })
+    @IsArray()
+    @ValidateNested()
     items: Array<TestDto>;
 }
 
@@ -111,19 +108,22 @@ describe("SocketMessageBroker", () => {
         const broker = new SocketMessageBroker(null);
         const observable = broker.RegisterEventObservable("testEvent", ArrayDto);
 
-        const plain = [
-            {
-                id: 10,
-                name: "test",
-            },
-            {
-                id: 11,
-                name: "test2",
-            },
-        ];
+        const plain = {
+            items: [
+                {
+                    id: 10,
+                    name: "test",
+                },
+                {
+                    id: 11,
+                    name: "test2",
+                },
+            ],
+        };
 
         observable.subscribe((data: ArrayDto) => {
             // good
+            console.log(data);
             expect(true).toBeTruthy();
             done();
         });
@@ -138,6 +138,7 @@ describe("SocketMessageBroker", () => {
             await broker.TransformValidateEmitFlow(mapping, plain);
         } catch (err) {
             console.log("error");
+            console.log(JSON.stringify(err));
         }
     });
 
@@ -161,6 +162,7 @@ describe("SocketMessageBroker", () => {
 
         observable.subscribe((data: ArrayDto) => {
             // shouldn't have gotten here
+            console.log(data);
             fail("The broker should've rejected!");
             done();
         });

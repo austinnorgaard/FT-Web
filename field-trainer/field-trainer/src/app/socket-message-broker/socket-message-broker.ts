@@ -59,6 +59,8 @@ export class SocketMessageBroker<SocketTy> {
         const transformedClass = deserialize(mapping.type, JSON.stringify(payload));
         const errors = await validate(transformedClass);
         if (errors.length !== 0) {
+            console.log(JSON.stringify(errors));
+            console.log("Throwing");
             throw new Error("DISASTER");
         }
 

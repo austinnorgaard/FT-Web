@@ -72,27 +72,60 @@ The above will _NOT_ work. Make sure this always get transformed to look like:
 ```
 
 In other words, we need the array to be a sub-item of an object with some generic name.
-
 This is common when your backend just returns some array of objects. _not when an object contains an array as a named element._
 
-The key difference is that we can't pass the type `Array<T>` to the RegisterEventObservable method.
+NOTE: The happy path (no type errors, etc) works without doing this. But type-checking will essentially be disabled on the items in the array
 
-Maybe this can be resolved, but until then, the best way is like so:
+For arrays we also need to create a small wrapper type. This can be generalized pretty easily assuming the variable name is.
 
 ```
 // Create a wrapper type to be used
-class ArrayTestDto {
+class ArrayDto {
     @IsArray({
         each: true // required!
     })
+    @ValidateNested()
     @Type(() => TestDto)
     items: Array<TestDto>
 }
 
 // register
-const observable = broker.RegisterEventObservable("eventName", ArrayTestDto);
+const observable = broker.RegisterEventObservable("eventName", ArrayDto);
 
-observable.subscribe((data: Array<TestDto>) => {
+observable.subscribe((data: ArrayDto) => {
     // yay, we got an array of elements
 });
 ```
+
+# Nested
+
+Nested objects work as you'd expect, mixing the two rules above
+
+Following is a sample class with nested object. It represents the following plain object shape:
+{
+id: 10,
+dto: {
+id: 11,
+name: "Test"
+}
+}
+
+```
+class NestedDto {
+    @IsNumber()
+    id: number;
+
+    @Type(() => TestDto)
+    @ValidateNested()
+    dto: TestDto;
+}
+```
+
+Otherwise, nothing changes. Just make sure to pass the correct class to Register as usual.
+
+# Validation Failure
+
+Currently if validation fails, a nasty exception is thrown and no way is provided to swallow this exception.
+
+Will consider adding different error handling based on config, but for now I think this should be treated like an
+assert (i.e. unacceptable).
