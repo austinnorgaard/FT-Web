@@ -1,12 +1,8 @@
 import { Subject, Observable } from "rxjs";
-import { EventSubjectMap } from "./event-subject-map";
-import { plainToClassFromExist } from "class-transformer";
+import { EventSubjectMap, ClassType } from "./event-subject-map";
+import { plainToClassFromExist, plainToClass, deserialize } from "class-transformer";
 import { validate } from "class-validator";
 import { Validators } from "@angular/forms";
-
-export type ClassType<T> = {
-    new (...args: any[]): T;
-};
 
 export class SocketMessageBroker<SocketTy> {
     // internal book keeping for lookup and object creation
@@ -31,10 +27,9 @@ export class SocketMessageBroker<SocketTy> {
     // public RegisterEventObservable<PayloadTy extends Array<any>>(eventName: string, type: ClassType<PayloadTy>): Observable<Array<PayloadTy>>;
     public RegisterEventObservable<PayloadTy>(eventName: string, type: ClassType<PayloadTy>): Observable<PayloadTy> {
         const newIndex: number = this.subjects.push(new Subject<any>()) - 1;
-        this.mappings.push({ type: new type(), index: newIndex, eventName: eventName } as EventSubjectMap<PayloadTy>);
+        this.mappings.push({ type: type, index: newIndex, eventName: eventName } as EventSubjectMap<PayloadTy>);
         if (this.socket) {
             this.socket.on(eventName, payload => {
-                // console.log(`Socket received event ${eventName}`);
                 const mapping = this.mappings.find(m => m.eventName === eventName);
                 // early out for special events
                 if (eventName === "connect") {
@@ -50,7 +45,6 @@ export class SocketMessageBroker<SocketTy> {
                 // and leave
 
                 if (mapping) {
-                    console.log("here?");
                     this.TransformValidateEmitFlow(mapping, payload);
                 } else {
                     console.log(`Got event ${eventName} for which no handler was installed.`);
@@ -62,25 +56,12 @@ export class SocketMessageBroker<SocketTy> {
     }
 
     public async TransformValidateEmitFlow(mapping: EventSubjectMap<any>, payload: any) {
-        const transformedClass = plainToClassFromExist(mapping.type, payload);
-        console.log(`Transformed class: ${JSON.stringify(transformedClass)}`);
-        console.log(`Prior to validation, name of class ${transformedClass.constructor.name}`);
+        const transformedClass = deserialize(mapping.type, JSON.stringify(payload));
         const errors = await validate(transformedClass);
-
-        console.log(`Internal errors: ${errors.length}`);
-
         if (errors.length !== 0) {
             throw new Error("DISASTER");
         }
 
         this.subjects[mapping.index].next(transformedClass);
-    }
-
-    private async Transform(mapping: EventSubjectMap<any>, payload: any) {}
-
-    private async Validate<T>(mapping: EventSubjectMap<any>, classInstance: T) {}
-
-    private async Emit<T>(mapping: EventSubjectMap<any>, classInstance: T) {
-        console.log("Emitting");
     }
 }
