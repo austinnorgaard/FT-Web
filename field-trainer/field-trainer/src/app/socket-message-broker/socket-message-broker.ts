@@ -19,7 +19,6 @@ export class SocketMessageBroker<SocketTy> extends MessageBroker {
         if (this.socket) {
             this.socket.on(eventName, payload => {
                 const mappings = this.mappings.filter(m => m.eventName === eventName);
-                console.log("after filter");
                 // early out for special events
                 if (eventName === "connect") {
                     // just emit nothing on the subject as connect is just a "it occured" event
@@ -37,11 +36,8 @@ export class SocketMessageBroker<SocketTy> extends MessageBroker {
                 // Check if this event is being tracked, if so, send this payload through
                 // the transform-validate-emit flow
                 // and leave
-                console.log("before mappings.foreEach()");
                 mappings.forEach(mapping => {
-                    console.log("Checking mapping");
                     if (mapping) {
-                        console.log("Emitting flow");
                         this.TransformValidateEmitFlow(mapping, payload);
                     } else {
                         console.log(`Got event ${eventName} for which no handler was installed.`);
@@ -56,8 +52,7 @@ export class SocketMessageBroker<SocketTy> extends MessageBroker {
         const transformedClass = deserialize(mapping.type, JSON.stringify(payload));
         const errors = await validate(transformedClass);
         if (errors.length !== 0) {
-            console.log(JSON.stringify(errors));
-            console.log("Throwing");
+            console.log(JSON.stringify(errors, null, 2));
             throw new Error("DISASTER");
         }
 

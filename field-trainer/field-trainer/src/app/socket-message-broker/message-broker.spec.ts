@@ -38,9 +38,7 @@ export class NestedDtoWithArray {
         this.dto = [];
     }
 
-    test() {
-        console.log("hello");
-    }
+    test() {}
 }
 
 let broker: MessageBroker = null;
@@ -86,6 +84,19 @@ describe("SocketMessageBroker", () => {
         } catch (err) {
             done();
         }
+    });
+
+    it("No Return Value", async done => {
+        setBrokerTestData("testEvent", {});
+        // user only wants to know when an event occurs, not what data is returned
+        const observable = broker.RegisterEventObservable("testEvent");
+
+        observable.subscribe(() => {
+            expect(true).toBeTruthy();
+            done();
+        });
+
+        triggerBrokerEvent();
     });
 
     it("Basic - Positive", async done => {
@@ -179,7 +190,6 @@ describe("SocketMessageBroker", () => {
 
         observable.subscribe((data: ArrayDto) => {
             // shouldn't have gotten here
-            console.log(data);
             fail("The broker should've rejected!");
             done();
         });

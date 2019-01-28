@@ -15,8 +15,7 @@ export abstract class MessageBroker {
         const transformedClass = plainToClass(mapping.type, payload);
         const errors = await validate(transformedClass);
         if (errors.length !== 0) {
-            console.log(JSON.stringify(errors));
-            throw new Error("DISASTER");
+            throw new Error(JSON.stringify(errors, null, 2));
         }
 
         this.subjects[mapping.index].next(transformedClass);
