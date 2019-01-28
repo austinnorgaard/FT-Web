@@ -1,6 +1,8 @@
 import { SocketMessageBroker } from "./socket-message-broker";
 import { IsNumber, IsString, IsArray, ValidateNested, Validate } from "class-validator";
 import { Type } from "class-transformer";
+import { MessageBroker } from "./message-broker";
+import { MockMessageBroker } from "./mock-message-broker";
 
 export class TestDto {
     @IsNumber() id: number;
@@ -41,73 +43,96 @@ export class NestedDtoWithArray {
     }
 }
 
+let broker: MessageBroker = null;
+
+function setBrokerTestData(eventName: string, payload?: any) {
+    (broker as MockMessageBroker).SetEventData(eventName, payload);
+}
+
+function triggerBrokerEvent() {
+    (broker as MockMessageBroker).TriggerEvent();
+}
+
+async function triggerIncomingData() {
+    await (broker as MockMessageBroker).TriggerIncomingData();
+}
+
+async function someFunction() {
+    await someFunc2();
+}
+
+async function someFunc2() {
+    await someThrowingFunction();
+}
+
+async function someThrowingFunction() {
+    throw new Error("Error!");
+}
+
 describe("SocketMessageBroker", () => {
     beforeAll(() => {
         console.log("\u001b[2J\u001b[0;0H");
     });
+
+    beforeEach(() => {
+        broker = new MockMessageBroker();
+    });
+
     it("blah", async done => {
-        expect(true).toBeTruthy();
-        done();
+        try {
+            await someFunction();
+            fail();
+            done();
+        } catch (err) {
+            done();
+        }
     });
 
     it("Basic - Positive", async done => {
-        const broker = new SocketMessageBroker(null);
-        const observable = broker.RegisterEventObservable("testEvent", TestDto);
-
         // make the plain object (i.e. over the wire)
         const plain = {
             id: 10,
             name: "keaton",
         };
+        setBrokerTestData("testEvent", plain);
+
+        const observable = broker.RegisterEventObservable("testEvent", TestDto);
 
         observable.subscribe((data: TestDto) => {
-            data.testFunction();
+            expect(data).toEqual(jasmine.any(TestDto));
             done();
         });
 
-        const mapping = broker.mappings.find(m => m.eventName === "testEvent");
-
-        expect(() => {
-            broker.TransformValidateEmitFlow(mapping, plain);
-        }).not.toThrow();
-
-        await broker.TransformValidateEmitFlow(mapping, plain);
-
-        // above throws if fails
-        expect(true).toBeTruthy();
+        triggerBrokerEvent();
     });
 
-    it("Basic - Negative", async () => {
-        const broker = new SocketMessageBroker(null);
-        const observable = broker.RegisterEventObservable("testEvent", TestDto);
-
-        // make the plain object (i.e. over the wire)
+    it("Basic - Negative", async done => {
         const plain = {
             id: 10,
             name: 10,
         };
+        setBrokerTestData("testEvent", plain);
 
-        observable.subscribe(data => {
+        const obs = broker.RegisterEventObservable("testEvent", TestDto);
+
+        obs.subscribe(data => {
             // this should never be hit, if it is, fail out
+            fail("Broker should not have emitted!");
+            done();
         });
 
-        const mapping = broker.mappings.find(m => m.eventName === "testEvent");
         try {
-            await broker.TransformValidateEmitFlow(mapping, plain);
+            await triggerIncomingData();
 
-            // we don't want this!
-            fail("The broker didnt throw an exception!");
+            fail("Broker should have rejected this data");
+            done();
         } catch (err) {
-            // good we want this
             expect(true).toBeTruthy();
-            return;
+            done();
         }
     });
 
     it("Top-level Array - Positive", async done => {
-        const broker = new SocketMessageBroker(null);
-        const observable = broker.RegisterEventObservable("testEvent", ArrayDto);
-
         const plain = {
             items: [
                 {
@@ -121,31 +146,20 @@ describe("SocketMessageBroker", () => {
             ],
         };
 
+        setBrokerTestData("testEvent", plain);
+
+        const observable = broker.RegisterEventObservable("testEvent", ArrayDto);
+
         observable.subscribe((data: ArrayDto) => {
             // good
-            console.log(data);
-            expect(true).toBeTruthy();
+            expect(data).toEqual(jasmine.any(ArrayDto));
             done();
         });
 
-        setTimeout(() => {
-            fail("Timed out, should have gotten response");
-            done();
-        }, 2000);
-
-        const mapping = broker.mappings.find(m => m.eventName === "testEvent");
-        try {
-            await broker.TransformValidateEmitFlow(mapping, plain);
-        } catch (err) {
-            console.log("error");
-            console.log(JSON.stringify(err));
-        }
+        triggerBrokerEvent();
     });
 
     it("Top-level Array - Negative (wrong type)", async done => {
-        const broker = new SocketMessageBroker(null);
-        const observable = broker.RegisterEventObservable("testEvent", ArrayDto);
-
         // In this case, lets screw up the type internally
         const plain = {
             items: [
@@ -159,6 +173,9 @@ describe("SocketMessageBroker", () => {
                 },
             ],
         };
+        setBrokerTestData("testEvent", plain);
+
+        const observable = broker.RegisterEventObservable("testEvent", ArrayDto);
 
         observable.subscribe((data: ArrayDto) => {
             // shouldn't have gotten here
@@ -167,14 +184,8 @@ describe("SocketMessageBroker", () => {
             done();
         });
 
-        setTimeout(() => {
-            fail("Timed out, should have gotten response");
-            done();
-        }, 2000);
-
-        const mapping = broker.mappings.find(m => m.eventName === "testEvent");
         try {
-            await broker.TransformValidateEmitFlow(mapping, plain);
+            await triggerIncomingData();
 
             // no good! should've thrown
             fail("Broker should have thrown!");
@@ -187,9 +198,6 @@ describe("SocketMessageBroker", () => {
     });
 
     it("Nested Object Basic - Positive", async done => {
-        const broker = new SocketMessageBroker(null);
-        const observable = broker.RegisterEventObservable("testEvent", NestedDto);
-
         // make the plain object (i.e. over the wire)
         const plain = {
             id: 10,
@@ -198,21 +206,18 @@ describe("SocketMessageBroker", () => {
                 name: "test",
             },
         };
+        setBrokerTestData("testEvent", plain);
+        const observable = broker.RegisterEventObservable("testEvent", NestedDto);
 
         observable.subscribe((data: NestedDto) => {
-            expect(true).toBeTruthy();
+            expect(data).toEqual(jasmine.any(NestedDto));
             done();
         });
 
-        const mapping = broker.mappings.find(m => m.eventName === "testEvent");
-
-        await broker.TransformValidateEmitFlow(mapping, plain);
+        triggerBrokerEvent();
     });
 
     it("Nested Object Basic - Negative", async done => {
-        const broker = new SocketMessageBroker(null);
-        const observable = broker.RegisterEventObservable("testEvent", NestedDto);
-
         // make the plain object (i.e. over the wire)
         const plain = {
             id: 10,
@@ -221,6 +226,8 @@ describe("SocketMessageBroker", () => {
                 name: "test",
             },
         };
+        setBrokerTestData("testEvent", plain);
+        const observable = broker.RegisterEventObservable("testEvent", NestedDto);
 
         observable.subscribe(data => {
             // this should never be hit, if it is, fail out
@@ -228,10 +235,8 @@ describe("SocketMessageBroker", () => {
             done();
         });
 
-        const mapping = broker.mappings.find(m => m.eventName === "testEvent");
         try {
-            await broker.TransformValidateEmitFlow(mapping, plain);
-
+            await triggerIncomingData();
             // we don't want this!
             fail("The broker didnt throw an exception!");
             done();
@@ -243,9 +248,6 @@ describe("SocketMessageBroker", () => {
     });
 
     it("Nested Object With Array - Positive", async done => {
-        const broker = new SocketMessageBroker(null);
-        const observable = broker.RegisterEventObservable("testEvent", NestedDtoWithArray);
-
         // make the plain object (i.e. over the wire)
         const plain = {
             id: 10,
@@ -260,22 +262,19 @@ describe("SocketMessageBroker", () => {
                 },
             ],
         };
+        setBrokerTestData("testEvent", plain);
+
+        const observable = broker.RegisterEventObservable("testEvent", NestedDtoWithArray);
 
         observable.subscribe((data: NestedDtoWithArray) => {
-            console.log(data);
+            data.test(); // wouldn't work if plain wasn't transformed
             expect(data).toEqual(jasmine.any(NestedDtoWithArray));
             done();
         });
-
-        const mapping = broker.mappings.find(m => m.eventName === "testEvent");
-
-        await broker.TransformValidateEmitFlow(mapping, plain);
+        triggerBrokerEvent();
     });
 
     it("Nested Object With Array - Negative", async done => {
-        const broker = new SocketMessageBroker(null);
-        const observable = broker.RegisterEventObservable("testEvent", NestedDtoWithArray);
-
         // make the plain object (i.e. over the wire)
         const plain = {
             id: 10,
@@ -290,15 +289,16 @@ describe("SocketMessageBroker", () => {
                 },
             ],
         };
+        setBrokerTestData("testEvent", plain);
+        const observable = broker.RegisterEventObservable("testEvent", NestedDtoWithArray);
 
         observable.subscribe((data: NestedDtoWithArray) => {
             fail("Broker should not have emitted!");
             done();
         });
 
-        const mapping = broker.mappings.find(m => m.eventName === "testEvent");
         try {
-            await broker.TransformValidateEmitFlow(mapping, plain);
+            await triggerIncomingData();
 
             fail("Broker should have thrown!");
             done();
@@ -307,5 +307,45 @@ describe("SocketMessageBroker", () => {
             expect(true).toBeTruthy();
             done();
         }
+    });
+
+    it("Multiple Clients Same Event", async done => {
+        // make the plain object (i.e. over the wire)
+        const plain = {
+            id: 10,
+            dto: [
+                {
+                    id: 20,
+                    name: "test",
+                },
+                {
+                    id: 21,
+                    name: "test2",
+                },
+            ],
+        };
+        setBrokerTestData("testEvent", plain);
+        // 2 different clients register for the same event. we make sure that both
+        // receive the message.
+        const observable1 = broker.RegisterEventObservable("testEvent", NestedDtoWithArray);
+        const observable2 = broker.RegisterEventObservable("testEvent", NestedDtoWithArray);
+
+        let numCalls = 0;
+        observable1.subscribe((data: NestedDtoWithArray) => {
+            expect(data).toEqual(jasmine.any(NestedDtoWithArray));
+            numCalls++;
+            if (numCalls === 2) {
+                done();
+            }
+        });
+
+        observable2.subscribe((data: NestedDtoWithArray) => {
+            expect(data).toEqual(jasmine.any(NestedDtoWithArray));
+            numCalls++;
+            if (numCalls === 2) {
+                done();
+            }
+        });
+        triggerBrokerEvent();
     });
 });

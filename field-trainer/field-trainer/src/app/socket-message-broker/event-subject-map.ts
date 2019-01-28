@@ -7,4 +7,5 @@ export class EventSubjectMap<T> {
     index: number;
     eventName: string;
     type: ClassType<T>;
+    emitClass: boolean; // if false, the user doesn't care about return values, just the emission itself
 }
