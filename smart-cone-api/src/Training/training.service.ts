@@ -42,7 +42,7 @@ export class TrainingService {
         });
 
         this.sessionState.subscribe(sessionState => {
-            this.frontEndComms.frontEndSocket.emit("sessionStateChanged", sessionState);
+            this.frontEndComms.frontEndSocket.emit("sessionStateChanged", { items: sessionState });
         });
     }
 

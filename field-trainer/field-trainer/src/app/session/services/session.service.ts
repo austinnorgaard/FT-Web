@@ -11,9 +11,7 @@ import { IsArray, ValidateNested } from "class-validator";
 import { Type } from "class-transformer";
 
 export class AthleteSessionArray {
-    @IsArray({
-        each: true,
-    })
+    @IsArray()
     @ValidateNested()
     @Type(() => AthleteSession)
     items: AthleteSession[];
