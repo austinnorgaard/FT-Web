@@ -9,6 +9,6 @@ sudo service fieldcone stop
 
 cd ~/FT-WEB/field-cone-api && npm install
 
-cd ~/FT-WEB/field-cone-api && npm run prestart:prod
+cd ~/FT-WEB/field-cone-api && npm run build
 
 sudo service fieldcone start

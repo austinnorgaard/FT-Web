@@ -6,7 +6,7 @@ import { CommsModule } from "./Comms/comms.module";
 import * as util from "util";
 import * as fs from "fs";
 import { getFieldConeId, smartConeSocketUrl } from "./utils/environment-helper";
-import { TiltModule } from "Tilt/tilt.module";
+import { TiltModule } from "./Tilt/tilt.module";
 
 const readFile = util.promisify(fs.readFile);
 
