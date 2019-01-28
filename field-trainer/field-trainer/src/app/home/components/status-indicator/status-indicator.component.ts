@@ -1,10 +1,5 @@
 import { Component, OnInit } from "@angular/core";
 import { SocketMessageBrokerService } from "../../../socket-message-broker/socket-message-broker.service";
-import { IsNumber } from "class-validator";
-
-export class Blah {
-    @IsNumber() id: number;
-}
 
 @Component({
     selector: "ft-status-indicator",
@@ -18,12 +13,10 @@ export class StatusIndicatorComponent implements OnInit {
         // Start out assuming we are not connected
         this.connected = false;
 
-        // Use the broker
-        // we don't care about the actual return value
-        this.broker.broker.RegisterEventObservable("connect", Blah).subscribe(data => {
+        this.broker.broker.RegisterEventObservable("connect").subscribe(data => {
             this.connected = true;
         });
-        this.broker.broker.RegisterEventObservable("disconnect", Blah).subscribe(data => {
+        this.broker.broker.RegisterEventObservable("disconnect").subscribe(data => {
             this.connected = false;
         });
     }

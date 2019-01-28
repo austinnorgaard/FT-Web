@@ -19,7 +19,7 @@ export class FrontEndCommunicator implements OnGatewayConnection, OnGatewayDisco
             // Let the frontend know, but only if we are connected to the front end at this point in time
             if (this.frontEndSocket !== null) {
                 console.log("Updating frontend of the new cone which connected or disconnected");
-                this.frontEndSocket.emit("fieldConesConnected", cones);
+                this.frontEndSocket.emit("fieldConesConnected", { items: cones });
             } else {
                 console.log("Not able to notify the frontend of the new cone count, because we are not connected.");
             }

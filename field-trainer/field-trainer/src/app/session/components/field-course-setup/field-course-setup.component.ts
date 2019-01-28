@@ -51,7 +51,7 @@ export class FieldCourseSetupComponent implements AfterViewInit, OnInit {
         console.log(this.selectedCourse, this.selectedField);
 
         // probe the backend for cones
-        await this.fieldConesService.updateFieldCones();
+        //await this.fieldConesService.updateFieldCones();
     }
 
     async ngAfterViewInit() {

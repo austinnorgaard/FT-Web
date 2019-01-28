@@ -7,3 +7,7 @@ export class FieldConeInfo {
     id: number;
     sessionId: string; // the socket session id, unique identifier per session
 }
+
+export class FieldConeInfoArray {
+    items: Array<FieldConeInfo>;
+}

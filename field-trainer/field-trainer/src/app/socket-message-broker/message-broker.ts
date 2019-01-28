@@ -34,7 +34,6 @@ export abstract class MessageBroker {
 
     protected async HandleIncomingData(eventName: string, payload: any) {
         const mappings = this.mappings.filter(m => m.eventName === eventName);
-
         for (let i = 0; i < mappings.length; ++i) {
             if (mappings[i].emitClass) {
                 await this.TransformValidateEmitFlow(mappings[i], payload);

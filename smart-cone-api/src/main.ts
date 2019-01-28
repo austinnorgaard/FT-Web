@@ -1,6 +1,4 @@
-import { IsNull } from "sequelize-typescript";
-
-/*import "reflect-metadata";
+import "reflect-metadata";
 
 import { NestFactory } from "@nestjs/core";
 import { ApplicationModule } from "./App/app.module";
@@ -21,27 +19,4 @@ async function bootstrap() {
     await app.listen(parseInt(environment.config.smartConeApiHttpPort, 10));
 }
 // start
-bootstrap();*/
-
-export type ClassType<T> = new (...args: any[]) => T;
-
-export abstract class Test {
-    public abstract TestFunction<T>(eventName: string, type?: ClassType<T>): void;
-    public abstract TestFunction<T>(eventName: string, type: ClassType<T>): void;
-}
-
-export class TestImpl extends Test {
-    public TestFunction<T = null>(eventName: string, type: ClassType<T>): void;
-    public TestFunction<T>(eventName: string, type: ClassType<T>): void {
-        if (typeof type === "undefined") {
-            console.log("User doesn't care about return value");
-        } else {
-            console.log("User DOES care about return value!");
-        }
-    }
-}
-
-const object: Test = new TestImpl();
-
-object.TestFunction("blah");
-object.TestFunction("blah", Number);
+bootstrap();

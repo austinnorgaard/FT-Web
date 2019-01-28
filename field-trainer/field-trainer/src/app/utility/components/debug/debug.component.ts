@@ -11,9 +11,5 @@ export class DebugComponent implements OnInit {
     private fieldCones: FieldCone[] = [];
     constructor(private fieldConesService: FieldConesService) {}
 
-    ngOnInit() {
-        this.fieldConesService.getFieldCones().then(cones => {
-            console.log(`Got field cones: ${cones}`);
-        });
-    }
+    ngOnInit() {}
 }

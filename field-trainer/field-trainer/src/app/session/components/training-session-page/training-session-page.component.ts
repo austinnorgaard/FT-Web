@@ -87,9 +87,7 @@ export class TrainingSessionPageComponent implements OnInit {
         }
     }
 
-    onSwipe(event: any) {
-        console.log("hello!");
-    }
+    onSwipe(event: any) {}
 
     getNextAthleteName(): string {
         if (this.onDeckAthlete) {

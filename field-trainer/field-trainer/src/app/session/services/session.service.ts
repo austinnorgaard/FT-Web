@@ -1,5 +1,4 @@
 import { Injectable, OnInit } from "@angular/core";
-import { PlayerSession } from "../models/player-session";
 
 import "rxjs/add/operator/toPromise";
 import { Athlete } from "../../../../../../smart-cone-api/src/Athletes/athlete";
@@ -7,6 +6,18 @@ import { Observable, Subject, BehaviorSubject } from "rxjs";
 import { SessionSetupService } from "./session-setup.service";
 import { HttpHelperService } from "../../misc/services/http-helper.service";
 import { AthleteSession } from "../../../../../../smart-cone-api/src/Training/athlete-session";
+import { SocketMessageBrokerService } from "../../socket-message-broker/socket-message-broker.service";
+import { IsArray, ValidateNested } from "class-validator";
+import { Type } from "class-transformer";
+
+export class AthleteSessionArray {
+    @IsArray({
+        each: true,
+    })
+    @ValidateNested()
+    @Type(() => AthleteSession)
+    items: AthleteSession[];
+}
 
 @Injectable({ providedIn: "root" })
 export class SessionService {
@@ -14,14 +25,17 @@ export class SessionService {
     private athleteSessions: BehaviorSubject<AthleteSession[]> = new BehaviorSubject<AthleteSession[]>([]);
     private _athleteSessions: AthleteSession[] = [];
 
-    constructor(private sessionSetupService: SessionSetupService, private readonly http: HttpHelperService) {
-        this.socket.on("sessionStateChanged", (athleteSessions: AthleteSession[]) => {
+    constructor(
+        private sessionSetupService: SessionSetupService,
+        private readonly http: HttpHelperService,
+        private readonly broker: SocketMessageBrokerService,
+    ) {
+        this.broker.broker.RegisterEventObservable("sessionStateChanged", AthleteSessionArray).subscribe((athleteSessions: AthleteSessionArray) => {
             console.log("Received session state change !!");
-
             // before moving on, turn all of the dates in the segments back into date objects
             // type isn't maintained over the wire (way to automate this..??)
 
-            this._athleteSessions = athleteSessions;
+            this._athleteSessions = athleteSessions.items;
             this.convertDates();
             this.athleteSessions.next(this._athleteSessions);
 
