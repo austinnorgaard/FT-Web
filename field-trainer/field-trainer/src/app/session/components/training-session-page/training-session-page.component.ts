@@ -36,7 +36,7 @@
 */
 
 import { Component, OnInit } from "@angular/core";
-import { AthleteSession } from "../../../../../../../smart-cone-api/src/Training/athlete-session";
+import { AthleteSession, AthleteSessionArray } from "../../../../../../../smart-cone-api/src/Training/athlete-session";
 import { SessionSetupService } from "../../services/session-setup.service";
 import { SessionService } from "../../services/session.service";
 import { SessionSetupData } from "../../models/session-setup-data";
@@ -50,7 +50,7 @@ import { Athlete } from "../../../../../../../smart-cone-api/src/Athletes/athlet
 export class TrainingSessionPageComponent implements OnInit {
     displayedColumns: string[] = ["id", "name"];
     onDeckAthlete: Athlete;
-    athleteSessions: AthleteSession[] = [];
+    athleteSessions: AthleteSessionArray;
     sessionFieldData: SessionSetupData;
 
     constructor(private readonly sessionSetup: SessionSetupService, private readonly sessionService: SessionService) {}
@@ -67,9 +67,11 @@ export class TrainingSessionPageComponent implements OnInit {
         // Get the current athleteSessions information (all info regarding all athletes status through the course)
         this.athleteSessions = this.sessionService.getAthleteSessions();
 
+        console.log(`Got ${this.athleteSessions.items.length} sessions!`);
+
         // Subscribe for changes about the athlete session state
-        this.sessionService.getAthleteSessionsObservable().subscribe((sessions: AthleteSession[]) => {
-            console.log(`Received ${sessions.length} athlete sessions!`);
+        this.sessionService.getAthleteSessionsObservable().subscribe((sessions: AthleteSessionArray) => {
+            console.log(`Received ${sessions.items.length} athlete sessions!`);
             console.log(sessions);
             this.athleteSessions = sessions;
         });
@@ -77,6 +79,8 @@ export class TrainingSessionPageComponent implements OnInit {
         // Get the field data (course, cones, name, etc)
         this.sessionFieldData = this.sessionSetup.getSessionSetupData();
         console.log(this.sessionFieldData);
+
+        console.log(`Leaving ngOnInit, athleteSession looks like `, this.athleteSessions);
     }
 
     async onGo() {
@@ -91,7 +95,8 @@ export class TrainingSessionPageComponent implements OnInit {
 
     getNextAthleteName(): string {
         if (this.onDeckAthlete) {
-            return `GO ${this.onDeckAthlete.firstName}!`;
+            return "TEMP";
+            //            return `GO ${this.onDeckAthlete.firstName}!`;
         } else {
             return "NO ATHLETES LEFT";
         }

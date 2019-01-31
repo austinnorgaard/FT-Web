@@ -1,4 +1,4 @@
-import { IsString } from "class-validator";
+import { IsString } from "../../../field-trainer/field-trainer/node_modules/class-validator";
 
 export abstract class Parent {
     @IsString() name: string;

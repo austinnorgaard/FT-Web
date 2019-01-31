@@ -1,4 +1,4 @@
-import { IsString, IsBoolean, IsOptional, IsNumber } from "class-validator";
+import { IsString, IsBoolean, IsOptional, IsNumber } from "../../../field-trainer/field-trainer/node_modules/class-validator";
 
 export abstract class User {
     @IsOptional()

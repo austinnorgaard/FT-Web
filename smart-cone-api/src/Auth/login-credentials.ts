@@ -1,4 +1,4 @@
-import { IsString } from "class-validator";
+import { IsString } from "../../../field-trainer/field-trainer/node_modules/class-validator";
 
 // Represents the credentials being passed to backend to try to authenticate
 export abstract class LoginCredentials {

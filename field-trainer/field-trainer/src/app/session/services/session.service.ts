@@ -5,7 +5,7 @@ import { Athlete } from "../../../../../../smart-cone-api/src/Athletes/athlete";
 import { Observable, Subject, BehaviorSubject } from "rxjs";
 import { SessionSetupService } from "./session-setup.service";
 import { HttpHelperService } from "../../misc/services/http-helper.service";
-import { AthleteSession } from "../../../../../../smart-cone-api/src/Training/athlete-session";
+import { AthleteSession, SegmentArray } from "../../../../../../smart-cone-api/src/Training/athlete-session";
 import { SocketMessageBrokerService } from "../../socket-message-broker/socket-message-broker.service";
 import { IsArray, ValidateNested } from "class-validator";
 import { Type } from "class-transformer";
@@ -14,14 +14,18 @@ export class AthleteSessionArray {
     @IsArray()
     @ValidateNested()
     @Type(() => AthleteSession)
-    items: AthleteSession[];
+    items: Array<AthleteSession>;
+
+    constructor() {
+        this.items = [];
+    }
 }
 
 @Injectable({ providedIn: "root" })
 export class SessionService {
     private currentAthlete: BehaviorSubject<Athlete> = new BehaviorSubject<Athlete>(null);
-    private athleteSessions: BehaviorSubject<AthleteSession[]> = new BehaviorSubject<AthleteSession[]>([]);
-    private _athleteSessions: AthleteSession[] = [];
+    private athleteSessions: BehaviorSubject<AthleteSessionArray> = new BehaviorSubject<AthleteSessionArray>(new AthleteSessionArray());
+    private _athleteSessions: AthleteSessionArray = new AthleteSessionArray();
 
     constructor(
         private sessionSetupService: SessionSetupService,
@@ -30,15 +34,15 @@ export class SessionService {
     ) {
         this.broker.broker.RegisterEventObservable("sessionStateChanged", AthleteSessionArray).subscribe((athleteSessions: AthleteSessionArray) => {
             console.log("Received session state change !!");
+            console.log(athleteSessions);
             // before moving on, turn all of the dates in the segments back into date objects
             // type isn't maintained over the wire (way to automate this..??)
 
-            this._athleteSessions = athleteSessions.items;
-            this.convertDates();
+            this._athleteSessions = athleteSessions;
             this.athleteSessions.next(this._athleteSessions);
 
             // update the next athlete up
-            const session = this._athleteSessions.find(a => a.started === false);
+            const session = this._athleteSessions.items.find(a => a.started === false);
             if (session) {
                 this.currentAthlete.next(session.athlete);
             } else {
@@ -47,30 +51,25 @@ export class SessionService {
         });
     }
 
-    convertDates() {
-        this._athleteSessions.forEach(session => {
-            session.segments.forEach(segment => {
-                if (segment.startTime) {
-                    segment.startTime = new Date(segment.startTime);
-                    segment.endTime = new Date(segment.endTime);
-                }
-            });
-        });
-    }
-
     // Call this when ready to start the session (all setup is done)
     async start() {
         console.log("Session service init!");
         const sessionData = this.sessionSetupService.getSessionSetupData();
+        console.log(`sessionData: `, sessionData);
         // create all of the required athlete sessions
-        this._athleteSessions = [];
+        this._athleteSessions = new AthleteSessionArray();
+        console.log(this._athleteSessions);
         sessionData.athletes.forEach(athlete => {
-            this._athleteSessions.push(new AthleteSession(athlete, [], false));
+            console.log("adding an athlete session..");
+            this._athleteSessions.items.push(new AthleteSession(athlete, [], false));
         });
+
+        console.log("done, athleteSessions looks like ", this._athleteSessions);
 
         // Setup our subject values
         // First athlete in athlete sesions is our on deck athlete
-        this.currentAthlete.next(this._athleteSessions[0].athlete);
+        console.log("emitting the current athlete to be: ", this._athleteSessions.items[0].athlete);
+        this.currentAthlete.next(this._athleteSessions.items[0].athlete);
 
         // We'll keep any observers updated for the exact current state of athlete
         // sessions
@@ -90,11 +89,11 @@ export class SessionService {
         return this.currentAthlete.asObservable();
     }
 
-    public getAthleteSessionsObservable(): Observable<AthleteSession[]> {
+    public getAthleteSessionsObservable(): Observable<AthleteSessionArray> {
         return this.athleteSessions.asObservable();
     }
 
-    public getAthleteSessions(): AthleteSession[] {
+    public getAthleteSessions(): AthleteSessionArray {
         return this._athleteSessions;
     }
 

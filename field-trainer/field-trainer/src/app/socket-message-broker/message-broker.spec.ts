@@ -1,16 +1,16 @@
 import { SocketMessageBroker } from "./socket-message-broker";
-import { IsNumber, IsString, IsArray, ValidateNested, Validate, IsDate } from "class-validator";
+import { IsNumber, IsString, IsArray, ValidateNested, Validate, IsDate, IsBoolean } from "class-validator";
 import { Type, Transform } from "class-transformer";
 import { MessageBroker } from "./message-broker";
 import { MockMessageBroker } from "./mock-message-broker";
+import { AthleteSessionArray } from "../session/services/session.service";
+import { Athlete, BlahDto } from "../../../../../smart-cone-api/src/Athletes/athlete";
+import { Segment } from "../../../../../smart-cone-api/src/Training/segment";
 
 export class TestDto {
     @IsNumber() id: number;
     @IsString() name: string;
-
-    testFunction() {}
 }
-
 export class ArrayDto {
     @Type(() => TestDto)
     @IsArray()
@@ -55,6 +55,58 @@ export class ArrayOfDates {
     items: Array<DateDto>;
 }
 
+export class SomeDto {
+    @IsBoolean() completed: boolean;
+
+    @IsNumber() id: number;
+
+    @IsArray()
+    @Type(() => Date)
+    @ValidateNested()
+    dates: Date[];
+}
+
+export class NestedClassWithDateArray {
+    @IsString() field1: string;
+
+    // some sub-object which contains dates
+    @Type(() => SomeDto)
+    @ValidateNested()
+    otherObject: SomeDto;
+}
+
+export class ArrayOfA {
+    @IsArray()
+    @Type(() => A)
+    @ValidateNested()
+    items: Array<A>;
+}
+
+export class A {
+    @IsArray()
+    @Type(() => B)
+    @ValidateNested()
+    bObjects: Array<B>;
+
+    @IsArray()
+    @Type(() => C)
+    @ValidateNested()
+    cObjects: Array<C>;
+}
+
+export class B {
+    @IsString() field1: string;
+}
+export class C {
+    @IsNumber() field1: number;
+
+    @IsString() field2: string;
+
+    @IsDate()
+    @Type(() => Date)
+    field3: Date;
+}
+
 let broker: MessageBroker = null;
 
 function setBrokerTestData(eventName: string, payload?: any) {
@@ -90,16 +142,6 @@ describe("SocketMessageBroker", () => {
         broker = new MockMessageBroker();
     });
 
-    it("blah", async done => {
-        try {
-            await someFunction();
-            fail();
-            done();
-        } catch (err) {
-            done();
-        }
-    });
-
     it("No Return Value", async done => {
         setBrokerTestData("testEvent", {});
         // user only wants to know when an event occurs, not what data is returned
@@ -131,7 +173,7 @@ describe("SocketMessageBroker", () => {
         triggerBrokerEvent();
     });
 
-    it("Basic - Negative", async done => {
+    fit("Basic - Negative", async done => {
         const plain = {
             id: 10,
             name: 10,
@@ -389,6 +431,76 @@ describe("SocketMessageBroker", () => {
             // make sure we can call a specific Date object method.
             console.log(`${JSON.stringify(data)}`);
             console.log(`${data.date.getHours()}`);
+            done();
+        });
+
+        triggerBrokerEvent();
+    });
+
+    it("Handles nested date array - Positive", async done => {
+        // make the plain object (i.e. over the wire)
+        const plain = {
+            field1: "This is a field",
+            otherObject: {
+                completed: true,
+                id: 100,
+                dates: ["2019-01-31T04:35:05.151Z", "2019-01-31T04:35:05.151Z", "2019-01-31T04:35:05.151Z"],
+            },
+        };
+
+        setBrokerTestData("testEvent", plain);
+
+        const observable = broker.RegisterEventObservable("testEvent", NestedClassWithDateArray);
+
+        observable.subscribe((data: NestedClassWithDateArray) => {
+            expect(data).toEqual(jasmine.any(NestedClassWithDateArray));
+            // make sure we can call a specific Date object method.
+            console.log(data.otherObject.dates[0].getHours());
+            console.log(`${JSON.stringify(data)}`);
+            done();
+        });
+
+        triggerBrokerEvent();
+    });
+
+    it("Complex nested hierachy - Positive", async done => {
+        // make the plain object (i.e. over the wire)
+        const plain = {
+            items: [
+                {
+                    bObjects: [
+                        {
+                            field1: "test",
+                        },
+                        {
+                            field1: "test",
+                        },
+                    ],
+                    cObjects: [
+                        {
+                            field1: 10,
+                            field2: "test2",
+                            field3: "2019-01-31T04:35:05.151Z",
+                        },
+                        {
+                            field1: 10,
+                            field2: "test2",
+                            field3: "2019-01-31T04:35:05.151Z",
+                        },
+                    ],
+                },
+            ],
+        };
+
+        setBrokerTestData("testEvent", plain);
+
+        const observable = broker.RegisterEventObservable("testEvent", ArrayOfA);
+
+        observable.subscribe((data: ArrayOfA) => {
+            expect(data).toEqual(jasmine.any(ArrayOfA));
+            // make sure we can call a specific Date object method.
+            console.log(data.items[0].cObjects[0].field3.getHours());
+            console.log(`${JSON.stringify(data)}`);
             done();
         });
 

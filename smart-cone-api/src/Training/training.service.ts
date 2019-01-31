@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { TrainingSessionSetup } from "./training-session-setup";
-import { AthleteSession } from "./athlete-session";
+import { AthleteSession, AthleteSessionArray, SegmentArray } from "./athlete-session";
 import { Segment } from "./segment";
 import { FieldConesService } from "../FieldCones/field-cones.service";
 import { Subject } from "rxjs";
@@ -11,8 +11,8 @@ import { BaseUltrasonicService } from "../Ultrasonic/base-ultrasonic.service";
 
 @Injectable()
 export class TrainingService {
-    sessionState: Subject<AthleteSession[]> = new Subject<AthleteSession[]>();
-    private athleteSessions: AthleteSession[] = [];
+    sessionState = new Subject<AthleteSessionArray>();
+    private athleteSessions: AthleteSessionArray = new AthleteSessionArray();
 
     constructor(
         private fieldCones: FieldConesService,
@@ -26,8 +26,8 @@ export class TrainingService {
             this.handleConeHit(cone.id);
         });
 
-        this.sessionState.subscribe(sessionState => {
-            this.frontEndComms.frontEndSocket.emit("sessionStateChanged", { items: sessionState });
+        this.sessionState.subscribe((sessionState: AthleteSessionArray) => {
+            this.frontEndComms.frontEndSocket.emit("sessionStateChanged", sessionState);
         });
 
         this.ultraSonicService.UltrasonicEvent.subscribe(event => {
@@ -47,7 +47,7 @@ export class TrainingService {
 
         // Get the first athlete in the list which hasn't completed this cone
         // only include athletes which have actually started to reduce any false positives
-        const athletes = this.athleteSessions.filter(session => {
+        const athletes = this.athleteSessions.items.filter(session => {
             // handle cases where the passed in ID is not a valid ID at all
             if (session.started) {
                 const segment = session.segments.find(s => s.to === id);
@@ -66,19 +66,24 @@ export class TrainingService {
         console.log("Setting end time..");
         athletes[0].segments.find(s => s.to === id).endTime = new Date();
 
+        // next need to update the starting time of the next segment, if it exists
+        // it'll be the segment in which the "from" cone is the one we're handling now
+        // skip if we're handling cone id 0
+        if (id !== 0) {
+            athletes[0].segments.find(s => s.from === id).startTime = new Date();
+        }
+
         // update the frontend with the new state
         this.sessionState.next(this.athleteSessions);
     }
 
     async startSession(sessionSetupData: TrainingSessionSetup): Promise<void> {
         this.buildSessions(sessionSetupData);
-        console.log("Sessions built!");
-        console.log(`${JSON.stringify(this.athleteSessions)}`);
         this.sessionState.next(this.athleteSessions);
     }
 
     private buildSessions(sessionSetupData: TrainingSessionSetup) {
-        this.athleteSessions = []; // reset if needed
+        this.athleteSessions = new AthleteSessionArray(); // reset if needed
 
         sessionSetupData.athletes.forEach(athlete => {
             const session = new AthleteSession(athlete, [], false);
@@ -93,7 +98,7 @@ export class TrainingService {
                 } as Segment);
             });
 
-            this.athleteSessions.push(session);
+            this.athleteSessions.items.push(session);
         });
     }
 
@@ -112,7 +117,7 @@ export class TrainingService {
             console.log("Frontend wanted to send another athlete, but there are none left!!");
             return false;
         }
-        const athleteSession = this.athleteSessions.find(a => a.started !== true);
+        const athleteSession = this.athleteSessions.items.find(a => a.started !== true);
         athleteSession.started = true;
         athleteSession.segments[0].startTime = new Date(); // DateTime.Now()
 
@@ -129,6 +134,6 @@ export class TrainingService {
     }
 
     private numAthletesRemainingToStart(): number {
-        return this.athleteSessions.filter(s => !s.started).length;
+        return this.athleteSessions.items.filter(s => !s.started).length;
     }
 }

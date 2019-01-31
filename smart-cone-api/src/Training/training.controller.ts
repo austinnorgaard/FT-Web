@@ -19,18 +19,24 @@ export class TrainingController {
     }
 
     @Post("start-session")
-    async submitSessionSettings(@Body() sessionData: TrainingSessionSetup) {
+    submitSessionSettings(@Body() sessionData: TrainingSessionSetup) {
         this.trainingService.startSession(sessionData);
-        return "Session data set!";
     }
 
     @Post("next-athlete-starting")
     async nextAthleteStarting() {
-        const result = await this.trainingService.nextAthleteStarting();
-        if (result) {
-            return;
-        } else {
-            throw new HttpException("No Athletes Left!!", HttpStatus.NOT_FOUND);
+        try {
+            const result = await this.trainingService.nextAthleteStarting();
+            if (result) {
+                console.log("Returning!");
+                return;
+            } else {
+                console.log("Throwing!");
+                throw new HttpException("No Athletes Left!!", HttpStatus.NOT_FOUND);
+            }
+        } catch (err) {
+            console.log(`Something threw. Message ${err}`);
+            throw new HttpException(err, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

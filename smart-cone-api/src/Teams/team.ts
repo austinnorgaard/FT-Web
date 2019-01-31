@@ -1,7 +1,7 @@
-import { IsOptional, IsString, IsNumber } from "class-validator";
+import { IsOptional, IsString, IsNumber } from "../../../field-trainer/field-trainer/node_modules/class-validator";
 import { Athlete } from "../Athletes/athlete";
 
-export abstract class Team {
+export class Team {
     @IsOptional()
     @IsNumber()
     id: number;

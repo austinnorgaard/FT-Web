@@ -23,7 +23,7 @@ export class SessionDetailsPageComponent implements OnInit {
 
         this.sessionService.getAthleteSessionsObservable().subscribe(sessions => {
             // only care about the sessions for the athlete on this page
-            this.athleteSession = sessions.find(s => s.athlete.id === this.athleteId);
+            this.athleteSession = sessions.items.find(s => s.athlete.id === this.athleteId);
 
             if (this.athleteSession === undefined) {
                 // freak out, this shouldn't happen (afaik)

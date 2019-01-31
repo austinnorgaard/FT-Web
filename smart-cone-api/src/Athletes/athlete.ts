@@ -1,12 +1,12 @@
-import { IsString, IsOptional, IsNumber, ValidateNested, IsPhoneNumber } from "class-validator";
+import { IsString, IsOptional, IsNumber, ValidateNested, IsPhoneNumber } from "../../../field-trainer/field-trainer/node_modules/class-validator";
 import { Team } from "../Teams/team";
-import { Type } from "class-transformer";
+import { Type } from "../../../field-trainer/field-trainer/node_modules/class-transformer";
 
 function t() {
     return Team;
 }
 
-export abstract class Athlete {
+export class Athlete {
     @IsOptional()
     @IsNumber()
     id: number;
@@ -36,4 +36,9 @@ export abstract class Athlete {
     @ValidateNested()
     @Type(t)
     teams: Team[];
+}
+
+export class BlahDto {
+    @IsNumber()
+    id: number;
 }

@@ -1,6 +1,6 @@
 <div fxFlex fxLayout="column" style="margin: 0.5em">
     <perfect-scrollbar fxFlex="1 1 auto" fxLayout="column">
-        <div *ngFor="let session of this.athleteSessions">
+        <div *ngFor="let session of this.athleteSessions.items">
             <ft-athlete-overview [athleteSession]=session></ft-athlete-overview>
         </div>
     </perfect-scrollbar>

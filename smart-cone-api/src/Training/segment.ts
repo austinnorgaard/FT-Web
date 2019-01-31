@@ -1,14 +1,24 @@
-import { IsDate } from "class-validator";
+import { IsDate, IsNumber, IsString, IsBoolean } from "../../../field-trainer/field-trainer/node_modules/class-validator";
+import { Type, Transform } from "../../../field-trainer/field-trainer/node_modules/class-transformer";
 
 // Represents the action someone must take between two cones
 
 export class Segment {
+    @IsNumber()
     from: number;
+
+    @IsNumber()
     to: number;
+
+    @IsString()
     action: string;
+
+    @IsBoolean()
     completed: boolean;
-    @IsDate()
+
+    @Type(() => Date)
     startTime: Date;
-    @IsDate()
+
+    @Type(() => Date)
     endTime: Date;
 }

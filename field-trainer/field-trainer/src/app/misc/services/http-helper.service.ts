@@ -31,7 +31,6 @@ export class HttpHelperService {
     async post<T>(path: string, body: any): Promise<T> {
         try {
             const result = await this.http.post<T>(environment.config.toSmartConeHttp(path), body).toPromise();
-            console.log(result);
             return result;
         } catch (err) {
             if (err.error.status === 400) {
