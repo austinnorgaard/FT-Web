@@ -6,13 +6,19 @@ import { FieldConesService } from "../FieldCones/field-cones.service";
 import { Subject } from "rxjs";
 import { FrontEndCommunicator } from "../FrontEndComms/front-end-communicator.service";
 import { Athlete } from "../Athletes/athlete";
+import { UltrasonicService } from "../Ultrasonic/ultrasonic.service";
+import { BaseUltrasonicService } from "../Ultrasonic/base-ultrasonic.service";
 
 @Injectable()
 export class TrainingService {
     sessionState: Subject<AthleteSession[]> = new Subject<AthleteSession[]>();
     private athleteSessions: AthleteSession[] = [];
 
-    constructor(private fieldCones: FieldConesService, private readonly frontEndComms: FrontEndCommunicator) {
+    constructor(
+        private fieldCones: FieldConesService,
+        private readonly frontEndComms: FrontEndCommunicator,
+        private readonly ultraSonicService: BaseUltrasonicService,
+    ) {
         this.fieldCones.onTilt.subscribe(cone => {
             // tilt has occurred, modify our athletes session state, then re-emit if its changed
             console.log(`Tilt occured from cone with info: ${JSON.stringify(cone)}`);

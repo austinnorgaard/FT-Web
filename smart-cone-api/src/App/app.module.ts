@@ -14,6 +14,7 @@ import { TrainingModule } from "../Training/training.module";
 import { LoggerModule } from "../Logging/logger.module";
 import { FieldConesModule } from "../FieldCones/field-cones.module";
 import { FrontEndCommsModule } from "../FrontEndComms/front-end-comms.module";
+import { UltrasonicModule } from "../Ultrasonic/ultrasonic.module";
 
 @Module({
     imports: [
@@ -26,6 +27,7 @@ import { FrontEndCommsModule } from "../FrontEndComms/front-end-comms.module";
         LoggerModule,
         FrontEndCommsModule,
         FieldConesModule,
+        UltrasonicModule,
     ],
     controllers: [AppController, StatusController],
 })
