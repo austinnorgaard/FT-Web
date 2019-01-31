@@ -1,6 +1,6 @@
 import { SocketMessageBroker } from "./socket-message-broker";
-import { IsNumber, IsString, IsArray, ValidateNested, Validate } from "class-validator";
-import { Type } from "class-transformer";
+import { IsNumber, IsString, IsArray, ValidateNested, Validate, IsDate } from "class-validator";
+import { Type, Transform } from "class-transformer";
 import { MessageBroker } from "./message-broker";
 import { MockMessageBroker } from "./mock-message-broker";
 
@@ -39,6 +39,20 @@ export class NestedDtoWithArray {
     }
 
     test() {}
+}
+
+export class DateDto {
+    @IsNumber() id: number;
+
+    @Type(() => Date)
+    date: Date;
+}
+
+export class ArrayOfDates {
+    @IsArray()
+    @ValidateNested()
+    @Type(() => DateDto)
+    items: Array<DateDto>;
 }
 
 let broker: MessageBroker = null;
@@ -356,6 +370,28 @@ describe("SocketMessageBroker", () => {
                 done();
             }
         });
+        triggerBrokerEvent();
+    });
+
+    it("Handle dates - Basic - Positive", async done => {
+        // make the plain object (i.e. over the wire)
+        const plain = {
+            id: 10,
+            date: "2019-01-31T04:35:05.151Z",
+        };
+
+        setBrokerTestData("testEvent", plain);
+
+        const observable = broker.RegisterEventObservable("testEvent", DateDto);
+
+        observable.subscribe((data: DateDto) => {
+            expect(data).toEqual(jasmine.any(DateDto));
+            // make sure we can call a specific Date object method.
+            console.log(`${JSON.stringify(data)}`);
+            console.log(`${data.date.getHours()}`);
+            done();
+        });
+
         triggerBrokerEvent();
     });
 });
