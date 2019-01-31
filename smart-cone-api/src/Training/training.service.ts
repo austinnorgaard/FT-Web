@@ -23,33 +23,51 @@ export class TrainingService {
             // tilt has occurred, modify our athletes session state, then re-emit if its changed
             console.log(`Tilt occured from cone with info: ${JSON.stringify(cone)}`);
 
-            // we assume the athletes are in the correct order, so we simply find the next athlete
-            // in the list for which they haven't completed the cone which gave us the tilt event
-
-            // TODO: Obviously more validation here..
-
-            // Get the first athlete in the list which hasn't completed this cone
-            // only include athletes which have actually started to reduce any false positives
-            const athletes = this.athleteSessions.filter(session => {
-                return session.started && session.segments.find(segment => segment.to === cone.id).completed === false;
-            });
-            if (athletes.length === 0) {
-                console.log("This shouldn't happen. A tilt occured for a cone for which no athletes were meant to be running (already completed).");
-                console.log(this.athleteSessions);
-                return;
-            }
-
-            athletes[0].segments.find(s => s.to === cone.id).completed = true;
-            // set the stop time for this segment
-            athletes[0].segments.find(s => s.to === cone.id).endTime = new Date();
-
-            // update the frontend with the new state
-            this.sessionState.next(this.athleteSessions);
+            this.handleConeHit(cone.id);
         });
 
         this.sessionState.subscribe(sessionState => {
             this.frontEndComms.frontEndSocket.emit("sessionStateChanged", { items: sessionState });
         });
+
+        this.ultraSonicService.UltrasonicEvent.subscribe(event => {
+            // we treat ultra sonic events as the cone with id #0 emitting, as this is
+            // the smart cone's ID. We do the same procedure for regular tilts, but with
+            // the special cone ID of #1
+            this.handleConeHit(0);
+        });
+    }
+
+    handleConeHit(id: number) {
+        console.log(`Handling cone hit for id ${id}`);
+        // we assume the athletes are in the correct order, so we simply find the next athlete
+        // in the list for which they haven't completed the cone which gave us the tilt event
+
+        // TODO: Obviously more validation here..
+
+        // Get the first athlete in the list which hasn't completed this cone
+        // only include athletes which have actually started to reduce any false positives
+        const athletes = this.athleteSessions.filter(session => {
+            // handle cases where the passed in ID is not a valid ID at all
+            if (session.started) {
+                const segment = session.segments.find(s => s.to === id);
+                return segment && segment.completed === false;
+            }
+            return false;
+        });
+        if (athletes.length === 0) {
+            console.log("This shouldn't happen. A tilt occured for a cone for which no athletes were meant to be running (already completed).");
+            console.log(this.athleteSessions);
+            return;
+        }
+
+        athletes[0].segments.find(s => s.to === id).completed = true;
+        // set the stop time for this segment
+        console.log("Setting end time..");
+        athletes[0].segments.find(s => s.to === id).endTime = new Date();
+
+        // update the frontend with the new state
+        this.sessionState.next(this.athleteSessions);
     }
 
     async startSession(sessionSetupData: TrainingSessionSetup): Promise<void> {

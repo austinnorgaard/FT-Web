@@ -1,3 +1,5 @@
+import { IsDate } from "class-validator";
+
 // Represents the action someone must take between two cones
 
 export class Segment {
@@ -5,6 +7,8 @@ export class Segment {
     to: number;
     action: string;
     completed: boolean;
+    @IsDate()
     startTime: Date;
+    @IsDate()
     endTime: Date;
 }

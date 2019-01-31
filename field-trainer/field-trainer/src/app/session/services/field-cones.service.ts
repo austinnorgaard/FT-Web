@@ -29,4 +29,13 @@ export class FieldConesService {
             this.fieldConesSubject.next(cones.items);
         });
     }
+    async updateFieldCones(): Promise<void> {
+        const cones = await this.getFieldCones();
+        this.fieldConesSubject.next(cones);
+    }
+
+    async getFieldCones(): Promise<FieldCone[]> {
+        const cones = await this.http.get<FieldConesArray>("/field-cones");
+        return cones.items;
+    }
 }
