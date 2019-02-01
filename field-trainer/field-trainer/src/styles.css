@@ -26,6 +26,10 @@ router-outlet.router-flex + * {
     flex-direction: column;
 }
 
+.mat-button:focus .mat-button-focus-overlay {
+    background-color: transparent;
+}
+
 ::ng-deep .mat-form-field .mat-form-field-infix {
     width: auto;
 }
@@ -47,10 +51,8 @@ h1 {
     font-family: "Material Icons";
     font-style: normal;
     font-weight: 400;
-    src: local("Material Icons"),
-    local("MaterialIcons-Regular"), 
-    url("./assets/MaterialIcons-Regular.woff") format("woff"), 
-    url("./assets/MaterialIcons.woff2") format("woff2");
+    src: local("Material Icons"), local("MaterialIcons-Regular"), url("./assets/MaterialIcons-Regular.woff") format("woff"),
+        url("./assets/MaterialIcons.woff2") format("woff2");
 }
 
 .material-icons {

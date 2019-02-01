@@ -1,6 +1,16 @@
 <div fxLayout="column" style="margin: 0.5em">
-    <div *ngIf="this.athleteSession">
-    <h2 fxFlex fxFlexAlign="center">{{this.athleteSession.athlete.firstName}} {{this.athleteSession.athlete.lastName}} Session</h2>
+    <div fxLayout="row" fxLayoutAlign="center center">
+        <div fxFlex="0 0 auto" style="outline: none">
+            <button mat-icon-button (click)="onLeft()" color="primary">
+                <mat-icon>arrow_backward</mat-icon>
+            </button>
+        </div>
+        <div fxLayout="column" fxLayoutAlign="center center" fxFlex>
+        <span fxFlex *ngIf="this.athleteSession" fxFlexAlign="center">{{this.athleteSession.athlete.firstName}} {{this.athleteSession.athlete.lastName}} Session</span>
+        </div>
+        <button mat-icon-button fxFlex="0 0 auto" (click)="onRight()" color="primary">
+            <mat-icon>arrow_forward</mat-icon>
+        </button>
     </div>
     <div *ngIf="!this.athleteSession">
         <span>No athlete..</span>

@@ -15,7 +15,8 @@ export class TrainingController {
     // Potentially not very interesting, but maybe we can use this for debug
     @Get()
     async get() {
-        return "Nothing for now!";
+        // return the current session state
+        return this.trainingService.getAthleteSessionState();
     }
 
     @Post("start-session")

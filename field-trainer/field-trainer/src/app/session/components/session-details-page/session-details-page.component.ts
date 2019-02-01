@@ -34,4 +34,8 @@ export class SessionDetailsPageComponent implements OnInit {
     }
 
     ngOnInit() {}
+
+    onRight() {}
+
+    onLeft() {}
 }

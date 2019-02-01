@@ -136,4 +136,8 @@ export class TrainingService {
     private numAthletesRemainingToStart(): number {
         return this.athleteSessions.items.filter(s => !s.started).length;
     }
+
+    public getAthleteSessionState(): AthleteSessionArray {
+        return this.athleteSessions;
+    }
 }

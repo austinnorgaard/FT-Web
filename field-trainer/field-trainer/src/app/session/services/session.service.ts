@@ -37,18 +37,31 @@ export class SessionService {
             console.log(athleteSessions);
             // before moving on, turn all of the dates in the segments back into date objects
             // type isn't maintained over the wire (way to automate this..??)
+            this.handleSessionStateChanged(athleteSessions);
+        });
 
-            this._athleteSessions = athleteSessions;
-            this.athleteSessions.next(this._athleteSessions);
-
-            // update the next athlete up
-            const session = this._athleteSessions.items.find(a => a.started === false);
-            if (session) {
-                this.currentAthlete.next(session.athlete);
-            } else {
-                this.currentAthlete.next(null); // sentinel value, if the next athlete is null we can show the done state
+        // See if the backend has an existing session state
+        this.http.get("/training").then((sessionState: AthleteSessionArray) => {
+            console.log("test", sessionState);
+            // check if its valid
+            if (sessionState.items && sessionState.items.length > 0) {
+                console.log("Got an existing AthleteSessionArray state!");
+                this.handleSessionStateChanged(sessionState);
             }
         });
+    }
+
+    private handleSessionStateChanged(sessionState: AthleteSessionArray) {
+        this._athleteSessions = sessionState;
+        this.athleteSessions.next(this._athleteSessions);
+
+        // update the next athlete up
+        const session = this._athleteSessions.items.find(a => a.started === false);
+        if (session) {
+            this.currentAthlete.next(session.athlete);
+        } else {
+            this.currentAthlete.next(null); // sentinel value, if the next athlete is null we can show the done state
+        }
     }
 
     // Call this when ready to start the session (all setup is done)
