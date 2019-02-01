@@ -1,26 +1,20 @@
 <div fxLayout="column" style="margin: 0.5em">
-    <div fxLayout="row" fxLayoutAlign="center center">
+    <div fxLayout="row" fxFlex="0 0 auto" fxLayoutAlign="center center">
         <div fxFlex="0 0 auto" style="outline: none">
             <button mat-icon-button (click)="onLeft()" color="primary">
                 <mat-icon>arrow_backward</mat-icon>
             </button>
         </div>
         <div fxLayout="column" fxLayoutAlign="center center" fxFlex>
-        <span fxFlex *ngIf="this.athleteSession" fxFlexAlign="center">{{this.athleteSession.athlete.firstName}} {{this.athleteSession.athlete.lastName}} Session</span>
+            <h2 fxFlex *ngIf="this.athleteSession" fxFlexAlign="center">{{this.athleteSession.athlete.firstName}} {{this.athleteSession.athlete.lastName}} Session</h2>
         </div>
         <button mat-icon-button fxFlex="0 0 auto" (click)="onRight()" color="primary">
             <mat-icon>arrow_forward</mat-icon>
         </button>
     </div>
-    <div *ngIf="!this.athleteSession">
-        <span>No athlete..</span>
-    </div>
-    <div *ngIf="this.athleteSession" >
-        <div *ngFor="let segment of this.athleteSession.segments">
+    <div *ngFor="let segment of this.athleteSession?.segments">
+        <div style="margin-bottom: 1em;">
             <ft-segment-details [segment]=segment></ft-segment-details>
         </div>
-    </div>
-    <div *ngIf="!this.athleteSession">
-        <span>No athlete sessions??</span>
     </div>
 </div>
