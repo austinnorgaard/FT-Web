@@ -15,4 +15,4 @@ export async function getFieldConeId(): Promise<number> {
 }
 
 // easy to modify the IP for testing.. later standardize on the staticly assigned choice for the ad-hoc network
-export const smartConeSocketUrl: string = "http://192.168.1.115:6000";
+export const smartConeSocketUrl: string = "http://192.168.42.1:6000";
