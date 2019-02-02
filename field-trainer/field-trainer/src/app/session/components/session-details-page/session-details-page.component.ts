@@ -3,6 +3,7 @@ import { SessionService } from "../../services/session.service";
 import { Segment } from "@SmartCone/Training/segment";
 import { AthleteSession, AthleteSessionArray } from "@SmartCone/Training/athlete-session";
 import { Router, NavigationEnd } from "@angular/router";
+import { Athlete } from "@SmartCone/Athletes/athlete";
 
 @Component({
     selector: "ft-session-details-page",
@@ -17,6 +18,7 @@ export class SessionDetailsPageComponent implements OnInit {
     /// key -> value
     /// athleteId -> arrayIndex
     private athleteIdMap: Array<any> = [];
+    private onDeckAthlete: Athlete = null;
 
     private navigateSub;
 
@@ -45,6 +47,10 @@ export class SessionDetailsPageComponent implements OnInit {
                 // reload
                 this.init();
             }
+        });
+
+        this.sessionService.getCurrentAthleteObservable().subscribe((athlete: Athlete) => {
+            this.onDeckAthlete = athlete;
         });
     }
 
@@ -99,5 +105,22 @@ export class SessionDetailsPageComponent implements OnInit {
             return null;
         }
         return this.allSessions.items[this.getIndexFromId(this.athleteId)].athlete;
+    }
+
+    getNextAthleteString(): string {
+        if (this.onDeckAthlete) {
+            return `GO ${this.onDeckAthlete.firstName} ${this.onDeckAthlete.lastName}`;
+        } else {
+            return "Unknown";
+        }
+    }
+
+    onGo() {
+        console.log("GO!");
+    }
+
+    back() {
+        // just route back to the training-session page
+        this.router.navigateByUrl("training-session");
     }
 }
