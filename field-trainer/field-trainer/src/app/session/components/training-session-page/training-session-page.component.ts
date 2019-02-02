@@ -95,7 +95,7 @@ export class TrainingSessionPageComponent implements OnInit {
 
     getNextAthleteName(): string {
         if (this.onDeckAthlete) {
-            return "TEMP";
+            return `GO ${this.onDeckAthlete.firstName} ${this.onDeckAthlete.lastName}`;
             //            return `GO ${this.onDeckAthlete.firstName}!`;
         } else {
             return "NO ATHLETES LEFT";
