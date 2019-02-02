@@ -42,7 +42,6 @@ export class SessionService {
 
         // See if the backend has an existing session state
         this.http.get("/training").then((sessionState: AthleteSessionArray) => {
-            console.log("test", sessionState);
             // check if its valid
             if (sessionState.items && sessionState.items.length > 0) {
                 console.log("Got an existing AthleteSessionArray state!");

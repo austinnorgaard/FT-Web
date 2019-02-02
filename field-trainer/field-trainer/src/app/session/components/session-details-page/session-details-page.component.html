@@ -6,15 +6,19 @@
             </button>
         </div>
         <div fxLayout="column" fxLayoutAlign="center center" fxFlex>
-            <h2 fxFlex *ngIf="this.athleteSession" fxFlexAlign="center">{{this.athleteSession.athlete.firstName}} {{this.athleteSession.athlete.lastName}} Session</h2>
+            <h2 fxFlex *ngIf="this.loaded" fxFlexAlign="center">{{this.currentAthlete()?.firstName}} {{this.currentAthlete()?.lastName}} Session</h2>
+            <span *ngIf="!this.loaded">NOT LOADED</span>
         </div>
         <button mat-icon-button fxFlex="0 0 auto" (click)="onRight()" color="primary">
             <mat-icon>arrow_forward</mat-icon>
         </button>
     </div>
-    <div *ngFor="let segment of this.athleteSession?.segments">
-        <div style="margin-bottom: 1em;">
-            <ft-segment-details [segment]=segment></ft-segment-details>
+    <div *ngIf="this.loaded">
+        <div *ngFor="let segment of this.allSessions?.items[this.getIndexFromId(this.athleteId)].segments">
+            <div style="margin-bottom: 1em;">
+                <ft-segment-details [segment]=segment></ft-segment-details>
+            </div>
         </div>
+
     </div>
 </div>
