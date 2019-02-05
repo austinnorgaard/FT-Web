@@ -19,6 +19,7 @@ import {
     MatTableModule,
     MatIconModule,
     MatDividerModule,
+    MatTreeModule,
 } from "@angular/material";
 import { FormsModule } from "@angular/forms";
 import { AthleteModule } from "../athletes/athlete.module";
@@ -30,9 +31,9 @@ import { SessionSetupService } from "./services/session-setup.service";
 import { FieldConesService } from "./services/field-cones.service";
 import { UtilitiesModule } from "../utility/utilities.module";
 import { MiscModule } from "../misc/misc.module";
-import { SessionDetailsPageComponent } from './components/session-details-page/session-details-page.component';
-import { SegmentDetailsComponent } from './components/segment-details/segment-details.component';
-import { ResultPageComponent } from './components/result-page/result-page.component';
+import { SessionDetailsPageComponent } from "./components/session-details-page/session-details-page.component";
+import { SegmentDetailsComponent } from "./components/segment-details/segment-details.component";
+import { ResultPageComponent } from "./components/result-page/result-page.component";
 
 @NgModule({
     imports: [
@@ -53,6 +54,7 @@ import { ResultPageComponent } from './components/result-page/result-page.compon
         MatIconModule,
         MatDividerModule,
         MiscModule,
+        MatTreeModule,
     ],
     declarations: [
         AthleteSelectComponent,

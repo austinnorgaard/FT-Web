@@ -50,8 +50,8 @@ export class TrainingService {
         const athletes = this.athleteSessions.items.filter(session => {
             // handle cases where the passed in ID is not a valid ID at all
             if (session.started) {
-                const segment = session.segments.find(s => s.to === id);
-                return segment && segment.completed === false;
+                const seg = session.segments.find(s => s.to === id);
+                return seg && seg.completed === false;
             }
             return false;
         });
@@ -61,10 +61,15 @@ export class TrainingService {
             return;
         }
 
-        athletes[0].segments.find(s => s.to === id).completed = true;
+        const segment = athletes[0].segments.find(s => s.to === id);
+
+        segment.completed = true;
         // set the stop time for this segment
         console.log("Setting end time..");
-        athletes[0].segments.find(s => s.to === id).endTime = new Date();
+        segment.endTime = new Date();
+
+        // calculate the duration so its easier to consume later
+        segment.duration = segment.endTime.getTime() - segment.startTime.getTime();
 
         // next need to update the starting time of the next segment, if it exists
         // it'll be the segment in which the "from" cone is the one we're handling now
