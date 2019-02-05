@@ -75,6 +75,19 @@ export class TrainingService {
 
         // update the frontend with the new state
         this.sessionState.next(this.athleteSessions);
+
+        // Check if this was the final cone hit (session over)
+        if (this.sessionComplete()) {
+            // let the frontend know
+            this.frontEndComms.frontEndSocket.emit("sessionComplete", this.athleteSessions);
+        }
+    }
+
+    private sessionComplete(): boolean {
+        // We are done when all segments are marked as complete
+        return this.athleteSessions.items.every(session => {
+            return session.segments.every(segment => segment.completed);
+        });
     }
 
     async startSession(sessionSetupData: TrainingSessionSetup): Promise<void> {

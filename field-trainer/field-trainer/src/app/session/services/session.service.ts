@@ -40,6 +40,10 @@ export class SessionService {
             this.handleSessionStateChanged(athleteSessions);
         });
 
+        this.broker.broker.RegisterEventObservable("sessionComplete", AthleteSessionArray).subscribe((athleteSessions: AthleteSessionArray) => {
+            console.log("Session complete!!");
+        });
+
         // See if the backend has an existing session state
         this.http.get("/training").then((sessionState: AthleteSessionArray) => {
             // check if its valid
