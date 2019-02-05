@@ -24,7 +24,7 @@ export class AppModule implements OnModuleInit {
         console.log(
             `App module loaded -- Environment information
 Cone ID: ${id}
-Smart Cone Socket API URL: ${smartConeSocketUrl}`,
+Smart Cone Socket API URL: ${smartConeSocketUrl()}`,
         );
     }
 }
