@@ -17,14 +17,22 @@ interface NodeShape {
     level: number;
 }
 
-interface AthleteNode {
+class AthleteNode {
     athlete: Athlete;
     segments: Array<SegmentNode>;
+    public node_id = 1;
+
+    formattedString: string;
 }
 
-interface SegmentNode {
+class SegmentNode {
     name: string;
     time: number;
+    node_id = 2;
+    athlete: Athlete = null;
+    segments: Array<SegmentNode> = [];
+
+    formattedString: string;
 }
 
 @Component({
@@ -33,17 +41,17 @@ interface SegmentNode {
     styleUrls: ["./result-page.component.css"],
 })
 export class ResultPageComponent implements OnInit {
-    private transformer = (node: any, level: number) => {
+    private transformer = (node: AthleteNode, level: number) => {
         return {
-            expandable: !!node.children && node.children.length > 0,
-            name: node.name,
+            expandable: node.node_id === 1 && node.segments.length > 0,
+            name: node.formattedString,
             level: level,
         };
     };
 
     private athleteSessions: AthleteSessionArray;
     public treeControl = new FlatTreeControl<NodeShape>(node => node.level, node => node.expandable);
-    public treeFlattener = new MatTreeFlattener(this.transformer, node => node.level, node => node.expandable, node => node.children);
+    public treeFlattener = new MatTreeFlattener(this.transformer, node => node.level, node => node.expandable, node => node.segments);
     public dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
 
     public treeData: AthleteNode[] = [];
@@ -72,12 +80,22 @@ export class ResultPageComponent implements OnInit {
         this.athleteSessions.items.forEach((session: AthleteSession) => {
             console.log(session);
             // for each athlete, add a new entry to the tree data
-            const index = this.treeData.push({ athlete: session.athlete, segments: [] });
+            const index = this.treeData.push({
+                athlete: session.athlete,
+                segments: [],
+                node_id: 1,
+                formattedString: `${session.athlete.firstName} ${session.athlete.lastName}`,
+            });
             let segmentNum = 0;
             session.segments.forEach((segment: Segment) => {
+                console.log(segment.duration);
                 this.treeData[index - 1].segments.push({
-                    name: `Segment #${segmentNum} - ${segment.action}`,
+                    name: `Segment ${segmentNum} - ${segment.action}`,
+                    formattedString: `Segment ${segmentNum} - ${segment.action} - ${segment.duration / 1000}s`,
                     time: segment.duration,
+                    node_id: 2,
+                    athlete: undefined,
+                    segments: [],
                 });
 
                 segmentNum++;
@@ -85,6 +103,8 @@ export class ResultPageComponent implements OnInit {
         });
 
         console.log(`Created ${this.athleteSessions.items.length} nodes`);
+
+        this.dataSource.data = this.treeData;
     }
 
     ngOnInit() {}
