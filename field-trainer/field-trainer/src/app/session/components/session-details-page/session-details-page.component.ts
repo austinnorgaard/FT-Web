@@ -111,7 +111,7 @@ export class SessionDetailsPageComponent implements OnInit {
         if (this.onDeckAthlete) {
             return `GO ${this.onDeckAthlete.firstName} ${this.onDeckAthlete.lastName}`;
         } else {
-            return "Unknown";
+            return "Done. View Results";
         }
     }
 

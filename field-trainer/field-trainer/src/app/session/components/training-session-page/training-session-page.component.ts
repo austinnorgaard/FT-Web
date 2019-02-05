@@ -41,6 +41,7 @@ import { SessionSetupService } from "../../services/session-setup.service";
 import { SessionService } from "../../services/session.service";
 import { SessionSetupData } from "../../models/session-setup-data";
 import { Athlete } from "../../../../../../../smart-cone-api/src/Athletes/athlete";
+import { Router } from "@angular/router";
 
 @Component({
     selector: "ft-training-session-page",
@@ -53,7 +54,11 @@ export class TrainingSessionPageComponent implements OnInit {
     athleteSessions: AthleteSessionArray;
     sessionFieldData: SessionSetupData;
 
-    constructor(private readonly sessionSetup: SessionSetupService, private readonly sessionService: SessionService) {}
+    constructor(
+        private readonly sessionSetup: SessionSetupService,
+        private readonly sessionService: SessionService,
+        private readonly router: Router,
+    ) {}
 
     ngOnInit() {
         // Get the on-deck athlete
@@ -84,6 +89,11 @@ export class TrainingSessionPageComponent implements OnInit {
     }
 
     async onGo() {
+        // only do the "nextAthlete" logic if we are not yet complete
+        if (this.sessionService.sessionComplete()) {
+            // in this case navigate user to the results page
+            this.router.navigateByUrl("/training/results");
+        }
         try {
             await this.sessionService.nextAthlete();
         } catch (err) {
@@ -96,9 +106,8 @@ export class TrainingSessionPageComponent implements OnInit {
     getNextAthleteName(): string {
         if (this.onDeckAthlete) {
             return `GO ${this.onDeckAthlete.firstName} ${this.onDeckAthlete.lastName}`;
-            //            return `GO ${this.onDeckAthlete.firstName}!`;
         } else {
-            return "NO ATHLETES LEFT";
+            return "Done. View Results";
         }
     }
 }

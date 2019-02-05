@@ -27,6 +27,8 @@ export class SessionService {
     private athleteSessions: BehaviorSubject<AthleteSessionArray> = new BehaviorSubject<AthleteSessionArray>(new AthleteSessionArray());
     private _athleteSessions: AthleteSessionArray = new AthleteSessionArray();
 
+    private _sessionComplete = false;
+
     constructor(
         private sessionSetupService: SessionSetupService,
         private readonly http: HttpHelperService,
@@ -42,6 +44,8 @@ export class SessionService {
 
         this.broker.broker.RegisterEventObservable("sessionComplete", AthleteSessionArray).subscribe((athleteSessions: AthleteSessionArray) => {
             console.log("Session complete!!");
+
+            this._sessionComplete = true;
         });
 
         // See if the backend has an existing session state
@@ -69,6 +73,7 @@ export class SessionService {
 
     // Call this when ready to start the session (all setup is done)
     async start() {
+        this._sessionComplete = false;
         console.log("Session service init!");
         const sessionData = this.sessionSetupService.getSessionSetupData();
         console.log(`sessionData: `, sessionData);
@@ -126,5 +131,9 @@ export class SessionService {
             console.log(err);
             throw err; // reject
         }
+    }
+
+    public sessionComplete(): boolean {
+        return this._sessionComplete;
     }
 }

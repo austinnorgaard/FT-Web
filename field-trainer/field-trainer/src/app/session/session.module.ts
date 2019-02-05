@@ -32,6 +32,7 @@ import { UtilitiesModule } from "../utility/utilities.module";
 import { MiscModule } from "../misc/misc.module";
 import { SessionDetailsPageComponent } from './components/session-details-page/session-details-page.component';
 import { SegmentDetailsComponent } from './components/segment-details/segment-details.component';
+import { ResultPageComponent } from './components/result-page/result-page.component';
 
 @NgModule({
     imports: [
@@ -62,6 +63,7 @@ import { SegmentDetailsComponent } from './components/segment-details/segment-de
         AthleteOverviewComponent,
         SessionDetailsPageComponent,
         SegmentDetailsComponent,
+        ResultPageComponent,
     ],
     providers: [FieldsService, SessionService, SessionSetupService, FieldConesService],
 })
