@@ -1,9 +1,10 @@
 import { NgModule } from "@angular/core";
 import { SocketMessageBrokerService } from "./socket-message-broker.service";
 import { SocketIoModule, SocketIoConfig } from "ngx-socket-io";
+import { environment } from "../../environments/environment";
 
 const config: SocketIoConfig = {
-    url: "192.168.42.1:5000",
+    url: `${environment.config.startConeIp}:${environment.config.smartConeApiSocketPort}`,
     options: {},
 };
 
