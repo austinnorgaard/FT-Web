@@ -15,7 +15,7 @@ export class HttpHelperService {
      * ```
      */
     async get<T>(path: string): Promise<T> {
-        return this.http.get<T>(environment.config.toSmartConeHttp(path)).toPromise();
+        return this.http.get<T>(this.toSmartConeHttp(path)).toPromise();
     }
 
     /**
@@ -30,7 +30,7 @@ export class HttpHelperService {
      */
     async post<T>(path: string, body: any): Promise<T> {
         try {
-            const result = await this.http.post<T>(environment.config.toSmartConeHttp(path), body).toPromise();
+            const result = await this.http.post<T>(this.toSmartConeHttp(path), body).toPromise();
             return result;
         } catch (err) {
             if (err.error.status === 400) {
@@ -55,7 +55,7 @@ export class HttpHelperService {
      * ```
      */
     async put<T>(path: string, body: T): Promise<T> {
-        return this.http.put<T>(environment.config.toSmartConeHttp(path), body).toPromise();
+        return this.http.put<T>(this.toSmartConeHttp(path), body).toPromise();
     }
 
     /**
@@ -67,6 +67,10 @@ export class HttpHelperService {
      * ```
      */
     async delete(path: string): Promise<any> {
-        return this.http.delete(environment.config.toSmartConeHttp(path)).toPromise();
+        return this.http.delete(this.toSmartConeHttp(path)).toPromise();
+    }
+
+    toSmartConeHttp(path: string): string {
+        return `http://${environment.config.startConeIp}:${environment.config.smartConeApiHttpPort}${path}`;
     }
 }

@@ -1,6 +1,11 @@
-import { FieldTrainerConfig } from "../../global-config";
-
 export const environment = {
     production: false,
-    config: new FieldTrainerConfig("127.0.0.1", "80", "5200", "6000", "5000", "6200"),
+    config: {
+        startConeIp: "127.0.0.1",
+        frontEndPort: "80",
+        smartConeApiHttpPort: "5200",
+        coneApiSocketPort: "6000",
+        smartConeApiSocketPort: "5000",
+        coneApiHttpPort: "6200",
+    },
 };
