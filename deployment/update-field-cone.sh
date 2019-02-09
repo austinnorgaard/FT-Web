@@ -5,6 +5,8 @@ sudo cp ~/FT-WEB/deployment/fieldcone /etc/init.d/fieldcone
 sudo chmod +x /etc/init.d/fieldcone
 sudo update-rc.d fieldcone defaults
 
+touch /var/tmp/.tilt-gpio-pin
+
 # Adhoc scripts
 # We take both of the adhoc scripts and drop the "field-cone" specific part of it
 sudo cp ~/FT-WEB/deployment/switch_to_adhoc_field_cone.sh /usr/bin/switch_to_adhoc.sh
