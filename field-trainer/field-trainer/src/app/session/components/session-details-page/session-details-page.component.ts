@@ -108,15 +108,57 @@ export class SessionDetailsPageComponent implements OnInit {
     }
 
     getNextAthleteString(): string {
-        if (this.onDeckAthlete) {
-            return `GO ${this.onDeckAthlete.firstName} ${this.onDeckAthlete.lastName}`;
-        } else {
-            return "Done. View Results";
+        return this.buttonText();
+    }
+
+    async onGo() {
+        // only do the "nextAthlete" logic if we are not yet complete
+        if (this.sessionService.sessionComplete()) {
+            // in this case navigate user to the results page
+            this.router.navigateByUrl("/training/results");
+        }
+        try {
+            // only send this if there are athletes remaining
+            if (this.onDeckAthlete) {
+                await this.sessionService.nextAthlete();
+            }
+        } catch (err) {
+            // did not work.
         }
     }
 
-    onGo() {
-        console.log("GO!");
+    // If there is still an on-deck athlete, return the athletes name
+    // Else, if there is no on-deck athlete, but all sessions are yet to be completed
+    // return "Waiting for Athletes to Finish"
+    // Else, return "Done. View Results"
+    buttonText(): string {
+        if (this.onDeckAthlete) {
+            return `GO ${this.onDeckAthlete.firstName} ${this.onDeckAthlete.lastName}`;
+        } else {
+            console.log("In the else!");
+            //            const allSessionsComplete = this.allSessions.items.every(session => session.segments.every(segment => segment.completed === true));
+            let allSessionsComplete = true;
+
+            console.log(`Checking ${this.allSessions.items.length} sessions!`);
+
+            this.allSessions.items.forEach(session => {
+                if (!allSessionsComplete) {
+                    return;
+                }
+                session.segments.forEach(segment => {
+                    if (segment.completed === false) {
+                        allSessionsComplete = false;
+                        return;
+                    }
+                });
+            });
+
+            if (allSessionsComplete) {
+                return "Done! View Results";
+            } else {
+                return "Waiting for Athletes to Finish";
+            }
+        }
     }
 
     back() {

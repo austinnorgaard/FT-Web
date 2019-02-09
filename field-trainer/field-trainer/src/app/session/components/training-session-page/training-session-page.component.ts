@@ -95,7 +95,9 @@ export class TrainingSessionPageComponent implements OnInit {
             this.router.navigateByUrl("/training/results");
         }
         try {
-            await this.sessionService.nextAthlete();
+            if (this.onDeckAthlete) {
+                await this.sessionService.nextAthlete();
+            }
         } catch (err) {
             // did not work.
         }
@@ -104,10 +106,24 @@ export class TrainingSessionPageComponent implements OnInit {
     onSwipe(event: any) {}
 
     getNextAthleteName(): string {
+        return this.buttonText();
+    }
+
+    // If there is still an on-deck athlete, return the athletes name
+    // Else, if there is no on-deck athlete, but all sessions are yet to be completed
+    // return "Waiting for Athletes to Finish"
+    // Else, return "Done. View Results"
+    buttonText(): string {
         if (this.onDeckAthlete) {
             return `GO ${this.onDeckAthlete.firstName} ${this.onDeckAthlete.lastName}`;
         } else {
-            return "Done. View Results";
+            const allSessionsComplete = this.athleteSessions.items.every(session => session.segments.every(segment => segment.completed === true));
+
+            if (allSessionsComplete) {
+                return "Done! View Results";
+            } else {
+                return "Waiting for Athletes to Finish";
+            }
         }
     }
 }
