@@ -135,23 +135,7 @@ export class SessionDetailsPageComponent implements OnInit {
         if (this.onDeckAthlete) {
             return `GO ${this.onDeckAthlete.firstName} ${this.onDeckAthlete.lastName}`;
         } else {
-            console.log("In the else!");
-            //            const allSessionsComplete = this.allSessions.items.every(session => session.segments.every(segment => segment.completed === true));
-            let allSessionsComplete = true;
-
-            console.log(`Checking ${this.allSessions.items.length} sessions!`);
-
-            this.allSessions.items.forEach(session => {
-                if (!allSessionsComplete) {
-                    return;
-                }
-                session.segments.forEach(segment => {
-                    if (segment.completed === false) {
-                        allSessionsComplete = false;
-                        return;
-                    }
-                });
-            });
+            const allSessionsComplete = this.allSessions.items.every(session => session.segments.every(segment => segment.completed === true));
 
             if (allSessionsComplete) {
                 return "Done! View Results";
