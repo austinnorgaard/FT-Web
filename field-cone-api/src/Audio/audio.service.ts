@@ -1,5 +1,7 @@
 import { BaseAudioService } from "./base-audio.service";
 import { Injectable } from "@nestjs/common";
+import { BaseTiltService } from "Tilt/base-tilt-service";
+import { TiltService } from "Tilt/tilt.service";
 
 // tslint:disable-next-line:no-var-requires
 const player = require("play-sound")();
@@ -22,8 +24,13 @@ export class AudioService implements BaseAudioService {
         "side-step-right": `${this.basePath}/side_step_right_action.mp3`,
     };
 
-    constructor() {
+    constructor(private tiltService: BaseTiltService) {
         console.log("Using real audio service");
+
+        (tiltService as TiltService).TiltOccured.subscribe(event => {
+            // whenever a tilt occurs, play our audio action!
+            this.PlayAction("sprint");
+        });
     }
 
     async PlayAction(action: string): Promise<void> {
