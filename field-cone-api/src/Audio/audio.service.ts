@@ -10,7 +10,7 @@ const player = require("play-sound")();
 export class AudioService implements BaseAudioService {
     // base path of all audio files
     private basePath = "/var/tmp/ft-audio-files";
-
+    private action = "";
     // Look up table for action strings, to their filenames as they exist in the base path
     // prettier-ignore
     private actionPaths = {
@@ -29,22 +29,26 @@ export class AudioService implements BaseAudioService {
 
         (tiltService as TiltService).TiltOccured.subscribe(event => {
             // whenever a tilt occurs, play our audio action!
-            this.PlayAction("sprint");
+            this.PlayAction();
         });
     }
 
-    async PlayAction(action: string): Promise<void> {
+    async PlayAction(): Promise<void> {
         // implement audio playback here
-        if (action in this.actionPaths) {
+        if (this.action in this.actionPaths) {
             // play it!
-            console.log(`Playing audio file: ${this.actionPaths[action]}`);
-            player.play(this.actionPaths[action], err => {
+            console.log(`Playing audio file: ${this.actionPaths[this.action]}`);
+            player.play(this.actionPaths[this.action], err => {
                 if (err) {
                     console.log(`Error playing audio! Err: ${err}`);
                 }
             });
         } else {
-            console.log(`Error, could not find action ${action} in audio mappings. Is it new?`);
+            console.log(`Error, could not find action ${this.action} in audio mappings. Is it new?`);
         }
+    }
+
+    SetAction(action: string): void {
+        this.action = action;
     }
 }

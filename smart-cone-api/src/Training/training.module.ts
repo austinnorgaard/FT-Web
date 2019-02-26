@@ -1,4 +1,4 @@
-import { Module, NestModule } from "@nestjs/common";
+import { Module, NestModule, HttpModule } from "@nestjs/common";
 import { TrainingController } from "./training.controller";
 import { MiddlewareConsumer } from "@nestjs/common";
 import { TrainingService } from "./training.service";
@@ -7,7 +7,7 @@ import { FrontEndCommsModule } from "../FrontEndComms/front-end-comms.module";
 import { UltrasonicModule } from "../Ultrasonic/ultrasonic.module";
 
 @Module({
-    imports: [FieldConesModule, FrontEndCommsModule, UltrasonicModule],
+    imports: [FieldConesModule, FrontEndCommsModule, UltrasonicModule, HttpModule],
     providers: [TrainingService],
     controllers: [TrainingController],
 })

@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, HttpService } from "@nestjs/common";
 import { TrainingSessionSetup } from "./training-session-setup";
 import { AthleteSession, AthleteSessionArray, SegmentArray } from "./athlete-session";
 import { Segment } from "./segment";
@@ -18,6 +18,7 @@ export class TrainingService {
         private fieldCones: FieldConesService,
         private readonly frontEndComms: FrontEndCommunicator,
         private readonly ultraSonicService: BaseUltrasonicService,
+        private http: HttpService,
     ) {
         this.fieldCones.onTilt.subscribe(cone => {
             // tilt has occurred, modify our athletes session state, then re-emit if its changed
@@ -97,7 +98,27 @@ export class TrainingService {
 
     async startSession(sessionSetupData: TrainingSessionSetup): Promise<void> {
         this.buildSessions(sessionSetupData);
+        this.setConeActions(sessionSetupData);
         this.sessionState.next(this.athleteSessions);
+    }
+
+    private async setConeActions(sessionSetupData: TrainingSessionSetup) {
+        // Let every field cone know what action they should be emitting
+        // when they are tilted
+        const cones = this.fieldCones.connectedFieldCones.getValue();
+
+        const promises = cones.map(cone => {
+            const action = sessionSetupData.course.segments.find(s => s.from === cone.id).action;
+
+            const url = `http://${cone.ip}:6200/audio/audio-file`;
+            // tslint:disable-next-line:object-literal-shorthand
+            return this.http.post(url, { action: action }).toPromise();
+        });
+        try {
+            await Promise.all(promises);
+        } catch (err) {
+            console.log(`Failed to update audio actins. Error: ${err}`);
+        }
     }
 
     private buildSessions(sessionSetupData: TrainingSessionSetup) {

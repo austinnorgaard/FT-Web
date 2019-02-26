@@ -1,6 +1,10 @@
-import { Controller, Post } from "@nestjs/common";
+import { Controller, Post, Body } from "@nestjs/common";
 import { BaseAudioService } from "./base-audio.service";
 import { AudioService } from "./audio.service";
+
+export class AudioFileDto {
+    action: string;
+}
 
 @Controller("audio")
 export class AudioController {
@@ -11,6 +15,12 @@ export class AudioController {
 
     @Post("test")
     public test() {
-        this._audioService.PlayAction("sprint");
+        this._audioService.PlayAction();
+    }
+
+    @Post("audio-file")
+    public setAudioFile(@Body() audioFile: AudioFileDto) {
+        // Set the audio file to be played by this cone
+        this._audioService.SetAction(audioFile.action);
     }
 }

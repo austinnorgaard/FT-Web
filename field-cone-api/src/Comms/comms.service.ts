@@ -35,13 +35,18 @@ export class CommsService {
     async getFieldConeInfo(): Promise<FieldConeInfo> {
         const interfaces = os.networkInterfaces();
         const info = { ip: "unknown", id: -1 } as any;
-
-        if (Object.keys(interfaces).some(k => k === "Wi-Fi")) {
+        console.log(Object.keys(interfaces));
+        if (Object.keys(interfaces).some(k => k.includes("Wi-Fi"))) {
             console.log("We are on windows!");
-            info.ip = interfaces["Wi-Fi"].filter(i => i.family === "IPv4")[0].address;
+            // find that key which contains WiFi
+            const wifiKey = Object.keys(interfaces).find(k => k.includes("Wi-Fi"));
+            info.ip = interfaces[wifiKey].filter(i => i.family === "IPv4")[0].address;
+            console.log(info.ip);
         } else if (Object.keys(interfaces).some(k => k === "wlan0")) {
             console.log("We are on Linux!!");
             info.ip = interfaces.wlan0.filter(i => i.family === "IPv4")[0].address;
+        } else {
+            console.log("On unknown OS");
         }
 
         const coneId = await getFieldConeId();
