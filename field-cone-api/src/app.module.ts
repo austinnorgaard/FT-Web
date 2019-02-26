@@ -7,11 +7,12 @@ import * as util from "util";
 import * as fs from "fs";
 import { getFieldConeId, smartConeSocketUrl } from "./utils/environment-helper";
 import { TiltModule } from "./Tilt/tilt.module";
+import { AudioModule } from "Audio/audio.module";
 
 const readFile = util.promisify(fs.readFile);
 
 @Module({
-    imports: [CommsModule, TiltModule],
+    imports: [CommsModule, TiltModule, AudioModule],
     controllers: [AppController],
     providers: [AppService],
     exports: [TiltModule],
