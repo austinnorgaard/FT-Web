@@ -1,7 +1,8 @@
 import { BaseAudioService } from "./base-audio.service";
 import { Injectable } from "@nestjs/common";
 
-import * as player from "play-sound";
+// tslint:disable-next-line:no-var-requires
+const player = require("play-sound")();
 
 @Injectable()
 export class AudioService implements BaseAudioService {
@@ -25,12 +26,15 @@ export class AudioService implements BaseAudioService {
         console.log("Using real audio service");
     }
 
-    PlayAction(action: string): void {
+    async PlayAction(action: string): Promise<void> {
         // implement audio playback here
         if (action in this.actionPaths) {
             // play it!
+            console.log(`Playing audio file: ${this.actionPaths[action]}`);
             player.play(this.actionPaths[action], err => {
-                console.log(`Error playing audio! Err: ${err}`);
+                if (err) {
+                    console.log(`Error playing audio! Err: ${err}`);
+                }
             });
         } else {
             console.log(`Error, could not find action ${action} in audio mappings. Is it new?`);

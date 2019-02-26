@@ -4,6 +4,7 @@ import { BaseAudioService } from "./base-audio.service";
 import * as fs from "fs";
 import { AudioService } from "./audio.service";
 import { MockAudioService } from "./mock-audio.service";
+import { AudioController } from "./audio.controller";
 
 // Should we use the fake audio service, or the real one?
 function isReal(): boolean {
@@ -26,6 +27,6 @@ function isReal(): boolean {
             useClass: isReal() ? AudioService : MockAudioService,
         },
     ],
-    controllers: [],
+    controllers: [AudioController],
 })
 export class AudioModule {}
