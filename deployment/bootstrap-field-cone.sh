@@ -17,6 +17,9 @@ echo $1 > /var/tmp/.cone-id
 echo "Cone settings written"
 sudo systemctl daemon-reload
 
+echo "Installing audio"
+bash ~/FT-WEB/deployment/i2samp.sh -y
+
 echo "Rebooting!"
 
 sudo reboot

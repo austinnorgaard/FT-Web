@@ -6,6 +6,13 @@ sudo cp ~/FT-WEB/deployment/smartcone /etc/init.d/smartcone
 sudo chmod +x /etc/init.d/smartcone
 sudo update-rc.d smartcone defaults
 
+# Audio files
+# Delete any existing ones..
+sudo rm -rf /var/tmp/ft-audio-files/
+sudo mkdir /var/tmp/ft-audio-files
+
+cp ~/FT-WEB/deployment/audio-files/* /var/tmp/ft-audio-files
+
 # Adhoc scripts
 # We take both of the adhoc scripts and drop the "field-cone" specific part of it
 sudo cp ~/FT-WEB/deployment/switch_to_adhoc_smart_cone.sh /usr/bin/switch_to_adhoc.sh

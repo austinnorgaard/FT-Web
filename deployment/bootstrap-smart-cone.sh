@@ -33,6 +33,9 @@ sudo chmod 755 /etc/init.d/hostapd
 sudo mv ~/FT-WEB/deployment/dhcpcd.conf /etc/dhcpcd.conf
 sudo chmod 664
 
+echo "Installing audio"
+bash ~/FT-WEB/deployment/i2samp.sh -y
+
 echo "Configs installed"
 sudo systemctl daemon-reload
 

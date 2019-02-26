@@ -5,6 +5,13 @@ sudo cp ~/FT-WEB/deployment/fieldcone /etc/init.d/fieldcone
 sudo chmod +x /etc/init.d/fieldcone
 sudo update-rc.d fieldcone defaults
 
+# Audio files
+# Delete any existing ones..
+sudo rm -rf /var/tmp/ft-audio-files/
+sudo mkdir /var/tmp/ft-audio-files
+
+cp ~/FT-WEB/deployment/audio-files/* /var/tmp/ft-audio-files
+
 touch /var/tmp/.tilt-gpio-pin
 
 # Adhoc scripts
