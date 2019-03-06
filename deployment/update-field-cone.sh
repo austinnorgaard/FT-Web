@@ -14,6 +14,12 @@ cp ~/FT-WEB/deployment/audio-files/* /var/tmp/ft-audio-files
 
 touch /var/tmp/.tilt-gpio-pin
 
+# i2c
+## /boot/config.txt
+sudo cp ~/FT-WEB/deployment/config.txt /boot/config.txt
+## /etc/modules
+sudo cp ~/FT-WEB/deployment/modules /etc/modules
+
 # Adhoc scripts
 # We take both of the adhoc scripts and drop the "field-cone" specific part of it
 sudo cp ~/FT-WEB/deployment/switch_to_adhoc_field_cone.sh /usr/bin/switch_to_adhoc.sh
