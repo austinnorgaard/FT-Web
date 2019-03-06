@@ -5,6 +5,7 @@ import * as fs from "fs";
 import { AudioService } from "./audio.service";
 import { MockAudioService } from "./mock-audio.service";
 import { AudioController } from "./audio.controller";
+import { TiltModule } from "../Tilt/tilt.module";
 
 // Should we use the fake audio service, or the real one?
 function isReal(): boolean {
@@ -19,7 +20,7 @@ function isReal(): boolean {
 }
 
 @Module({
-    imports: [],
+    imports: [TiltModule],
     exports: [],
     providers: [
         {

@@ -1,7 +1,7 @@
 import { BaseAudioService } from "./base-audio.service";
 import { Injectable } from "@nestjs/common";
-import { BaseTiltService } from "Tilt/base-tilt-service";
-import { TiltService } from "Tilt/tilt.service";
+import { BaseTiltService } from "../Tilt/base-tilt-service";
+import { TiltService } from "../Tilt/tilt.service";
 
 // tslint:disable-next-line:no-var-requires
 const player = require("play-sound")();
