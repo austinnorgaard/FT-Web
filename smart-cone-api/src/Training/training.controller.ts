@@ -24,6 +24,11 @@ export class TrainingController {
         this.trainingService.startSession(sessionData);
     }
 
+    @Post("save-results")
+    async saveResults() {
+        await this.trainingService.saveResults();
+    }
+
     @Post("next-athlete-starting")
     async nextAthleteStarting() {
         try {

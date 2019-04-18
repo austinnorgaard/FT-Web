@@ -1,7 +1,8 @@
-import { Table, Column, AllowNull, Model, BelongsToMany, PrimaryKey } from "sequelize-typescript";
+import { Table, Column, AllowNull, Model, BelongsToMany, PrimaryKey, HasMany } from "sequelize-typescript";
 import { Athlete } from "../../Athletes/athlete";
 import { AthleteTeamSchema } from "./AthleteTeamSchema";
 import { TeamSchema } from "./TeamSchema";
+import { SessionResultSchema } from "./SessionResultSchema";
 
 @Table({
     modelName: "Athletes",
@@ -51,4 +52,7 @@ export class AthleteSchema extends Model<AthleteSchema> implements Athlete {
 
     @BelongsToMany(() => TeamSchema, () => AthleteTeamSchema)
     teams: TeamSchema[];
+
+    @HasMany(() => SessionResultSchema)
+    sessionResults: SessionResultSchema[];
 }

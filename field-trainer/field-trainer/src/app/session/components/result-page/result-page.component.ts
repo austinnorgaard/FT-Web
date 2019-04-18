@@ -107,6 +107,10 @@ export class ResultPageComponent implements OnInit {
         this.dataSource.data = this.treeData;
     }
 
+    onSaveResults() {
+        console.log('Saving results in backend');
+    }
+
     ngOnInit() {}
 
     hasChild = (_: number, node: NodeShape) => node.expandable;

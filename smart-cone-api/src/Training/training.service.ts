@@ -8,6 +8,11 @@ import { FrontEndCommunicator } from "../FrontEndComms/front-end-communicator.se
 import { Athlete } from "../Athletes/athlete";
 import { UltrasonicService } from "../Ultrasonic/ultrasonic.service";
 import { BaseUltrasonicService } from "../Ultrasonic/base-ultrasonic.service";
+import { SessionSchema } from "../Database/Models/SessionSchema";
+import { SSL_OP_NO_SESSION_RESUMPTION_ON_RENEGOTIATION } from "constants";
+import { SessionResultSchema } from "../Database/Models/SessionResultSchema";
+import { AthleteSchema } from "../Database/Models/AthleteSchema";
+import { SegmentResultSchema } from "../Database/Models/SegmentResultSchema";
 
 @Injectable()
 export class TrainingService {
@@ -146,6 +151,46 @@ export class TrainingService {
         // This is the first athlete in the list which isn't marked as started.
         // Mark them started and note their start time for the first segment
         return this.markNextAthleteStarted();
+    }
+
+    async saveResults(): Promise<any> {
+        console.log("Saving session results");
+
+        const session = new SessionSchema();
+        session.startTime = new Date(); // FIXME
+        session.fieldInfo = "Some Field Info here!";
+        session.courseInfo = "Some Course Info Here!";
+        const newSession = await session.save();
+
+        // fill out the session results, 1 per athlete
+        this.athleteSessions.items.forEach(async athleteSession => {
+            const sessionResult = new SessionResultSchema();
+            sessionResult.athleteId = athleteSession.athlete.id;
+            sessionResult.sessionId = newSession.id;
+            const newSessionResult = await sessionResult.save();
+            // find the athlete for the session we are looking for
+            try {
+                // need to add all segments for this athlete
+                athleteSession.segments.forEach(async segment => {
+                    const segmentResult = new SegmentResultSchema();
+                    segmentResult.duration = segment.duration;
+                    segmentResult.action = segment.action;
+                    segmentResult.sessionResultId = newSessionResult.id;
+                    await segmentResult.save();
+                    console.log("Added a segment...");
+                });
+                           
+            } catch (err) {
+                console.log(`Could not find correct athlete in database with id: ${athleteSession.athlete.id}! Giving up!!`);
+                throw err;
+            }
+        });
+        try {
+        } catch (err) {
+            console.log(`Error saving overall session results. Err: ${err}`);
+            throw err;
+        }
+        return true;
     }
 
     // Marks the first athlete found in the list which hasn't started as started

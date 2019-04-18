@@ -136,4 +136,10 @@ export class SessionService {
     public sessionComplete(): boolean {
         return this._sessionComplete;
     }
+
+    // Some assumption that the current state of results as the backend sees it (and thus this service
+    // sees it) is the correct state. This request just makes the backend take a snapshot of the results
+    public async saveResults() {
+        await this.http.post<any>("/training/save-results", {});
+    }
 }
