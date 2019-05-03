@@ -30,7 +30,6 @@ export class LoginComponent implements OnInit {
     }
 
     login() {
-        console.log("login");
         const credentials = new LoginCredentialsModel(this.email, this.password);
         // Do not allow user to submit if they haven't filled out the form
         if (!credentials.isValid()) {
@@ -42,7 +41,6 @@ export class LoginComponent implements OnInit {
             .login(credentials)
             .then(response => {
                 // success
-                console.log("logged in!");
                 this.router.navigateByUrl(this.returnUrl);
             })
             .catch(err => {
