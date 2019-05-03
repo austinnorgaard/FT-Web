@@ -2,14 +2,20 @@ import { Logger, Component } from "@nestjs/common";
 
 const fs = require("fs");
 const util = require("util");
+const path = require("path");
+const os = require('os');
 
 const writeFile = util.promisify(fs.writeFile);
+const openFile = util.promisify(fs.open);
 
 export class FileLogger extends Logger {
     private static writeStream: any;
     public constructor(private filePath: string) {
         super();
-        this.filePath = "C:\\temp\\logs.txt";
+        // File path depends on which machine we are running on
+        // but, we can assume it'll be linux for now
+        fs.openSync(path.join(os.homedir(), '.ft_logs.txt'), 'w');
+        this.filePath = `${os.homedir()}/.ft_logs.txt`;
         FileLogger.writeStream = fs.createWriteStream(this.filePath);
     }
 
