@@ -7,13 +7,13 @@ const spawn = require('threads').spawn;
 export class TiltService extends BaseTiltService {
     mpu: any = undefined;
     thread: any = undefined;
+    rateLimited: boolean = false;
     constructor() {
         super();
         console.log("Using the Real Tilt Service");
 
         this.thread = spawn((input, done) => {
-            let rateLimited: boolean = false;
-            const mpu9250 = require('9250');
+            const mpu9250 = require('mpu9250');
 
             let mpu = new mpu9250({
                 scaleValues: true,
@@ -28,22 +28,21 @@ export class TiltService extends BaseTiltService {
                 let avg = sum / 3;
 
                 if (avg > 5) {
-                    if (!rateLimited) {
                         done(avg);
-                        // rate limit ourselves
-                        rateLimited = true;
-                        setTimeout(() => {
-                            rateLimited = false;
-                        }, 2500);
-                    } else {
-                        // do nothing as we are rate limited
-                    }
                 }
             }
         });
 
         this.thread.send().on('message', function(response) {
-            console.log('Tilt!!');
+            if (!this.rateLimited) {
+                console.log('Tilt!!');
+                this.rateLimited = true;
+                setTimeout(() => {
+                    this.rateLimited = false;
+                }, 2500);
+            } else {
+                // do nothing
+            }
         });
     }
 }
