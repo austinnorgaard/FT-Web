@@ -33,12 +33,10 @@ export class TiltService extends BaseTiltService {
             }
         });
 
-        let emitter = this.TiltOccured;
-
-        this.thread.send().on('message', function(response) {
+        this.thread.send().on('message', () => {
             if (!this.rateLimited) {
                 console.log('Tilt!!');
-                emitter.next();
+                this.TiltOccured.next();
                 this.rateLimited = true;
                 setTimeout(() => {
                     this.rateLimited = false;
