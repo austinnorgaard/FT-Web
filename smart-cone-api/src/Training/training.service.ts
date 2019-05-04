@@ -9,15 +9,18 @@ import { Athlete } from "../Athletes/athlete";
 import { UltrasonicService } from "../Ultrasonic/ultrasonic.service";
 import { BaseUltrasonicService } from "../Ultrasonic/base-ultrasonic.service";
 import { SessionSchema } from "../Database/Models/SessionSchema";
-import { SSL_OP_NO_SESSION_RESUMPTION_ON_RENEGOTIATION } from "constants";
 import { SessionResultSchema } from "../Database/Models/SessionResultSchema";
 import { AthleteSchema } from "../Database/Models/AthleteSchema";
 import { SegmentResultSchema } from "../Database/Models/SegmentResultSchema";
+import { SessionResultCollection } from "./session-results";
 
 @Injectable()
 export class TrainingService {
     sessionState = new Subject<AthleteSessionArray>();
     private athleteSessions: AthleteSessionArray = new AthleteSessionArray();
+    private segmentCollectionIndex: number = 0;
+
+    private sessionResults: SessionResultCollection = undefined;
 
     constructor(
         private fieldCones: FieldConesService,
@@ -113,7 +116,7 @@ export class TrainingService {
         const cones = this.fieldCones.connectedFieldCones.getValue();
 
         const promises = cones.map(cone => {
-            const action = sessionSetupData.course.segments.find(s => s.from === cone.id).action;
+            const action = sessionSetupData.course.segmentCollection[this.segmentCollectionIndex].segments.find(s => s.from === cone.id).action;
 
             const url = `http://${cone.ip}:6200/audio/audio-file`;
             // tslint:disable-next-line:object-literal-shorthand
@@ -133,7 +136,7 @@ export class TrainingService {
             const session = new AthleteSession(athlete, [], false);
 
             // Add the segments for this athlete
-            sessionSetupData.course.segments.forEach(segment => {
+            sessionSetupData.course.segmentCollection[this.segmentCollectionIndex].segments.forEach(segment => {
                 session.segments.push({
                     from: segment.from,
                     to: segment.to,
@@ -179,7 +182,6 @@ export class TrainingService {
                     await segmentResult.save();
                     console.log("Added a segment...");
                 });
-                           
             } catch (err) {
                 console.log(`Could not find correct athlete in database with id: ${athleteSession.athlete.id}! Giving up!!`);
                 throw err;

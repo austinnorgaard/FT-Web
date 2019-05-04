@@ -21,6 +21,7 @@ export class TrainingController {
 
     @Post("start-session")
     submitSessionSettings(@Body() sessionData: TrainingSessionSetup) {
+        console.log(`Backend received; ${JSON.stringify(sessionData)}`);
         this.trainingService.startSession(sessionData);
     }
 

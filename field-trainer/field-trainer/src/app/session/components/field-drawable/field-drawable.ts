@@ -84,11 +84,16 @@ export class FieldDrawable {
     }
 
     public loadCourse(course: Course) {
-        for (let i = 0; i < course.segments.length; ++i) {
+        for (let i = 0; i < course.segmentCollection[0].segments.length; ++i) {
             // each segment we draw text..
-            const text = new PIXI.Text(course.segments[i].action, { fontFamily: "Arial", fontSize: 12, fill: 0x000000, align: "center" });
-            const cone1 = course.field.cones[course.segments[i].from];
-            const cone2 = course.field.cones[course.segments[i].to];
+            const text = new PIXI.Text(course.segmentCollection[0].segments[i].action, {
+                fontFamily: "Arial",
+                fontSize: 12,
+                fill: 0x000000,
+                align: "center",
+            });
+            const cone1 = course.field.cones[course.segmentCollection[0].segments[i].from];
+            const cone2 = course.field.cones[course.segmentCollection[0].segments[i].to];
             const location = new Point((cone1.position.x + cone2.position.x) / 2, (cone1.position.y + cone2.position.y) / 2);
             console.log(`Location: ${location.x} x ${location.y}`);
             text.position = new PIXI.Point(location.x * this.scale.x, location.y * this.scale.y);

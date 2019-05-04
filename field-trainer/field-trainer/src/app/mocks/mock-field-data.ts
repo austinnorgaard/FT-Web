@@ -53,37 +53,41 @@ export const mockCourses: Course[] = [
         name: "Conditioning",
         field: new Field(getMockCones3(), 80, 60, "Senior Soccer Half Field"),
         conesSubset: [0, 1, 2, 3, 4, 5],
-        segments: [
+        segmentCollection: [
             {
-                from: 0,
-                to: 1,
-                action: "run",
-            },
-            {
-                from: 1,
-                to: 2,
-                action: "sprint",
-            },
-            {
-                from: 2,
-                to: 3,
-                action: "sprint",
-            },
-            {
-                from: 3,
-                to: 4,
-                action: "run",
-            },
-            {
-                from: 4,
-                to: 5,
-                action: "run",
-            },
-            {
-                // return action
-                from: 5,
-                to: 0,
-                action: "jog",
+                segments: [
+                    {
+                        from: 0,
+                        to: 1,
+                        action: "run",
+                    },
+                    {
+                        from: 1,
+                        to: 2,
+                        action: "sprint",
+                    },
+                    {
+                        from: 2,
+                        to: 3,
+                        action: "sprint",
+                    },
+                    {
+                        from: 3,
+                        to: 4,
+                        action: "run",
+                    },
+                    {
+                        from: 4,
+                        to: 5,
+                        action: "run",
+                    },
+                    {
+                        // return action
+                        from: 5,
+                        to: 0,
+                        action: "jog",
+                    },
+                ],
             },
         ],
     },
@@ -91,37 +95,41 @@ export const mockCourses: Course[] = [
         name: "Conditioning",
         field: new Field(getMockCones1(), 54, 102, "Football Field 1"),
         conesSubset: [0, 1, 2, 3, 4, 5],
-        segments: [
+        segmentCollection: [
             {
-                from: 0,
-                to: 1,
-                action: "run",
-            },
-            {
-                from: 1,
-                to: 2,
-                action: "jog",
-            },
-            {
-                from: 2,
-                to: 3,
-                action: "side-step",
-            },
-            {
-                from: 3,
-                to: 4,
-                action: "sprint",
-            },
-            {
-                from: 4,
-                to: 5,
-                action: "walk",
-            },
-            {
-                // return action
-                from: 5,
-                to: 0,
-                action: "jog",
+                segments: [
+                    {
+                        from: 0,
+                        to: 1,
+                        action: "run",
+                    },
+                    {
+                        from: 1,
+                        to: 2,
+                        action: "jog",
+                    },
+                    {
+                        from: 2,
+                        to: 3,
+                        action: "side-step",
+                    },
+                    {
+                        from: 3,
+                        to: 4,
+                        action: "sprint",
+                    },
+                    {
+                        from: 4,
+                        to: 5,
+                        action: "walk",
+                    },
+                    {
+                        // return action
+                        from: 5,
+                        to: 0,
+                        action: "jog",
+                    },
+                ],
             },
         ],
     },
@@ -129,16 +137,20 @@ export const mockCourses: Course[] = [
         name: "Cool down",
         field: new Field(getMockCones2(), 54, 102, "Football Field 2"),
         conesSubset: [0, 1, 2],
-        segments: [
+        segmentCollection: [
             {
-                from: 0,
-                to: 1,
-                action: "jog",
-            },
-            {
-                from: 1,
-                to: 2,
-                action: "jog",
+                segments: [
+                    {
+                        from: 0,
+                        to: 1,
+                        action: "jog",
+                    },
+                    {
+                        from: 1,
+                        to: 2,
+                        action: "jog",
+                    },
+                ],
             },
         ],
     },
@@ -146,16 +158,20 @@ export const mockCourses: Course[] = [
         name: "Mock Course",
         field: new Field(getMockCones4(), 80, 60, "Developer Test Field"),
         conesSubset: [0, 1],
-        segments: [
+        segmentCollection: [
             {
-                from: 0,
-                to: 1,
-                action: "sprint",
-            },
-            {
-                from: 1,
-                to: 0,
-                action: "sprint",
+                segments: [
+                    {
+                        from: 0,
+                        to: 1,
+                        action: "sprint",
+                    },
+                    {
+                        from: 1,
+                        to: 0,
+                        action: "sprint",
+                    },
+                ],
             },
         ],
     },

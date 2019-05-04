@@ -2,18 +2,16 @@ import { Table, Model, PrimaryKey, Column, DataType, ForeignKey, BelongsTo } fro
 import { SessionResultSchema } from "./SessionResultSchema";
 
 @Table({
-    modelName: "SegmentResult"
+    modelName: "SegmentResult",
 })
 export class SegmentResultSchema extends Model<SegmentResultSchema> {
     @PrimaryKey
-    @Column({autoIncrement: true})
+    @Column({ autoIncrement: true })
     id: number;
 
-    @Column(
-        {
-            type: DataType.FLOAT
-        }
-    )
+    @Column({
+        type: DataType.FLOAT,
+    })
     duration: number;
 
     @Column
