@@ -22,7 +22,7 @@ export class TiltService extends BaseTiltService {
 
             mpu.initialize();
 
-            while (true) {
+            /*while (true) {
                 let values = mpu.getMotion6();
                 let sum = Math.abs(values[0]) + Math.abs(values[1]) + Math.abs(values[2]);
                 let avg = sum / 3;
@@ -30,12 +30,30 @@ export class TiltService extends BaseTiltService {
                 if (avg > 5) {
                         done(avg);
                 }
-            }
+            }*/
+            let lambda = () => {
+                if (!this.rateLimited) {
+                    let values = mpu.getMotion6();
+                    let sum = Math.abs(values[0]) + Math.abs(values[1]) + Math.abs(values[2]);
+                    let avg = sum / 3;
+
+                    if (avg > 5) {
+                        this.rateLimited = true;
+                        setTimeout(() => {
+                            this.rateLimited = false;
+                        }, 2500);
+                        done(avg);
+                    }
+                }
+
+                setImmediate(lambda);
+            };
+
+            lambda();
         });
 
         this.thread.send().on('message', () => {
             if (!this.rateLimited) {
-                console.log('Tilt!!');
                 this.TiltOccured.next();
                 this.rateLimited = true;
                 setTimeout(() => {
