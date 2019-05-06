@@ -94,8 +94,16 @@ export class TrainingService {
 
         // Check if this was the final cone hit (session over)
         if (this.sessionComplete()) {
-            // let the frontend know
-            this.frontEndComms.frontEndSocket.emit("sessionComplete", this.trainingSessionState);
+            // Check if we are totally done
+            if (this.allSessionsComplete()) {
+                // let the frontend know
+                this.frontEndComms.frontEndSocket.emit("sessionComplete", this.trainingSessionState);
+                return;
+            }
+
+            // Otherwise, increment the session
+            this.trainingSessionState.sessionNum = this.trainingSessionState.sessionNum + 1;
+            this.sessionState.next(this.trainingSessionState);
         }
     }
 
@@ -175,16 +183,26 @@ export class TrainingService {
     }
 
     async saveResults(): Promise<any> {
+        let num = 0;
+        this.trainingSessionState.athleteSessions.sessions.forEach(session => {
+            this.saveSession(num);
+            num++;
+        });
+    }
+
+    private async saveSession(sessionNum: number) {
         console.log("Saving session results");
 
-        /*const session = new SessionSchema();
+        let athleteSessions = this.trainingSessionState.athleteSessions.sessions[sessionNum];
+
+        const session = new SessionSchema();
         session.startTime = new Date(); // FIXME
         session.fieldInfo = "Some Field Info here!";
         session.courseInfo = "Some Course Info Here!";
         const newSession = await session.save();
 
         // fill out the session results, 1 per athlete
-        this.athleteSessions.items.forEach(async athleteSession => {
+        athleteSessions.athleteSessions.forEach(async athleteSession => {
             const sessionResult = new SessionResultSchema();
             sessionResult.athleteId = athleteSession.athlete.id;
             sessionResult.sessionId = newSession.id;
@@ -210,7 +228,7 @@ export class TrainingService {
             console.log(`Error saving overall session results. Err: ${err}`);
             throw err;
         }
-        return true;*/
+        return true;
     }
 
     // Marks the first athlete found in the list which hasn't started as started
