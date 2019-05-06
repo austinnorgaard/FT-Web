@@ -22,13 +22,24 @@ export class SegmentArray {
 }
 
 export class AthleteSessionArray {
+    @Type(() => AthleteSessionCollection)
+    @IsArray()
+    @ValidateNested()
+    public sessions: Array<AthleteSessionCollection>;
+
+    constructor() {
+        this.sessions = [];
+    }
+}
+
+export class AthleteSessionCollection {
     @Type(() => AthleteSession)
     @IsArray()
     @ValidateNested()
-    public items: Array<AthleteSession>;
+    public athleteSessions: Array<AthleteSession>;
 
     constructor() {
-        this.items = [];
+        this.athleteSessions = [];
     }
 }
 

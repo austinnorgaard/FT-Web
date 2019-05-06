@@ -1,6 +1,6 @@
 import { Injectable, HttpService } from "@nestjs/common";
 import { TrainingSessionSetup } from "./training-session-setup";
-import { AthleteSession, AthleteSessionArray, SegmentArray } from "./athlete-session";
+import { AthleteSession, AthleteSessionArray, SegmentArray, AthleteSessionCollection } from "./athlete-session";
 import { Segment } from "./segment";
 import { FieldConesService } from "../FieldCones/field-cones.service";
 import { Subject } from "rxjs";
@@ -13,11 +13,13 @@ import { SessionResultSchema } from "../Database/Models/SessionResultSchema";
 import { AthleteSchema } from "../Database/Models/AthleteSchema";
 import { SegmentResultSchema } from "../Database/Models/SegmentResultSchema";
 import { SessionResultCollection } from "./session-results";
+import { TrainingSessionState } from "./training-session-state";
 
 @Injectable()
 export class TrainingService {
-    sessionState = new Subject<AthleteSessionArray>();
-    private athleteSessions: AthleteSessionArray = new AthleteSessionArray();
+    sessionState = new Subject<TrainingSessionState>();
+    //private athleteSessions: AthleteSessionArray = new AthleteSessionArray();
+    public trainingSessionState: TrainingSessionState = new TrainingSessionState();
     private segmentCollectionIndex: number = 0;
 
     private sessionResults: SessionResultCollection = undefined;
@@ -35,7 +37,7 @@ export class TrainingService {
             this.handleConeHit(cone.id);
         });
 
-        this.sessionState.subscribe((sessionState: AthleteSessionArray) => {
+        this.sessionState.subscribe((sessionState: TrainingSessionState) => {
             this.frontEndComms.frontEndSocket.emit("sessionStateChanged", sessionState);
         });
 
@@ -56,7 +58,7 @@ export class TrainingService {
 
         // Get the first athlete in the list which hasn't completed this cone
         // only include athletes which have actually started to reduce any false positives
-        const athletes = this.athleteSessions.items.filter(session => {
+        const athletes = this.trainingSessionState.getCurrentSession().athleteSessions.filter(session => {
             // handle cases where the passed in ID is not a valid ID at all
             if (session.started) {
                 const seg = session.segments.find(s => s.to === id);
@@ -66,7 +68,7 @@ export class TrainingService {
         });
         if (athletes.length === 0) {
             console.log("This shouldn't happen. A tilt occured for a cone for which no athletes were meant to be running (already completed).");
-            console.log(this.athleteSessions);
+            console.log(this.trainingSessionState);
             return;
         }
 
@@ -88,26 +90,35 @@ export class TrainingService {
         }
 
         // update the frontend with the new state
-        this.sessionState.next(this.athleteSessions);
+        this.sessionState.next(this.trainingSessionState);
 
         // Check if this was the final cone hit (session over)
         if (this.sessionComplete()) {
             // let the frontend know
-            this.frontEndComms.frontEndSocket.emit("sessionComplete", this.athleteSessions);
+            this.frontEndComms.frontEndSocket.emit("sessionComplete", this.trainingSessionState);
         }
     }
 
     private sessionComplete(): boolean {
         // We are done when all segments are marked as complete
-        return this.athleteSessions.items.every(session => {
+        return this.trainingSessionState.getCurrentSession().athleteSessions.every(session => {
             return session.segments.every(segment => segment.completed);
         });
+    }
+
+    private allSessionsComplete(): boolean {
+        // we done if we are on the final session and its complete
+        if (this.trainingSessionState.sessionNum + 1 === this.trainingSessionState.athleteSessions.sessions.length) {
+            return true;
+        }
+
+        return false;
     }
 
     async startSession(sessionSetupData: TrainingSessionSetup): Promise<void> {
         this.buildSessions(sessionSetupData);
         this.setConeActions(sessionSetupData);
-        this.sessionState.next(this.athleteSessions);
+        this.sessionState.next(this.trainingSessionState);
     }
 
     private async setConeActions(sessionSetupData: TrainingSessionSetup) {
@@ -130,23 +141,30 @@ export class TrainingService {
     }
 
     private buildSessions(sessionSetupData: TrainingSessionSetup) {
-        this.athleteSessions = new AthleteSessionArray(); // reset if needed
+        this.trainingSessionState = new TrainingSessionState(); // reset if needed
+        let i = 0;
+        console.log(sessionSetupData);
+        sessionSetupData.course.segmentCollection.forEach(segmentCollection => {
+            this.trainingSessionState.athleteSessions.sessions.push(new AthleteSessionCollection());
+            sessionSetupData.athletes.forEach(athlete => {
+                const session = new AthleteSession(athlete, [], false);
 
-        sessionSetupData.athletes.forEach(athlete => {
-            const session = new AthleteSession(athlete, [], false);
+                // Add the segments for this athlete
+                segmentCollection.segments.forEach(segment => {
+                    session.segments.push({
+                        from: segment.from,
+                        to: segment.to,
+                        action: segment.action,
+                        completed: false,
+                    } as Segment);
+                });
 
-            // Add the segments for this athlete
-            sessionSetupData.course.segmentCollection[this.segmentCollectionIndex].segments.forEach(segment => {
-                session.segments.push({
-                    from: segment.from,
-                    to: segment.to,
-                    action: segment.action,
-                    completed: false,
-                } as Segment);
+                this.trainingSessionState.athleteSessions.sessions[i].athleteSessions.push(session);
             });
-
-            this.athleteSessions.items.push(session);
+            i++;
         });
+
+        console.log("After build sessions: ", this.trainingSessionState);
     }
 
     async nextAthleteStarting(): Promise<boolean> {
@@ -159,7 +177,7 @@ export class TrainingService {
     async saveResults(): Promise<any> {
         console.log("Saving session results");
 
-        const session = new SessionSchema();
+        /*const session = new SessionSchema();
         session.startTime = new Date(); // FIXME
         session.fieldInfo = "Some Field Info here!";
         session.courseInfo = "Some Course Info Here!";
@@ -192,7 +210,7 @@ export class TrainingService {
             console.log(`Error saving overall session results. Err: ${err}`);
             throw err;
         }
-        return true;
+        return true;*/
     }
 
     // Marks the first athlete found in the list which hasn't started as started
@@ -203,7 +221,7 @@ export class TrainingService {
             console.log("Frontend wanted to send another athlete, but there are none left!!");
             return false;
         }
-        const athleteSession = this.athleteSessions.items.find(a => a.started !== true);
+        const athleteSession = this.trainingSessionState.getCurrentSession().athleteSessions.find(a => a.started !== true);
         athleteSession.started = true;
         athleteSession.segments[0].startTime = new Date(); // DateTime.Now()
 
@@ -214,16 +232,12 @@ export class TrainingService {
         );
 
         // finally emit the new state
-        this.sessionState.next(this.athleteSessions);
+        this.sessionState.next(this.trainingSessionState);
 
         return true;
     }
 
     private numAthletesRemainingToStart(): number {
-        return this.athleteSessions.items.filter(s => !s.started).length;
-    }
-
-    public getAthleteSessionState(): AthleteSessionArray {
-        return this.athleteSessions;
+        return this.trainingSessionState.getCurrentSession().athleteSessions.filter(s => !s.started).length;
     }
 }

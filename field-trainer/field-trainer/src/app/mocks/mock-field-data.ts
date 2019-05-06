@@ -164,6 +164,20 @@ export const mockCourses: Course[] = [
                     {
                         from: 0,
                         to: 1,
+                        action: "jog",
+                    },
+                    {
+                        from: 1,
+                        to: 0,
+                        action: "jog",
+                    },
+                ],
+            },
+            {
+                segments: [
+                    {
+                        from: 0,
+                        to: 1,
                         action: "sprint",
                     },
                     {

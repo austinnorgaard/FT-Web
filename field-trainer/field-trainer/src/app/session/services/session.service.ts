@@ -7,25 +7,14 @@ import { SessionSetupService } from "./session-setup.service";
 import { HttpHelperService } from "../../misc/services/http-helper.service";
 import { AthleteSession, SegmentArray } from "../../../../../../smart-cone-api/src/Training/athlete-session";
 import { SocketMessageBrokerService } from "../../socket-message-broker/socket-message-broker.service";
-import { IsArray, ValidateNested } from "class-validator";
-import { Type } from "class-transformer";
-
-export class AthleteSessionArray {
-    @IsArray()
-    @ValidateNested()
-    @Type(() => AthleteSession)
-    items: Array<AthleteSession>;
-
-    constructor() {
-        this.items = [];
-    }
-}
+import { TrainingSessionState } from "@SmartCone/Training/training-session-state";
+import { plainToClass } from "class-transformer";
 
 @Injectable({ providedIn: "root" })
 export class SessionService {
     private currentAthlete: BehaviorSubject<Athlete> = new BehaviorSubject<Athlete>(null);
-    private athleteSessions: BehaviorSubject<AthleteSessionArray> = new BehaviorSubject<AthleteSessionArray>(new AthleteSessionArray());
-    private _athleteSessions: AthleteSessionArray = new AthleteSessionArray();
+    private athleteSessions: BehaviorSubject<TrainingSessionState> = new BehaviorSubject<TrainingSessionState>(new TrainingSessionState());
+    private _athleteSessions: TrainingSessionState = new TrainingSessionState();
 
     private _sessionComplete = false;
 
@@ -34,7 +23,7 @@ export class SessionService {
         private readonly http: HttpHelperService,
         private readonly broker: SocketMessageBrokerService,
     ) {
-        this.broker.broker.RegisterEventObservable("sessionStateChanged", AthleteSessionArray).subscribe((athleteSessions: AthleteSessionArray) => {
+        this.broker.broker.RegisterEventObservable("sessionStateChanged", TrainingSessionState).subscribe((athleteSessions: TrainingSessionState) => {
             console.log("Received session state change !!");
             console.log(athleteSessions);
             // before moving on, turn all of the dates in the segments back into date objects
@@ -42,28 +31,28 @@ export class SessionService {
             this.handleSessionStateChanged(athleteSessions);
         });
 
-        this.broker.broker.RegisterEventObservable("sessionComplete", AthleteSessionArray).subscribe((athleteSessions: AthleteSessionArray) => {
+        this.broker.broker.RegisterEventObservable("sessionComplete", TrainingSessionState).subscribe((athleteSessions: TrainingSessionState) => {
             console.log("Session complete!!");
 
             this._sessionComplete = true;
         });
 
         // See if the backend has an existing session state
-        this.http.get("/training").then((sessionState: AthleteSessionArray) => {
+        this.http.get("/training").then((sessionState: TrainingSessionState) => {
             // check if its valid
-            if (sessionState.items && sessionState.items.length > 0) {
+            if (sessionState.athleteSessions && sessionState.athleteSessions.sessions.length > 0) {
                 console.log("Got an existing AthleteSessionArray state!");
                 this.handleSessionStateChanged(sessionState);
             }
         });
     }
 
-    private handleSessionStateChanged(sessionState: AthleteSessionArray) {
-        this._athleteSessions = sessionState;
+    private handleSessionStateChanged(sessionState: TrainingSessionState) {
+        this._athleteSessions = plainToClass(TrainingSessionState, sessionState);
         this.athleteSessions.next(this._athleteSessions);
 
         // update the next athlete up
-        const session = this._athleteSessions.items.find(a => a.started === false);
+        const session = this._athleteSessions.getCurrentSession().athleteSessions.find(a => a.started === false);
         if (session) {
             this.currentAthlete.next(session.athlete);
         } else {
@@ -76,10 +65,11 @@ export class SessionService {
         this._sessionComplete = false;
         console.log("Session service init!");
         const sessionData = this.sessionSetupService.getSessionSetupData();
-        console.log(`sessionData: `, sessionData);
+        /*console.log(`sessionData: `, sessionData);
         // create all of the required athlete sessions
-        this._athleteSessions = new AthleteSessionArray();
+        this._athleteSessions = new TrainingSessionState();
         console.log(this._athleteSessions);
+
         sessionData.athletes.forEach(athlete => {
             console.log("adding an athlete session..");
             this._athleteSessions.items.push(new AthleteSession(athlete, [], false));
@@ -89,14 +79,19 @@ export class SessionService {
 
         // Setup our subject values
         // First athlete in athlete sesions is our on deck athlete
-        console.log("emitting the current athlete to be: ", this._athleteSessions.items[0].athlete);
-        this.currentAthlete.next(this._athleteSessions.items[0].athlete);
+        console.log("emitting the current athlete to be: ", this._athleteSessions.items[0].athlete);*/
+        //this.currentAthlete.next(this._athleteSessions.items[0].athlete);
 
         // We'll keep any observers updated for the exact current state of athlete
         // sessions
-        this.athleteSessions.next(this._athleteSessions);
+        //this.athleteSessions.next(this._athleteSessions);
         try {
-            await this.http.post("/training/start-session", sessionData);
+            console.log("calling training/start-session");
+            this.http.post("/training/start-session", sessionData);
+            console.log("posted!");
+            let state = await this.http.get<TrainingSessionState>("/training");
+            console.log("got state");
+
             console.log("Session started.");
         } catch (err) {
             console.log("Failed to start session!!", err);
@@ -110,11 +105,11 @@ export class SessionService {
         return this.currentAthlete.asObservable();
     }
 
-    public getAthleteSessionsObservable(): Observable<AthleteSessionArray> {
+    public getAthleteSessionsObservable(): Observable<TrainingSessionState> {
         return this.athleteSessions.asObservable();
     }
 
-    public getAthleteSessions(): AthleteSessionArray {
+    public getAthleteSessions(): TrainingSessionState {
         return this._athleteSessions;
     }
 

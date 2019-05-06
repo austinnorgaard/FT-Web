@@ -1,12 +1,15 @@
 <div fxFlex fxLayout="column" style="margin: 0.5em">
+    <h3 fxFlex="0 0 auto" fxFlexAlign="center">Running session 1 of 3</h3>
     <perfect-scrollbar fxFlex="1 1 auto" fxLayout="column">
-        <div *ngFor="let session of this.athleteSessions.items">
-            <ft-athlete-overview [athleteSession]=session></ft-athlete-overview>
+        <div *ngFor="let session of this.sessionState.getCurrentSession().athleteSessions">
+            <ft-athlete-overview [athleteSession]="session"></ft-athlete-overview>
         </div>
     </perfect-scrollbar>
     <div fxFlex="0 0 5em" fxLayout="row" style="margin-top: 1em">
         <div fxFlex="20%"></div>
-        <div fxFlex fxLayout="row"><button mat-raised-button (click)="onGo()" color="primary" fxFlex>{{this.getNextAthleteName()}}</button></div>
+        <div fxFlex fxLayout="row">
+            <button mat-raised-button (click)="onGo()" color="primary" fxFlex>{{ this.getNextAthleteName() }}</button>
+        </div>
         <div fxFlex="20%"></div>
     </div>
 </div>

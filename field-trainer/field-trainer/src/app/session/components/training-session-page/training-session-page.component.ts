@@ -42,6 +42,7 @@ import { SessionService } from "../../services/session.service";
 import { SessionSetupData } from "../../models/session-setup-data";
 import { Athlete } from "../../../../../../../smart-cone-api/src/Athletes/athlete";
 import { Router } from "@angular/router";
+import { TrainingSessionState } from "@SmartCone/Training/training-session-state";
 
 @Component({
     selector: "ft-training-session-page",
@@ -51,7 +52,7 @@ import { Router } from "@angular/router";
 export class TrainingSessionPageComponent implements OnInit {
     displayedColumns: string[] = ["id", "name"];
     onDeckAthlete: Athlete;
-    athleteSessions: AthleteSessionArray;
+    sessionState: TrainingSessionState;
     sessionFieldData: SessionSetupData;
 
     constructor(
@@ -63,29 +64,27 @@ export class TrainingSessionPageComponent implements OnInit {
     ngOnInit() {
         // Get the on-deck athlete
         this.onDeckAthlete = this.sessionService.getOnDeckAthlete();
-
         // Subscribe for changes on the on-deck athlete
         this.sessionService.getCurrentAthleteObservable().subscribe(a => {
             this.onDeckAthlete = a;
         });
 
         // Get the current athleteSessions information (all info regarding all athletes status through the course)
-        this.athleteSessions = this.sessionService.getAthleteSessions();
-
-        console.log(`Got ${this.athleteSessions.items.length} sessions!`);
+        this.sessionState = this.sessionService.getAthleteSessions();
+        console.log("hello");
+        console.log(`Got ${this.sessionState.athleteSessions.sessions.length} phases.`);
+        console.log(`Got ${this.sessionState.getCurrentSession().athleteSessions.length} athlete sessions!`);
 
         // Subscribe for changes about the athlete session state
-        this.sessionService.getAthleteSessionsObservable().subscribe((sessions: AthleteSessionArray) => {
-            console.log(`Received ${sessions.items.length} athlete sessions!`);
-            console.log(sessions);
-            this.athleteSessions = sessions;
+        this.sessionService.getAthleteSessionsObservable().subscribe((sessionState: TrainingSessionState) => {
+            console.log(`Received ${sessionState.getCurrentSession().athleteSessions.length} athlete sessions!`);
+            console.log(sessionState);
+            this.sessionState = sessionState;
         });
 
         // Get the field data (course, cones, name, etc)
         this.sessionFieldData = this.sessionSetup.getSessionSetupData();
         console.log(this.sessionFieldData);
-
-        console.log(`Leaving ngOnInit, athleteSession looks like `, this.athleteSessions);
     }
 
     async onGo() {
@@ -117,10 +116,12 @@ export class TrainingSessionPageComponent implements OnInit {
         if (this.onDeckAthlete) {
             return `GO ${this.onDeckAthlete.firstName} ${this.onDeckAthlete.lastName}`;
         } else {
-            const allSessionsComplete = this.athleteSessions.items.every(session => session.segments.every(segment => segment.completed === true));
+            const allSessionsComplete = this.sessionState
+                .getCurrentSession()
+                .athleteSessions.every(session => session.segments.every(segment => segment.completed === true));
 
             if (allSessionsComplete) {
-                return "Done! View Results";
+                return "Session Done";
             } else {
                 return "Waiting for Athletes to Finish";
             }

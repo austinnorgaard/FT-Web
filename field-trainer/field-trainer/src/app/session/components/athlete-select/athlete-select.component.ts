@@ -33,10 +33,11 @@ export class AthleteSelectComponent implements OnInit {
 
     onTeamChanged() {}
 
-    onNext() {
+    async onNext() {
         // Lock in the selected athletes
         this.sessionSetup.setAthletes(this.selectedTeam.teamAthletes);
-        this.sessionService.start();
+        console.log("calling sessionService.start()");
+        await this.sessionService.start();
         this.router.navigateByUrl("/training-session");
     }
 

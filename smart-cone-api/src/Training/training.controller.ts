@@ -14,14 +14,15 @@ export class TrainingController {
     constructor(private readonly trainingService: TrainingService) {}
     // Potentially not very interesting, but maybe we can use this for debug
     @Get()
-    async get() {
+    get() {
         // return the current session state
-        return this.trainingService.getAthleteSessionState();
+        console.log("/training/get");
+        //return this.trainingService.sessionState;
+        return this.trainingService.trainingSessionState;
     }
 
     @Post("start-session")
     submitSessionSettings(@Body() sessionData: TrainingSessionSetup) {
-        console.log(`Backend received; ${JSON.stringify(sessionData)}`);
         this.trainingService.startSession(sessionData);
     }
 

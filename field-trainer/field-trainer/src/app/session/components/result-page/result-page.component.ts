@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { SessionService } from "../../services/session.service";
-import { AthleteSessionArray, AthleteSession } from "@SmartCone/Training/athlete-session";
+import { AthleteSessionArray, AthleteSession, AthleteSessionCollection } from "@SmartCone/Training/athlete-session";
 import { FlatTreeControl } from "@angular/cdk/tree";
 import { MatTreeFlattener, MatTreeFlatDataSource } from "@angular/material";
 import { Athlete } from "@SmartCone/Athletes/athlete";
@@ -57,8 +57,8 @@ export class ResultPageComponent implements OnInit {
     public treeData: AthleteNode[] = [];
 
     constructor(private readonly sessionService: SessionService) {
-        this.sessionService.getAthleteSessionsObservable().subscribe((athleteSessions: AthleteSessionArray) => {
-            if (!athleteSessions || athleteSessions.items.length === 0) {
+        /*this.sessionService.getAthleteSessionsObservable().subscribe((athleteSessions: AthleteSessionArray) => {
+            if (!athleteSessions || athleteSessions.sessions.length == 0 || athleteSessions.sessions[0].athleteSessions.length === 0) {
                 return;
             }
 
@@ -72,11 +72,11 @@ export class ResultPageComponent implements OnInit {
             this.athleteSessions = athleteSessions;
 
             this.buildTreeData();
-        });
+        });*/
     }
 
     private buildTreeData() {
-        this.treeData = [];
+        /*this.treeData = [];
         this.athleteSessions.items.forEach((session: AthleteSession) => {
             console.log(session);
             // for each athlete, add a new entry to the tree data
@@ -104,11 +104,11 @@ export class ResultPageComponent implements OnInit {
 
         console.log(`Created ${this.athleteSessions.items.length} nodes`);
 
-        this.dataSource.data = this.treeData;
+        this.dataSource.data = this.treeData;*/
     }
 
     onSaveResults() {
-        console.log('Saving results in backend');
+        console.log("Saving results in backend");
     }
 
     ngOnInit() {}
