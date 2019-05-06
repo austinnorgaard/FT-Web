@@ -1,8 +1,10 @@
 <div fxFlex fxLayout="column" style="margin: 0.5em">
-    <h3 fxFlex="0 0 auto" fxFlexAlign="center">Running session 1 of 3</h3>
+    <h3 fxFlex="0 0 auto" fxFlexAlign="center">{{ this.sessionStatusText() }}</h3>
     <perfect-scrollbar fxFlex="1 1 auto" fxLayout="column">
-        <div *ngFor="let session of this.sessionState.getCurrentSession().athleteSessions">
-            <ft-athlete-overview [athleteSession]="session"></ft-athlete-overview>
+        <div *ngIf="this.sessionState && this.sessionState.athleteSessions.sessions.length !== 0">
+            <div *ngFor="let session of this.sessionState.getCurrentSession().athleteSessions">
+                <ft-athlete-overview [athleteSession]="session"></ft-athlete-overview>
+            </div>
         </div>
     </perfect-scrollbar>
     <div fxFlex="0 0 5em" fxLayout="row" style="margin-top: 1em">

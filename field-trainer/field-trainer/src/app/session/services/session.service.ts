@@ -39,6 +39,7 @@ export class SessionService {
 
         // See if the backend has an existing session state
         this.http.get("/training").then((sessionState: TrainingSessionState) => {
+            console.log("Got response.");
             // check if its valid
             if (sessionState.athleteSessions && sessionState.athleteSessions.sessions.length > 0) {
                 console.log("Got an existing AthleteSessionArray state!");
@@ -86,16 +87,16 @@ export class SessionService {
         // sessions
         //this.athleteSessions.next(this._athleteSessions);
         try {
-            console.log("calling training/start-session");
             this.http.post("/training/start-session", sessionData);
-            console.log("posted!");
-            let state = await this.http.get<TrainingSessionState>("/training");
-            console.log("got state");
 
             console.log("Session started.");
         } catch (err) {
             console.log("Failed to start session!!", err);
         }
+    }
+
+    public async updateFromBackend() {
+        let _athleteSessions = await this.http.get<TrainingSessionState>("/training");
     }
 
     /**
@@ -109,8 +110,8 @@ export class SessionService {
         return this.athleteSessions.asObservable();
     }
 
-    public getAthleteSessions(): TrainingSessionState {
-        return this._athleteSessions;
+    public async getAthleteSessions(): Promise<TrainingSessionState> {
+        return await this.http.get<TrainingSessionState>("/training");
     }
 
     public getOnDeckAthlete(): Athlete {

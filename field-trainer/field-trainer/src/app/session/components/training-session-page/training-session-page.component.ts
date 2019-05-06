@@ -43,6 +43,7 @@ import { SessionSetupData } from "../../models/session-setup-data";
 import { Athlete } from "../../../../../../../smart-cone-api/src/Athletes/athlete";
 import { Router } from "@angular/router";
 import { TrainingSessionState } from "@SmartCone/Training/training-session-state";
+import { plainToClass } from "class-transformer";
 
 @Component({
     selector: "ft-training-session-page",
@@ -61,7 +62,7 @@ export class TrainingSessionPageComponent implements OnInit {
         private readonly router: Router,
     ) {}
 
-    ngOnInit() {
+    async ngOnInit() {
         // Get the on-deck athlete
         this.onDeckAthlete = this.sessionService.getOnDeckAthlete();
         // Subscribe for changes on the on-deck athlete
@@ -70,15 +71,21 @@ export class TrainingSessionPageComponent implements OnInit {
         });
 
         // Get the current athleteSessions information (all info regarding all athletes status through the course)
-        this.sessionState = this.sessionService.getAthleteSessions();
+        // Ensure we've had the service check for existing state on the  backend
+        this.sessionService.updateFromBackend();
+        console.log("Backend updated");
+
+        this.sessionState = await this.sessionService.getAthleteSessions();
+        this.sessionState = plainToClass(TrainingSessionState, this.sessionState);
+        //console.log(this.sessionState);
         console.log("hello");
         console.log(`Got ${this.sessionState.athleteSessions.sessions.length} phases.`);
         console.log(`Got ${this.sessionState.getCurrentSession().athleteSessions.length} athlete sessions!`);
 
         // Subscribe for changes about the athlete session state
         this.sessionService.getAthleteSessionsObservable().subscribe((sessionState: TrainingSessionState) => {
+            if (sessionState.athleteSessions.sessions.length === 0) return;
             console.log(`Received ${sessionState.getCurrentSession().athleteSessions.length} athlete sessions!`);
-            console.log(sessionState);
             this.sessionState = sessionState;
         });
 
@@ -113,6 +120,10 @@ export class TrainingSessionPageComponent implements OnInit {
     // return "Waiting for Athletes to Finish"
     // Else, return "Done. View Results"
     buttonText(): string {
+        if (!this.sessionState || !this.sessionState.getCurrentSession()) {
+            return "Loading..";
+        }
+
         if (this.onDeckAthlete) {
             return `GO ${this.onDeckAthlete.firstName} ${this.onDeckAthlete.lastName}`;
         } else {
@@ -126,5 +137,12 @@ export class TrainingSessionPageComponent implements OnInit {
                 return "Waiting for Athletes to Finish";
             }
         }
+    }
+
+    sessionStatusText(): string {
+        if (!this.sessionState) {
+            return "Loading...";
+        }
+        return `Running session ${this.sessionState.sessionNum + 1} of ${this.sessionState.athleteSessions.sessions.length}`;
     }
 }
