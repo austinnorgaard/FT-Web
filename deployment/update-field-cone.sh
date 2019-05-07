@@ -20,6 +20,9 @@ sudo cp ~/FT-WEB/deployment/config.txt /boot/config.txt
 ## /etc/modules
 sudo cp ~/FT-WEB/deployment/modules /etc/modules
 
+echo "Installing audio"
+bash ~/FT-WEB/deployment/i2samp.sh -y
+
 # Adhoc scripts
 # We take both of the adhoc scripts and drop the "field-cone" specific part of it
 sudo cp ~/FT-WEB/deployment/switch_to_adhoc_field_cone.sh /usr/bin/switch_to_adhoc.sh

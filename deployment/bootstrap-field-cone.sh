@@ -24,9 +24,6 @@ echo $1 > /var/tmp/.cone-id
 echo "Cone settings written"
 sudo systemctl daemon-reload
 
-echo "Installing audio"
-bash ~/FT-WEB/deployment/i2samp.sh -y
-
 sudo apt-get install -y i2c-tools
 
 echo "Rebooting!"
