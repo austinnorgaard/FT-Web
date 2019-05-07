@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { BaseTiltService } from "./base-tilt-service";
 
-const spawn = require('threads').spawn;
+const spawn = require("threads").spawn;
 
 @Injectable()
 export class TiltService extends BaseTiltService {
@@ -12,12 +12,16 @@ export class TiltService extends BaseTiltService {
         super();
         console.log("Using the Real Tilt Service");
 
+        setInterval(() => {
+            global.gc();
+        }, 10000);
+
         this.thread = spawn((input, done) => {
-            const mpu9250 = require('mpu9250');
+            const mpu9250 = require("mpu9250");
 
             let mpu = new mpu9250({
                 scaleValues: true,
-                ACCEL_FS: 3
+                ACCEL_FS: 2,
             });
 
             mpu.initialize();
@@ -27,13 +31,13 @@ export class TiltService extends BaseTiltService {
                 let sum = Math.abs(values[0]) + Math.abs(values[1]) + Math.abs(values[2]);
                 let avg = sum / 3;
 
-                if (avg > 5) {
-                        done(avg);
+                if (avg > 1.5) {
+                    done(avg);
                 }
             }
         });
 
-        this.thread.send().on('message', () => {
+        this.thread.send().on("message", () => {
             if (!this.rateLimited) {
                 this.TiltOccured.next();
                 this.rateLimited = true;
