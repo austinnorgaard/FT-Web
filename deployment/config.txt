@@ -55,3 +55,4 @@ dtparam=i2c_arm=on
 # Enable audio (loads snd_bcm2835)
 dtparam=audio=on
 dtparam=i2c1_baudrate=400000
+
