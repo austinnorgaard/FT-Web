@@ -21,7 +21,7 @@ export class AudioService implements BaseAudioService {
         "karaoke-right": `${this.basePath}/carioca_right.mp3`,
         "side-shuffle-left": `${this.basePath}/side_shuffle_left.mp3`,
         "side-shuffle-right": `${this.basePath}/side_shuffle_right.mp3`,
-        "butt_kicks": `${this.basePath}/butt_kicks.mp3`,
+        "butt-kicks": `${this.basePath}/butt_kicks.mp3`,
         "bounds": `${this.basePath}/bounds.mp3`,
         "ext-hip-rotation": `${this.basePath}/ext_hip_rotation.mp3`,
         "high-knees": `${this.basePath}/high_knees.mp3`,

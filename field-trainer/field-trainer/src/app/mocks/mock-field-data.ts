@@ -11,6 +11,8 @@ export const mockPoints3: Point[] = [{ x: 10, y: 10 }, { x: 30, y: 10 }, { x: 60
 
 export const mockPoints4: Point[] = [{ x: 10, y: 10 }, { x: 30, y: 10 }];
 
+export const mockPoints5: Point[] = [{ x: 10, y: 10 }, { x: 30, y: 10 }, { x: 50, y: 10 }, { x: 50, y: 30 }, { x: 30, y: 30 }, { x: 10, y: 30 }];
+
 export function getMockCones1(): FieldCone[] {
     let i = 0;
     return mockPoints1.map(p => {
@@ -39,12 +41,20 @@ export function getMockCones4(): FieldCone[] {
     });
 }
 
+export function getDemoCones(): FieldCone[] {
+    let i = 0;
+    return mockPoints5.map(p => {
+        return new FieldCone(i++, { x: p.x, y: p.y });
+    });
+}
+
 export function getMockFields(): Field[] {
     return [
         new Field(getMockCones1(), 54, 102, "Football Field 1"),
         new Field(getMockCones2(), 54, 102, "Football Field 2"),
         new Field(getMockCones3(), 80, 60, "Senior Soccer Half Field"),
         new Field(getMockCones4(), 80, 60, "Developer Test Field"),
+        new Field(getDemoCones(), 80, 60, "Demo Field"),
     ];
 }
 
@@ -156,7 +166,7 @@ export const mockCourses: Course[] = [
     },
     {
         name: "Mock Course",
-        field: new Field(getMockCones4(), 80, 60, "Developer Test Field"),
+        field: new Field(getMockCones4(), 80, 60, "Developer 2 Test Field"),
         conesSubset: [0, 1],
         segmentCollection: [
             {
@@ -182,6 +192,115 @@ export const mockCourses: Course[] = [
                     },
                     {
                         from: 1,
+                        to: 0,
+                        action: "sprint",
+                    },
+                ],
+            },
+        ],
+    },
+    {
+        name: "DemoField",
+        field: new Field(getDemoCones(), 80, 60, "Demo Field"),
+        conesSubset: [0, 1, 2, 3, 4, 5],
+        segmentCollection: [
+            {
+                segments: [
+                    {
+                        from: 0,
+                        to: 1,
+                        action: "high-knees",
+                    },
+                    {
+                        from: 1,
+                        to: 2,
+                        action: "walking-lunge",
+                    },
+                    {
+                        from: 2,
+                        to: 3,
+                        action: "back-pedal",
+                    },
+                    {
+                        from: 3,
+                        to: 4,
+                        action: "high-skips",
+                    },
+                    {
+                        from: 4,
+                        to: 5,
+                        action: "butt-kicks",
+                    },
+                    {
+                        from: 5,
+                        to: 0,
+                        action: "jog",
+                    },
+                ],
+            },
+            {
+                segments: [
+                    {
+                        from: 0,
+                        to: 1,
+                        action: "int-hip-rotation",
+                    },
+                    {
+                        from: 1,
+                        to: 2,
+                        action: "ext-hip-rotation",
+                    },
+                    {
+                        from: 2,
+                        to: 3,
+                        action: "karaoke-right",
+                    },
+                    {
+                        from: 3,
+                        to: 4,
+                        action: "walking-lunge",
+                    },
+                    {
+                        from: 4,
+                        to: 5,
+                        action: "karaoke-left",
+                    },
+                    {
+                        from: 5,
+                        to: 0,
+                        action: "jog",
+                    },
+                ],
+            },
+            {
+                segments: [
+                    {
+                        from: 0,
+                        to: 1,
+                        action: "side-shuffle-left",
+                    },
+                    {
+                        from: 1,
+                        to: 2,
+                        action: "side-shuffle-right",
+                    },
+                    {
+                        from: 2,
+                        to: 3,
+                        action: "back-pedal",
+                    },
+                    {
+                        from: 3,
+                        to: 4,
+                        action: "bounds",
+                    },
+                    {
+                        from: 4,
+                        to: 5,
+                        action: "back-pedal",
+                    },
+                    {
+                        from: 5,
                         to: 0,
                         action: "sprint",
                     },
