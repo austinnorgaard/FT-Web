@@ -1,5 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { BaseTiltService } from "./base-tilt-service";
+import { SSL_OP_EPHEMERAL_RSA } from "constants";
 
 const spawn = require("threads").spawn;
 
@@ -12,11 +13,7 @@ export class TiltService extends BaseTiltService {
         super();
         console.log("Using the Real Tilt Service");
 
-        setInterval(() => {
-            global.gc();
-        }, 10000);
-
-        this.thread = spawn((input, done) => {
+        this.thread = spawn(async (input, done) => {
             const mpu9250 = require("mpu9250");
 
             let mpu = new mpu9250({
@@ -24,15 +21,27 @@ export class TiltService extends BaseTiltService {
                 ACCEL_FS: 2,
             });
 
+            const sleep = async ms => {
+                return new Promise(resolve => setTimeout(resolve, ms));
+            };
+
             mpu.initialize();
+            let counter = 0;
+            const max = 10000;
 
             while (true) {
                 let values = mpu.getMotion6();
                 let sum = Math.abs(values[0]) + Math.abs(values[1]) + Math.abs(values[2]);
                 let avg = sum / 3;
 
-                if (avg > 1.5) {
+                if (avg > 1.0) {
                     done(avg);
+                }
+
+                counter++;
+                if (counter > max) {
+                    counter = 0;
+                    await sleep(10);
                 }
             }
         });
