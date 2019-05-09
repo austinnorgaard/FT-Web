@@ -9,8 +9,8 @@ sudo update-rc.d fieldcone defaults
 # Delete any existing ones..
 sudo rm -rf /var/tmp/ft-audio-files/
 sudo mkdir /var/tmp/ft-audio-files
-
-sudo cp ~/FT-WEB/deployment/audio-files/* /var/tmp/ft-audio-files
+sudo chmod 777 /var/tmp/ft-audio-files
+cp ~/FT-WEB/deployment/audio-files/* /var/tmp/ft-audio-files
 
 touch /var/tmp/.tilt-gpio-pin
 
