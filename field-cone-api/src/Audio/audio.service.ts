@@ -14,14 +14,20 @@ export class AudioService implements BaseAudioService {
     // Look up table for action strings, to their filenames as they exist in the base path
     // prettier-ignore
     private actionPaths = {
-        "sprint": `${this.basePath}/sprint_action.mp3`,
-        "base-back-pedal": `${this.basePath}/base_back_pedal.mp3`,
-        "hurdle": `${this.basePath}/hurdle_action.mp3`,
-        "jog": `${this.basePath}/jog_action.mp3`,
-        "karaoke": `${this.basePath}/karaoke_action.mp3`,
-        "ladder": `${this.basePath}/ladder_action.mp3`,
-        "side-step-left": `${this.basePath}/side_step_left_action.mp3`,
-        "side-step-right": `${this.basePath}/side_step_right_action.mp3`,
+        "sprint": `${this.basePath}/sprint.mp3`,
+        "back-pedal": `${this.basePath}/back_pedal.mp3`,
+        "jog": `${this.basePath}/jog.mp3`,
+        "karaoke-left": `${this.basePath}/carioca_left.mp3`,
+        "karaoke-right": `${this.basePath}/carioca_right.mp3`,
+        "side-shuffle-left": `${this.basePath}/side_shuffle_left.mp3`,
+        "side-shuffle-right": `${this.basePath}/side_shuffle_right.mp3`,
+        "butt_kicks": `${this.basePath}/butt_kicks.mp3`,
+        "bounds": `${this.basePath}/bounds.mp3`,
+        "ext-hip-rotation": `${this.basePath}/ext_hip_rotation.mp3`,
+        "high-knees": `${this.basePath}/high_knees.mp3`,
+        "high-skips": `${this.basePath}/high_skips.mp3`,
+        "int-hip-rotation": `${this.basePath}/int_hip_rotation.mp3`,
+        "walking-lunge": `${this.basePath}/walking_lunge.mp3`,
     };
 
     constructor(private tiltService: BaseTiltService) {
