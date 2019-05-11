@@ -2,27 +2,27 @@
 
 # Do the NPM installs up front, as we have cross-project dependencies, so
 # before we get into the actual building, need everything installed
-pushd
+
+node -v
+npm -v
+
+pushd .
 cd ./field-trainer/field-trainer/ && JOBS=`nproc` npm install
 popd
 
-pushd
+pushd .
 cd ./smart-cone-api/ && JOBS=`nproc` npm install
 popd
 
-pushd
+pushd .
 cd ./serve-frontend/ && JOBS=`nproc` npm install
 popd
 
-# Invoke each of the individual projects build scripts
-sh ./field-trainer/field-trainer/build.sh || exit -1
-sh ./smart-cone-api/build.sh || exit -1
-
-pushd
+pushd .
 cd ./smart-cone-api && npm run prestart:prod || exit -1
 popd
 
-pushd
+pushd .
 cd ./field-trainer/field-trainer && npm run build || exit -1
 popd
 
