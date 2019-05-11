@@ -16,4 +16,12 @@ rm -rf ~/FT-WEB/serve-frontend/dist
 mv ~/FT-WEB/field-trainer/field-trainer/dist ~/FT-WEB/serve-frontend
 
 # We can zip up the entire serve-frontend folder, ready for deployment
+cd ~/FT-WEB
+tar -czvf smart-cone-frontend.tar.gz serve-frontend/
+tar -czvf smart-cone-backend.tar.gz serve-frontend/
 
+rm -rf ./smart-cone-package
+mv ./smart-cone-frontend.tar.gz ./smart-cone-package
+mv ./smart-cone-backend.tar.gz ./smart-cone-package
+
+tar -czvf smart-cone-package.tar.gz ./smart-cone-package
