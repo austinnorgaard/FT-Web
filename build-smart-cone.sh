@@ -7,11 +7,11 @@ node -v
 npm -v
 
 pushd .
-cd ./field-trainer/field-trainer/ && JOBS=`nproc` npm install
+cd ./field-trainer/field-trainer/ && SASS_BINARY_SITE=https://s3-us-west-2.amazonaws.com/sqlite3-builds/node-bass-build npm install
 popd
 
 pushd .
-cd ./smart-cone-api/ && JOBS=`nproc` npm install
+cd ./smart-cone-api/ && npm install --node_sqlite3_binary_host_mirror=https://s3-us-west-2.amazonaws.com/sqlite3-builds/sqlite3-builds
 popd
 
 pushd .
