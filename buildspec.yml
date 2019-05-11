@@ -2,4 +2,4 @@ version: 0.2
 phases:
     build:
         commands:
-            bash build-smart-cone.sh
+            bash run-docker.sh
