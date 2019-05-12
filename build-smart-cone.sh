@@ -2,6 +2,9 @@
 
 # Do the NPM installs up front, as we have cross-project dependencies, so
 # before we get into the actual building, need everything installed
+export NVM_DIR=/usr/local/nvm
+export NODE_VERSION=8.16.0
+source $NVM_DIR/nvm.sh && nvm install $NODE_VERSION && nvm alias default $NODE_VERSION && nvm use default
 
 node -v
 npm -v
