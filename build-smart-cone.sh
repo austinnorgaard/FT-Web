@@ -5,6 +5,8 @@
 export NVM_DIR=/usr/local/nvm
 export NODE_VERSION=8.16.0
 source $NVM_DIR/nvm.sh && nvm install $NODE_VERSION && nvm alias default $NODE_VERSION && nvm use default
+nvm use --delete-prefix v8.16.0 --silent
+source $NVM_DIR/nvm.sh && nvm install $NODE_VERSION && nvm alias default $NODE_VERSION && nvm use default
 
 node -v
 npm -v
