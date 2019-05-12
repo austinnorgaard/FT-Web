@@ -47,3 +47,4 @@ mv ./smart-cone-backend.tar.gz ./smart-cone-package
 tar -czvf smart-cone-package.tar.gz ./smart-cone-package
 
 scp smart-cone-package.tar.gz kdfreude@192.168.1.3:/home/kdfreude/smart-cone-package.tar.gz
+scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ./smart-cone-package.tar.gz kdfreude@192.168.1.3:/home/kdfreude
