@@ -38,11 +38,13 @@ mv ./field-trainer/field-trainer/dist ./serve-frontend
 # We can zip up the entire serve-frontend folder, ready for deployment
 tar -czvf smart-cone-frontend.tar.gz ./serve-frontend/
 tar -czvf smart-cone-backend.tar.gz ./smart-cone-api/
+tar -czvf smart-cone-fieldtrainer.tar.gz ./field-trainer/
 
 rm -rf ./smart-cone-package
 mkdir ./smart-cone-package
 mv ./smart-cone-frontend.tar.gz ./smart-cone-package
 mv ./smart-cone-backend.tar.gz ./smart-cone-package
+mv ./smart-cone-fieldtrainer.tar.gz ./smart-cone-package
 
 tar -czvf smart-cone-package.tar.gz ./smart-cone-package
 
