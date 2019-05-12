@@ -3,4 +3,6 @@ phases:
     build:
         commands:
             bash run-docker.sh
-            docker cp ft-build:/root/FT-WEB/smart-cone-package.tar.gz smart-cone-release.tar.gz
+    post_build:
+        commands:
+            docker cp ft-build:/root/FT-WEB/smart-cone-package.tar.gz ./
