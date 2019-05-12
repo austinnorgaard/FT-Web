@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Setup the repo
 cd /root/FT-WEB && git clean -fd && git checkout -- . && git checkout master && git pull

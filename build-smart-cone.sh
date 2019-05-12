@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Do the NPM installs up front, as we have cross-project dependencies, so
 # before we get into the actual building, need everything installed
