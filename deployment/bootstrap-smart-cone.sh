@@ -1,5 +1,12 @@
 #!/bin/bash
 
+echo "Installing NodeJS"
+wget https://nodejs.org/dist/v8.16.0/node-v8.16.0-linux-armv7l.tar.gz
+tar xf node-v8.16.0-linux-armv7l.tar.gz
+cd node-v8.16.0-linux-armv7l/ && sudo cp -R * /usr/local/
+echo "NodeJS version: "
+node -v
+
 # This script handles all deployment details for a Smart Cone
 
 sudo cp ~/FT-WEB/deployment/smartcone /etc/init.d/smartcone
