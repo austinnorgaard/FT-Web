@@ -35,9 +35,10 @@ mv /root/FT-WEB/field-trainer/field-trainer/dist ./serve-frontend
 
 # We can zip up the entire serve-frontend folder, ready for deployment
 tar -czvf smart-cone-frontend.tar.gz /root/FT-WEB/serve-frontend/
-tar -czvf smart-cone-backend.tar.gz /root/FT-WEB/serve-frontend/
+tar -czvf smart-cone-backend.tar.gz /root/FT-WEB/smart-cone-api/
 
 rm -rf /root/FT-WEB/smart-cone-package
+mkdir /root/FT-WEB/smart-cone-package
 mv /root/FT-WEB/smart-cone-frontend.tar.gz /root/FT-WEB/smart-cone-package
 mv /root/FT-WEB/smart-cone-backend.tar.gz /root/FT-WEB/smart-cone-package
 
