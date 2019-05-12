@@ -12,36 +12,36 @@ node -v
 npm -v
 
 pushd .
-cd /root/FT-WEB/field-trainer/field-trainer/ && SASS_BINARY_SITE=https://s3-us-west-2.amazonaws.com/sqlite3-builds/node-bass-build npm install
+cd ./field-trainer/field-trainer/ && SASS_BINARY_SITE=https://s3-us-west-2.amazonaws.com/sqlite3-builds/node-bass-build npm install
 popd
 
 pushd .
-cd /root/FT-WEB/smart-cone-api/ && npm install --node_sqlite3_binary_host_mirror=https://s3-us-west-2.amazonaws.com/sqlite3-builds/sqlite3-builds
+cd ./smart-cone-api/ && npm install --node_sqlite3_binary_host_mirror=https://s3-us-west-2.amazonaws.com/sqlite3-builds/sqlite3-builds
 popd
 
 pushd .
-cd /root/FT-WEB/serve-frontend/ && JOBS=`nproc` npm install
+cd ./serve-frontend/ && JOBS=`nproc` npm install
 popd
 
 pushd .
-cd /root/FT-WEB/smart-cone-api && npm run prestart:prod || exit -1
+cd ./smart-cone-api && npm run prestart:prod || exit -1
 popd
 
 pushd .
-cd /root/FT-WEB/field-trainer/field-trainer && npm run build || exit -1
+cd ./field-trainer/field-trainer && npm run build || exit -1
 popd
 
 # The frontend will have created a dist folder, just need copy the contents into the serve folder
-rm -rf /root/FT-WEB/serve-frontend/dist
-mv /root/FT-WEB/field-trainer/field-trainer/dist ./serve-frontend
+rm -rf ./serve-frontend/dist
+mv ./field-trainer/field-trainer/dist ./serve-frontend
 
 # We can zip up the entire serve-frontend folder, ready for deployment
-tar -czvf smart-cone-frontend.tar.gz /root/FT-WEB/serve-frontend/
-tar -czvf smart-cone-backend.tar.gz /root/FT-WEB/smart-cone-api/
+tar -czvf smart-cone-frontend.tar.gz ./serve-frontend/
+tar -czvf smart-cone-backend.tar.gz ./smart-cone-api/
 
-rm -rf /root/FT-WEB/smart-cone-package
-mkdir /root/FT-WEB/smart-cone-package
-mv /root/FT-WEB/smart-cone-frontend.tar.gz /root/FT-WEB/smart-cone-package
-mv /root/FT-WEB/smart-cone-backend.tar.gz /root/FT-WEB/smart-cone-package
+rm -rf ./smart-cone-package
+mkdir ./smart-cone-package
+mv ./smart-cone-frontend.tar.gz ./smart-cone-package
+mv ./smart-cone-backend.tar.gz ./smart-cone-package
 
-tar -czvf smart-cone-package.tar.gz /root/FT-WEB/smart-cone-package
+tar -czvf smart-cone-package.tar.gz ./smart-cone-package
