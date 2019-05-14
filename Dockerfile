@@ -3,14 +3,19 @@ WORKDIR /root
 
 ARG SSH_PRIVATE_KEY
 ARG SSH_PUBLIC_KEY
+ARG AWS_KEY
+ARG AWS_ACCESS
+
+ENV AWS_ACCESS_KEY_ID=$AWS_KEY
+ENV AWS_SECRET_ACCESS_KEY=$AWS_ACCESS
 
 # Hacky bash workaround so we can source later
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
 # Apt-get
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
-RUN apt-get update -y && apt-get install -y --no-install-recommends rssh python build-essential apt-transport-https ca-certificates curl git wget && rm -rf /var/lib/apt/lists/*
-
+RUN apt-get update -y && apt-get install -y --no-install-recommends rssh python python3 python3-pip build-essential apt-transport-https ca-certificates curl git wget && rm -rf /var/lib/apt/lists/*
+RUN pip3 install awscli --upgrade --user
 # NVM
 RUN mkdir /usr/local/nvm
 ENV NODE_VERSION 8.16.0
