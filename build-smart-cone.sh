@@ -20,7 +20,7 @@ cd ./smart-cone-api/ && npm install --node_sqlite3_binary_host_mirror=https://s3
 popd
 
 pushd .
-cd ./serve-frontend/ && JOBS=`nproc` npm install
+cd ./serve-frontend/ && npm install
 popd
 
 pushd .
@@ -36,9 +36,9 @@ rm -rf ./serve-frontend/dist
 mv ./field-trainer/field-trainer/dist ./serve-frontend
 
 # We can zip up the entire serve-frontend folder, ready for deployment
-tar -czvf smart-cone-frontend.tar.gz ./serve-frontend/
-tar -czvf smart-cone-backend.tar.gz ./smart-cone-api/
-tar -czvf smart-cone-fieldtrainer.tar.gz ./field-trainer/
+tar -czf smart-cone-frontend.tar.gz ./serve-frontend/
+tar -czf smart-cone-backend.tar.gz ./smart-cone-api/
+tar -czf smart-cone-fieldtrainer.tar.gz ./field-trainer/
 
 rm -rf ./smart-cone-package
 mkdir ./smart-cone-package
@@ -46,7 +46,4 @@ mv ./smart-cone-frontend.tar.gz ./smart-cone-package
 mv ./smart-cone-backend.tar.gz ./smart-cone-package
 mv ./smart-cone-fieldtrainer.tar.gz ./smart-cone-package
 
-tar -czvf smart-cone-package.tar.gz ./smart-cone-package
-
-scp smart-cone-package.tar.gz kdfreude@192.168.1.3:/home/kdfreude/smart-cone-package.tar.gz
-scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ./smart-cone-package.tar.gz kdfreude@192.168.1.3:/home/kdfreude
+tar -czf smart-cone-package.tar.gz ./smart-cone-package
