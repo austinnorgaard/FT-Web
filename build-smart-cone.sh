@@ -11,6 +11,8 @@ source $NVM_DIR/nvm.sh && nvm install $NODE_VERSION && nvm alias default $NODE_V
 node -v
 npm -v
 
+apt-get install -y pigz
+
 pushd .
 cd ./field-trainer/field-trainer/ && SASS_BINARY_SITE=https://s3-us-west-2.amazonaws.com/sqlite3-builds/node-bass-build npm install
 popd
@@ -36,9 +38,9 @@ rm -rf ./serve-frontend/dist
 mv ./field-trainer/field-trainer/dist ./serve-frontend
 
 # We can zip up the entire serve-frontend folder, ready for deployment
-tar -czf smart-cone-frontend.tar.gz ./serve-frontend/
-tar -czf smart-cone-backend.tar.gz ./smart-cone-api/
-tar -czf smart-cone-fieldtrainer.tar.gz ./field-trainer/
+tar -czf smart-cone-frontend.tar.gz -I pigz ./serve-frontend/
+tar -czf smart-cone-backend.tar.gz -I pigz ./smart-cone-api/
+tar -czf smart-cone-fieldtrainer.tar.gz -I pigz ./field-trainer/
 
 rm -rf ./smart-cone-package
 mkdir ./smart-cone-package
@@ -46,4 +48,4 @@ mv ./smart-cone-frontend.tar.gz ./smart-cone-package
 mv ./smart-cone-backend.tar.gz ./smart-cone-package
 mv ./smart-cone-fieldtrainer.tar.gz ./smart-cone-package
 
-tar -czf smart-cone-package.tar.gz ./smart-cone-package
+tar -czf smart-cone-package.tar.gz -I pigz ./smart-cone-package
