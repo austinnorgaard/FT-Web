@@ -33,5 +33,3 @@ RUN echo "$SSH_PRIVATE_KEY" > /root/.ssh/id_rsa && echo "$SSH_PUBLIC_KEY" > /roo
 
 # Repo
 RUN cd /root && git clone git@github.com:darrenmsmith/FT-WEB.git
-
-ENTRYPOINT ["sh", "-c", "echo Hello"]
