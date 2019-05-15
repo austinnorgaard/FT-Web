@@ -14,15 +14,11 @@ npm -v
 apt-get install -y pigz
 
 pushd .
-parallel sh -c ::: "cd /home/ubuntu/FT-WEB/smart-cone-api/ && npm install --node_sqlite3_binary_host_mirror=https://s3-us-west-2.amazonaws.com/sqlite3-builds/sqlite3-builds" "cd /home/ubuntu/FT-WEB/field-trainer/field-trainer/ && SASS_BINARY_SITE=https://s3-us-west-2.amazonaws.com/sqlite3-builds/node-bass-build npm install" "cd /home/ubuntu/FT-WEB/serve-frontend && npm install"
+parallel sh -c ::: "cd /root/FT-WEB/smart-cone-api/ && npm install --node_sqlite3_binary_host_mirror=https://s3-us-west-2.amazonaws.com/sqlite3-builds/sqlite3-builds" "cd /root/FT-WEB/field-trainer/field-trainer/ && SASS_BINARY_SITE=https://s3-us-west-2.amazonaws.com/sqlite3-builds/node-bass-build npm install" "cd /root/FT-WEB/serve-frontend && npm install"
 popd
 
 pushd .
-cd ./smart-cone-api && npm run prestart:prod || exit -1
-popd
-
-pushd .
-cd ./field-trainer/field-trainer && npm run build || exit -1
+parallel sh -c ::: "cd /root/FT-WEB/smart-cone-api && npm run prestart:prod" "cd /root/FT-WEB/field-trainer/field-trainer && npm run build"
 popd
 
 # The frontend will have created a dist folder, just need copy the contents into the serve folder
@@ -40,9 +36,9 @@ mv ./smart-cone-frontend.tar.gz ./smart-cone-package
 mv ./smart-cone-backend.tar.gz ./smart-cone-package
 mv ./smart-cone-fieldtrainer.tar.gz ./smart-cone-package
 
-tar -cf smart-cone-package.tar.gz -I pigz ./smart-cone-package
-
 OUTPUT_NAME="smart-cone-package-$(git rev-list --count HEAD).tar.gz"
+
+tar -cf $OUTPUT_NAME -I pigz ./smart-cone-package
 
 aws s3 cp ./$OUTPUT_NAME s3://field-trainer-builds
 
