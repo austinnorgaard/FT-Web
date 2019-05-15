@@ -38,9 +38,9 @@ rm -rf ./serve-frontend/dist
 mv ./field-trainer/field-trainer/dist ./serve-frontend
 
 # We can zip up the entire serve-frontend folder, ready for deployment
-tar -czf smart-cone-frontend.tar.gz -I pigz ./serve-frontend/
-tar -czf smart-cone-backend.tar.gz -I pigz ./smart-cone-api/
-tar -czf smart-cone-fieldtrainer.tar.gz -I pigz ./field-trainer/
+tar -cf smart-cone-frontend.tar.gz -I pigz ./serve-frontend/
+tar -cf smart-cone-backend.tar.gz -I pigz ./smart-cone-api/
+tar -cf smart-cone-fieldtrainer.tar.gz -I pigz ./field-trainer/
 
 rm -rf ./smart-cone-package
 mkdir ./smart-cone-package
@@ -48,7 +48,7 @@ mv ./smart-cone-frontend.tar.gz ./smart-cone-package
 mv ./smart-cone-backend.tar.gz ./smart-cone-package
 mv ./smart-cone-fieldtrainer.tar.gz ./smart-cone-package
 
-tar -czf smart-cone-package.tar.gz -I pigz ./smart-cone-package
+tar -cf smart-cone-package.tar.gz -I pigz ./smart-cone-package
 
 OUTPUT_NAME="smart-cone-package-$(git rev-list --count HEAD).tar.gz"
 
