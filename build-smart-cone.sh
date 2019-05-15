@@ -53,3 +53,6 @@ tar -czf smart-cone-package.tar.gz -I pigz ./smart-cone-package
 OUTPUT_NAME="smart-cone-package-$(git rev-list --count HEAD).tar.gz"
 
 aws s3 cp ./$OUTPUT_NAME s3://field-trainer-builds
+
+# stop the instance to save $$$$
+aws ec2 stop-instances --instance-ids i-0ccc4ab7e15faa5d5 --region us-west-2
