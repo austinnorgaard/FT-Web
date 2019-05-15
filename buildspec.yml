@@ -1,8 +1,0 @@
-version: 0.2
-phases:
-    build:
-        commands:
-            run-docker.bat
-    post_build:
-        commands:
-            docker cp ft-build:/root/FT-WEB/smart-cone-package.tar.gz ./
