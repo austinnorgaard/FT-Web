@@ -14,7 +14,7 @@ RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
 # Apt-get
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
-RUN apt-get update -y && apt-get install -y --no-install-recommends rssh python python3 python3-pip build-essential apt-transport-https ca-certificates curl git wget && rm -rf /var/lib/apt/lists/*
+RUN apt-get update -y && apt-get install -y --no-install-recommends rssh parallel python python3 python3-pip build-essential apt-transport-https ca-certificates curl git wget && rm -rf /var/lib/apt/lists/*
 RUN pip3 install awscli --upgrade --user
 # NVM
 RUN mkdir /usr/local/nvm
@@ -25,6 +25,7 @@ RUN wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | 
 
 ENV NODE_PATH $NVM_INSTALL_PATH/lib/node_modules
 ENV PATH $NVM_DIR/v$NODE_VERSION/bin:$PATH
+ENV PATH /root/.local/bin:$PATH
 
 # SSH
 RUN mkdir -p /root/.ssh && chmod 0700 /root/.ssh && ssh-keyscan github.com > /root/.ssh/known_hosts

@@ -14,15 +14,7 @@ npm -v
 apt-get install -y pigz
 
 pushd .
-cd ./field-trainer/field-trainer/ && SASS_BINARY_SITE=https://s3-us-west-2.amazonaws.com/sqlite3-builds/node-bass-build npm install
-popd
-
-pushd .
-cd ./smart-cone-api/ && npm install --node_sqlite3_binary_host_mirror=https://s3-us-west-2.amazonaws.com/sqlite3-builds/sqlite3-builds
-popd
-
-pushd .
-cd ./serve-frontend/ && npm install
+parallel sh -c ::: "cd /home/ubuntu/FT-WEB/smart-cone-api/ && npm install --node_sqlite3_binary_host_mirror=https://s3-us-west-2.amazonaws.com/sqlite3-builds/sqlite3-builds" "cd /home/ubuntu/FT-WEB/field-trainer/field-trainer/ && SASS_BINARY_SITE=https://s3-us-west-2.amazonaws.com/sqlite3-builds/node-bass-build npm install" "cd /home/ubuntu/FT-WEB/serve-frontend && npm install"
 popd
 
 pushd .
