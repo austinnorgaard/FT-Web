@@ -14,7 +14,7 @@ RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
 # Apt-get
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
-RUN apt-get update -y && apt-get install -y --no-install-recommends rssh parallel python python3 python3-pip build-essential apt-transport-https ca-certificates curl git wget && rm -rf /var/lib/apt/lists/*
+RUN apt-get update -y && apt-get install -y --no-install-recommends rssh parallel pigz python python3 python3-pip build-essential apt-transport-https ca-certificates curl git wget && rm -rf /var/lib/apt/lists/*
 RUN pip3 install awscli --upgrade --user
 # NVM
 RUN mkdir /usr/local/nvm

@@ -11,6 +11,7 @@ source $NVM_DIR/nvm.sh && nvm install $NODE_VERSION && nvm alias default $NODE_V
 node -v
 npm -v
 
+apt-get update
 apt-get install -y pigz parallel
 
 pushd .
