@@ -49,3 +49,7 @@ mv ./smart-cone-backend.tar.gz ./smart-cone-package
 mv ./smart-cone-fieldtrainer.tar.gz ./smart-cone-package
 
 tar -czf smart-cone-package.tar.gz -I pigz ./smart-cone-package
+
+OUTPUT_NAME="smart-cone-package-$(git rev-list --count HEAD).tar.gz"
+
+aws s3 cp ./$OUTPUT_NAME s3://field-trainer-builds
