@@ -1,4 +1,4 @@
-import { IsDate, IsNumber, IsString, IsBoolean, IsOptional } from "../../../field-trainer/field-trainer/node_modules/class-validator";
+import { IsDate, IsNumber, IsString, IsBoolean, IsOptional } from "class-validator";
 import { Type, Transform } from "../../../field-trainer/field-trainer/node_modules/class-transformer";
 
 import * as moment from "moment";

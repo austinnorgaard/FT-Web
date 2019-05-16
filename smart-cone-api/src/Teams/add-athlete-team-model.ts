@@ -1,4 +1,4 @@
-import { IsNumber } from "../../../field-trainer/field-trainer/node_modules/class-validator";
+import { IsNumber } from "class-validator";
 
 export class AddAthleteTeamModel {
     @IsNumber() athleteId: number;

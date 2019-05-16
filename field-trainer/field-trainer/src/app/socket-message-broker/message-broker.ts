@@ -1,7 +1,7 @@
 import { Subject, Observable } from "rxjs";
 import { EventSubjectMap, ClassType } from "./event-subject-map";
 import { plainToClass } from "class-transformer";
-import { validate } from "class-validator";
+import { validate } from "../../../../../smart-cone-api/node_modules/class-validator";
 
 export abstract class MessageBroker {
     protected subjects: Subject<any>[] = [];

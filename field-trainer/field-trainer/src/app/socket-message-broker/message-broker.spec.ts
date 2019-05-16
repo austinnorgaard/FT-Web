@@ -1,5 +1,5 @@
 import { SocketMessageBroker } from "./socket-message-broker";
-import { IsNumber, IsString, IsArray, ValidateNested, Validate, IsDate, IsBoolean } from "class-validator";
+import { IsNumber, IsString, IsArray, ValidateNested, Validate, IsDate, IsBoolean } from "../../../../../smart-cone-api/node_modules/class-validator";
 import { Type, Transform } from "class-transformer";
 import { MessageBroker } from "./message-broker";
 import { MockMessageBroker } from "./mock-message-broker";
