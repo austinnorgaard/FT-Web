@@ -19,6 +19,18 @@ parallel sh -c ::: "cd /root/FT-WEB/smart-cone-api/ && npm install --node_sqlite
 popd
 
 pushd .
+cd ./field-trainer/field-trainer/ && SASS_BINARY_SITE=https://s3-us-west-2.amazonaws.com/sqlite3-builds/node-bass-build npm install
+popd
+
+pushd .
+cd ./smart-cone-api/ && npm install --node_sqlite3_binary_host_mirror=https://s3-us-west-2.amazonaws.com/sqlite3-builds/sqlite3-builds
+popd
+
+pushd .
+cd ./serve-frontend/ && npm install
+popd
+
+pushd .
 parallel sh -c ::: "cd /root/FT-WEB/smart-cone-api && npm run prestart:prod" "cd /root/FT-WEB/field-trainer/field-trainer && npm run build"
 popd
 
