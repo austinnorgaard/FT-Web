@@ -1,9 +1,8 @@
 import { SocketMessageBroker } from "./socket-message-broker";
 import { IsNumber, IsString, IsArray, ValidateNested, Validate, IsDate, IsBoolean } from "../../../../../smart-cone-api/node_modules/class-validator";
-import { Type, Transform } from "class-transformer";
+import { Type, Transform } from "../../../../../smart-cone-api/node_modules/class-transformer";
 import { MessageBroker } from "./message-broker";
 import { MockMessageBroker } from "./mock-message-broker";
-import { AthleteSessionArray } from "../session/services/session.service";
 import { Athlete, BlahDto } from "../../../../../smart-cone-api/src/Athletes/athlete";
 import { Segment } from "../../../../../smart-cone-api/src/Training/segment";
 

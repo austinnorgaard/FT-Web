@@ -1,7 +1,7 @@
 import { Athlete } from "../Athletes/athlete";
 import { Segment } from "./segment";
 import { FieldConeInfo } from "../FieldCones/field-cone-info";
-import { Type } from "../../../field-trainer/field-trainer/node_modules/class-transformer";
+import { Type } from "class-transformer";
 import { IsArray, ValidateNested } from "class-validator";
 
 // Session data for a single athlete during training

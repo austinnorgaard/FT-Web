@@ -1,7 +1,7 @@
 import { Athlete } from "./athlete";
 import { Team } from "../Teams/team";
 import { IsOptional, ValidateNested, IsDefined } from "class-validator";
-import { Type } from "../../../field-trainer/field-trainer/node_modules/class-transformer";
+import { Type } from "class-transformer";
 
 function a() {
     return Athlete;

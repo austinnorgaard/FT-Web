@@ -1,5 +1,5 @@
 import { IsNumber, ValidateNested } from "class-validator";
-import { Type } from "../../../field-trainer/field-trainer/node_modules/class-transformer";
+import { Type } from "class-transformer";
 import { Cone } from "./cone";
 
 export abstract class Field {

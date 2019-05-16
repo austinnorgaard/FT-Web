@@ -1,6 +1,6 @@
 import { IsString, IsOptional, IsNumber, ValidateNested, IsPhoneNumber } from "class-validator";
 import { Team } from "../Teams/team";
-import { Type } from "../../../field-trainer/field-trainer/node_modules/class-transformer";
+import { Type } from "class-transformer";
 
 function t() {
     return Team;

@@ -8,7 +8,7 @@ import { HttpHelperService } from "../../misc/services/http-helper.service";
 import { AthleteSession, SegmentArray } from "../../../../../../smart-cone-api/src/Training/athlete-session";
 import { SocketMessageBrokerService } from "../../socket-message-broker/socket-message-broker.service";
 import { TrainingSessionState } from "@SmartCone/Training/training-session-state";
-import { plainToClass } from "class-transformer";
+import { plainToClass } from "../../../../../../smart-cone-api/node_modules/class-transformer";
 
 @Injectable({ providedIn: "root" })
 export class SessionService {

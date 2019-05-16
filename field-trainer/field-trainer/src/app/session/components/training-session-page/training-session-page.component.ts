@@ -43,7 +43,7 @@ import { SessionSetupData } from "../../models/session-setup-data";
 import { Athlete } from "../../../../../../../smart-cone-api/src/Athletes/athlete";
 import { Router } from "@angular/router";
 import { TrainingSessionState } from "@SmartCone/Training/training-session-state";
-import { plainToClass } from "class-transformer";
+import { plainToClass } from "../../../../../../../smart-cone-api/node_modules/class-transformer";
 
 @Component({
     selector: "ft-training-session-page",
