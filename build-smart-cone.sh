@@ -39,7 +39,7 @@ OUTPUT_NAME="smart-cone-package-$(git rev-list --count HEAD).tar.gz"
 
 tar -cf $OUTPUT_NAME -I pigz ./smart-cone-package
 
-/root/.local/bin/aws s3 cp ./$OUTPUT_NAME s3://field-trainer-builds
+/root/.local/bin/aws s3 cp ./$OUTPUT_NAME s3://field-trainer-builds/smart-cone
 
 # stop the instance to save $$$$
 /root/.local/bin/aws ec2 stop-instances --instance-ids i-0ccc4ab7e15faa5d5 --region us-west-2
