@@ -19,18 +19,6 @@ parallel sh -c ::: "cd /root/FT-WEB/smart-cone-api/ && npm install --node_sqlite
 popd
 
 pushd .
-cd ./field-trainer/field-trainer/ && SASS_BINARY_SITE=https://s3-us-west-2.amazonaws.com/sqlite3-builds/node-bass-build npm install
-popd
-
-pushd .
-cd ./smart-cone-api/ && npm install --node_sqlite3_binary_host_mirror=https://s3-us-west-2.amazonaws.com/sqlite3-builds/sqlite3-builds
-popd
-
-pushd .
-cd ./serve-frontend/ && npm install
-popd
-
-pushd .
 parallel sh -c ::: "cd /root/FT-WEB/smart-cone-api && npm run prestart:prod" "cd /root/FT-WEB/field-trainer/field-trainer && npm run build"
 popd
 
@@ -41,13 +29,11 @@ mv ./field-trainer/field-trainer/dist ./serve-frontend
 # We can zip up the entire serve-frontend folder, ready for deployment
 tar -cf smart-cone-frontend.tar.gz -I pigz ./serve-frontend/
 tar -cf smart-cone-backend.tar.gz -I pigz ./smart-cone-api/
-tar -cf smart-cone-fieldtrainer.tar.gz -I pigz ./field-trainer/
 
 rm -rf ./smart-cone-package
 mkdir ./smart-cone-package
 mv ./smart-cone-frontend.tar.gz ./smart-cone-package
 mv ./smart-cone-backend.tar.gz ./smart-cone-package
-mv ./smart-cone-fieldtrainer.tar.gz ./smart-cone-package
 
 OUTPUT_NAME="smart-cone-package-$(git rev-list --count HEAD).tar.gz"
 
