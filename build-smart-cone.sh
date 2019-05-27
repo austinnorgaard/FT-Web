@@ -35,11 +35,20 @@ mkdir ./smart-cone-package
 mv ./smart-cone-frontend.tar.gz ./smart-cone-package
 mv ./smart-cone-backend.tar.gz ./smart-cone-package
 
-OUTPUT_NAME="smart-cone-package-$(git rev-list --count HEAD).tar.gz"
+BUILD_NUM="$(git rev-list --count HEAD)"
+OUTPUT_NAME="smart-cone-package-$BUILD_NUM.tar.gz"
 
 tar -cf $OUTPUT_NAME -I pigz ./smart-cone-package
 
 /root/.local/bin/aws s3 cp ./$OUTPUT_NAME s3://field-trainer-builds/smart-cone/$OUTPUT_NAME
+
+# update the builds.json
+cp /root/FT-WEB/build_template.json ./builds.json
+
+sed -i "s/NEWVERSION/$BUILD_NUM/g" ./builds.json
+sed -i "s/NEWURI/smart-cone\/$OUTPUT_NAME/g" ./builds.json
+
+/root/.local/bin/aws s3 cp ./builds.json s3://field-trainer-builds/smart-cone/builds.json
 
 # stop the instance to save $$$$
 /root/.local/bin/aws ec2 stop-instances --instance-ids i-0ccc4ab7e15faa5d5 --region us-west-2

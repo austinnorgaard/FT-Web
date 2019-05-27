@@ -4,19 +4,35 @@ import requests
 import sys
 import json
 import boto3
+import os
 
+import argparse
+
+parser = argparse.ArgumentParser(description="Field Trainer Update Client")
+parser.add_argument('--work-dir', dest='work_dir', type=str, default="/home/pi/.ft-update",
+        help="Override updaters workdir, where packages will be installed")
 
 def get_cone_type():
     # We are assuming that fieldcones are running the Pi zero
     # and smart cones are _anything_ else as we've supported
     # two different platforms thus far
-    with open('/proc/device-tree/model') as model_file:
-        text = model_file.read()
-        if 'Pi Zero' in text:
-            return 'field'
-        else:
-            return 'smart'
-    raise "Could not figure out cone type!"
+    try:
+        with open('/proc/device-tree/model') as model_file:
+            text = model_file.read()
+            if 'Pi Zero' in text:
+                return 'field'
+            else:
+                return 'smart'
+        raise "Could not figure out cone type!"
+    except FileNotFoundError as error:
+        # In this case we'll assume we're on a development system
+        # for testing, assume we're a smart cone
+        return 'smart'
+    except:
+        # any other error and we blow up as we can't meaningfully
+        # continue at this point
+        sys.exit(-1)
+
 
 
 def read_json_file(path):
@@ -68,10 +84,18 @@ def downloadAllPackages(packages):
     s3 = boto3.client('s3')
 
     for package in packages:
+        downloadPackage(s3, package['name'], package['uri'])
+
+
+def downloadPackage(s3, packageName, packageUri):
         print("Downloading package {}. URI: {}".format(
-            package['name'], package['uri']))
+            packageName, packageUri))
+
         s3.download_file('field-trainer-builds',
-                         package['uri'], '/home/pi/{}.tar.gz'.format(package['name']))
+                         packageUri, '{}/downloads/{}.tar.gz'.format(args.work_dir, packageName))    
+
+def extract_packages():
+    pass
 
 
 def handle_smart_cone_update():
@@ -94,6 +118,19 @@ def handle_smart_cone_update():
 def handle_field_cone_update():
     pass
 
+args = parser.parse_args()
+
+# Anything which needs to happen before running the installer
+def pre_work():
+    try:
+        # Create the work dir and any nested directories needed
+        os.makedirs(args.work_dir)
+        os.makedirs('{}/downloads'.format(args.work_dir))
+    except FileExistsError:
+        # no problem
+        pass
+    except Exception as err:
+        print("Failed to create work dirs. Error message: {}".format(err))
 
 if __name__ == "__main__":
     # need to figure out if we are running on a smart cone
@@ -104,8 +141,10 @@ if __name__ == "__main__":
     # If we are behind in version on any packages, we download and install
 
     # Each package comes with a script which knows how to install the package
-
+    
     try:
+        pre_work()
+
         cone_type = get_cone_type()
         try:
             if cone_type == 'smart':
