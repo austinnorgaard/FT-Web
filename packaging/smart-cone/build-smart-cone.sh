@@ -43,7 +43,7 @@ tar -cf $OUTPUT_NAME -I pigz ./smart-cone-package
 /root/.local/bin/aws s3 cp ./$OUTPUT_NAME s3://field-trainer-builds/smart-cone/$OUTPUT_NAME
 
 # update the builds.json
-cp /root/FT-WEB/build_template.json ./builds.json
+cp /root/FT-WEB/packaging/common/build_template.json ./builds.json
 
 sed -i "s/NEWVERSION/$BUILD_NUM/g" ./builds.json
 sed -i "s/NEWURI/smart-cone\/$OUTPUT_NAME/g" ./builds.json
