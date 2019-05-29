@@ -30,15 +30,15 @@ mv ./field-trainer/field-trainer/dist ./serve-frontend
 tar -cf smart-cone-frontend.tar.gz -I pigz ./serve-frontend/
 tar -cf smart-cone-backend.tar.gz -I pigz ./smart-cone-api/
 
-rm -rf ./smart-cone-package
-mkdir ./smart-cone-package
-mv ./smart-cone-frontend.tar.gz ./smart-cone-package
-mv ./smart-cone-backend.tar.gz ./smart-cone-package
+rm -rf ./smart-cone
+mkdir ./smart-cone
+mv ./smart-cone-frontend.tar.gz ./smart-cone
+mv ./smart-cone-backend.tar.gz ./smart-cone
 
 BUILD_NUM="$(git rev-list --count HEAD)"
-OUTPUT_NAME="smart-cone-package-$BUILD_NUM.tar.gz"
+OUTPUT_NAME="smart-cone-$BUILD_NUM.tar.gz"
 
-tar -cf $OUTPUT_NAME -I pigz ./smart-cone-package
+tar -cf $OUTPUT_NAME -I pigz ./smart-cone
 
 /root/.local/bin/aws s3 cp ./$OUTPUT_NAME s3://field-trainer-builds/smart-cone/$OUTPUT_NAME
 
