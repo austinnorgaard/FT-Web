@@ -8,7 +8,7 @@ export const FtSequelize = {
             dialect: "sqlite",
             username: "root",
             password: "",
-            storage: "./db/field-trainer-db.db",
+            storage: "/var/tmp/field-trainer-db.db",
             modelPaths: [__dirname + "/Models"],
             logging: false,
             operatorsAliases: false,

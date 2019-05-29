@@ -1,11 +1,5 @@
 #!/bin/bash
 
-# For now... recopy any file which may change in the update script
-# TODO: Need to split file updates away from bootstrap content...
-sudo cp ~/FT-WEB/deployment/smartcone /etc/init.d/smartcone
-sudo chmod +x /etc/init.d/smartcone
-sudo update-rc.d smartcone defaults
-
 # Audio files
 # Delete any existing ones..
 sudo rm -rf /var/tmp/ft-audio-files/

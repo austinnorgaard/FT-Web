@@ -34,6 +34,8 @@ rm -rf ./smart-cone
 mkdir ./smart-cone
 mv ./smart-cone-frontend.tar.gz ./smart-cone
 mv ./smart-cone-backend.tar.gz ./smart-cone
+mv /root/FT-WEB/packaging/smart-cone/smartcone ./smart-cone
+mv /root/FT-WEB/packaging/smart-cone/install.sh ./smart-cone
 
 BUILD_NUM="$(git rev-list --count HEAD)"
 OUTPUT_NAME="smart-cone-$BUILD_NUM.tar.gz"
