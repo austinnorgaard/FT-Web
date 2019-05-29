@@ -19,7 +19,11 @@ parallel sh -c ::: "cd /root/FT-WEB/smart-cone-api/ && npm install --node_sqlite
 popd
 
 pushd .
-parallel sh -c ::: "cd /root/FT-WEB/smart-cone-api && npm run prestart:prod" "cd /root/FT-WEB/field-trainer/field-trainer && npm run build"
+cd /root/FT-WEB/field-trainer/field-trainer && npm run build
+popd
+
+pushd .
+cd /root/FT-WEB/smart-cone-api && npm run prestart:prod
 popd
 
 # The frontend will have created a dist folder, just need copy the contents into the serve folder

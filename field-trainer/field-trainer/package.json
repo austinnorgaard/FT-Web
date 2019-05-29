@@ -5,7 +5,7 @@
     "scripts": {
         "ng": "ng",
         "start": "ng serve",
-        "build": "ng build --source-map=false",
+        "build": "ng build --source-map=false --prod",
         "test": "ng test --progress",
         "lint": "ng lint",
         "e2e": "ng e2e",
