@@ -22,8 +22,8 @@ stop)
 start)
     echo "Starting Smart Cone service."
     date > /var/tmp/last-start-time
-    cd /home/pi/FT-WEB/serve-frontend/ && node index.js &
-    cd /home/pi/FT-WEB/smart-cone-api && npm run start &
+    cd /opt/smart-cone-api/dist/smart-cone-api/src && node index.js &
+    cd /opt/serve-frontend && node index.js &
     ;;
 
 restart)
