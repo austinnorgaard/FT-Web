@@ -7,6 +7,7 @@ import boto3
 import os
 import time
 import subprocess
+import shutil
 from botocore.config import Config
 
 import argparse
@@ -66,7 +67,7 @@ def find_packages_to_update(remotePackages):
     packagesToUpdate = []
     for remotePackage in remotePackages['packages']:
         packagesToUpdate.append(
-            {'name': remotePackage['name'], 'uri': remotePackage['uri']})
+            {'name': remotePackage['name'], 'uri': remotePackage['uri'], 'version': remotePackage['version']})
 
     for remotePackage in remotePackages:
         for localPackage in localPackages:
@@ -132,6 +133,48 @@ def extract_packages(packages):
         subprocess.call(['tar', '-xf', path, "-C", args.work_dir])
 
 
+def install_packages(packages):
+    for package in packages:
+        # construct the path to the install.sh script, change into this directory
+        # run the script (all scripts assume they are being called in the same directory
+        # as the package contents).
+        basePath = os.path.join(args.work_dir, package['uri'].split('/')[0])
+        scriptPath = os.path.join(basePath, "install.sh")
+        print("Script path: {}".format(scriptPath))
+        subprocess.call(['bash', scriptPath], cwd=basePath)
+
+
+def update_local_builds(packages):
+    # @packages refers to the packages we've just downloaded & installed
+    # We can parse the file at: /var/tmp/builds.json, it contains an array of
+    # dictionaries with name & version. We can check if any of the packages
+    # we installed were already installed (prior version), or not installed already (missing)
+    # and update the file accordingly
+
+    # First -- if /var/tmp/builds.json doesn't exist, don't bother parsing it, just start with
+    # an empty setup
+    localJson = None
+    if not os.path.isfile('/var/tmp/builds.json'):
+        localJson = json.loads('{ "packages": [] }')
+    else:
+        localJson = read_json_file('/var/tmp/builds.json')
+
+    name_found = False
+    for package in packages:
+        # iterate every package in the local json, see if we already have an entry for this
+        for localPackage in localJson['packages']:
+            if localPackage['name'] == package['name']:
+                name_found = True
+                localPackage['version'] = package['version']
+        if not name_found:
+            localJson['packages'].append(
+                {"name": package["name"], "version": package["version"]})
+        name_found = False
+
+    with open('/var/tmp/builds.json', 'w+') as localFile:
+        json.dump(localJson, localFile, indent=4)
+
+
 def handle_cone_update(coneType):
     print("Updating this {}-cone".format(coneType))
     # Ask the remote server which packages are available for the smart cone
@@ -146,6 +189,8 @@ def handle_cone_update(coneType):
     packagesToUpdate = find_packages_to_update(remotePackages)
     download_all_packages(packagesToUpdate)
     extract_packages(packagesToUpdate)
+    install_packages(packagesToUpdate)
+    update_local_builds(packagesToUpdate)
 
 
 # Handles the entire update flow for Field Cones
@@ -162,6 +207,8 @@ args = parser.parse_args()
 
 def pre_work():
     try:
+        # delete the entire work_dir from previous runs
+        shutil.rmtree(args.work_dir)
         # Create the work dir and any nested directories needed
         os.makedirs(args.work_dir)
         os.makedirs('{}/downloads'.format(args.work_dir))

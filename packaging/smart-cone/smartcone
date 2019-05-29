@@ -22,7 +22,7 @@ stop)
 start)
     echo "Starting Smart Cone service."
     date > /var/tmp/last-start-time
-    cd /opt/smart-cone-api/dist/smart-cone-api/src && node index.js &
+    cd /opt/smart-cone-api/dist/smart-cone-api/src && node main.js &
     cd /opt/serve-frontend && node index.js &
     ;;
 
