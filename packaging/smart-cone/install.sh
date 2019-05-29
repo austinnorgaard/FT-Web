@@ -26,4 +26,5 @@ sudo mv ./smartcone /etc/init.d/smartcone
 sudo chmod +x /etc/init.d/smartcone
 sudo update-rc.d smartcone defaults
 
-sudo service smartcone start
+sudo systemctl daemon-reload
+sudo systemctl restart smartcone
