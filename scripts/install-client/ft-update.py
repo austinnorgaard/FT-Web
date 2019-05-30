@@ -62,6 +62,9 @@ def find_packages_to_update(remotePackages):
     print('Total number of local packages: {}'.format(
         len(localPackages['packages'])))
 
+    print('Total number of remote packages: {}'.format(
+        len(remotePackages['packages'])))
+
     # Start with the whole list of remote packages, remove any for which we have the latest
     # version as found in `localPackages`
     packagesToUpdate = []
@@ -69,14 +72,13 @@ def find_packages_to_update(remotePackages):
         packagesToUpdate.append(
             {'name': remotePackage['name'], 'uri': remotePackage['uri'], 'version': remotePackage['version']})
 
-    for remotePackage in remotePackages:
-        for localPackage in localPackages:
+    for remotePackage in remotePackages['packages']:
+        for localPackage in localPackages['packages']:
             try:
                 if localPackage['name'] == remotePackage['name'] and localPackage['version'] >= remotePackage['version']:
-                    # needs update
-                    packagesToUpdate.remove(remotePackage['name'])
-                    packagesToUpdate = [package for package in packagesToUpdate if not (
-                        package['name'] == remotePackage['name'])]
+                    packagesToUpdate = list((
+                        package for package in packagesToUpdate if package['name'] != remotePackage['name']))
+
             except:
                 pass
 
