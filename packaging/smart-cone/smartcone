@@ -20,10 +20,27 @@ stop)
     ;;
 
 start)
-    echo "Starting Smart Cone service."
-    date > /var/tmp/last-start-time
-    cd /opt/smart-cone-api/dist/smart-cone-api/src && node main.js &
-    cd /opt/serve-frontend && node index.js &
+    killall node
+    echo "Checking for updates"
+    ft-update
+    ec=$?
+    if [ $ec -eq 42 ]; then
+	    echo "ft-update needed to update itself, rerunning"
+	    ft-update
+	    ec=$?
+    fi
+    if [ $ec -eq 0 ]; then
+	    echo "Update client successful"
+
+	    echo "Starting Smart Cone service."
+	    date > /var/tmp/last-start-time
+	    node /opt/smart-cone-api/dist/smart-cone-api/src/main.js &
+	    node /opt/serve-frontend/index.js &
+    else
+	    echo "Failed to update! Giving up!"
+	    echo "Failed to update" > /var/tmp/smartcone-failed
+	    date > /var/tmp/last-start-time
+    fi
     ;;
 
 restart)
