@@ -9,6 +9,7 @@ import time
 import subprocess
 import shutil
 from botocore.config import Config
+from datetime import datetime
 
 import argparse
 
@@ -221,6 +222,94 @@ def pre_work():
         print("Failed to create work dirs. Error message: {}".format(err))
 
 
+def update_script():
+    # Pull all of the releases on FT-WEB repo, grab the latest release, compare its version
+    # to our locally installed version, update if needed. If an update occurs, exit the script
+    # with a specific error code so other processes know to rerun
+    response = requests.get('https://api.github.com/repos/darrenmsmith/FT-WEB/releases/latest',
+                            headers={'Authorization': 'Bearer {}'.format(os.environ['GH_API_KEY'])})
+    if response.status_code != 200:
+        print("Unable to query FT-WEB builds! Giving up now")
+        sys.exit(1)
+
+    body = response.json()
+    print("Latest build published at: {}".format(body['published_at']))
+    datePublished = datetime.strptime(
+        body['published_at'].replace("Z", ""), "%Y-%m-%dT%H:%M:%S")
+
+    needUpdate = False
+    ourDate = ""
+    # check our local copies version
+    if not os.path.isfile("/var/tmp/ft-update-build"):
+        print("/var/tmp/ft-update-build does not exist")
+        needUpdate = True
+    else:
+        print('/var/tmp/ft-update-build exists')
+        with open('/var/tmp/ft-update-build', 'r') as file:
+            text = file.read()
+            # Should be a date...
+            ourDate = datetime.strptime(
+                text.replace("Z", ""), "%Y-%m-%dT%H:%M:%S")
+
+            print('Our date: {}'.format(ourDate))
+            print('Published date: {}'.format(datePublished))
+
+            if datePublished > ourDate:
+                print('The published date is greater than local date')
+                needUpdate = True
+            else:
+                print('The published date is less than local date')
+                needUpdate = False
+
+    if needUpdate:
+        print("Need to update script!")
+        do_update(body)
+        with open('/var/tmp/ft-update-build', 'w+') as dateFile:
+            dateFile.write(body['published_at'])
+        # exit with exit code 42 to indicate that we needed to update
+        # and the caller should rerun the script
+        sys.exit(42)
+    else:
+        print("No need to update script!")
+
+
+def do_update(body):
+    print(body)
+    # body is the already completed HTTP request which has the build info..
+    downloadUrl = "https://api.github.com/repos/darrenmsmith/FT-WEB/releases/assets/{}".format(
+        body['assets'][0]['id'])
+    download_file(downloadUrl, '/home/pi/ft-update')
+    # Script is a single executable, so just move it into /usr/local/bin
+    # and the update is complete
+    subprocess.call(
+        ['sudo', 'mv', '-f', '/home/pi/ft-update', '/usr/local/bin'])
+    subprocess.call(['sudo', 'chmod', '+x', '/usr/local/bin/ft-update'])
+
+
+def download_file(url, path):
+    with open(path, "wb") as f:
+        print("Downloading {} to {}".format(url, path))
+        response = requests.get(url, stream=True, headers={
+            'Authorization': 'Bearer {}'.format(os.environ['GH_API_KEY']),
+            'Accept': 'application/octet-stream'
+        }, allow_redirects=True)
+        totalLength = response.headers.get('content-length')
+
+        if totalLength is None:  # no content length header
+            print("No content length header")
+            f.write(response.content)
+        else:
+            dl = 0
+            totalLength = int(totalLength)
+            for data in response.iter_content(chunk_size=4096):
+                dl += len(data)
+                f.write(data)
+                done = int(50 * dl / totalLength)
+                sys.stdout.write("\r[%s%s]" % ('=' * done, ' ' * (50-done)))
+                sys.stdout.flush()
+            print("")
+
+
 if __name__ == "__main__":
     # need to figure out if we are running on a smart cone
     # or a field cone. From there, we can ask the remote server
@@ -230,6 +319,7 @@ if __name__ == "__main__":
     # If we are behind in version on any packages, we download and install
 
     # Each package comes with a script which knows how to install the package
+    update_script()
 
     try:
         pre_work()
