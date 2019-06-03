@@ -311,6 +311,8 @@ def download_file(url, path):
 
 
 if __name__ == "__main__":
+
+
     # need to figure out if we are running on a smart cone
     # or a field cone. From there, we can ask the remote server
     # which packages are available, then we can query our own filesystem
@@ -318,17 +320,30 @@ if __name__ == "__main__":
     # versions (new cone or new package), we download them and install
     # If we are behind in version on any packages, we download and install
 
-    # Each package comes with a script which knows how to install the package
-    update_script()
-
+    # Wrap the entire functionality in code which will ensure only 1 copy of the update
+    # is running
+    
     try:
-        pre_work()
+        import socket
+        s = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+        s.bind('\0ft_update_lock')
+        
+        # if we get this far, then we are the only running copy!
 
-        cone_type = get_cone_type()
+        # Each package comes with a script which knows how to install the package
+        update_script()
+
         try:
-            handle_cone_update(cone_type)
+            pre_work()
+
+            cone_type = get_cone_type()
+            try:
+                handle_cone_update(cone_type)
+            except Exception as error:
+                print(error)
         except Exception as error:
             print(error)
-    except Exception as error:
-        print(error)
-        sys.exit(-1)
+            sys.exit(-1)
+    except:
+        print("Another process is already running!")
+        sys.exit(0)
