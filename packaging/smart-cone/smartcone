@@ -22,6 +22,8 @@ stop)
 start)
     killall node
     echo "Checking for updates"
+    # Set the environment variables ft-update needs
+    . /var/tmp/ft_environment
     ft-update
     ec=$?
     if [ $ec -eq 42 ]; then
