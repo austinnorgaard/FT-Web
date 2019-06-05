@@ -38,4 +38,4 @@ sed -i "s/NEWURI/field-cone\/$OUTPUT_NAME/g" ./builds.json
 
 /root/.local/bin/aws s3 cp ./builds.json s3://field-trainer-builds/field-cone/builds.json
 
-/root/.local/bin/aws ec2 stop-instances --instance-ids i-0ccc4ab7e15faa5d5 --region us-west-2
+/root/.local/bin/aws ec2 stop-instances --instance-ids i-017002d360a9cffa8 --region us-west-2
