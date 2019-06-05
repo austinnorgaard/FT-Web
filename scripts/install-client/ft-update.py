@@ -210,9 +210,12 @@ args = parser.parse_args()
 
 def pre_work():
     try:
-        # delete the entire work_dir from previous runs
-        shutil.rmtree(args.work_dir)
-        # Create the work dir and any nested directories needed
+        try:
+            # delete the entire work_dir from previous runs
+            shutil.rmtree(args.work_dir)
+        except:
+            pass
+        # Create the work dir and any nested directories I was thinking a decent idea wouldneeded
         os.makedirs(args.work_dir)
         os.makedirs('{}/downloads'.format(args.work_dir))
     except FileExistsError:
@@ -312,7 +315,6 @@ def download_file(url, path):
 
 if __name__ == "__main__":
 
-
     # need to figure out if we are running on a smart cone
     # or a field cone. From there, we can ask the remote server
     # which packages are available, then we can query our own filesystem
@@ -322,12 +324,12 @@ if __name__ == "__main__":
 
     # Wrap the entire functionality in code which will ensure only 1 copy of the update
     # is running
-    
+
     try:
         import socket
         s = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
         s.bind('\0ft_update_lock')
-        
+
         # if we get this far, then we are the only running copy!
 
         # Each package comes with a script which knows how to install the package
