@@ -14,7 +14,7 @@ apt-get install -y pigz
 
 pushd .
 cd /root/FT-WEB/field-cone-api/ && npm install && npm run build
-popd .
+popd
 
 tar -cf field-cone.tar.gz -I pigz ./field-cone-api/
 
