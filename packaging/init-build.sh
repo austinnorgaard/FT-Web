@@ -12,8 +12,8 @@ case $1 in
 		cd ~/FT-WEB && bash packaging/smart-cone/build-smart-cone.sh
 		;;
 	
-	audio-files)
-		cd ~/FT-WEB && bash packaging/audio-files/build-audio-files.sh
+	field-cone)
+		cd ~/FT-WEB && bash packaging/field-cone/build-field-cone.sh
 		;;
 
 	*)

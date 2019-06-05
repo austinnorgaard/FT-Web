@@ -15,15 +15,31 @@
 case "$1" in
 stop)
     echo "Killing Field Cone service."
-    sudo killall node
+    killall node
     date > /var/tmp/last-stop-time
     ;;
 
 start)
+    killall node
+
+    . /var/tmp/ft_environment
+    ft-update
+    ec=$?
+    if [ $ec -eq 42 ]; then
+        echo "ft-update needed to update itself, rerunning"
+        ft-update
+        ec=$?
+    fi
+    if [ $ec -eq 0 ]; then
+        echo "Update client successful"
+    else
+        echo "Update failed! But maybe we don't have internet access... still trying to launch"
+    fi
+
     echo "Starting Field Cone service."
     date > /var/tmp/last-start-time
     export FIELD_CONE_SOCKET_URL=http://192.168.2.1:6000
-    cd /home/pi/FT-WEB/field-cone-api && npm run start:prod &
+    cd /opt/field-cone-api && npm run start:prod &
     ;;
 
 restart)

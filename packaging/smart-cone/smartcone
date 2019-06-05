@@ -33,16 +33,15 @@ start)
     fi
     if [ $ec -eq 0 ]; then
 	    echo "Update client successful"
-
-	    echo "Starting Smart Cone service."
-	    date > /var/tmp/last-start-time
-	    node /opt/smart-cone-api/dist/smart-cone-api/src/main.js &
-	    node /opt/serve-frontend/index.js &
     else
-	    echo "Failed to update! Giving up!"
-	    echo "Failed to update" > /var/tmp/smartcone-failed
-	    date > /var/tmp/last-start-time
+        echo "Update failed! But maybe we don't have internet access.. still trying to launch"
     fi
+
+    echo "Starting Smart Cone service."
+    date > /var/tmp/last-start-time
+    node /opt/smart-cone-api/dist/smart-cone-api/src/main.js &
+    node /opt/serve-frontend/index.js &
+
     ;;
 
 restart)
