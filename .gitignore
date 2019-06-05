@@ -18,3 +18,5 @@ smart-cone-api/db/field-trainer-db.db
 smart-cone-api/db/*.db
 
 .vscode/
+
+build_output/

@@ -15,6 +15,11 @@ cp ./packaging/audio-files/install.sh ./audio-files
 BUILD_NUM="$(git rev-list --count HEAD)"
 OUTPUT_NAME="audio-files-$BUILD_NUM.tar.gz"
 
-tar -cf $OUTPUTNAME $1
+tar -cf $OUTPUT_NAME ./audio-files
 
-echo "Files packaged to"
+rm -rf ./audio-files
+
+mkdir build_output
+mv $OUTPUT_NAME ./build_output
+
+echo "Files packaged to $OUTPUT_NAME"
