@@ -46,4 +46,4 @@ sed -i "s/NEWURI/smart-cone-system\/$OUTPUT_NAME/g" ./builds.json
 aws s3 cp ./builds.json s3://field-trainer-builds/smart-cone-system/builds.json
 
 # stop the instance to save $$$$
-#aws ec2 stop-instances --instance-ids i-0508ea3e37243a5c1 --region us-west-2
+aws ec2 stop-instances --instance-ids i-0508ea3e37243a5c1 --region us-west-2
