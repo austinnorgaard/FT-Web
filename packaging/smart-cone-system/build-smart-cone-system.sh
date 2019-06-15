@@ -25,6 +25,8 @@ cp $REPO_ROOT/FT-WEB/deployment/rc.local_adhoc_smart_cone ./smart-cone-system
 
 cp $REPO_ROOT/FT-WEB/deployment/dnsmasq_adhoc.conf ./smart-cone-system
 cp $REPO_ROOT/FT-WEB/deployment/config.txt ./smart-cone-system
+cp $REPO_ROOT/FT-WEB/deployment/modules ./smart-cone-system
+cp $REPO_ROOT/FT-WEB/deployment/install-wifi ./smart-cone-system
 
 cp $REPO_ROOT/FT-WEB/packaging/smart-cone-system/install.sh ./smart-cone-system
 
