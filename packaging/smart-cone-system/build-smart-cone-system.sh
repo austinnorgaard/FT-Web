@@ -5,7 +5,7 @@
 
 # Just move all of the necessary files into a folder, include the install script, package and upload
 
-set REPO_ROOT="/home/ubuntu"
+REPO_ROOT="/home/ubuntu"
 
 rm -rf ./smart-cone-system
 mkdir ./smart-cone-system
