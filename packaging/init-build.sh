@@ -15,6 +15,10 @@ case $1 in
 	field-cone)
 		cd ~/FT-WEB && bash packaging/field-cone/build-field-cone.sh
 		;;
+	
+	smart-cone-system)
+		cd ~/FT-WEB && bash packaging/smart-cone-system/build-smart-cone-system.sh
+		;;
 
 	*)
 		exit 1
