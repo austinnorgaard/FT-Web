@@ -3,4 +3,4 @@ FieldTrainer application. It includes the front end and backend services along w
 layer.
 
 Each sub-folder will be laid out as a separate node.js project. Build/Run instructions will be
-forthcoming as more details are figured out.
+forthcoming as more details are figured out..
