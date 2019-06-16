@@ -1,4 +1,4 @@
-TThis repo is a collection of sub-projects, which when combined will represent the entire
+This repo is a collection of sub-projects, which when combined will represent the entire
 FieldTrainer application. It includes the front end and backend services along with a persistence
 layer.
 
