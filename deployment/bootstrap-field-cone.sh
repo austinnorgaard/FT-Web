@@ -24,7 +24,6 @@ echo $1 > /var/tmp/.cone-id
 echo "Cone settings written"
 sudo systemctl daemon-reload
 
-sudo apt-get install -y i2c-tools
 
 echo "Rebooting!"
 

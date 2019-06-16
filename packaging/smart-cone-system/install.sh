@@ -9,9 +9,6 @@ sudo chmod +x /usr/bin/install-wifi
 
 sudo install-wifi
 
-sudo apt-get -y update
-sudo apt-get -y install dnsmasq hostapd
-
 sudo cp ./dnsmasq.conf /var/tmp/dnsmasq.conf
 sudo mv ./dnsmasq.conf /etc/dnsmasq.conf
 sudo chmod 644 /etc/dnsmasq.conf

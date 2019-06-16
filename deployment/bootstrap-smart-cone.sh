@@ -23,9 +23,6 @@ sudo chmod +x /usr/bin/install-wifi
 
 sudo install-wifi
 
-echo "Configuring Access Point software"
-sudo apt-get -y update
-sudo apt-get -y install dnsmasq hostapd
 
 # Hostapd/Dnsmasq related stuff
 sudo mv ~/FT-WEB/deployment/dnsmasq.conf /etc/dnsmasq.conf

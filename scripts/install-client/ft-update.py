@@ -8,6 +8,8 @@ import os
 import time
 import subprocess
 import shutil
+import socket
+import traceback
 from botocore.config import Config
 from datetime import datetime
 
@@ -97,7 +99,7 @@ def download_all_packages(packages):
         start = time.time()
         downloadPackage(s3, package['name'], package['uri'])
         end = time.time()
-        print('Time Elapsed: {}', end - start)
+        print('Time Elapsed: {}'.format(end - start))
 
 
 class ProgressPercentage(object):
@@ -232,6 +234,7 @@ def update_script():
     response = requests.get('https://api.github.com/repos/darrenmsmith/FT-WEB/releases/latest',
                             headers={'Authorization': 'Bearer {}'.format(os.environ['GH_API_KEY'])})
     if response.status_code != 200:
+        closeLockSocket()
         print("Unable to query FT-WEB builds! Giving up now")
         sys.exit(1)
 
@@ -271,6 +274,7 @@ def update_script():
             dateFile.write(body['published_at'])
         # exit with exit code 42 to indicate that we needed to update
         # and the caller should rerun the script
+        closeLockSocket()
         sys.exit(42)
     else:
         print("No need to update script!")
@@ -308,9 +312,25 @@ def download_file(url, path):
                 dl += len(data)
                 f.write(data)
                 done = int(50 * dl / totalLength)
-                sys.stdout.write("\r[%s%s]" % ('=' * done, ' ' * (50-done)))
-                sys.stdout.flush()
-            print("")
+                #sys.stdout.write("\r[%s%s]" % ('=' * done, ' ' * (50-done)))
+                # sys.stdout.flush()
+            # print("")
+
+
+lock_socket = None
+
+
+def closeLockSocket():
+    print("Closing the lock socket!")
+    try:
+        lock_socket.close()
+        os.unlink('/var/tmp/ft_update_lock')
+    except:
+        print("During closeLockSocket, got exception: {}".format(
+            sys.exc_info()[0]))
+        traceback.print_exc()
+        pass
+    print("Done closing the lock socket!")
 
 
 if __name__ == "__main__":
@@ -326,9 +346,8 @@ if __name__ == "__main__":
     # is running
 
     try:
-        import socket
-        s = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
-        s.bind('\0ft_update_lock')
+        lock_socket = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+        lock_socket.bind('/var/tmp/ft_update_lock')
 
         # if we get this far, then we are the only running copy!
 
@@ -341,11 +360,22 @@ if __name__ == "__main__":
             cone_type = get_cone_type()
             try:
                 handle_cone_update(cone_type)
+                closeLockSocket()
             except Exception as error:
+                print("Got an error while trying to do the cone update.")
                 print(error)
+                traceback.print_exc()
+                closeLockSocket()
+
         except Exception as error:
-            print(error)
+            closeLockSocket()
+            print('Exception: {}'.format(error))
+            traceback.print_exc()
             sys.exit(-1)
-    except:
+    except OSError:
         print("Another process is already running!")
         sys.exit(0)
+    except:
+        print("Error message: {}".format(sys.exc_info()[0]))
+        traceback.print_exc()
+        closeLockSocket()
