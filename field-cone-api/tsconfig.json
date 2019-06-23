@@ -8,13 +8,13 @@
         "allowSyntheticDefaultImports": true,
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
-        "target": "es6",
+        "target": "ES2017",
         "sourceMap": true,
         "allowJs": true,
         "outDir": "./dist",
         "baseUrl": "./src",
         "noEmitHelpers": false,
-        "importHelpers": true
+        "importHelpers": false
     },
     "include": ["src/**/*"],
     "exclude": ["node_modules", "**/*.spec.ts"]
