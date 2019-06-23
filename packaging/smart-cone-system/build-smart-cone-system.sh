@@ -13,6 +13,7 @@ mkdir ./smart-cone-system
 cp $REPO_ROOT/FT-WEB/deployment/dnsmasq.conf ./smart-cone-system
 cp $REPO_ROOT/FT-WEB/deployment/hostapd.conf ./smart-cone-system
 cp $REPO_ROOT/FT-WEB/deployment/hostapd ./smart-cone-system
+cp $REPO_ROOT/FT-WEB/deployment/hostapd.service ./smart-cone-system
 cp $REPO_ROOT/FT-WEB/deployment/dhcpcd.conf ./smart-cone-system
 cp $REPO_ROOT/FT-WEB/deployment/dhcpcd_smart_cone_adhoc.conf ./smart-cone-system
 

@@ -19,6 +19,8 @@ sudo chmod 644 /etc/hostapd/hostapd.conf
 sudo mv ./hostapd /etc/init.d/hostapd
 sudo chmod 755 /etc/init.d/hostapd
 
+sudo mv ./hostapd.service /lib/systemd/system/hostapd.service
+
 sudo cp ./dhcpcd.conf /var/tmp/dhcpcd.conf
 sudo mv ./dhcpcd.conf /etc/dhcpcd.conf
 sudo chmod 664 /etc/dhcpcd.conf
