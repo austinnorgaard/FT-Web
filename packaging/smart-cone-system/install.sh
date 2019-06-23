@@ -46,5 +46,5 @@ echo "Installing audio"
 sudo bash ./i2samp.sh -y
 
 sudo systemctl daemon-reload
-
+sudo systemctl enable hostapd
 sudo systemctl restart hostapd
