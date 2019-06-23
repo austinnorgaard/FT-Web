@@ -166,7 +166,7 @@ export const mockCourses: Course[] = [
     },
     {
         name: "Mock Course",
-        field: new Field(getMockCones4(), 80, 60, "Developer 2 Test Field"),
+        field: new Field(getMockCones4(), 80, 60, "Developer Test Field"),
         conesSubset: [0, 1],
         segmentCollection: [
             {

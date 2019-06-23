@@ -43,8 +43,13 @@ export class CommsService {
             info.ip = interfaces[wifiKey].filter(i => i.family === "IPv4")[0].address;
             console.log(info.ip);
         } else if (Object.keys(interfaces).some(k => k === "wlan0")) {
-            console.log("We are on Linux!!");
+            console.log("We are on the Raspberry Pi!!");
             info.ip = interfaces.wlan0.filter(i => i.family === "IPv4")[0].address;
+        } else if (Object.keys(interfaces).some(k => k.includes("wlx"))) {
+            /*console.log("We are on a Linux desktop system!");
+            let test = Object.keys(interfaces).filter(i => i.includes("wlx"));
+            console.log(interfaces[test[0]].filter(i => i.family === "IPv4")[0].address);*/
+            info.ip = "127.0.0.1";
         } else {
             console.log("On unknown OS");
         }
