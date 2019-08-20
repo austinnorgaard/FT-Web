@@ -44,7 +44,7 @@ export class AudioService implements BaseAudioService {
         if (this.action in this.actionPaths) {
             // play it!
             console.log(`Playing audio file: ${this.actionPaths[this.action]}`);
-            player.play(this.actionPaths[this.action], err => {
+            player.play(this.actionPaths[this.action], (err: any) => {
                 if (err) {
                     console.log(`Error playing audio! Err: ${err}`);
                 }
@@ -55,6 +55,7 @@ export class AudioService implements BaseAudioService {
     }
 
     SetAction(action: string): void {
+        console.log(`Setting audio action to: ${action}`);
         this.action = action;
     }
 }

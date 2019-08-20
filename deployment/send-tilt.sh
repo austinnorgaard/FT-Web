@@ -1,3 +1,3 @@
 #!/bin/sh
 
-curl -X POST 192.168.2.62:6200/test/tilt
+curl -X POST 127.0.0.1:6200/test/tilt

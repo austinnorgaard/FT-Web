@@ -21,6 +21,7 @@ export class AudioController {
     @Post("audio-file")
     public setAudioFile(@Body() audioFile: AudioFileDto) {
         // Set the audio file to be played by this cone
+        console.log("Playing audio file: ", audioFile.action);
         this._audioService.SetAction(audioFile.action);
     }
 }
