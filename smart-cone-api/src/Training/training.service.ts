@@ -50,6 +50,11 @@ export class TrainingService {
     }
 
     handleConeHit(id: number) {
+        // early outs
+        if (!this.trainingSessionState.getCurrentSession()) {
+            return;
+        }
+
         console.log(`Handling cone hit for id ${id}`);
         // we assume the athletes are in the correct order, so we simply find the next athlete
         // in the list for which they haven't completed the cone which gave us the tilt event
