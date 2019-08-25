@@ -57,7 +57,7 @@ export class AddAthletePageComponent implements OnInit {
     athlete: AthleteModel = new AthleteModel();
     athleteForSubmission: AthleteModel = new AthleteModel();
 
-    @ViewChild("addAthleteForm", { static: true }) form: NgForm;
+    @ViewChild("addAthleteForm") form: NgForm;
 
     constructor(private readonly teamService: TeamManagementService, private readonly athletesService: AthleteManagementService) {}
 

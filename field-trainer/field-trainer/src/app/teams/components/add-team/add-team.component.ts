@@ -24,7 +24,7 @@ export class AddTeamComponent {
 
     public ageGroupFormControl = new FormControl("", [Validators.required]);
 
-    @ViewChild("addTeamForm", { static: true }) form: NgForm;
+    @ViewChild("addTeamForm") form: NgForm;
 
     constructor(private teamManagement: TeamManagementService) {}
 
