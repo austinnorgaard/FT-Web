@@ -18,7 +18,7 @@ RUN apt-get update -y && apt-get install -y --no-install-recommends rssh paralle
 RUN pip3 install awscli --upgrade --user
 # NVM
 RUN mkdir /usr/local/nvm
-ENV NODE_VERSION 10.16.3
+ENV NODE_VERSION 8.16.0
 ENV NVM_DIR /usr/local/nvm
 ENV NVM_INSTALL_PATH $NVM_DIR/versions/node/v$NODE_VERSION
 RUN wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash && source $NVM_DIR/nvm.sh && nvm install $NODE_VERSION && nvm alias default $NODE_VERSION && nvm use default
