@@ -14,8 +14,8 @@ import { FieldCone } from "../../models/field-cone";
     styleUrls: ["./field-course-setup.component.css"],
 })
 export class FieldCourseSetupComponent implements AfterViewInit, OnInit {
-    @ViewChild("fieldPreviewDiv") fieldPreviewDiv: ElementRef;
-    @ViewChild("fieldPreview") fieldPreview: FieldPreviewComponent;
+    @ViewChild("fieldPreviewDiv", { static: true }) fieldPreviewDiv: ElementRef;
+    @ViewChild("fieldPreview", { static: true }) fieldPreview: FieldPreviewComponent;
     selectedField: Field = null;
     selectedCourse: Course;
     fields: Field[] = null;
