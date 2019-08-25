@@ -17,6 +17,11 @@
                 <a mat-list-item>Manage Athletes</a>
                 <span fxFlex></span>
             </mat-list-item>
+            <mat-list-item routerLink="/cones" (click)="close()">
+                <mat-icon matListIcon class="material-icons">build</mat-icon>
+                <a mat-list-item>Cone Setup</a>
+                <span fxFlex></span>
+            </mat-list-item>
             <mat-list-item routerLink="/session-setup" (click)="close()">
                 <mat-icon matListIcon class="material-icons">directions_run</mat-icon>
                 <a mat-list-item>Start Session</a>

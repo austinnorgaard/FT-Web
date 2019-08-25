@@ -5,9 +5,11 @@ import { FlexLayoutModule } from "@angular/flex-layout";
 import { DebugComponent } from "./components/debug/debug.component";
 import { SessionModule } from "../session/session.module";
 import { MiscModule } from "../misc/misc.module";
+import { ConesComponent } from './components/cones/cones.component';
+import { FieldConeComponent } from './components/field-cone/field-cone.component';
 
 @NgModule({
     imports: [CommonModule, FlexLayoutModule, SessionModule, MiscModule],
-    declarations: [SandboxComponent, DebugComponent],
+    declarations: [SandboxComponent, DebugComponent, ConesComponent, FieldConeComponent],
 })
 export class UtilitiesModule {}

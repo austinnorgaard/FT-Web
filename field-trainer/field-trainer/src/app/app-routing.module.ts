@@ -17,6 +17,7 @@ import { SandboxComponent } from "./utility/components/sandbox/sandbox.component
 import { DebugComponent } from "./utility/components/debug/debug.component";
 import { SessionDetailsPageComponent } from "./session/components/session-details-page/session-details-page.component";
 import { ResultPageComponent } from "./session/components/result-page/result-page.component";
+import { ConesComponent } from "./utility/components/cones/cones.component";
 
 const routes: Routes = [
     { path: "", redirectTo: "/home", pathMatch: "full" },
@@ -78,6 +79,11 @@ const routes: Routes = [
     {
         path: "training/results",
         component: ResultPageComponent,
+        canActivate: [AuthGuard],
+    },
+    {
+        path: "cones",
+        component: ConesComponent,
         canActivate: [AuthGuard],
     },
 ];
