@@ -1,3 +1,8 @@
 <div fxFlex fxLayout="column" style="margin: 0.5em">
-    <ft-field-cone></ft-field-cone>
+    <div *ngIf="this.fieldCones.length === 0">
+        <span>No cones connected yet...</span>
+    </div>
+    <div *ngIf="this.fieldCones.length !== 0">
+        <span>Got {{ this.fieldCones.length }} cones!</span>
+    </div>
 </div>

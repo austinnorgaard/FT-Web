@@ -51,7 +51,10 @@ export class CommsService {
             console.log(interfaces[test[0]].filter(i => i.family === "IPv4")[0].address);*/
             info.ip = "127.0.0.1";
         } else {
-            console.log("On unknown OS");
+            // Just assume we are running on a desktop development machine as that
+            // is the most likely case
+            console.log("Assuming we are on a dev machine");
+            info.ip = "127.0.0.1";
         }
 
         const coneId = await getFieldConeId();

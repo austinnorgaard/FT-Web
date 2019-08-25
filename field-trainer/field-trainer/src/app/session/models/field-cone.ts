@@ -4,5 +4,5 @@ import { Point } from "./point";
 */
 
 export class FieldCone {
-    constructor(public id?: number, public position?: Point) {}
+    constructor(public id?: number, public position?: Point, public ip?: string) {}
 }

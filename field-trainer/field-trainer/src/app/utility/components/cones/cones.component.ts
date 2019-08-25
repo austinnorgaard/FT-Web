@@ -8,8 +8,12 @@ import { FieldCone } from "../../../session/models/field-cone";
     styleUrls: ["./cones.component.css"],
 })
 export class ConesComponent implements OnInit {
+    public fieldCones: FieldCone[] = [];
     constructor(private readonly fieldConesService: FieldConesService) {
-        fieldConesService.fieldConesSubject.asObservable().subscribe((cones: FieldCone[]) => {});
+        fieldConesService.fieldConesSubject.asObservable().subscribe((cones: FieldCone[]) => {
+            this.fieldCones = cones;
+        });
+        fieldConesService.updateFieldCones();
     }
 
     ngOnInit() {}
