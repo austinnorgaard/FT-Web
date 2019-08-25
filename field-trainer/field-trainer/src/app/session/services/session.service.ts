@@ -1,9 +1,11 @@
-import { Injectable } from "@angular/core";
+import { Injectable, OnInit } from "@angular/core";
 
+import "rxjs/add/operator/toPromise";
 import { Athlete } from "../../../../../../smart-cone-api/src/Athletes/athlete";
-import { Observable, BehaviorSubject } from "rxjs";
+import { Observable, Subject, BehaviorSubject } from "rxjs";
 import { SessionSetupService } from "./session-setup.service";
 import { HttpHelperService } from "../../misc/services/http-helper.service";
+import { AthleteSession, SegmentArray } from "../../../../../../smart-cone-api/src/Training/athlete-session";
 import { SocketMessageBrokerService } from "../../socket-message-broker/socket-message-broker.service";
 import { TrainingSessionState } from "@SmartCone/Training/training-session-state";
 import { plainToClass } from "../../../../../../smart-cone-api/node_modules/class-transformer";
