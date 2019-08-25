@@ -35,7 +35,7 @@ export function tokenGetter() {
 @NgModule({
     declarations: [AppComponent, YesNoDialogComponent],
     imports: [
-        NgbModule,
+        NgbModule.forRoot(),
         BrowserModule,
         FlexLayoutModule,
         BrowserAnimationsModule,
