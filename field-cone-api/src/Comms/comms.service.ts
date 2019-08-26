@@ -32,6 +32,12 @@ export class CommsService {
         });
     }
 
+    async updateConeInfo() {
+        // Read the current cone state and emit it, so the smart cone
+        // can be notified of changes
+        this.socket.emit("coneChanged", await this.getFieldConeInfo());
+    }
+
     async getFieldConeInfo(): Promise<FieldConeInfo> {
         const interfaces = os.networkInterfaces();
         const info = { ip: "unknown", id: -1 } as any;

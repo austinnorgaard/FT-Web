@@ -24,4 +24,9 @@ export class AudioController {
         console.log("Playing audio file: ", audioFile.action);
         this._audioService.SetAction(audioFile.action);
     }
+
+    @Post("test-noise")
+    public playTestNoise(@Body() body: any) {
+        this._audioService.PlayTestAudio();
+    }
 }

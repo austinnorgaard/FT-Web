@@ -2,7 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { WebSocketGateway, OnGatewayConnection, OnGatewayDisconnect, SubscribeMessage } from "@nestjs/websockets";
 import { environment } from "../../../field-trainer/field-trainer/src/environments/environment";
 import { FieldConeInfo } from "./field-cone-info";
-import { Observable, Subject, BehaviorSubject } from "rxjs";
+import { Observable, Subject, BehaviorSubject, identity } from "rxjs";
 
 @Injectable()
 @WebSocketGateway(parseInt(environment.config.coneApiSocketPort, 10))
@@ -52,5 +52,17 @@ export class FieldConesService implements OnGatewayConnection, OnGatewayDisconne
         // Figure out which cone from the client id
         const cone = this.connectedFieldCones.getValue().find(c => c.sessionId === client.id);
         this.onTilt.next(cone);
+    }
+
+    @SubscribeMessage("coneChanged")
+    onConeUpdated(client, data: FieldConeInfo) {
+        let coneArray = this.connectedFieldCones.getValue();
+        let extractedCone = coneArray.find(cone => cone.sessionId === client.id);
+        let extractedConeId = coneArray.findIndex(cone => cone.sessionId === client.id);
+
+        extractedCone.id = data.id;
+        extractedCone.ip = data.ip;
+        coneArray[extractedConeId];
+        this.connectedFieldCones.next(coneArray);
     }
 }

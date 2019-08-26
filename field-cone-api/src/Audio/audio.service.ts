@@ -58,4 +58,13 @@ export class AudioService implements BaseAudioService {
         console.log(`Setting audio action to: ${action}`);
         this.action = action;
     }
+
+    PlayTestAudio(): void {
+        player.play(this.actionPaths["sprint"], (err: any) => {
+            if (err) {
+                console.log("Couldnt play test audio!");
+                console.log(err);
+            }
+        });
+    }
 }

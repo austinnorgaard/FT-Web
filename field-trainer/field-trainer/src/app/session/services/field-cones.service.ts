@@ -36,4 +36,12 @@ export class FieldConesService {
         const cones = await this.http.get<FieldConesArray>("/field-cones");
         return cones.items;
     }
+
+    async setFieldConeId(fieldCone: FieldCone): Promise<void> {
+        await this.http.post<FieldCone>("/field-cones", fieldCone);
+    }
+
+    async coneMakeNoise(fieldCone: FieldCone): Promise<void> {
+        await this.http.post<FieldCone>("/field-cones/noise", fieldCone);
+    }
 }

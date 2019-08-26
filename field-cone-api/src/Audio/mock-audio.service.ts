@@ -3,6 +3,10 @@ import { Injectable } from "@nestjs/common";
 
 @Injectable()
 export class MockAudioService implements BaseAudioService {
+    PlayTestAudio(): void {
+        console.log("Would've played the test audio here!! But this is the mock class");
+    }
+
     SetAction(action: string): void {
         console.log(`Wouldve set audio action here to: ${action}`);
     }
