@@ -6,9 +6,10 @@ import { StatusIndicatorComponent } from "./components/status-indicator/status-i
 import { MatIconModule, MatListModule, MatTooltipModule, MatSidenavModule, MatButtonModule } from "@angular/material";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { RouterModule } from "@angular/router";
+import { AuthenticationModule } from '../authentication/authentication.module';
 
 @NgModule({
-    imports: [CommonModule, RouterModule, FlexLayoutModule, MatSidenavModule, MatIconModule, MatListModule, MatTooltipModule, MatButtonModule],
+    imports: [CommonModule, RouterModule, FlexLayoutModule, MatSidenavModule, MatIconModule, MatListModule, MatTooltipModule, MatButtonModule, AuthenticationModule],
     declarations: [HomePageComponent, NavMenuContentComponent, StatusIndicatorComponent],
     exports: [NavMenuContentComponent, StatusIndicatorComponent],
 })

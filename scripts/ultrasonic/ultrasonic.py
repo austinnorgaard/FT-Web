@@ -10,7 +10,7 @@ GPIO.setup(ECHO,GPIO.IN)
 
 GPIO.output(TRIG, False)
 
-print "Starting sensor: "
+print "Starting sensor"
 
 while True:
         GPIO.output(TRIG, True)

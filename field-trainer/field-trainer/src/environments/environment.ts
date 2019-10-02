@@ -1,7 +1,7 @@
 export const environment = {
     production: false,
     config: {
-        startConeIp: "127.0.0.1",
+        startConeIp: "192.168.1.5",
         frontEndPort: "80",
         smartConeApiHttpPort: "5200",
         coneApiSocketPort: "6000",
