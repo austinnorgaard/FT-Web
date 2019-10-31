@@ -1,4 +1,4 @@
-#!/bin/bash
+#!bin/bash
 
 export NVM_DIR=/usr/local/nvm
 export NODE_VERSION=8.16.0
@@ -29,20 +29,13 @@ OUTPUT_NAME="field-cone-$BUILD_NUM.tar.gz"
 
 tar -cf $OUTPUT_NAME -I pigz ./field-cone
 
-if [ $1 == "prod" ]; then
-	/root/.local/bin/aws s3 cp ./$OUTPUT_NAME s3://field-trainer-builds/field-cone/$OUTPUT_NAME
-else
-	scp ./$OUTPUT_NAME kdfreude@192.168.1.9:/home/kdfreude
-fi
+/root/.local/bin/aws s3 cp ./$OUTPUT_NAME s3://field-trainer-builds/field-cone/$OUTPUT_NAME
 
 cp /root/FT-WEB/packaging/common/build_template.json ./builds.json
 
 sed -i "s/NEWVERSION/$BUILD_NUM/g" ./builds.json
 sed -i "s/NEWURI/field-cone\/$OUTPUT_NAME/g" ./builds.json
 
-if [ $1 == "prod" ]; then
-	/root/.local/bin/aws s3 cp ./builds.json s3://field-trainer-builds/field-cone/builds.json
-	/root/.local/bin/aws ec2 stop-instances --instance-ids i-017002d360a9cffa8 --region us-west-2
-else
-	scp ./builds.json kdfreude@192.168.1.9:/home/kdfreude
-fi
+/root/.local/bin/aws s3 cp ./builds.json s3://field-trainer-builds/field-cone/builds.json
+
+/root/.local/bin/aws ec2 stop-instances --instance-ids i-017002d360a9cffa8 --region us-west-2

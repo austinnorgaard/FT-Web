@@ -19,91 +19,6 @@ parser = argparse.ArgumentParser(description="Field Trainer Update Client")
 parser.add_argument('--work-dir', dest='work_dir', type=str, default="/home/pi/.ft-update",
                     help="Override updaters workdir, where packages will be installed")
 
-# Specify the remote server IP. Default to our AWS installation, but you can change
-# this in order to use a development environment
-parser.add_argument('--remote_packages_host', dest='remote_packages_host', type=str, default="https://m0uulx094e.execute-api.us-west-2.amazonaws.com",
-    help="Remote host from which to request the list of available remote packages. Can substitute a dev server IP for local packaging support (dev environment)")
-
-parser.add_argument('--mode', dest='mode', type=str, default="prod", help="Pick between Production & Developer mode. Defaults to production mode", choices=['prod', 'dev'])
-
-class LockFile():
-    def __init__(self):
-        self.lock_socket = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
-
-    def __enter__(self):
-        self.lock_socket.bind('/var/tmp/ft_update_lock')
-
-    def __exit__(self, type, value, traceback):
-        print("Closing the lock socket!")
-        try:
-            self.lock_socket.close()
-            os.unlink('/var/tmp/ft_update_lock')
-        except:
-            print("During closeLockSocket, got exception: {}".format(
-                sys.exc_info()[0]))
-            traceback.print_exc()
-
-        print("Done closing the lock socket!")
-
-
-class SysExitException(Exception):
-    def __init__(self, error_code):
-        self.error_code = error_code
-
-    def get_error_code(self):
-        return self.error_code
-
-
-class ProgressPercentage(object):
-    def __init__(self, client, bucket, filename):
-        self._size = client.head_object(
-            Bucket=bucket, Key=filename).get('ContentLength')
-        self._seen_so_far = 0
-
-    def __call__(self, bytes_amount):
-        self._seen_so_far += bytes_amount
-        percentage = round((self._seen_so_far / self._size) * 100, 2)
-        print("Percent: {}".format(percentage))
-        sys.stdout.flush()
-
-
-# Abstraction for file downloading. Use S3 in production environment,
-# use requests otherwise (dev environment)
-# All a user cares about is: Here's a path to download from and to
-class FileDownloader():
-    # type is either production or dev
-    def __init__(self, type, s3=None, s3Bucket=''):
-        self._type = type
-        if type == 'dev':
-            print("File downloader is in developer mode")
-        else:
-            print('File downloader is in production mode')
-            if s3 == None:
-                print('Programmer Error: User _must_ specify an s3 instance if they are in production mode!')
-                raise SysExitException(1)
-            self._s3 = s3
-
-            if s3Bucket == '':
-                print('Programmer error: User _must_ specify an s3 bucket if they are in production model!')
-                raise SysExitException(1)
-            self._s3Bucket = s3Bucket
-
-    def download_file(self, url, path):
-        print('Downloading file from URL {} to path {}'.format(url, path))
-        if self._type == 'dev':
-            self._download_file_requests(url, path)
-        else:
-            self._download_file_s3(url, path)
-
-    def _download_file_s3(self, url, path):
-        progress = ProgressPercentage(
-            self._s3, self._s3Bucket, url)
-        self._s3.download_file(self._s3Bucket,
-                        url, path, Callback=progress)
-
-    def _download_file_requests(self, url, path):
-        download_file(url, path)
-
 
 def get_cone_type():
     # We are assuming that fieldcones are running the Pi zero
@@ -180,13 +95,34 @@ def download_all_packages(packages):
 
     s3 = s3_resource.meta.client
 
-    downloader = FileDownloader('production', s3, 'field-trainer-builds') if args.mode == 'prod' else FileDownloader('dev')
-
     for package in packages:
         start = time.time()
-        downloader.download_file(package['uri'], '{}/downloads{}'.format(args.work_dir, package['uri'].split('/')[1]))
+        downloadPackage(s3, package['name'], package['uri'])
         end = time.time()
         print('Time Elapsed: {}'.format(end - start))
+
+
+class ProgressPercentage(object):
+    def __init__(self, client, bucket, filename):
+        self._size = client.head_object(
+            Bucket=bucket, Key=filename).get('ContentLength')
+        self._seen_so_far = 0
+
+    def __call__(self, bytes_amount):
+        self._seen_so_far += bytes_amount
+        percentage = round((self._seen_so_far / self._size) * 100, 2)
+        print("Percent: {}".format(percentage))
+        sys.stdout.flush()
+
+
+def downloadPackage(s3, packageName, packageUri):
+    print("Downloading package {}. URI: {}".format(
+        packageName, packageUri))
+
+    progress = ProgressPercentage(
+        s3, 'field-trainer-builds', packageUri)
+    s3.download_file('field-trainer-builds',
+                     packageUri, '{}/downloads/{}'.format(args.work_dir, packageUri.split('/')[1]), Callback=progress)
 
 
 def extract_packages(packages):
@@ -244,24 +180,13 @@ def update_local_builds(packages):
         json.dump(localJson, localFile, indent=4)
 
 
-def get_remote_packages(coneType):
-    url = '{}/default/FieldTrainerUpdateService/packages?type={}'.format(args.remote_packages_host, coneType)
-    response = requests.get(url)
-
-    if response.status_code != 200:
-        print('get_remote_packages: Failed to request remote packages. status code: {}'.format(response.status_code))
-        sys.exit(1)
-
-    try:
-        return json.loads(response.text)
-    except:
-        print('get_remote_packages: failed to decode response text: {}'.format(response.text))
-
-
 def handle_cone_update(coneType):
     print("Updating this {}-cone".format(coneType))
     # Ask the remote server which packages are available for the smart cone
-    remotePackages = get_remote_packages(coneType)
+    response = requests.get(
+        'https://m0uulx094e.execute-api.us-west-2.amazonaws.com/default/FieldTrainerUpdateService/packages?type={}'.format(coneType))
+
+    remotePackages = json.loads(response.text)
 
     # get the local versions -- if no file is present, we assume we need to update everything
     # Otherwise, look at every package we got from the web service against every local copy
@@ -273,9 +198,18 @@ def handle_cone_update(coneType):
     update_local_builds(packagesToUpdate)
 
 
+# Handles the entire update flow for Field Cones
+
+
+def handle_field_cone_update():
+    pass
+
+
 args = parser.parse_args()
 
 # Anything which needs to happen before running the installer
+
+
 def pre_work():
     try:
         try:
@@ -300,8 +234,9 @@ def update_script():
     response = requests.get('https://api.github.com/repos/darrenmsmith/FT-WEB/releases/latest',
                             headers={'Authorization': 'Bearer {}'.format(os.environ['GH_API_KEY'])})
     if response.status_code != 200:
+        closeLockSocket()
         print("Unable to query FT-WEB builds! Giving up now")
-        raise SysExitException(1)
+        sys.exit(1)
 
     body = response.json()
     print("Latest build published at: {}".format(body['published_at']))
@@ -339,7 +274,8 @@ def update_script():
             dateFile.write(body['published_at'])
         # exit with exit code 42 to indicate that we needed to update
         # and the caller should rerun the script
-        raise SysExitException(42)
+        closeLockSocket()
+        sys.exit(42)
     else:
         print("No need to update script!")
 
@@ -375,6 +311,26 @@ def download_file(url, path):
             for data in response.iter_content(chunk_size=4096):
                 dl += len(data)
                 f.write(data)
+                done = int(50 * dl / totalLength)
+                #sys.stdout.write("\r[%s%s]" % ('=' * done, ' ' * (50-done)))
+                # sys.stdout.flush()
+            # print("")
+
+
+lock_socket = None
+
+
+def closeLockSocket():
+    print("Closing the lock socket!")
+    try:
+        lock_socket.close()
+        os.unlink('/var/tmp/ft_update_lock')
+    except:
+        print("During closeLockSocket, got exception: {}".format(
+            sys.exc_info()[0]))
+        traceback.print_exc()
+        pass
+    print("Done closing the lock socket!")
 
 
 if __name__ == "__main__":
@@ -386,37 +342,40 @@ if __name__ == "__main__":
     # versions (new cone or new package), we download them and install
     # If we are behind in version on any packages, we download and install
 
-    # Check if another instance is already running
-    if os.path.exists('/var/tmp/ft_update_lock'):
-        print("Another instance of the update tool is already running! Exiting cleanly.")
-        sys.exit(0)
+    # Wrap the entire functionality in code which will ensure only 1 copy of the update
+    # is running
 
     try:
-        with LockFile():
-            # Each package comes with a script which knows how to install the package
-            update_script()
+        lock_socket = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+        lock_socket.bind('/var/tmp/ft_update_lock')
 
+        # if we get this far, then we are the only running copy!
+
+        # Each package comes with a script which knows how to install the package
+        update_script()
+
+        try:
+            pre_work()
+
+            cone_type = get_cone_type()
             try:
-                pre_work()
-
-                cone_type = get_cone_type()
-                try:
-                    handle_cone_update(cone_type)
-                except SysExitException as sysExit:
-                    print('Got an exception request to exit with error code: {}'.format(sysExit.get_error_code()))
-                    sys.exit(sysExit.get_error_code())
-                except Exception as error:
-                    print("Got an error while trying to do the cone update.")
-                    print(error)
-                    traceback.print_exc()
-
+                handle_cone_update(cone_type)
+                closeLockSocket()
             except Exception as error:
-                print('Exception: {}'.format(error))
+                print("Got an error while trying to do the cone update.")
+                print(error)
                 traceback.print_exc()
-                sys.exit(-1)
-    except SysExitException as sysExit:
-        print('Got an exception request to exit with error code: {}'.format(sysExit.get_error_code()))
-        sys.exit(sysExit.get_error_code())
+                closeLockSocket()
+
+        except Exception as error:
+            closeLockSocket()
+            print('Exception: {}'.format(error))
+            traceback.print_exc()
+            sys.exit(-1)
+    except OSError:
+        print("Another process is already running!")
+        sys.exit(0)
     except:
         print("Error message: {}".format(sys.exc_info()[0]))
         traceback.print_exc()
+        closeLockSocket()
