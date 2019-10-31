@@ -26,8 +26,6 @@ parser.add_argument('--remote_packages_host', dest='remote_packages_host', type=
 
 parser.add_argument('--mode', dest='mode', type=str, default="prod", help="Pick between Production & Developer mode. Defaults to production mode", choices=['prod', 'dev'])
 
-parser.add_argument('--dev-server-base-path', dest='dev_server_base_path', type=str, help='The base path to append to each URL present in a build definition. Example: http://192.168.1.5:80/')
-
 class LockFile():
     def __init__(self):
         self.lock_socket = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
@@ -74,9 +72,8 @@ class ProgressPercentage(object):
 # All a user cares about is: Here's a path to download from and to
 class FileDownloader():
     # type is either production or dev
-    def __init__(self, type, s3=None, s3Bucket='', basePath=''):
+    def __init__(self, type, s3=None, s3Bucket=''):
         self._type = type
-        self._basePath = basePath
         if type == 'dev':
             print("File downloader is in developer mode")
         else:
@@ -183,7 +180,7 @@ def download_all_packages(packages):
 
     s3 = s3_resource.meta.client
 
-    downloader = FileDownloader('production', s3, 'field-trainer-builds') if args.mode == 'prod' else FileDownloader('dev', basePath=args.dev_server_base_path)
+    downloader = FileDownloader('production', s3, 'field-trainer-builds') if args.mode == 'prod' else FileDownloader('dev')
 
     for package in packages:
         start = time.time()

@@ -20,6 +20,3 @@ smart-cone-api/db/*.db
 .vscode/
 
 build_output/
-*.spec
-**/__pycache__
-**/dist
