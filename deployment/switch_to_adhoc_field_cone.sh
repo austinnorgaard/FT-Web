@@ -11,6 +11,8 @@ sudo rm /etc/rc.local
 sudo cp /var/tmp/rc.local_adhoc_field_cone /etc/rc.local
 sudo chmod 755 /etc/rc.local
 
+echo "adhoc" > /var/tmp/.wifi-mode
+
 echo "Settings changed, rebooting to apply changes..."
 sleep 1
 sudo reboot

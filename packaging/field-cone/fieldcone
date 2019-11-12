@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 ### BEGIN INIT INFO
 # Provides:         fieldcone
@@ -35,6 +35,30 @@ start)
     else
         echo "Update failed! But maybe we don't have internet access... still trying to launch"
     fi
+
+    ## If we are not in ad-hoc mode, the below startup code does not make any sense
+    ## We can check our mode at `/var/tmp/.wifi-mode`, if it _doesnt_ exist, we must
+    ## be in wifi mode, as that is our default (starting) state. If it does exist,
+    ## it will contain either "regular" or "adhoc"
+
+    ## If we are in "regular" mode, switch to adhoc mode. This script will be rerun
+    ## and the service will start.
+
+    if [ ! -f "/var/tmp/.wifi-mode" ]
+    then
+        echo "WiFi Mode file does not exist, switching to adhoc!"
+        sudo switch_to_adhoc.sh
+    fi
+
+    mode=`cat /var/tmp/.wifi-mode`
+
+    case "$mode" in
+        *regular*)
+            # results in a reboot
+            echo "WiFi mode is set to regular, switching to adhoc!"
+            sudo switch_to_adhoc.sh
+            ;;
+    esac
 
     echo "Starting Field Cone service."
     date > /var/tmp/last-start-time
