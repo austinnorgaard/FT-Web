@@ -55,7 +55,9 @@ export class FieldConesService implements OnGatewayConnection, OnGatewayDisconne
         // data is nothing
         // Figure out which cone from the client id
         const cone = this.connectedFieldCones.getValue().find(c => c.sessionId === client.id);
-        this.onTilt.next(cone);
+        if (cone !== undefined && cone !== null) {
+            this.onTilt.next(cone);
+        }
     }
 
     @SubscribeMessage("coneChanged")
