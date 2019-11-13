@@ -48,6 +48,10 @@ export class FieldConesService implements OnGatewayConnection, OnGatewayDisconne
     @SubscribeMessage("tiltOccurred")
     onTiltEvent(client, data: any) {
         console.log("on tilt event!");
+        if (client === undefined || client === null) {
+            console.log('Client information is not valid.');
+            return;
+        }
         // data is nothing
         // Figure out which cone from the client id
         const cone = this.connectedFieldCones.getValue().find(c => c.sessionId === client.id);
