@@ -78,6 +78,21 @@ export class TrainingService {
         }
 
         const segment = athletes[0].segments.find(s => s.to === id);
+        const segmentIdx = athletes[0].segments.findIndex(s => s.to === id);
+        // Do not continue if the previous segment was not completed. This typically means a cone was
+        // erroneously triggered even though no one was moving toward it
+
+        // I think this is probably not valid, but to be safe..
+        if (segmentIdx !== 0) {
+            // Get the previous cone:
+            const prevSegment = athletes[0].segments[segmentIdx - 1];
+            if (!prevSegment.completed) {
+                console.log('Previous segment was not completed, assuming this was an accidental trigger!');
+                return;
+            }
+        } else {
+            console.log("WARN: segmentIdx is 0! This is probably not expected!");
+        }
 
         segment.completed = true;
         // set the stop time for this segment
