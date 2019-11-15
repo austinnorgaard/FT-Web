@@ -9,8 +9,10 @@ import { SessionService } from "../../services/session.service";
 export class ResultPageComponent implements OnInit {
     constructor(private readonly sessionService: SessionService) {}
 
-    onSaveResults() {
+    async onSaveResults() {
         console.log("Saving results in backend");
+        await this.sessionService.saveResults();
+        console.log("Saved");
     }
 
     ngOnInit() {}
