@@ -33,18 +33,18 @@ export class AudioService extends BaseAudioService {
         console.log("Using real audio service");
     }
 
-    async PlayAction(): Promise<void> {
+    async PlayAction(action: string): Promise<void> {
         // implement audio playback here
-        if (this.action in this.actionPaths) {
+        if (action in this.actionPaths) {
             // play it!
-            console.log(`Playing audio file: ${this.actionPaths[this.action]}`);
-            player.play(this.actionPaths[this.action], (err: any) => {
+            console.log(`Playing audio file: ${this.actionPaths[action]}`);
+            player.play(this.actionPaths[action], (err: any) => {
                 if (err) {
                     console.log(`Error playing audio! Err: ${err}`);
                 }
             });
         } else {
-            console.log(`Error, could not find action ${this.action} in audio mappings. Is it new?`);
+            console.log(`Error, could not find action ${action} in audio mappings. Is it new?`);
         }
     }
 

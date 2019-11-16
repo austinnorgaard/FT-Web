@@ -72,15 +72,19 @@ export class TrainingSessionPageComponent implements OnInit {
 
         // Get the current athleteSessions information (all info regarding all athletes status through the course)
         // Ensure we've had the service check for existing state on the  backend
-        this.sessionService.updateFromBackend();
+        await this.sessionService.updateFromBackend();
         console.log("Backend updated");
 
         this.sessionState = await this.sessionService.getAthleteSessions();
         this.sessionState = plainToClass(TrainingSessionState, this.sessionState);
         //console.log(this.sessionState);
         console.log("hello");
-        console.log(`Got ${this.sessionState.athleteSessions.sessions.length} phases.`);
-        console.log(`Got ${this.sessionState.getCurrentSession().athleteSessions.length} athlete sessions!`);
+        if (this.sessionState === undefined || this.sessionState === null) {
+            console.log("Why is the session state nullish?");
+        } else {
+            console.log(`Got ${this.sessionState.athleteSessions.sessions.length} phases.`);
+            console.log(`Got ${this.sessionState.getCurrentSession().athleteSessions.length} athlete sessions!`);
+        }
 
         // Subscribe for changes about the athlete session state
         this.sessionService.getAthleteSessionsObservable().subscribe((sessionState: TrainingSessionState) => {
