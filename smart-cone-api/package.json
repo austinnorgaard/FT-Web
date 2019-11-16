@@ -28,6 +28,7 @@
         "jsonwebtoken": "^8.2.0",
         "lodash": "^4.17.5",
         "moment": "^2.24.0",
+        "mpu9250": "^0.2.2",
         "passport": "^0.4.0",
         "passport-jwt": "^4.0.0",
         "redis": "^2.7.1",

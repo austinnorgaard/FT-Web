@@ -4,6 +4,8 @@
 
 echo "smartcone" > /var/tmp/.cone-type
 
+touch /var/tmp/.tilt-gpio-pin
+
 sudo mv ./install-wifi /usr/bin/install-wifi
 sudo chmod +x /usr/bin/install-wifi
 

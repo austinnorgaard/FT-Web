@@ -14,6 +14,7 @@ import { AthleteSchema } from "../Database/Models/AthleteSchema";
 import { SegmentResultSchema } from "../Database/Models/SegmentResultSchema";
 import { SessionResultCollection } from "./session-results";
 import { TrainingSessionState } from "./training-session-state";
+import { TiltService } from "../Tilt/tilt.service";
 
 @Injectable()
 export class TrainingService {
@@ -29,12 +30,19 @@ export class TrainingService {
         private readonly frontEndComms: FrontEndCommunicator,
         private readonly ultraSonicService: BaseUltrasonicService,
         private http: HttpService,
+        private localTiltService: TiltService
     ) {
         this.fieldCones.onTilt.subscribe(cone => {
             // tilt has occurred, modify our athletes session state, then re-emit if its changed
             console.log(`Tilt occured from cone with info: ${JSON.stringify(cone)}`);
 
             this.handleConeHit(cone.id);
+        });
+
+        this.localTiltService.TiltOccured.subscribe(cone => {
+            // The local tilt service is the tilt service running _on_ the smart cone
+            // as an alternative to the ultrasonic device
+            this.handleConeHit(0);
         });
 
         this.sessionState.subscribe((sessionState: TrainingSessionState) => {

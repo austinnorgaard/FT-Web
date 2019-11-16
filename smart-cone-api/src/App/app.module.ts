@@ -15,6 +15,7 @@ import { LoggerModule } from "../Logging/logger.module";
 import { FieldConesModule } from "../FieldCones/field-cones.module";
 import { FrontEndCommsModule } from "../FrontEndComms/front-end-comms.module";
 import { UltrasonicModule } from "../Ultrasonic/ultrasonic.module";
+import { TiltModule } from "../Tilt/tilt.module";
 
 @Module({
     imports: [
@@ -28,6 +29,7 @@ import { UltrasonicModule } from "../Ultrasonic/ultrasonic.module";
         FrontEndCommsModule,
         FieldConesModule,
         UltrasonicModule,
+        TiltModule
     ],
     controllers: [AppController, StatusController],
 })
