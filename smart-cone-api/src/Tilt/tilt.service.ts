@@ -12,7 +12,7 @@ export class TiltService extends BaseTiltService {
         super();
         console.log("Using the Real Tilt Service");
 
-        this.thread = spawn(async (input, done) => {
+        /*this.thread = spawn(async (input, done) => {
             const mpu9250 = require("mpu9250");
 
             let mpu = new mpu9250({
@@ -44,9 +44,9 @@ export class TiltService extends BaseTiltService {
                     await sleep(10);
                 }
             }
-        });
+        });*/
 
-        this.thread.send().on("message", () => {
+        /*this.thread.send().on("message", () => {
             if (!this.rateLimited) {
                 this.TiltOccured.next();
                 this.rateLimited = true;
@@ -56,6 +56,6 @@ export class TiltService extends BaseTiltService {
             } else {
                 // do nothing
             }
-        });
+        });*/
     }
 }
