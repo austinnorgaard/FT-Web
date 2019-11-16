@@ -32,5 +32,8 @@ import { TiltModule } from "../Tilt/tilt.module";
         TiltModule
     ],
     controllers: [AppController, StatusController],
+    exports: [
+        TiltModule
+    ]
 })
 export class ApplicationModule {}

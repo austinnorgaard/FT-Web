@@ -14,7 +14,7 @@ import { AthleteSchema } from "../Database/Models/AthleteSchema";
 import { SegmentResultSchema } from "../Database/Models/SegmentResultSchema";
 import { SessionResultCollection } from "./session-results";
 import { TrainingSessionState } from "./training-session-state";
-import { TiltService } from "../Tilt/tilt.service";
+import { BaseTiltService } from "../Tilt/base-tilt-service";
 
 @Injectable()
 export class TrainingService {
@@ -30,7 +30,7 @@ export class TrainingService {
         private readonly frontEndComms: FrontEndCommunicator,
         private readonly ultraSonicService: BaseUltrasonicService,
         private http: HttpService,
-        private localTiltService: TiltService
+        private localTiltService: BaseTiltService
     ) {
         this.fieldCones.onTilt.subscribe(cone => {
             // tilt has occurred, modify our athletes session state, then re-emit if its changed
