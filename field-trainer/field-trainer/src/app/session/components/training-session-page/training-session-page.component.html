@@ -1,10 +1,13 @@
 <div fxFlex fxLayout="column" style="margin: 0.5em">
     <h3 fxFlex="0 0 auto" fxFlexAlign="center">{{ this.sessionStatusText() }}</h3>
     <perfect-scrollbar fxFlex="1 1 auto" fxLayout="column">
-        <div *ngIf="this.sessionState && this.sessionState.athleteSessions.sessions.length !== 0">
+        <div *ngIf="this.sessionState !== undefined && this.sessionState !== null && this.sessionState.athleteSessions.sessions.length !== 0">
             <div *ngFor="let session of this.sessionState.getCurrentSession().athleteSessions">
                 <ft-athlete-overview [athleteSession]="session"></ft-athlete-overview>
             </div>
+        </div>
+        <div *ngIf="this.sessionState === undefined || this.sessionState === null || this.sessionState.athleteSessions.sessions.length === 0">
+            <span>Waiting for backend to sync...</span>
         </div>
     </perfect-scrollbar>
     <div fxFlex="0 0 5em" fxLayout="row" style="margin-top: 1em">

@@ -16,6 +16,7 @@ import { FieldConesModule } from "../FieldCones/field-cones.module";
 import { FrontEndCommsModule } from "../FrontEndComms/front-end-comms.module";
 import { UltrasonicModule } from "../Ultrasonic/ultrasonic.module";
 import { TiltModule } from "../Tilt/tilt.module";
+import { AudioModule } from "../Audio/audio.module";
 
 @Module({
     imports: [
@@ -29,11 +30,12 @@ import { TiltModule } from "../Tilt/tilt.module";
         FrontEndCommsModule,
         FieldConesModule,
         UltrasonicModule,
-        TiltModule
+        TiltModule,
+        AudioModule
     ],
     controllers: [AppController, StatusController],
     exports: [
-        TiltModule
+        TiltModule,
     ]
 })
 export class ApplicationModule {}

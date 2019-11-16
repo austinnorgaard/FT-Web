@@ -15,6 +15,7 @@ import { SegmentResultSchema } from "../Database/Models/SegmentResultSchema";
 import { SessionResultCollection } from "./session-results";
 import { TrainingSessionState } from "./training-session-state";
 import { BaseTiltService } from "../Tilt/base-tilt-service";
+import { BaseAudioService } from "../Audio/base-audio.service";
 
 @Injectable()
 export class TrainingService {
@@ -30,7 +31,8 @@ export class TrainingService {
         private readonly frontEndComms: FrontEndCommunicator,
         private readonly ultraSonicService: BaseUltrasonicService,
         private http: HttpService,
-        private localTiltService: BaseTiltService
+        private localTiltService: BaseTiltService,
+        private readonly audioService: BaseAudioService
     ) {
         this.fieldCones.onTilt.subscribe(cone => {
             // tilt has occurred, modify our athletes session state, then re-emit if its changed
@@ -270,6 +272,11 @@ export class TrainingService {
         const athleteSession = this.trainingSessionState.getCurrentSession().athleteSessions.find(a => a.started !== true);
         athleteSession.started = true;
         athleteSession.segments[0].startTime = new Date(); // DateTime.Now()
+
+        // Emit audio for the segment that is being ran
+        // We can cheat here and just use the 0-th segment, because we are the start-cone
+        // FIXME: Make this more like the FieldCones -- seed the expected audio action instead of hard-coding
+        this.audioService.PlayAction(athleteSession.segments[0].action);
 
         console.log(
             `Athlete ${athleteSession.athlete.firstName} ${athleteSession.athlete.lastName} has started the course at ${

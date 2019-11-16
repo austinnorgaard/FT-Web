@@ -6,9 +6,10 @@ import { FieldConesModule } from "../FieldCones/field-cones.module";
 import { FrontEndCommsModule } from "../FrontEndComms/front-end-comms.module";
 import { UltrasonicModule } from "../Ultrasonic/ultrasonic.module";
 import { TiltModule } from "../Tilt/tilt.module";
+import { AudioModule } from "../Audio/audio.module";
 
 @Module({
-    imports: [FieldConesModule, FrontEndCommsModule, UltrasonicModule, HttpModule, TiltModule],
+    imports: [FieldConesModule, FrontEndCommsModule, UltrasonicModule, HttpModule, TiltModule, AudioModule],
     providers: [TrainingService],
     controllers: [TrainingController],
 })
