@@ -104,6 +104,8 @@ export class TrainingService {
             console.log("WARN: segmentIdx is 0! This is probably not expected!");
         }
 
+        this.disableFieldConeTilts(id);
+
         segment.completed = true;
         // set the stop time for this segment
         console.log("Setting end time..");
@@ -116,7 +118,10 @@ export class TrainingService {
         // it'll be the segment in which the "from" cone is the one we're handling now
         // skip if we're handling cone id 0
         if (id !== 0) {
-            athletes[0].segments.find(s => s.from === id).startTime = new Date();
+            let segment = athletes[0].segments.find(s => s.from === id);
+            segment.startTime = new Date();
+            // And enable it for tilts!
+            this.enableFieldConeTilts(segment.to);
         }
 
         // update the frontend with the new state
@@ -278,6 +283,9 @@ export class TrainingService {
         // FIXME: Make this more like the FieldCones -- seed the expected audio action instead of hard-coding
         this.audioService.PlayAction(athleteSession.segments[0].action);
 
+        // Tell the upcoming field cone to start listening for tilts
+        this.enableFieldConeTilts(athleteSession.segments[0].to);
+
         console.log(
             `Athlete ${athleteSession.athlete.firstName} ${athleteSession.athlete.lastName} has started the course at ${
                 athleteSession.segments[0].startTime
@@ -288,6 +296,18 @@ export class TrainingService {
         this.sessionState.next(this.trainingSessionState);
 
         return true;
+    }
+
+    private enableFieldConeTilts(id: number) {
+        const fieldCones = this.fieldCones.connectedFieldCones.getValue();
+        const fieldCone = fieldCones.find(c => c.id === id);
+        this.http.post(`http://${fieldCone.ip}:6200/tilt/enable-tilts`);
+    }
+
+    private disableFieldConeTilts(id: number) {
+        const fieldCones = this.fieldCones.connectedFieldCones.getValue();
+        const fieldCone = fieldCones.find(c => c.id === id);
+        this.http.post(`http://${fieldCone.ip}:6200/tilt/disable-tilts`);
     }
 
     private numAthletesRemainingToStart(): number {

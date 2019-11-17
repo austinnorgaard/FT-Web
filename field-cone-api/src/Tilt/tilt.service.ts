@@ -1,5 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { BaseTiltService } from "./base-tilt-service";
+import { Subject } from "rxjs";
 
 const spawn = require("threads").spawn;
 
@@ -8,9 +9,20 @@ export class TiltService extends BaseTiltService {
     mpu: any = undefined;
     thread: any = undefined;
     rateLimited: boolean = false;
+    enabledForTilts: boolean = false;
+    // This is the event for the gyro _physically_ being tripped
+    // We only emit a true tilt event, if we are currently _enabled_ for
+    // reporting tilts
+    gyroTripped: Subject<void> = new Subject<void>();
     constructor() {
         super();
         console.log("Using the Real Tilt Service");
+        this.gyroTripped.subscribe(() => {
+            // If we are currently enabled for tilts, then go ahead and emit the real event
+            if (this.enabledForTilts) {
+                this.TiltOccured.next();
+            }
+        });
 
         this.thread = spawn(async (input, done) => {
             const mpu9250 = require("mpu9250");
@@ -47,7 +59,7 @@ export class TiltService extends BaseTiltService {
 
         this.thread.send().on("message", () => {
             if (!this.rateLimited) {
-                this.TiltOccured.next();
+                this.gyroTripped.next();
                 this.rateLimited = true;
                 setTimeout(() => {
                     this.rateLimited = false;

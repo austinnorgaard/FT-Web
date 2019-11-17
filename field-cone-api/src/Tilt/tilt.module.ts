@@ -5,6 +5,7 @@ import { BaseTiltService } from "./base-tilt-service";
 
 import * as fs from "fs";
 import { TestController } from "./test.controller";
+import { TiltController } from "./tilt.controller";
 
 // NOTE: tilt pin is pin #32
 
@@ -26,7 +27,7 @@ function isReal(): boolean {
             useClass: isReal() ? TiltService : MockTiltService,
         },
     ],
-    controllers: [TestController],
+    controllers: [TestController, TiltController],
 })
 export class TiltModule {
     constructor() {}
