@@ -44,21 +44,21 @@ start)
     ## If we are in "regular" mode, switch to adhoc mode. This script will be rerun
     ## and the service will start.
 
-    if [ ! -f "/var/tmp/.wifi-mode" ]
-    then
-        echo "WiFi Mode file does not exist, switching to adhoc!"
-        sudo switch_to_adhoc.sh
-    fi
+    #if [ ! -f "/var/tmp/.wifi-mode" ]
+    #then
+    #    echo "WiFi Mode file does not exist, switching to adhoc!"
+    #    sudo switch_to_adhoc.sh
+    #fi
 
-    mode=`cat /var/tmp/.wifi-mode`
+    #mode=`cat /var/tmp/.wifi-mode`
 
-    case "$mode" in
-        *regular*)
-            # results in a reboot
-            echo "WiFi mode is set to regular, switching to adhoc!"
-            sudo switch_to_adhoc.sh
-            ;;
-    esac
+    #case "$mode" in
+    #    *regular*)
+    #        # results in a reboot
+    #        echo "WiFi mode is set to regular, switching to adhoc!"
+    #        sudo switch_to_adhoc.sh
+    #        ;;
+    #esac
 
     echo "Starting Field Cone service."
     date > /var/tmp/last-start-time
