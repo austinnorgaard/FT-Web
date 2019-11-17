@@ -301,13 +301,17 @@ export class TrainingService {
     private enableFieldConeTilts(id: number) {
         const fieldCones = this.fieldCones.connectedFieldCones.getValue();
         const fieldCone = fieldCones.find(c => c.id === id);
-        this.http.post(`http://${fieldCone.ip}:6200/tilt/enable-tilts`);
+        this.http.post(`http://${fieldCone.ip}:6200/tilt/enable-tilts`).subscribe(() => {
+            console.log('Sent enable tilts!');
+        });
     }
 
     private disableFieldConeTilts(id: number) {
         const fieldCones = this.fieldCones.connectedFieldCones.getValue();
         const fieldCone = fieldCones.find(c => c.id === id);
-        this.http.post(`http://${fieldCone.ip}:6200/tilt/disable-tilts`);
+        this.http.post(`http://${fieldCone.ip}:6200/tilt/disable-tilts`).subscribe(() => {
+            console.log('Sent disable tilts!');
+        });
     }
 
     private numAthletesRemainingToStart(): number {
