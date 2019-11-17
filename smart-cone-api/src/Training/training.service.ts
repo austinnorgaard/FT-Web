@@ -301,6 +301,12 @@ export class TrainingService {
     private enableFieldConeTilts(id: number) {
         const fieldCones = this.fieldCones.connectedFieldCones.getValue();
         const fieldCone = fieldCones.find(c => c.id === id);
+        // TODO TODO TODO
+        // FIX BELOW, ITS A DEMO HACK
+        if (fieldCone === null || fieldCone === undefined) {
+            console.log(`Not enabling tilts for cone ID ${id} because we couldn't find it!`);
+            return;
+        }
         this.http.post(`http://${fieldCone.ip}:6200/tilt/enable-tilts`).subscribe(() => {
             console.log('Sent enable tilts!');
         });
@@ -309,6 +315,12 @@ export class TrainingService {
     private disableFieldConeTilts(id: number) {
         const fieldCones = this.fieldCones.connectedFieldCones.getValue();
         const fieldCone = fieldCones.find(c => c.id === id);
+        // TODO TODO TODO
+        // FIX BELOW, ITS A DEMO HACK
+        if (fieldCone === null || fieldCone === undefined) {
+            console.log(`Not disabling tilts for cone ID ${id} because we couldn't find it!`);
+            return;
+        }
         this.http.post(`http://${fieldCone.ip}:6200/tilt/disable-tilts`).subscribe(() => {
             console.log('Sent disable tilts!');
         });
