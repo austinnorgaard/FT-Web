@@ -27,4 +27,10 @@ sleep 1
 ifconfig wlan0 192.168.2.1
 ifconfig wlan0 up
 
+batctl if add wlan0
+ifconfig bat0 192.168.3.1
+ifconfig bat0 up
+ifconfig bat0 down
+ifconfig bat0 up
+
 exit 0

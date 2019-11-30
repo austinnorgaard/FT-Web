@@ -4,6 +4,9 @@
 
 echo "fieldcone" > /var/tmp/.cone-type
 
+apt-get -y update
+apt-get -y install batctl bridge-utils
+
 # shouldnt actually be needed, but trying to keep parity with the older bootstrap scripts
 touch /var/tmp/.tilt-gpio-pin
 

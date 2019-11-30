@@ -4,6 +4,9 @@
 
 echo "smartcone" > /var/tmp/.cone-type
 
+apt-get -y update
+apt-get -y install batctl bridge-utils
+
 touch /var/tmp/.tilt-gpio-pin
 
 sudo mv ./install-wifi /usr/bin/install-wifi
