@@ -22,5 +22,7 @@ iwconfig wlan0 essid FT-Adhoc
 
 # We assume the batctl tool is installed
 batctl if add wlan0
+ifconfig bat0 down
+ifconfig bat0 up
 
 exit 0
