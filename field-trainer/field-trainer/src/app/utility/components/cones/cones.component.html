@@ -3,7 +3,6 @@
         <span>No cones connected yet...</span>
     </div>
     <div *ngIf="this.fieldCones.length !== 0">
-        <span>Got {{ this.fieldCones.length }} cones!</span>
         <div *ngFor="let cone of fieldCones">
             <ft-field-cone [coneInfo]="cone"></ft-field-cone>
         </div>

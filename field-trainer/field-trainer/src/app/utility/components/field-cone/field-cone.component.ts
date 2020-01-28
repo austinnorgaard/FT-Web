@@ -39,4 +39,30 @@ export class FieldConeComponent implements OnInit {
         newConeInfo.id = id;
         this.fieldConesService.setFieldConeId(newConeInfo);
     }
+
+    public getLatency() {
+        if (this.coneInfo.latencyResults.length === 0) {
+            return 0;
+        }
+        // Take the average of the last 3 results
+
+        // If we have 3 or less, just use those
+        if (this.coneInfo.latencyResults.length <= 3) {
+            return Math.round(
+                this.coneInfo.latencyResults.reduce((prev, current) => {
+                    return current + prev;
+                }) / 3.0,
+            );
+        }
+
+        // Otherwise, return the latest 3
+        // Ugly, is there a nicer method?
+        return Math.round(
+            this.coneInfo.latencyResults
+                .slice(this.coneInfo.latencyResults.length - 3, this.coneInfo.latencyResults.length)
+                .reduce((prev, current) => {
+                    return current + prev;
+                }) / 3.0,
+        );
+    }
 }

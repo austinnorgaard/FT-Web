@@ -20,6 +20,7 @@ export class CommsService {
         this.socket.on("connect", async () => {
             console.log("Connected to the smart cone!!");
             const coneInfo = await this.getFieldConeInfo();
+
             this.socket.emit("initialContact", coneInfo);
         });
 
@@ -29,6 +30,13 @@ export class CommsService {
             // need to emit an event back to the smart cone that a tilt occur
             // TODO: Does the smart cone have all the info it needs for when tilts are emitted??
             this.socket.emit("tiltOccurred", {});
+        });
+
+        this.socket.on("FieldConePing", async () => {
+            console.log("Got ping, responding!");
+            setTimeout(() => {
+                this.socket.emit("FieldConePingResponse", {});
+            }, Math.random() * 5000);
         });
     }
 

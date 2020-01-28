@@ -1,8 +1,9 @@
 import { Injectable } from "@nestjs/common";
 import { WebSocketGateway, OnGatewayConnection, OnGatewayDisconnect, SubscribeMessage } from "@nestjs/websockets";
 import { environment } from "../../../field-trainer/field-trainer/src/environments/environment";
-import { FieldConeInfo } from "./field-cone-info";
+import { FieldConeInfo, FieldConeClient } from "./field-cone-info";
 import { Observable, Subject, BehaviorSubject, identity } from "rxjs";
+import { PING_DATA } from "./ping-data";
 
 @Injectable()
 @WebSocketGateway(parseInt(environment.config.coneApiSocketPort, 10))
@@ -11,21 +12,42 @@ export class FieldConesService implements OnGatewayConnection, OnGatewayDisconne
     public connectedFieldCones: BehaviorSubject<FieldConeInfo[]> = new BehaviorSubject<FieldConeInfo[]>([]);
     public onTilt: Subject<FieldConeInfo> = new Subject<FieldConeInfo>();
 
+    private MAX_PINGS: number = 5;
+
+    private clients: Array<FieldConeClient> = [];
+
     constructor() {
         console.log("Field Cones Service instantiated!");
         this.onConnectSubject.subscribe({
             next: cone => {
-                console.log(`Received new cone data! ${JSON.stringify(cone)}`);
+                console.log(`Received new cone data! ConeID: ${cone.id}. Session ID: ${cone.sessionId}. IP: ${cone.ip}`);
+
+                // Check if we already have a cone, and throw up a warning if we do
+                if (this.connectedFieldCones.getValue().some(item => item.id === cone.id)) {
+                    console.log(`WARNING: Cone ${cone.id} is already in our Field Cones list!`);
+                }
+
+                cone.latencyStartTime = new Date();
 
                 const value = this.connectedFieldCones.getValue();
                 value.push(cone);
                 this.connectedFieldCones.next(value);
+
+                const client = this.clients.find(c => c.id === cone.id);
+                if (client === null || client === undefined) {
+                    console.log(`COULD NOT FIND SOCKET IO CLIENT FOR CONE ID ${cone.id}! THIS IS BAD`);
+                    return;
+                }
+                // Send a message to the field-cone, initiating sync
+                client.client.emit("FieldConePing", PING_DATA);
             },
         });
     }
 
     handleConnection(client: any, ...args: any[]) {
-        console.log(`Gateway connect from client id ${client.id}`);
+        console.log(`Gateway connect from client id ${client.id}.`);
+
+        console.log(`Using a ping data size of ${PING_DATA.length}`);
     }
 
     handleDisconnect(client: any) {
@@ -42,14 +64,25 @@ export class FieldConesService implements OnGatewayConnection, OnGatewayDisconne
     @SubscribeMessage("initialContact")
     onInitialContact(client, data: FieldConeInfo) {
         console.log(`Contacted by a field cone! Their info, cone ID: ${data.id} at ${data.ip}`);
-        this.onConnectSubject.next({ id: data.id, ip: data.ip, sessionId: client.id } as FieldConeInfo);
+
+        const _ourClient = this.clients.find(c => c.id === data.id);
+        if (_ourClient === null || _ourClient === undefined) {
+            // This is fine, just add a new mapping
+            this.clients.push({
+                id: data.id,
+                client: client,
+            } as FieldConeClient);
+        } else {
+            _ourClient.client = client;
+        }
+        this.onConnectSubject.next({ id: data.id, ip: data.ip, sessionId: client.id, latencyResults: [] } as FieldConeInfo);
     }
 
     @SubscribeMessage("tiltOccurred")
     onTiltEvent(client, data: any) {
         console.log("on tilt event!");
         if (client === undefined || client === null) {
-            console.log('Client information is not valid.');
+            console.log("Client information is not valid.");
             return;
         }
         // data is nothing
@@ -70,5 +103,26 @@ export class FieldConesService implements OnGatewayConnection, OnGatewayDisconne
         extractedCone.ip = data.ip;
         coneArray[extractedConeId];
         this.connectedFieldCones.next(coneArray);
+    }
+
+    @SubscribeMessage("FieldConePingResponse")
+    onFieldConePingResponse(client, data: any) {
+        const currentTime = new Date();
+        // Identify the field cone
+        let fieldCones = this.connectedFieldCones.getValue();
+        let fieldCone = fieldCones.find(f => f.sessionId === client.id);
+        if (fieldCone === undefined || fieldCone === null) {
+            console.log(`WARN!! Got a Field Cone Ping for a cone which we don't know about!!`);
+            return;
+        }
+
+        fieldCone.latencyResults.push(currentTime.getTime() - fieldCone.latencyStartTime.getTime());
+        console.log(`Got Field Cone Ping response for cone ID: ${fieldCone.id}. Latency results: ${fieldCone.latencyResults}.`);
+        this.connectedFieldCones.next(fieldCones);
+
+        if (fieldCone.latencyResults.length < this.MAX_PINGS) {
+            fieldCone.latencyStartTime = new Date();
+            client.emit("FieldConePing", "HELLO");
+        }
     }
 }

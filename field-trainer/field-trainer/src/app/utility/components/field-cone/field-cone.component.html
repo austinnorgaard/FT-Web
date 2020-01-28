@@ -2,11 +2,14 @@
     <mat-card-title>Field Cone</mat-card-title>
     <mat-card-subtitle>{{ coneInfo.ip }}</mat-card-subtitle>
     <mat-card-content fxLayout="column">
-        <div fxFlex>
+        <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
             <span style="font-size: 1.2em">Cone ID: {{ coneInfo.id }}</span>
+            <span style="font-size: 1.2em">Latency: {{ this.getLatency() }} ms</span>
         </div>
         <div fxFlex style="margin-top: 0.5em" fxLayout="row" fxLayoutAlign="space-around center">
-            <input fxFlex="15%" matInput placeholder="New ID" [(ngModel)]="newId" />
+            <mat-form-field fxFlex="15%">
+                <input matInput placeholder="New ID" [(ngModel)]="newId" />
+            </mat-form-field>
             <button fxFlex="30%" mat-raised-button color="primary" (click)="changeId()">Change ID</button>
             <button fxFlex="30%" mat-raised-button color="primary" (click)="makeNoise()">Make Noise</button>
         </div>
