@@ -11,4 +11,6 @@ export class MockTiltService extends BaseTiltService {
     emitTilt() {
         this.TiltOccured.next();
     }
+
+    public setEnableTilts(value: boolean): void {}
 }

@@ -19,7 +19,7 @@ export class CommsService {
         console.log(`Setting up socket client with URL ${smartConeSocketUrl()}`);
         this.socket.on("connect", async () => {
             console.log("Connected to the smart cone!!");
-            const coneInfo = await this.getFieldConeInfo();
+            const coneInfo = await this.getFieldConeWrapper();
 
             this.socket.emit("initialContact", coneInfo);
         });
@@ -51,7 +51,30 @@ export class CommsService {
     async updateConeInfo() {
         // Read the current cone state and emit it, so the smart cone
         // can be notified of changes
-        this.socket.emit("coneChanged", await this.getFieldConeInfo());
+        this.socket.emit("coneChanged", await this.getFieldConeWrapper());
+    }
+
+    async getFieldConeWrapper(): Promise<FieldConeInfo> {
+        try {
+            return await this.getFieldConeInfo();
+        } catch (ex) {
+            // Try again
+            try {
+                // 5 second wait
+                await this.sleep(5000);
+                return await this.getFieldConeInfo();
+            } catch (ex2) {
+                // one last time
+                try {
+                    // 10 second wait
+                    await this.sleep(10000);
+                    return await this.getFieldConeInfo();
+                } catch (ex3) {
+                    // giving up now
+                    throw ex3;
+                }
+            }
+        }
     }
 
     async getFieldConeInfo(): Promise<FieldConeInfo> {
@@ -67,6 +90,9 @@ export class CommsService {
         } else if (Object.keys(interfaces).some(k => k === "bat0")) {
             console.log("We are on the Raspberry Pi (detected B.A.T.M.A.N.)");
             info.ip = interfaces.bat0.filter(i => i.family === "IPv4")[0].address;
+            if (info.ip.startsWith("169")) {
+                throw `Invalid IP received! IP: ${info.ip}`;
+            }
         } else if (Object.keys(interfaces).some(k => k.includes("wlx"))) {
             /*console.log("We are on a Linux desktop system!");
             let test = Object.keys(interfaces).filter(i => i.includes("wlx"));
@@ -82,5 +108,9 @@ export class CommsService {
         const coneId = await getFieldConeId();
         info.id = coneId;
         return info;
+    }
+
+    sleep(ms: number) {
+        return new Promise(resolve => setTimeout(resolve, ms));
     }
 }
