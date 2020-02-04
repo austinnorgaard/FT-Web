@@ -34,9 +34,7 @@ export class CommsService {
 
         this.socket.on("FieldConePing", async () => {
             console.log("Got ping, responding!");
-            setTimeout(() => {
-                this.socket.emit("FieldConePingResponse", {});
-            }, Math.random() * 5000);
+            this.socket.emit("FieldConePingResponse", {});
         });
 
         this.socket.on("EnableTilts", () => {

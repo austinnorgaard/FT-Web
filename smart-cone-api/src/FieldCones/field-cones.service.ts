@@ -131,9 +131,9 @@ export class FieldConesService implements OnGatewayConnection, OnGatewayDisconne
         console.log(`Got Field Cone Ping response for cone ID: ${fieldCone.id}. Latency results: ${fieldCone.latencyResults}.`);
         this.connectedFieldCones.next(fieldCones);
 
-        if (fieldCone.latencyResults.length < this.MAX_PINGS) {
+        setTimeout(() => {
             fieldCone.latencyStartTime = new Date();
             client.emit("FieldConePing", "HELLO");
-        }
+        }, 3000);
     }
 }
