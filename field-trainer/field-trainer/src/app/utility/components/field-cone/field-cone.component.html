@@ -4,7 +4,8 @@
     <mat-card-content fxLayout="column">
         <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
             <span style="font-size: 1.2em">Cone ID: {{ coneInfo.id }}</span>
-            <span style="font-size: 1.2em">Latency: {{ this.getLatency() }} ms</span>
+            <span style="font-size: 0.8em">Avg Latency: {{ this.getAverageLatency() }} ms</span>
+            <span style="font-size: 0.8em">Last Latency: {{ this.getLastLatency() }} ms</span>
         </div>
         <div fxFlex style="margin-top: 0.5em" fxLayout="row" fxLayoutAlign="space-around center">
             <mat-form-field fxFlex="15%">

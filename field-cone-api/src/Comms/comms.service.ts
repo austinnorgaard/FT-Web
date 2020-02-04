@@ -38,6 +38,16 @@ export class CommsService {
                 this.socket.emit("FieldConePingResponse", {});
             }, Math.random() * 5000);
         });
+
+        this.socket.on("EnableTilts", () => {
+            console.log("Enabling tilts...");
+            this.tiltService.setTiltsEnabled(true);
+        });
+
+        this.socket.on("DisableTilts", () => {
+            console.log("Disabling tilts...");
+            this.tiltService.setTiltsEnabled(false);
+        });
     }
 
     async updateConeInfo() {

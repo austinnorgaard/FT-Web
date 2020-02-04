@@ -59,6 +59,17 @@ export class FieldConesService implements OnGatewayConnection, OnGatewayDisconne
         this.connectedFieldCones.next(value);
     }
 
+    // TODO: Can I fix the `any` here? Need socket.io types
+    public getFieldConeSocketClient(id: number): any {
+        const client = this.clients.find(c => c.id === id);
+        if (client) {
+            return client;
+        }
+
+        // TODO: Should we just assert/blowup here?
+        return undefined;
+    }
+
     // This is called when a field cone connects to us, they will identify themselves
     // along with any information we may need from them up front
     @SubscribeMessage("initialContact")

@@ -32,7 +32,7 @@ export class TrainingService {
         private readonly ultraSonicService: BaseUltrasonicService,
         private http: HttpService,
         private localTiltService: BaseTiltService,
-        private readonly audioService: BaseAudioService
+        private readonly audioService: BaseAudioService,
     ) {
         this.fieldCones.onTilt.subscribe(cone => {
             // tilt has occurred, modify our athletes session state, then re-emit if its changed
@@ -97,7 +97,7 @@ export class TrainingService {
             // Get the previous cone:
             const prevSegment = athletes[0].segments[segmentIdx - 1];
             if (!prevSegment.completed) {
-                console.log('Previous segment was not completed, assuming this was an accidental trigger!');
+                console.log("Previous segment was not completed, assuming this was an accidental trigger!");
                 return;
             }
         } else {
@@ -179,7 +179,7 @@ export class TrainingService {
         try {
             await Promise.all(promises);
         } catch (err) {
-            console.log(`Failed to update audio actins. Error: ${err}`);
+            console.log(`Failed to update audio actions. Error: ${err}`);
         }
     }
 
@@ -299,31 +299,35 @@ export class TrainingService {
     }
 
     private enableFieldConeTilts(id: number) {
-        const fieldCones = this.fieldCones.connectedFieldCones.getValue();
-        const fieldCone = fieldCones.find(c => c.id === id);
-        // TODO TODO TODO
-        // FIX BELOW, ITS A DEMO HACK
-        if (fieldCone === null || fieldCone === undefined) {
-            console.log(`Not enabling tilts for cone ID ${id} because we couldn't find it!`);
+        // If we are targeting ourself, tell ourself to enable
+        if (id === 0) {
+            console.log(`Enabling tilts for ourself because the ID is 0`);
+            this.localTiltService.setTiltsEnabled(true);
             return;
         }
-        this.http.post(`http://${fieldCone.ip}:6200/tilt/enable-tilts`).subscribe(() => {
-            console.log('Sent enable tilts!');
-        });
+
+        const fieldCone = this.fieldCones.getFieldConeSocketClient(id);
+        if (!fieldCone) {
+            console.log(`WARNING (FATAL): Could not get the socket.io client for id: ${id}. This is probably horrible.`);
+            return;
+        }
+        fieldCone.client.emit("EnableTilts");
     }
 
     private disableFieldConeTilts(id: number) {
-        const fieldCones = this.fieldCones.connectedFieldCones.getValue();
-        const fieldCone = fieldCones.find(c => c.id === id);
-        // TODO TODO TODO
-        // FIX BELOW, ITS A DEMO HACK
-        if (fieldCone === null || fieldCone === undefined) {
-            console.log(`Not disabling tilts for cone ID ${id} because we couldn't find it!`);
+        // If we are targeting ourself, tell ourself to disable
+        if (id === 0) {
+            console.log(`Disabling tilts for ourself because the ID is 0`);
+            this.localTiltService.setTiltsEnabled(false);
             return;
         }
-        this.http.post(`http://${fieldCone.ip}:6200/tilt/disable-tilts`).subscribe(() => {
-            console.log('Sent disable tilts!');
-        });
+
+        const fieldCone = this.fieldCones.getFieldConeSocketClient(id);
+        if (!fieldCone) {
+            console.log(`WARNING (FATAL): Could not get the socket.io client for id: ${id}. This is probably horrible.`);
+            return;
+        }
+        fieldCone.client.emit("DisableTilts");
     }
 
     private numAthletesRemainingToStart(): number {

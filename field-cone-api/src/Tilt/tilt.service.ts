@@ -69,4 +69,8 @@ export class TiltService extends BaseTiltService {
             }
         });
     }
+
+    public setTiltsEnabled(value: boolean): void {
+        this.enabledForTilts = value;
+    }
 }

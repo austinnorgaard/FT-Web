@@ -1,4 +1,4 @@
-import { Controller, Post } from "@nestjs/common"
+import { Controller, Post } from "@nestjs/common";
 import { BaseTiltService } from "./base-tilt-service";
 import { TiltService } from "./tilt.service";
 
@@ -12,7 +12,7 @@ export class TiltController {
     }
     @Post("enable-tilts")
     public enableTilts() {
-        this._tiltService.enabledForTilts = true; 
+        this._tiltService.enabledForTilts = true;
     }
 
     @Post("disable-tilts")

@@ -40,7 +40,7 @@ export class FieldConeComponent implements OnInit {
         this.fieldConesService.setFieldConeId(newConeInfo);
     }
 
-    public getLatency() {
+    public getAverageLatency() {
         if (this.coneInfo.latencyResults.length === 0) {
             return 0;
         }
@@ -64,5 +64,14 @@ export class FieldConeComponent implements OnInit {
                     return current + prev;
                 }) / 3.0,
         );
+    }
+
+    public getLastLatency() {
+        if (this.coneInfo.latencyResults.length === 0) {
+            console.log("Returning early...");
+            return 0;
+        }
+
+        return Math.round(this.coneInfo.latencyResults[this.coneInfo.latencyResults.length - 1]);
     }
 }
