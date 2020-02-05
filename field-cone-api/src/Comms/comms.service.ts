@@ -5,7 +5,7 @@ import { environment } from "../../../field-trainer/field-trainer/src/environmen
 import { FieldConeInfo } from "../../../smart-cone-api/src/FieldCones/field-cone-info";
 import { getFieldConeId, smartConeSocketUrl } from "../utils/environment-helper";
 import { BaseTiltService } from "../Tilt/base-tilt-service";
-import { WifiSettingsService, WifiSetting } from "Wifi/wifi.service";
+import { WifiSettingsService, WifiSetting } from "../Wifi/wifi.service";
 
 @Injectable()
 export class CommsService {

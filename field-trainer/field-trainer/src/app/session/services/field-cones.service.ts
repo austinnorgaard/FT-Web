@@ -45,4 +45,8 @@ export class FieldConesService {
     async coneMakeNoise(fieldCone: FieldCone): Promise<void> {
         await this.http.post<FieldCone>("/field-cones/noise", fieldCone);
     }
+
+    async updateCone(fieldCone: FieldCone): Promise<void> {
+        await this.http.post<FieldCone>("/field-cones/update", fieldCone);
+    }
 }

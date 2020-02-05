@@ -7,12 +7,17 @@
             <span style="font-size: 0.8em">Avg Latency: {{ this.getAverageLatency() }} ms</span>
             <span style="font-size: 0.8em">Last Latency: {{ this.getLastLatency() }} ms</span>
         </div>
+        <div fxFlex style="margin-top: 0.5em" fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxFlex="60%" fxLayoutAlign="start center" fxLayout="row">
+                <mat-form-field fxFlex="33%" style="margin-right: 0.25em">
+                    <input matInput placeholder="New ID" [(ngModel)]="newId" />
+                </mat-form-field>
+                <button fxFlex="66%" mat-raised-button color="primary" (click)="changeId()">Change ID</button>
+            </div>
+            <button fxFlex="0 0 auto" mat-raised-button color="primary" (click)="makeNoise()">Make Noise</button>
+        </div>
         <div fxFlex style="margin-top: 0.5em" fxLayout="row" fxLayoutAlign="space-around center">
-            <mat-form-field fxFlex="15%">
-                <input matInput placeholder="New ID" [(ngModel)]="newId" />
-            </mat-form-field>
-            <button fxFlex="30%" mat-raised-button color="primary" (click)="changeId()">Change ID</button>
-            <button fxFlex="30%" mat-raised-button color="primary" (click)="makeNoise()">Make Noise</button>
+            <button fxFlex mat-raised-button color="warn" (click)="update()">Update</button>
         </div>
     </mat-card-content>
 </mat-card>

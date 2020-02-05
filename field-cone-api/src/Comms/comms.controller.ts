@@ -2,6 +2,7 @@ import { Controller, Post, Body, Get } from "@nestjs/common";
 
 import * as fs from "fs";
 import * as util from "util";
+import * as child_process from "child_process";
 import { CommsService } from "./comms.service";
 
 const writeFile = util.promisify(fs.writeFile);
@@ -29,5 +30,13 @@ export class CommsController {
     @Get("id")
     public async getId() {
         return parseInt((await readFile("/var/tmp/.cone-id")).toString());
+    }
+
+    @Post("update")
+    public async update() {
+        // Write a file indicating this is an initiated update
+        fs.writeFileSync("/var/tmp/.initiated-update", "true");
+        // Reboot into the regular wifi mode, updates are handled automatically at that point
+        child_process.exec("/usr/bin/switch_to_regular_wifi.sh");
     }
 }

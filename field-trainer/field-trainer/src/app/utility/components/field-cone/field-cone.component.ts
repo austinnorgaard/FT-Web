@@ -74,4 +74,9 @@ export class FieldConeComponent implements OnInit {
 
         return Math.round(this.coneInfo.latencyResults[this.coneInfo.latencyResults.length - 1]);
     }
+
+    public async update() {
+        // Tell the backend up to update this cone
+        await this.fieldConesService.updateCone(this.coneInfo);
+    }
 }

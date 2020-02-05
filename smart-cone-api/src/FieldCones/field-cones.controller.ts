@@ -25,4 +25,21 @@ export class FieldConesController {
         console.log(`Telling cone at ${body.ip} to make a noise!`);
         await this.http.post(`http://${body.ip}:6200/audio/test-noise`, {}).toPromise();
     }
+
+    @Post("update")
+    async updateCone(@Body() body: FieldConeInfo) {
+        // Just inform the cone they need to update, don't care about getting a response
+        // response is likely a 500 anyway as the cone is rebooting
+        try {
+            const cone = this.fieldConesService.connectedFieldCones.getValue().find(c => {
+                return c.id === body.id;
+            });
+            if (cone) {
+                console.log(`Attempting to update cone with ID ${body.id}`);
+                await this.http.post(`http://${cone.ip}:6200/comms/update`).toPromise();
+            }
+        } catch (err) {
+            // dont care
+        }
+    }
 }

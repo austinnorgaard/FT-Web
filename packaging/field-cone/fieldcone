@@ -36,29 +36,21 @@ start)
         echo "Update failed! But maybe we don't have internet access... still trying to launch"
     fi
 
-    ## If we are not in ad-hoc mode, the below startup code does not make any sense
-    ## We can check our mode at `/var/tmp/.wifi-mode`, if it _doesnt_ exist, we must
-    ## be in wifi mode, as that is our default (starting) state. If it does exist,
-    ## it will contain either "regular" or "adhoc"
+    ## NEW ##
+    # If we are currently in regular-wifi mode, and there exists a file at:
+    # /var/tmp/.initiated-update, then the user requested this cone be updated
+    # we will switch into ad-hoc mode, and will delete the file before making the switch
 
-    ## If we are in "regular" mode, switch to adhoc mode. This script will be rerun
-    ## and the service will start.
+    ## The file exists, we must've just finished checking for or applying an update, time to reboot
+    if [ -f "/var/tmp/.initiated-update" ]
+    then
+        echo "User requested an update and we are in regular mode. Switching to ad-hoc to complete update process"
+        echo "Deleting the initiated update marker file"
+        rm /var/tmp/.initiated-update
+        sudo /usr/bin/switch_to_adhoc.sh
+    fi
 
-    #if [ ! -f "/var/tmp/.wifi-mode" ]
-    #then
-    #    echo "WiFi Mode file does not exist, switching to adhoc!"
-    #    sudo switch_to_adhoc.sh
-    #fi
-
-    #mode=`cat /var/tmp/.wifi-mode`
-
-    #case "$mode" in
-    #    *regular*)
-    #        # results in a reboot
-    #        echo "WiFi mode is set to regular, switching to adhoc!"
-    #        sudo switch_to_adhoc.sh
-    #        ;;
-    #esac
+    ## if the file didn't exist, then just continue as normal
 
     echo "Starting Field Cone service."
     date > /var/tmp/last-start-time
