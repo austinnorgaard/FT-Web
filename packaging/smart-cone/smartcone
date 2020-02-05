@@ -37,6 +37,22 @@ start)
         echo "Update failed! But maybe we don't have internet access.. still trying to launch"
     fi
 
+    ## NEW ##
+    # If we are currently in regular-wifi mode, and there exists a file at:
+    # /var/tmp/.initiated-update, then the user requested this cone be updated
+    # we will switch into ad-hoc mode, and will delete the file before making the switch
+
+    ## The file exists, we must've just finished checking for or applying an update, time to reboot
+    if [ -f "/var/tmp/.initiated-update" ]
+    then
+        echo "User requested an update and we are in regular mode. Switching to ad-hoc to complete update process"
+        echo "Deleting the initiated update marker file"
+        rm /var/tmp/.initiated-update
+        sudo /usr/bin/switch_to_adhoc.sh
+    fi
+
+    ## if the file didn't exist, then just continue as normal
+
     echo "Starting Smart Cone service."
     date > /var/tmp/last-start-time
     node /opt/smart-cone-api/dist/smart-cone-api/src/main.js &
