@@ -5,11 +5,12 @@ import { environment } from "../../../field-trainer/field-trainer/src/environmen
 import { FieldConeInfo } from "../../../smart-cone-api/src/FieldCones/field-cone-info";
 import { getFieldConeId, smartConeSocketUrl } from "../utils/environment-helper";
 import { BaseTiltService } from "../Tilt/base-tilt-service";
+import { WifiSettingsService, WifiSetting } from "Wifi/wifi.service";
 
 @Injectable()
 export class CommsService {
     private socket: SocketIOClient.Socket;
-    constructor(private readonly tiltService: BaseTiltService) {
+    constructor(private readonly tiltService: BaseTiltService, private readonly wifiService: WifiSettingsService) {
         // Create our socket to the smart cone
         this.socket = io(smartConeSocketUrl(), {
             reconnection: true,
@@ -44,6 +45,17 @@ export class CommsService {
         this.socket.on("DisableTilts", () => {
             console.log("Disabling tilts...");
             this.tiltService.setTiltsEnabled(false);
+        });
+
+        this.socket.on("AddWifiSetting", wifiSetting => {
+            // wifiSetting is an object with keys ssid and password
+            this.wifiService.addWifiSetting(wifiSetting.ssid, wifiSetting.password);
+        });
+
+        this.socket.on("InitialWifiSettings", (wifiSettings: Array<WifiSetting>) => {
+            // list of objects with keys ssid and password
+            // This is the "master" list from the smart cone
+            this.wifiService.initializeWifiSettings(wifiSettings);
         });
     }
 

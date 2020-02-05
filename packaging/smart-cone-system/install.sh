@@ -4,6 +4,8 @@
 
 echo "smartcone" > /var/tmp/.cone-type
 
+sudo chmod 666 /etc/wpa_supplicant/wpa_supplicant.conf
+
 apt-get -y update
 apt-get -y install batctl bridge-utils
 

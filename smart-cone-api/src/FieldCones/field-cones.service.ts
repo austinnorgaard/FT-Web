@@ -4,6 +4,7 @@ import { environment } from "../../../field-trainer/field-trainer/src/environmen
 import { FieldConeInfo, FieldConeClient } from "./field-cone-info";
 import { Observable, Subject, BehaviorSubject, identity } from "rxjs";
 import { PING_DATA } from "./ping-data";
+import { WifiSettingsService } from "../Wifi/wifi.service";
 
 @Injectable()
 @WebSocketGateway(parseInt(environment.config.coneApiSocketPort, 10))
@@ -12,11 +13,9 @@ export class FieldConesService implements OnGatewayConnection, OnGatewayDisconne
     public connectedFieldCones: BehaviorSubject<FieldConeInfo[]> = new BehaviorSubject<FieldConeInfo[]>([]);
     public onTilt: Subject<FieldConeInfo> = new Subject<FieldConeInfo>();
 
-    private MAX_PINGS: number = 5;
-
     private clients: Array<FieldConeClient> = [];
 
-    constructor() {
+    constructor(private wifiService: WifiSettingsService) {
         console.log("Field Cones Service instantiated!");
         this.onConnectSubject.subscribe({
             next: cone => {
@@ -41,6 +40,24 @@ export class FieldConesService implements OnGatewayConnection, OnGatewayDisconne
                 // Send a message to the field-cone, initiating sync
                 client.client.emit("FieldConePing", PING_DATA);
             },
+        });
+
+        this.wifiService.getWifiSettingsObservable().subscribe(wifiSettings => {
+            // the official wifi settings have changed, update all currently connected field
+            // cones with the update
+            wifiSettings.forEach(setting => {
+                this.connectedFieldCones.getValue().forEach(cone => {
+                    const client = this.getFieldConeSocketClient(cone.id);
+                    if (client) {
+                        client.client.emit("AddWifiSetting", {
+                            ssid: setting.ssid,
+                            password: setting.password,
+                        });
+                    } else {
+                        console.log(`Could not get field cone id for cone id: ${cone.id}`);
+                    }
+                });
+            });
         });
     }
 
@@ -86,6 +103,10 @@ export class FieldConesService implements OnGatewayConnection, OnGatewayDisconne
         } else {
             _ourClient.client = client;
         }
+
+        // Update their wifi settings with our master list
+        client.emit("InitializeWifiSettings", this.wifiService.getWifiSettings());
+
         this.onConnectSubject.next({ id: data.id, ip: data.ip, sessionId: client.id, latencyResults: [] } as FieldConeInfo);
     }
 
