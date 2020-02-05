@@ -27,4 +27,3 @@ sudo chmod +x /etc/init.d/smartcone
 sudo update-rc.d smartcone defaults
 
 sudo systemctl daemon-reload
-sudo systemctl restart smartcone
