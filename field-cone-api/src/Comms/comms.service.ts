@@ -1,6 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import * as io from "socket.io-client";
 import * as os from "os";
+import * as child_process from "child_process";
 import { environment } from "../../../field-trainer/field-trainer/src/environments/environment";
 import { FieldConeInfo } from "../../../smart-cone-api/src/FieldCones/field-cone-info";
 import { getFieldConeId, smartConeSocketUrl } from "../utils/environment-helper";
@@ -71,7 +72,10 @@ export class CommsService {
             try {
                 return await this.getFieldConeInfo();
             } catch (ex) {
-                console.log("Failed, sleeping 5 seconds");
+                console.log("Failed, toggling bat0 interface and retrying DHCP");
+                child_process.execSync("sudo ifconfig bat0 down");
+                child_process.execSync("sudo ifconfig bat0 up");
+                child_process.execSync("sudo dhclient bat0");
                 // Try again
                 // 5 second wait
                 await this.sleep(5000);

@@ -90,10 +90,21 @@ export class WifiSettingsService {
     addWifiSetting(ssid: string, password: string) {
         // Update our internal master list of wifi settings
         const values = this.wifiSettings.getValue();
-        values.push({
-            ssid: ssid,
-            password: password,
-        } as WifiSetting);
+
+        // if the ssid already exists, update the existing one
+        const existingSetting = values.find(setting => {
+            return setting.ssid === ssid;
+        });
+
+        if (existingSetting) {
+            existingSetting.password = password;
+        } else {
+            values.push({
+                ssid: ssid,
+                password: password,
+            } as WifiSetting);
+        }
+
         this.wifiSettings.next(values);
         this.serializeWifiSettings();
     }

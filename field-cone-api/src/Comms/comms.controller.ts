@@ -38,6 +38,6 @@ export class CommsController {
         fs.writeFileSync("/var/tmp/.initiated-update", "true");
         child_process.exec("sudo rm /var/tmp/ft_update_lock");
         // Reboot into the regular wifi mode, updates are handled automatically at that point
-        child_process.exec("/usr/bin/switch_to_regular_wifi.sh");
+        child_process.exec("sudo /usr/bin/switch_to_regular_wifi.sh");
     }
 }
