@@ -45,18 +45,15 @@ export class FieldConesService implements OnGatewayConnection, OnGatewayDisconne
         this.wifiService.getWifiSettingsObservable().subscribe(wifiSettings => {
             // the official wifi settings have changed, update all currently connected field
             // cones with the update
-            wifiSettings.forEach(setting => {
-                this.connectedFieldCones.getValue().forEach(cone => {
-                    const client = this.getFieldConeSocketClient(cone.id);
-                    if (client) {
-                        client.client.emit("AddWifiSetting", {
-                            ssid: setting.ssid,
-                            password: setting.password,
-                        });
-                    } else {
-                        console.log(`Could not get field cone id for cone id: ${cone.id}`);
-                    }
-                });
+            this.connectedFieldCones.getValue().forEach(cone => {
+                const client = this.getFieldConeSocketClient(cone.id);
+                if (client) {
+                    client.client.emit("SetWifiSettings", {
+                        settings: wifiSettings,
+                    });
+                } else {
+                    console.log(`Could not get field cone id for cone id: ${cone.id}`);
+                }
             });
         });
     }

@@ -89,7 +89,6 @@ export class WifiSettingsService {
 
     addWifiSetting(ssid: string, password: string) {
         // Update our internal master list of wifi settings
-        // Contact all currently connected field-cones and send them the updated list
         const values = this.wifiSettings.getValue();
         values.push({
             ssid: ssid,

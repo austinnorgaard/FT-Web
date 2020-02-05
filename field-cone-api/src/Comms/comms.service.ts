@@ -47,9 +47,9 @@ export class CommsService {
             this.tiltService.setTiltsEnabled(false);
         });
 
-        this.socket.on("AddWifiSetting", wifiSetting => {
+        this.socket.on("SetWifiSettings", wifiSettings => {
             // wifiSetting is an object with keys ssid and password
-            this.wifiService.addWifiSetting(wifiSetting.ssid, wifiSetting.password);
+            this.wifiService.initializeWifiSettings(wifiSettings);
         });
 
         this.socket.on("InitialWifiSettings", (wifiSettings: Array<WifiSetting>) => {
