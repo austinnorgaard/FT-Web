@@ -4,5 +4,17 @@ import { Point } from "./point";
  */
 
 export class FieldCone {
-    constructor(public id?: number, public position?: Point, public ip?: string, public latencyResults?: number[]) {}
+    constructor(
+        public id?: number,
+        public position?: Point,
+        public ip?: string,
+        public latencyResults?: number[],
+        public version?: FieldConeVersion,
+    ) {}
+}
+
+export class FieldConeVersion {
+    fieldCone: number;
+    fieldConeSystem: number;
+    audioFiles: number;
 }

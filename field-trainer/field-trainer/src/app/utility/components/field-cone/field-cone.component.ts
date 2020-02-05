@@ -79,4 +79,8 @@ export class FieldConeComponent implements OnInit {
         // Tell the backend up to update this cone
         await this.fieldConesService.updateCone(this.coneInfo);
     }
+
+    public getVersionString(): string {
+        return `FieldCone-${this.coneInfo.version.fieldCone}, FieldConeSystem-${this.coneInfo.version.fieldConeSystem}, AudioFiles-${this.coneInfo.version.audioFiles}`;
+    }
 }

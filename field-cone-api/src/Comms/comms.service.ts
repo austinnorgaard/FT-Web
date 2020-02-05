@@ -2,8 +2,9 @@ import { Injectable } from "@nestjs/common";
 import * as io from "socket.io-client";
 import * as os from "os";
 import * as child_process from "child_process";
+import * as fs from "fs";
 import { environment } from "../../../field-trainer/field-trainer/src/environments/environment";
-import { FieldConeInfo } from "../../../smart-cone-api/src/FieldCones/field-cone-info";
+import { FieldConeInfo, BuildsJsonFormat } from "../../../smart-cone-api/src/FieldCones/field-cone-info";
 import { getFieldConeId, smartConeSocketUrl } from "../utils/environment-helper";
 import { BaseTiltService } from "../Tilt/base-tilt-service";
 import { WifiSettingsService, WifiSetting } from "../Wifi/wifi.service";
@@ -72,7 +73,7 @@ export class CommsService {
             try {
                 return await this.getFieldConeInfo();
             } catch (ex) {
-                console.log("Failed, toggling bat0 interface and retrying DHCP");
+                console.log(`Failed, toggling bat0 interface and retrying DHCP. Error: ${ex}`);
                 child_process.execSync("sudo ifconfig bat0 down");
                 child_process.execSync("sudo ifconfig bat0 up");
                 child_process.execSync("sudo dhclient bat0");
@@ -85,7 +86,15 @@ export class CommsService {
 
     async getFieldConeInfo(): Promise<FieldConeInfo> {
         const interfaces = os.networkInterfaces();
-        const info = { ip: "unknown", id: -1 } as any;
+        const info = {
+            ip: "unknown",
+            id: -1,
+            version: {
+                fieldCone: -1,
+                fieldConeSystem: -1,
+                audioFiles: -1,
+            },
+        } as any;
         console.log(Object.keys(interfaces));
         if (Object.keys(interfaces).some(k => k.includes("Wi-Fi"))) {
             console.log("We are on windows!");
@@ -113,6 +122,24 @@ export class CommsService {
 
         const coneId = await getFieldConeId();
         info.id = coneId;
+
+        // Grab the current versions of software on this cone
+        const buildsStr = fs.readFileSync("/var/tmp/builds.json").toString();
+        const builds = JSON.parse(buildsStr) as BuildsJsonFormat;
+
+        // for now, hard-coded to just pull out the ones we need
+        builds.packages.forEach(p => {
+            if (p.name === "field-cone") {
+                info.version.fieldCone = p.version;
+            } else if (p.name === "field-cone-system") {
+                info.version.fieldConeSystem = p.version;
+            } else if (p.name === "audio-files") {
+                info.version.audioFiles = p.version;
+            } else {
+                console.log(`WARN: Found a package which we aren't tracking. Name: ${p.name}, Version: ${p.version}`);
+            }
+        });
+
         return info;
     }
 

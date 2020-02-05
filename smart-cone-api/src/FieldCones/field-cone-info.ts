@@ -14,11 +14,29 @@ export class FieldConeInfo {
     latencyResults: Array<number>;
 
     latencyStartTime: Date;
+
+    version: FieldConeVersion;
 }
 
 export class FieldConeClient {
     id: number;
     client: any;
+}
+
+// TODO: Auto-detect the actual names
+export class FieldConeVersion {
+    fieldCone: number;
+    fieldConeSystem: number;
+    audioFiles: number;
+}
+
+export class BuildsJsonFormat {
+    packages: Array<BuildFormat>;
+}
+
+export class BuildFormat {
+    name: string;
+    version: number;
 }
 
 export class FieldConeInfoArray {

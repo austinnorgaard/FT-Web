@@ -104,7 +104,7 @@ export class FieldConesService implements OnGatewayConnection, OnGatewayDisconne
         // Update their wifi settings with our master list
         client.emit("InitializeWifiSettings", this.wifiService.getWifiSettings());
 
-        this.onConnectSubject.next({ id: data.id, ip: data.ip, sessionId: client.id, latencyResults: [] } as FieldConeInfo);
+        this.onConnectSubject.next({ id: data.id, ip: data.ip, sessionId: client.id, latencyResults: [], version: data.version } as FieldConeInfo);
     }
 
     @SubscribeMessage("tiltOccurred")
