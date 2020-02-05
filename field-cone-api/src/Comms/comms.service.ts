@@ -33,7 +33,6 @@ export class CommsService {
         });
 
         this.socket.on("FieldConePing", async () => {
-            console.log("Got ping, responding!");
             this.socket.emit("FieldConePingResponse", {});
         });
 
@@ -55,24 +54,16 @@ export class CommsService {
     }
 
     async getFieldConeWrapper(): Promise<FieldConeInfo> {
-        try {
-            return await this.getFieldConeInfo();
-        } catch (ex) {
-            // Try again
+        while (true) {
+            console.log("Trying to get field info (IP)");
             try {
+                return await this.getFieldConeInfo();
+            } catch (ex) {
+                console.log("Failed, sleeping 5 seconds");
+                // Try again
                 // 5 second wait
                 await this.sleep(5000);
                 return await this.getFieldConeInfo();
-            } catch (ex2) {
-                // one last time
-                try {
-                    // 10 second wait
-                    await this.sleep(10000);
-                    return await this.getFieldConeInfo();
-                } catch (ex3) {
-                    // giving up now
-                    throw ex3;
-                }
             }
         }
     }

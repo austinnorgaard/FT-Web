@@ -14,11 +14,8 @@ export class FrontEndCommunicator implements OnGatewayConnection, OnGatewayDisco
 
         // Start tracking the field cones as they are connected
         this.fieldConesService.connectedFieldCones.subscribe(cones => {
-            console.log(`New update for the connected field cones. Count = ${cones.length}`);
-
             // Let the frontend know, but only if we are connected to the front end at this point in time
             if (this.frontEndSocket !== null) {
-                console.log("Updating frontend of the new cone which connected or disconnected");
                 this.frontEndSocket.emit("fieldConesConnected", { items: cones });
             } else {
                 console.log("Not able to notify the frontend of the new cone count, because we are not connected.");
