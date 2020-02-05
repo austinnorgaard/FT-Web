@@ -75,7 +75,6 @@ export class CommsService {
                 // Try again
                 // 5 second wait
                 await this.sleep(5000);
-                return await this.getFieldConeInfo();
             }
         }
     }

@@ -97,6 +97,7 @@ export class WifiSettingsService {
     }
 
     initializeWifiSettings(wifiSettings: Array<WifiSetting>): void {
+        console.log(`Initializing wifi settings with ${wifiSettings.length} settings.`);
         // clear the existing list
         this.wifiSettings = [];
 
