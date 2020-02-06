@@ -23,6 +23,7 @@ export class TrainingService {
     //private athleteSessions: AthleteSessionArray = new AthleteSessionArray();
     public trainingSessionState: TrainingSessionState = new TrainingSessionState();
     private segmentCollectionIndex: number = 0;
+    private _sessionSetupData: TrainingSessionSetup;
 
     private sessionResults: SessionResultCollection = undefined;
 
@@ -139,6 +140,9 @@ export class TrainingService {
             // Otherwise, increment the session
             this.trainingSessionState.sessionNum = this.trainingSessionState.sessionNum + 1;
             this.sessionState.next(this.trainingSessionState);
+
+            // and reset the audio actions for each of the cones
+            this.setConeActions(this._sessionSetupData);
         }
     }
 
@@ -161,6 +165,7 @@ export class TrainingService {
     async startSession(sessionSetupData: TrainingSessionSetup): Promise<void> {
         this.buildSessions(sessionSetupData);
         this.setConeActions(sessionSetupData);
+        this._sessionSetupData = sessionSetupData;
         this.sessionState.next(this.trainingSessionState);
     }
 
