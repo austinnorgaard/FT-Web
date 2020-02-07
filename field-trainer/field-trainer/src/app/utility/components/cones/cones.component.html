@@ -3,7 +3,7 @@
         <span>No cones connected yet...</span>
     </div>
     <div *ngIf="this.fieldCones.length !== 0">
-        <div *ngFor="let cone of fieldCones">
+        <div *ngFor="let cone of fieldCones; trackBy: trackByFn">
             <ft-field-cone [coneInfo]="cone"></ft-field-cone>
         </div>
     </div>

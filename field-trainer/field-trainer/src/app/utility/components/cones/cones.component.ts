@@ -18,4 +18,8 @@ export class ConesComponent implements OnInit {
     }
 
     ngOnInit() {}
+
+    trackByFn(index: any, item: any) {
+        return index;
+    }
 }
