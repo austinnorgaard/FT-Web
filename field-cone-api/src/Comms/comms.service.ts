@@ -7,12 +7,13 @@ import { environment } from "../../../field-trainer/field-trainer/src/environmen
 import { FieldConeInfo, BuildsJsonFormat } from "../../../smart-cone-api/src/FieldCones/field-cone-info";
 import { getFieldConeId, smartConeSocketUrl } from "../utils/environment-helper";
 import { BaseTiltService } from "../Tilt/base-tilt-service";
-import { WifiSettingsService, WifiSetting } from "../Wifi/wifi.service";
+import { WifiSetting } from "../Wifi/wifi.service";
+import { BaseWifiService } from "Wifi/base-wifi.service";
 
 @Injectable()
 export class CommsService {
     private socket: SocketIOClient.Socket;
-    constructor(private readonly tiltService: BaseTiltService, private readonly wifiService: WifiSettingsService) {
+    constructor(private readonly tiltService: BaseTiltService, private readonly wifiService: BaseWifiService) {
         // Create our socket to the smart cone
         this.socket = io(smartConeSocketUrl(), {
             reconnection: true,

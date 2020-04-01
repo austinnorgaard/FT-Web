@@ -1,6 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import * as fs from "fs";
 import { BehaviorSubject, Observable } from "rxjs";
+import { BaseWifiService } from "./base-wifi.service";
 
 export class WifiSetting {
     ssid: string;
@@ -8,10 +9,14 @@ export class WifiSetting {
 }
 
 @Injectable()
-export class WifiSettingsService {
+export class WifiSettingsService extends BaseWifiService {
+    initializeWifiSettings(wifiSettings: WifiSetting[]): void {
+        // Not being used here
+    }
     private wifiSettings: BehaviorSubject<Array<WifiSetting>> = new BehaviorSubject<Array<WifiSetting>>([]);
 
     constructor() {
+        super();
         // Read the current list of wifi settings off disk
         const contents = fs.readFileSync("/etc/wpa_supplicant/wpa_supplicant.conf").toString();
 

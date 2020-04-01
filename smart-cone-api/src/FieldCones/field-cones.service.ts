@@ -4,7 +4,7 @@ import { environment } from "../../../field-trainer/field-trainer/src/environmen
 import { FieldConeInfo, FieldConeClient } from "./field-cone-info";
 import { Observable, Subject, BehaviorSubject, identity } from "rxjs";
 import { PING_DATA } from "./ping-data";
-import { WifiSettingsService } from "../Wifi/wifi.service";
+import { BaseWifiService } from "../Wifi/base-wifi.service";
 
 @Injectable()
 @WebSocketGateway(parseInt(environment.config.coneApiSocketPort, 10))
@@ -15,7 +15,7 @@ export class FieldConesService implements OnGatewayConnection, OnGatewayDisconne
 
     private clients: Array<FieldConeClient> = [];
 
-    constructor(private wifiService: WifiSettingsService) {
+    constructor(private wifiService: BaseWifiService) {
         console.log("Field Cones Service instantiated!");
         this.onConnectSubject.subscribe({
             next: cone => {

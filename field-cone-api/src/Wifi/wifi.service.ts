@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import * as fs from "fs";
-import { settings } from "cluster";
+import { BaseWifiService } from "./base-wifi.service";
 
 export class WifiSetting {
     ssid: string;
@@ -8,15 +8,17 @@ export class WifiSetting {
 }
 
 @Injectable()
-export class WifiSettingsService {
+export class WifiSettingsService extends BaseWifiService {
     private wifiSettings: Array<WifiSetting> = [];
     constructor() {
+        super();
+        console.log("Using real wifi settings service");
         // Read the current list of wifi settings off disk
         const contents = fs.readFileSync("/etc/wpa_supplicant/wpa_supplicant.conf").toString();
 
         console.log(`Contents of wifi settings: ${contents}`);
 
-        this.wifiSettings = this.deserializeWifiSetings(contents);
+        this.wifiSettings = this.deserializeWifiSettings(contents);
 
         console.log(`Wifi Settings deserialized`, this.wifiSettings);
     }
@@ -40,7 +42,7 @@ export class WifiSettingsService {
         fs.writeFileSync("/etc/wpa_supplicant/wpa_supplicant.conf", contents);
     }
 
-    deserializeWifiSetings(contents: string): Array<WifiSetting> {
+    deserializeWifiSettings(contents: string): Array<WifiSetting> {
         // Read the on-disk wpa_supplicant.conf wifi settings in memory
         let settings: Array<WifiSetting> = [];
 

@@ -1,5 +1,5 @@
 import { Controller, Get, Post, Body } from "@nestjs/common";
-import { WifiSettingsService } from "./wifi.service";
+import { BaseWifiService } from "./base-wifi.service";
 
 export class AddWiFiSettingDTO {
     ssid: string;
@@ -8,7 +8,7 @@ export class AddWiFiSettingDTO {
 
 @Controller("wifi")
 export class WifiController {
-    constructor(private readonly wifiSettings: WifiSettingsService) {}
+    constructor(private readonly wifiSettings: BaseWifiService) {}
 
     @Post("settings")
     async addWifiSetting(@Body() body: AddWiFiSettingDTO) {
