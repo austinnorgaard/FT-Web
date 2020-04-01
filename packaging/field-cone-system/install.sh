@@ -7,7 +7,14 @@ echo "fieldcone" > /var/tmp/.cone-type
 sudo chmod 666 /etc/wpa_supplicant/wpa_supplicant.conf
 
 apt-get -y update
-apt-get -y install batctl bridge-utils
+apt-get -y install batctl bridge-utils build-essential python-dev git scons swig
+
+pushd .
+
+git clone https://github.com/jgarff/rpi_ws281x.git
+cd rpi_ws281x && scons && cd python && python setup.py install
+
+popd
 
 # shouldnt actually be needed, but trying to keep parity with the older bootstrap scripts
 touch /var/tmp/.tilt-gpio-pin

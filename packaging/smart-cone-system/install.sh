@@ -7,7 +7,15 @@ echo "smartcone" > /var/tmp/.cone-type
 sudo chmod 666 /etc/wpa_supplicant/wpa_supplicant.conf
 
 apt-get -y update
-apt-get -y install batctl bridge-utils
+apt-get -y install batctl bridge-utils build-essential python-dev git scons swig
+
+# LED Stuff
+pushd .
+
+git clone https://github.com/jgarff/rpi_ws281x.git
+cd rpi_ws281x && scons && cd python && python setup.py install
+
+popd
 
 touch /var/tmp/.tilt-gpio-pin
 
