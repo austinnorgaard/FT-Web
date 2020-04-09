@@ -1,4 +1,4 @@
-<div fxLayout="column" fxLayoutAlign="space-between start" fxFlex>
+<div fxLayout="column" fxLayoutAlign="space-between center" fxFlex>
     <div fxFlex fxFlexAlign="center">
         <h1 style="text-align: center">Welcome to Field Trainer</h1>
         <div style="margin-left: 1em; margin-right: 1em;" class="mat-body-1">
@@ -8,11 +8,15 @@
             <p>Will need to find what else should be added to this page as we progress</p>
         </div>
     </div>
-    <div fxFlex="0 0 auto" style="margin: 1em" fxLayout="column" fxLayoutAlign="center start">
-        <p style="text-align: center">
-            Update the start cone: This will restart the cone, download updates then switch back to operating mode. Notice that the cone will not be
-            reachable for some time and you will possibly need to reconnect to the wifi hotspot.
-        </p>
-        <button fxFlexAlign="center" fxFlex="0 0 auto" mat-raised-button color="warn" (click)="updateSmartCone()">Update Start Cone</button>
+    <div style="margin-bottom: 1em" fxFlex="0 1 auto" fxLayout="row">
+        <div fxLayout="column" *ngIf="smartConeInfo">
+            <span style="margin-right: 0.35em" *ngFor="let package of smartConeInfo.packages">{{package.name}}:</span>
+        </div>
+        <div fxLayout="column" *ngIf="smartConeInfo">
+            <span *ngFor="let package of smartConeInfo.packages">{{ package.version }}</span>
+        </div>
+    </div>
+    <div fxFlex="0 1 auto" fxLayout="column" fxLayoutAlign="end start">
+        <button fxFlexAlign="center" fxFlex="0 0 auto" style="margin-bottom: 1em; padding: 0.5em" mat-raised-button color="warn" (click)="updateSmartCone()">Update Start Cone</button>
     </div>
 </div>

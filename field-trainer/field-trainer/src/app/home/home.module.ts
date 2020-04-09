@@ -20,6 +20,7 @@ import { FormsModule } from "@angular/forms";
 import { MiscModule } from "../misc/misc.module";
 import { WiFiSettingsService } from "./services/wifi-settings.service";
 import { SmartConeUpdateService } from "./services/smart-cone-update.service";
+import { SmartConeInfoService } from './services/smart-cone-info.service';
 
 @NgModule({
     imports: [
@@ -39,6 +40,6 @@ import { SmartConeUpdateService } from "./services/smart-cone-update.service";
     ],
     declarations: [HomePageComponent, NavMenuContentComponent, StatusIndicatorComponent, WifiSettingsComponent],
     exports: [NavMenuContentComponent, StatusIndicatorComponent],
-    providers: [WiFiSettingsService, SmartConeUpdateService],
+    providers: [WiFiSettingsService, SmartConeUpdateService, SmartConeInfoService],
 })
 export class HomeModule {}

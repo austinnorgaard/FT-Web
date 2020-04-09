@@ -18,6 +18,7 @@ import { UltrasonicModule } from "../Ultrasonic/ultrasonic.module";
 import { TiltModule } from "../Tilt/tilt.module";
 import { AudioModule } from "../Audio/audio.module";
 import { WifiModule } from "../Wifi/wifi.module";
+import { AppService } from "./app.service";
 
 @Module({
     imports: [
@@ -37,5 +38,8 @@ import { WifiModule } from "../Wifi/wifi.module";
     ],
     controllers: [AppController, StatusController],
     exports: [TiltModule],
+    providers: [
+        AppService
+    ]
 })
 export class ApplicationModule {}
