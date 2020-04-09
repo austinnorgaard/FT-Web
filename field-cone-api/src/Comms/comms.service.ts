@@ -113,6 +113,7 @@ export class CommsService {
             /*console.log("We are on a Linux desktop system!");
             let test = Object.keys(interfaces).filter(i => i.includes("wlx"));
             console.log(interfaces[test[0]].filter(i => i.family === "IPv4")[0].address);*/
+            console.log("Assuming we are on a dev machine");
             info.ip = "127.0.0.1";
         } else {
             // Just assume we are running on a desktop development machine as that
@@ -123,6 +124,14 @@ export class CommsService {
 
         const coneId = await getFieldConeId();
         info.id = coneId;
+
+        // If we are on a dev machine, hard-code the versions instead of querying them as they will not exist
+        if (info.ip === "127.0.0.1") {
+            info.version.fieldCone = 123;
+            info.version.fieldConeSystem = 123;
+            info.version.audioFiles = 123;
+            return info;
+        }
 
         // Grab the current versions of software on this cone
         const buildsStr = fs.readFileSync("/var/tmp/builds.json").toString();
