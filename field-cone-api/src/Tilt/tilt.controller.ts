@@ -6,17 +6,15 @@ import { TiltService } from "./tilt.service";
 
 @Controller("tilt")
 export class TiltController {
-    _tiltService: TiltService = null;
     constructor(private readonly tiltService: BaseTiltService) {
-        this._tiltService = tiltService as TiltService;
     }
     @Post("enable-tilts")
     public enableTilts() {
-        this._tiltService.enabledForTilts = true;
+        this.tiltService.setTiltsEnabled(true);
     }
 
     @Post("disable-tilts")
     public disableTilts() {
-        this._tiltService.enabledForTilts = false;
+        this.tiltService.setTiltsEnabled(false);
     }
 }

@@ -1,5 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { BaseTiltService } from "./base-tilt-service";
+
+import * as fs from "fs";
 import { Subject } from "rxjs";
 
 const spawn = require("threads").spawn;
@@ -9,17 +11,15 @@ export class TiltService extends BaseTiltService {
     mpu: any = undefined;
     thread: any = undefined;
     rateLimited: boolean = false;
-    enabledForTilts: boolean = false;
-    // This is the event for the gyro _physically_ being tripped
-    // We only emit a true tilt event, if we are currently _enabled_ for
-    // reporting tilts
+
     gyroTripped: Subject<void> = new Subject<void>();
+
     constructor() {
         super();
         console.log("Using the Real Tilt Service");
         this.gyroTripped.subscribe(() => {
             // If we are currently enabled for tilts, then go ahead and emit the real event
-            if (this.enabledForTilts) {
+            if (this.tiltsEnabled()) {
                 this.TiltOccured.next();
             }
         });
@@ -27,10 +27,20 @@ export class TiltService extends BaseTiltService {
         this.thread = spawn(async (input, done) => {
             const mpu9250 = require("mpu9250");
 
-            let mpu = new mpu9250({
-                scaleValues: true,
-                ACCEL_FS: 2,
-            });
+            // Check if there is a calibration file for the sensor
+            let mpu = null;
+            if (this.calibrationFileExists()) {
+                mpu = new mpu9250({
+                    scaleValues: true,
+                    ACCEL_FS: 2,
+                    accelCalibration: this.loadCalibration(),
+                });
+            } else {
+                mpu = new mpu9250({
+                    scaleValues: true,
+                    ACCEL_FS: 2,
+                });
+            }
 
             const sleep = async ms => {
                 return new Promise(resolve => setTimeout(resolve, ms));
@@ -46,6 +56,7 @@ export class TiltService extends BaseTiltService {
                 let avg = sum / 3;
 
                 if (avg > 1.0) {
+                    console.log("Tilt occured!");
                     done(avg);
                 }
 
@@ -59,7 +70,7 @@ export class TiltService extends BaseTiltService {
 
         this.thread.send().on("message", () => {
             if (!this.rateLimited) {
-                this.gyroTripped.next();
+                this.TiltOccured.next();
                 this.rateLimited = true;
                 setTimeout(() => {
                     this.rateLimited = false;
@@ -70,7 +81,24 @@ export class TiltService extends BaseTiltService {
         });
     }
 
-    public setTiltsEnabled(value: boolean): void {
-        this.enabledForTilts = value;
+    calibrationFileExists() {
+        try {
+            if (fs.existsSync("/var/tmp/accel_calibration.json")) {
+                console.log("Calibration file exists");
+                return true;
+            } else {
+                console.log("No calibration file..");
+                return false;
+            }
+        } catch (err) {
+            console.log("No calibration file");
+            return false;
+        }
+    }
+
+    loadCalibration() {
+        const contents = fs.readFileSync("/var/tmp/accel_calibration.json").toString();
+
+        return JSON.parse(contents);
     }
 }
