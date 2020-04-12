@@ -35,4 +35,9 @@ sudo cp ./rc.local_adhoc_field_cone /var/tmp/rc.local_adhoc_field_cone
 
 sudo bash ./i2samp.sh -y
 
+## ?? Why/who is creating this aplay.service which just runs aplay at startup
+## playing audio to /dev/zero? Insanity!
+## Note: This _shouldnt_ break aplay, just remove the autoplay nonsense
+sudo systemctl disable aplay
+
 sudo systemctl daemon-reload

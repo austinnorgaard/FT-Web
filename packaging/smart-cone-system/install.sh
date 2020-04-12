@@ -60,6 +60,11 @@ sudo mv ./modules /etc/modules
 echo "Installing audio"
 sudo bash ./i2samp.sh -y
 
+## ?? Why/who is creating this aplay.service which just runs aplay at startup
+## playing audio to /dev/zero? Insanity!
+## Note: This _shouldnt_ break aplay, just remove the autoplay nonsense
+sudo systemctl disable aplay
+
 sudo systemctl daemon-reload
 sudo systemctl enable hostapd
 sudo systemctl restart hostapd
