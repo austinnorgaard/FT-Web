@@ -24,7 +24,6 @@ export class FieldConesService {
         console.log("Field cones service!");
 
         this.socket.broker.RegisterEventObservable("fieldConesConnected", FieldConesArray).subscribe((cones: FieldConesArray) => {
-            console.log(cones.items);
             this.fieldConesSubject.next(cones.items);
         });
     }

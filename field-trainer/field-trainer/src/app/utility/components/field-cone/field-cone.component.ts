@@ -68,7 +68,6 @@ export class FieldConeComponent implements OnInit {
 
     public getLastLatency() {
         if (this.coneInfo.latencyResults.length === 0) {
-            console.log("Returning early...");
             return 0;
         }
 

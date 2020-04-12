@@ -8,7 +8,7 @@ import { FieldConeInfo, BuildsJsonFormat } from "../../../smart-cone-api/src/Fie
 import { getFieldConeId, smartConeSocketUrl } from "../utils/environment-helper";
 import { BaseTiltService } from "../Tilt/base-tilt-service";
 import { WifiSetting } from "../Wifi/wifi.service";
-import { BaseWifiService } from "Wifi/base-wifi.service";
+import { BaseWifiService } from "../Wifi/base-wifi.service";
 
 @Injectable()
 export class CommsService {
