@@ -15,7 +15,7 @@ export class MockAudioService extends BaseAudioService {
         super();
     }
 
-    PlayAction(): void {
+    PlayAction(action: string): void {
         console.log(`MockAudio: Would've played audio for action`);
     }
 }

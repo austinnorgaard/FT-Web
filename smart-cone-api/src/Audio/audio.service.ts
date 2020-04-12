@@ -27,6 +27,7 @@ export class AudioService extends BaseAudioService {
         "high-skips": `${this.basePath}/high_skips_${this.voiceGender}.mp3`,
         "int-hip-rotation": `${this.basePath}/int_hip_rotation_${this.voiceGender}.mp3`,
         "walking-lunge": `${this.basePath}/walking_lunge_${this.voiceGender}.mp3`,
+        "beep": `${this.basePath}/beep.mp3`
     };
 
     constructor() {
@@ -34,7 +35,7 @@ export class AudioService extends BaseAudioService {
         console.log("Using real audio service");
     }
 
-    async PlayAction(action: string): Promise<void> {
+    PlayAction(action: string): void {
         // implement audio playback here
         if (action in this.actionPaths) {
             // play it!

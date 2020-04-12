@@ -115,6 +115,15 @@ export class TrainingService {
         // calculate the duration so its easier to consume later
         segment.duration = segment.endTime.getTime() - segment.startTime.getTime();
 
+        // If the segment we completed ends at the start-cone, played the start-cone
+        // beep to indicate we've completed. This is necessary because there is no audio
+        // associated with finishing the last segment until user presses "GO" to start
+        // the next session
+        if (segment.to === 0) {
+            console.log('Playing beep on the start-cone');
+            this.audioService.PlayAction("beep");
+        }
+
         // next need to update the starting time of the next segment, if it exists
         // it'll be the segment in which the "from" cone is the one we're handling now
         // skip if we're handling cone id 0
