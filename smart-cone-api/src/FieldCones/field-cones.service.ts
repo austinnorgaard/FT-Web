@@ -84,6 +84,10 @@ export class FieldConesService implements OnGatewayConnection, OnGatewayDisconne
         return undefined;
     }
 
+    public getFieldConeSockets(): Array<FieldConeClient> {
+        return this.clients;
+    }
+
     // This is called when a field cone connects to us, they will identify themselves
     // along with any information we may need from them up front
     @SubscribeMessage("initialContact")
@@ -103,6 +107,9 @@ export class FieldConesService implements OnGatewayConnection, OnGatewayDisconne
 
         // Update their wifi settings with our master list
         client.emit("InitializeWifiSettings", this.wifiService.getWifiSettings());
+
+        // Send the current time to the field-cones
+        client.emit("SetTime", new Date());
 
         this.onConnectSubject.next({ id: data.id, ip: data.ip, sessionId: client.id, latencyResults: [], version: data.version } as FieldConeInfo);
     }

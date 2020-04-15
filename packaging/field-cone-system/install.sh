@@ -9,6 +9,9 @@ sudo chmod 666 /etc/wpa_supplicant/wpa_supplicant.conf
 apt-get -y update
 apt-get -y install batctl bridge-utils build-essential python-dev git scons swig
 
+# Setting timezone to PST/PDT for sanity
+sudo timedatectl set-timezone America/Los_Angeles
+
 pushd .
 
 git clone https://github.com/jgarff/rpi_ws281x.git

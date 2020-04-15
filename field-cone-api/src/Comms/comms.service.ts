@@ -9,11 +9,13 @@ import { getFieldConeId, smartConeSocketUrl } from "../utils/environment-helper"
 import { BaseTiltService } from "../Tilt/base-tilt-service";
 import { WifiSetting } from "../Wifi/wifi.service";
 import { BaseWifiService } from "../Wifi/base-wifi.service";
+import { BaseTimeSyncService } from "./base-time-sync.service";
 
 @Injectable()
 export class CommsService {
     private socket: SocketIOClient.Socket;
-    constructor(private readonly tiltService: BaseTiltService, private readonly wifiService: BaseWifiService) {
+    constructor(private readonly tiltService: BaseTiltService, private readonly wifiService: BaseWifiService,
+        private readonly timeService: BaseTimeSyncService) {
         // Create our socket to the smart cone
         this.socket = io(smartConeSocketUrl(), {
             reconnection: true,
@@ -59,6 +61,10 @@ export class CommsService {
             // list of objects with keys ssid and password
             // This is the "master" list from the smart cone
             this.wifiService.initializeWifiSettings(wifiSettings);
+        });
+
+        this.socket.on("SetTime", (time: Date) => {
+            this.timeService.SetTime(time);
         });
     }
 

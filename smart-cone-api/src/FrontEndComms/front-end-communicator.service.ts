@@ -4,6 +4,8 @@ import { FileLogger } from "../Logging/file-logger";
 import { Injectable } from "@nestjs/common";
 import { FieldConesService } from "../FieldCones/field-cones.service";
 
+import * as child_process from "child_process";
+
 @WebSocketGateway(parseInt(environment.config.smartConeApiSocketPort, 10))
 @Injectable()
 export class FrontEndCommunicator implements OnGatewayConnection, OnGatewayDisconnect {
@@ -46,5 +48,17 @@ export class FrontEndCommunicator implements OnGatewayConnection, OnGatewayDisco
     onTest(client, data): WsResponse<any> {
         const event = "test";
         return { event, data };
+    }
+
+    @SubscribeMessage("SetTime")
+    onSetTime(client, time: Date): WsResponse<any> {
+        const event = "SetTimeResponse";
+        console.log(`Setting current time to: ${time.toString()}`);
+
+        child_process.exec(`sudo date -s "${time.toString()}"`);
+        this.fieldConesService.getFieldConeSockets().forEach(client => {
+            client.client.emit("SetTime", time);
+        });
+        return {event, data: true};
     }
 }
