@@ -4,7 +4,7 @@ import { TiltModule } from "../Tilt/tilt.module";
 import { CommsController } from "./comms.controller";
 import { WifiModule } from "../Wifi/wifi.module";
 import { BaseTimeSyncService } from "./base-time-sync.service";
-import { IsTargetSystem } from "utils/is-target-system";
+import { IsTargetSystem } from "../utils/is-target-system";
 import { TimeSyncService } from "./time-sync.service";
 import { MockTimeSyncService } from "./mock-time-sync.service";
 

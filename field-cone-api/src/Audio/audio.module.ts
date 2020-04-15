@@ -5,7 +5,7 @@ import { AudioService } from "./audio.service";
 import { MockAudioService } from "./mock-audio.service";
 import { AudioController } from "./audio.controller";
 import { TiltModule } from "../Tilt/tilt.module";
-import { IsTargetSystem } from "utils/is-target-system";
+import { IsTargetSystem } from "../utils/is-target-system";
 
 
 @Module({
