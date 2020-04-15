@@ -7,6 +7,9 @@ const spawn = require("threads").spawn;
 @Injectable()
 export class UltrasonicService extends BaseUltrasonicService {
     thread: any = undefined;
+    rateLimited: boolean = false;
+    // ms
+    rateLimitTimeout = 2500;
 
     constructor() {
         super();
@@ -53,7 +56,7 @@ export class UltrasonicService extends BaseUltrasonicService {
                 // Distance is in centimeters
                 const distance = ((end - start) * 17150 / 1000);
 
-                if (distance >= TRIGGER_THRESHOLD) {
+                if (distance <= TRIGGER_THRESHOLD) {
                     done(distance);
                 }
 
@@ -63,7 +66,16 @@ export class UltrasonicService extends BaseUltrasonicService {
         });
 
         this.thread.send().on('message', () => {
-            console.log('Ultrasonic tripped!!');
+            if (!this.rateLimited) {
+                console.log('Ultrasonic tripped!!');
+                this.UltrasonicEvent.next();
+                this.rateLimited = true;
+                setTimeout(() => {
+                    this.rateLimited = false;
+                }, 2500);
+            } else {
+                // do nothing, we are currently rate limited
+            }
         });
     }
 }
