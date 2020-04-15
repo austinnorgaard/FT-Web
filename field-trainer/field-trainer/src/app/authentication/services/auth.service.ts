@@ -6,7 +6,6 @@ export class AuthService {
     constructor(public jwtHelper: JwtHelperService) {}
 
     public isAuthenticated(): boolean {
-	    return true
         const token = localStorage.getItem("token");
 
         if (token === null) {
