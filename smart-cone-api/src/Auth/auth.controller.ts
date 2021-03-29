@@ -12,7 +12,6 @@ export class AuthController {
     @HttpCode(HttpStatus.OK)
     public async login(@Body() credentials: LoginCredentials): Promise<JwtToken> {
         try {
-            this.logger.log("what?");
             const loginResult = await this.authService.login(credentials);
             this.logger.log(loginResult);
             return loginResult;

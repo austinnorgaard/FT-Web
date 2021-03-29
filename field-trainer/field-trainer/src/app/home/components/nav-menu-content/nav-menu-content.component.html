@@ -47,7 +47,7 @@
                 </mat-list-item>
             </div>
             <div *ngIf="this.authService.isAuthenticated()">
-                <mat-list-item routerLink="/sandbox" (click)="close()">
+                <mat-list-item routerLink="/login" (click)="close()">
                     <mat-icon matListIcon class="material-icons">account_box</mat-icon>
                     <a mat-list-item>Switch User</a>
                     <span fxFlex></span>
