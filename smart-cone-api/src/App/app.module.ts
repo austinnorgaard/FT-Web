@@ -19,6 +19,7 @@ import { TiltModule } from "../Tilt/tilt.module";
 import { AudioModule } from "../Audio/audio.module";
 import { WifiModule } from "../Wifi/wifi.module";
 import { AppService } from "./app.service";
+import { BluetoothModule } from "../Bluetooth/bluetooth.module";
 
 @Module({
     imports: [
@@ -35,11 +36,10 @@ import { AppService } from "./app.service";
         UltrasonicModule,
         TiltModule,
         AudioModule,
+        BluetoothModule,
     ],
     controllers: [AppController, StatusController],
     exports: [TiltModule],
-    providers: [
-        AppService
-    ]
+    providers: [AppService],
 })
 export class ApplicationModule {}
