@@ -1,47 +1,18 @@
-import DBus, { registerService, Define, DBusServiceInterface } from "dbus";
-import { DBusObject } from "./dbus-manager/dbus-object";
+import * as dbus from "dbus-next";
+import { FTAgent, registerAgent } from "./agent";
 
-var agentService = registerService("system", "com.fieldtrainer.Agent");
+let bus = dbus.systemBus();
 
-let agentManager = new DBusObject("/fieldtrainer/agent", agentService);
-agentManager.createInterface("org.bluez.Agent1");
+let agent = new FTAgent("org.bluez.Agent1");
 
-agentManager.createMethod("org.bluez.Agent1", "Release", (callback) => {
-    console.log("Release called!");
-    callback();
-});
-agentManager.createMethod("org.bluez.Agent1", "RequestPinCode", (device, callback) => {
-    console.log("Agent::RequestPinCode called with device: ", device);
-    callback(null, "1234");
-}, [Object], String);
-agentManager.createMethod("org.bluez.Agent1", "DisplayPinCode", (device, code, callback) => {
-    console.log("Agent::DisplayPinCode called with device: ", device, " and code: ", code);
-    callback();
-}, [Object, String]);
+async function main() {
+    await bus.requestName('com.fieldtrainer.Agent', 0);
 
+    bus.export('/fieldtrainer/agent', agent);
+    await registerAgent(agent);
+    console.log("Agent registered");
+}
 
-/*agentInterface.addMethod(
-    "RequestPinCode",
-    {
-        in: [Define(Object)],
-        out: Define(String),
-    },
-    (device: any, callback) => {
-        console.log(`Agent::RequestPinCode called with device: ${device}`);
-        callback(null, "1234");
-    },
-);
-
-agentInterface.addMethod(
-    "DisplayPinCode",
-    {
-        in: [Define(Object), Define(String)],
-    },
-    (device: any, pincode: string, callback) => {
-        console.log(`Agent::DisplayPinCode called with device: ${device} and pincode: ${pincode}`);
-        callback();
-    }
-)
-
-agentInterface.update();
-*/
+main().catch(err => {
+    console.log(`Error: ${err}`);
+})
