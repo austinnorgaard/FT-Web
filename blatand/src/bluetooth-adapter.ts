@@ -8,7 +8,7 @@ let {
 } = dbus;
 
 export class BluetoothAdapter {
-    private bluez: dbus.ProxyObject;
+    private bluez!: dbus.ProxyObject;
     private initialized: boolean = false;
 
     constructor(private readonly bus: dbus.MessageBus) {
