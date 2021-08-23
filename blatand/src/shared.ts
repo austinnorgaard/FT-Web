@@ -40,3 +40,7 @@ export type WriteFlags = {
     // true if prepare authorization request
     "prepare-authorize": Variant<boolean>;
 };
+
+export function shortGattUuidToLong(uuid: string): string {
+    return `0000${uuid}-0000-1000-8000-00805f9b34fb`;
+}
