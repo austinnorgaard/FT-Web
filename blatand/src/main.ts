@@ -34,11 +34,11 @@ class HeartRateMeasurementCharacteristic extends GattCharacteristic {
     }
 
     async ReadValue(flags: ReadFlags): Promise<Buffer> {
-        console.log("Char: Read value with offset: ", flags.offset?.value ?? 0);
+        console.log("Char: Read value with offset: ", flags.offset ?? 0);
         return Buffer.from([0x42, 0x42]);
     }
     async WriteValue(bytes: Buffer, flags: WriteFlags): Promise<void> {
-        console.log(`Char: Write value with\n\tbytes: ${bytes.toString("hex")}\n\toffset: ${flags.offset?.value ?? 0}`);
+        console.log(`Char: Write value with\n\tbytes: ${bytes.toString("hex")}\n\toffset: ${flags.offset ?? 0}`);
     }
     StartNotify(): void {
         console.log("Char: Start notify");
