@@ -21,6 +21,7 @@ export abstract class GattCharacteristic extends Interface {
         this.Service = service;
         this.Flags = flags;
         this.Characteristic = `${this.Service}/${uuid}`;
+        this.Value = Buffer.from([]);
     }
 
     abstract ReadValue(flags: ReadFlags): Promise<Buffer>;
@@ -32,6 +33,9 @@ export abstract class GattCharacteristic extends Interface {
     async _WriteValue(bytes: Buffer, flags: DBusWriteFlags): Promise<void> {
         return this.WriteValue(bytes, ToWriteFlags(flags));
     }
+
+    /*abstract ValueChanged(): Promise<void>;
+    async _ValueChanged(): */
 
     abstract StartNotify(): void;
     _StartNotify(): void {
@@ -69,6 +73,7 @@ export abstract class GattCharacteristic extends Interface {
     // object path to parent Service
     readonly Service: string;
     readonly Flags: CharacteristicFlag[];
+    protected Value: Buffer;
 
     private Characteristic: string;
 }
@@ -103,6 +108,10 @@ GattCharacteristic.configureMembers({
         Flags: {
             signature: "as",
             access: "read",
+        },
+        Value: {
+            signature: "ay",
+            access: "readwrite",
         },
     },
 });

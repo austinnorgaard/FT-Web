@@ -3,6 +3,7 @@
 /// Bluez Doc: https://git.kernel.org/pub/scm/bluetooth/bluez.git/tree/doc/advertising-api.txt
 
 import * as dbus from "dbus-next";
+import { shortGattUuidToLong } from "./shared";
 
 let { Interface, ACCESS_READ, ACCESS_WRITE, ACCESS_READWRITE } = dbus.interface;
 
@@ -10,8 +11,8 @@ type AdType = "peripheral" | "broadcast";
 
 export class GattAdvertisement extends Interface {
     constructor(
-        localName: String,
-        serviceUUIDs: Array<String>,
+        localName: string,
+        serviceUUIDs: Array<string>,
         appearance: number,
         private readonly objectPath: string,
         duration: number = 2,
@@ -23,7 +24,11 @@ export class GattAdvertisement extends Interface {
         // we are not registered, or even known, to other parties at this point
         // If that somehow changes, be sure to emit properties changed signals for each modified property
         this.LocalName = localName;
+        /*this.ServiceUUIDs = serviceUUIDs.map((uuid) => {
+            return `${shortGattUuidToLong(uuid)}`;
+        });*/
         this.ServiceUUIDs = serviceUUIDs;
+        console.log(`Advertisement service UUIDs:\n${this.ServiceUUIDs}`);
         this.Appearance = appearance;
         this.Duration = duration;
         this.Timeout = timeout;
@@ -46,13 +51,24 @@ export class GattAdvertisement extends Interface {
         console.log(`Advertisment register result: ${result}`);
     }
 
+    async Unregister(bus: dbus.MessageBus) {
+        try {
+            let hci = await bus.getProxyObject("org.bluez", "/org/bluez/hci0");
+            let adManager = hci.getInterface("org.bluez.LEAdvertisingManager1");
+            await adManager.UnregisterAdvertisement(this.GetObjectPath());
+            bus.unexport(this.objectPath, this);
+        } catch (err) {
+            console.log("Swallowing ad unregister error");
+        }
+    }
+
     Type: AdType = "peripheral";
-    ServiceUUIDs: String[] = [];
+    ServiceUUIDs: string[] = [];
     ManufacturerData: Object = {};
-    SolicitUUIDs: String[] = [];
+    SolicitUUIDs: string[] = [];
     ServiceData: Object = {};
-    Includes: String[] = [];
-    LocalName: String = "SET ME!";
+    Includes: string[] = ["tx-power"];
+    LocalName: string = "SET ME!";
     Appearance: number = 0;
     // default 2 seconds
     Duration: number = 2;

@@ -3,9 +3,7 @@
 
 import * as dbus from "dbus-next";
 
-let {
-    Interface
-} = dbus.interface;
+let { Interface } = dbus.interface;
 
 export class FTAgent extends Interface {
     Release() {
@@ -53,36 +51,33 @@ export class FTAgent extends Interface {
 
 FTAgent.configureMembers({
     methods: {
-        Release: {
-        },
+        Release: {},
         RequestPinCode: {
-            inSignature: 'o',
-            outSignature: 's',
+            inSignature: "o",
+            outSignature: "s",
         },
         DisplayPinCode: {
-            inSignature: 'os',
+            inSignature: "os",
         },
         RequestPasskey: {
-            inSignature: 'o',
-            outSignature: 'u'
+            inSignature: "o",
+            outSignature: "u",
         },
         DisplayPasskey: {
-            inSignature: 'ouq'
+            inSignature: "ouq",
         },
         RequestConfirmation: {
-            inSignature: 'ou'
+            inSignature: "ou",
         },
         RequestAuthorization: {
-            inSignature: 'o'
+            inSignature: "o",
         },
         AuthorizeService: {
-            inSignature: 'os'
+            inSignature: "os",
         },
-        Cancel: {
-
-        }
-    }
-})
+        Cancel: {},
+    },
+});
 
 export async function registerAgent(agent: FTAgent, bus: dbus.MessageBus) {
     // Make BlueZ aware of @agent
@@ -94,6 +89,17 @@ export async function registerAgent(agent: FTAgent, bus: dbus.MessageBus) {
     let agentManager = bluez.getInterface("org.bluez.AgentManager1");
     let result = await agentManager.RegisterAgent(agent.GetObjectPath(), "NoInputNoOutput");
     console.log("Register Agent Result: ", result);
+}
+
+export async function unregisterAgent(agent: FTAgent, bus: dbus.MessageBus) {
+    try {
+        let bluez = await bus.getProxyObject("org.bluez", "/org/bluez");
+        let agentManager = bluez.getInterface("org.bluez.AgentManager1");
+        await agentManager.UnregisterAgent(agent.GetObjectPath());
+        bus.unexport(agent.GetObjectPath(), agent);
+    } catch (err) {
+        console.log("Swallowing unregister agent error");
+    }
 }
 
 export async function setDefaultAgent(agent: FTAgent, bus: dbus.MessageBus) {

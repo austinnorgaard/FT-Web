@@ -66,6 +66,18 @@ export class GattApplication extends Interface {
         console.log(`Register application result: ${result}`);
     }
 
+    async UnregisterApplication(bus: dbus.MessageBus) {
+        try {
+            let hci = await bus.getProxyObject("org.bluez", "/org/bluez/hci0");
+
+            let gattManager = hci.getInterface("org.bluez.GattManager1");
+            let result = await gattManager.UnregisterApplication(this.applicationPath);
+            bus.unexport(this.applicationPath, this);
+        } catch (err) {
+            console.log("Swallowing application unregister error");
+        }
+    }
+
     ParseObjects() {
         let structure: any = {};
 

@@ -25,6 +25,9 @@ npm install -g node-gyp
 apt-get install libdbus-1-dev libglib2.0-dev
 ```
 
+-   Use BlueZ 5.61+ if possible. Some earlier versions exhibit very unstable gatt behavior.
+-   Modify the dbus permissions by installing `dbus/fieldtrainer.conf` to `/etc/dbus/system.d/fieldtrainer.conf`
+
 ## Blatand?
 
 Supposedly Bluetooth was named after "Harald "Blatand" Gormsson" and the name sounds weird & fun to say.

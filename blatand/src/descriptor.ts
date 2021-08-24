@@ -1,5 +1,5 @@
 import * as dbus from "dbus-next";
-import { DescriptorFlag, ReadFlags, shortGattUuidToLong, WriteFlags } from "./shared";
+import { DBusReadFlags, DBusWriteFlags, DescriptorFlag, ReadFlags, shortGattUuidToLong, ToReadFlags, ToWriteFlags, WriteFlags } from "./shared";
 
 let { Interface, ACCESS_READ, ACCESS_WRITE, ACCESS_READWRITE } = dbus.interface;
 
@@ -14,14 +14,14 @@ export abstract class GattDescriptor extends Interface {
 
     abstract ReadValue(flags: ReadFlags): Promise<Buffer>;
 
-    async _ReadValue(flags: ReadFlags): Promise<Buffer> {
-        return this.ReadValue(flags);
+    async _ReadValue(flags: DBusReadFlags): Promise<Buffer> {
+        return this.ReadValue(ToReadFlags(flags));
     }
 
     abstract WriteValue(bytes: Buffer, flags: WriteFlags): Promise<void>;
 
-    async _WriteValue(bytes: Buffer, flags: WriteFlags): Promise<void> {
-        return this.WriteValue(bytes, flags);
+    async _WriteValue(bytes: Buffer, flags: DBusWriteFlags): Promise<void> {
+        return this.WriteValue(bytes, ToWriteFlags(flags));
     }
 
     Register(bus: dbus.MessageBus) {
