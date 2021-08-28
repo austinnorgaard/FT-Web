@@ -143,7 +143,7 @@ async function main() {
     await application.RegisterApplication(bus);
     await advertisment.Register(bus);
     await agent.Register();
-    await agent.Unregister();
+    await agent.SetDefault();
     console.log("Agent registered");
 }
 
@@ -158,9 +158,28 @@ process.on("SIGINT", () => {
 });
 
 async function clean() {
-    await advertisment.Unregister(bus);
-    await agent.Unregister();
-    await application.UnregisterApplication(bus);
+    // Try our best to unregister everything. There are a number of situations where
+    // we will not be able to actually unregister, but we should attempt each one
+    try {
+        await advertisment.Unregister(bus);
+        console.log("Advertisment unregistered");
+    } catch (err) {
+        console.log(`Failed to unregister advertisement: ${err}`);
+    }
+
+    try {
+        await agent.Unregister();
+        console.log("Agent unregistered");
+    } catch (err) {
+        console.log(`Failed to unregister agent: ${err}`);
+    }
+
+    try {
+        await application.UnregisterApplication(bus);
+        console.log("Application unregistered");
+    } catch (err) {
+        console.log(`Failed to unregister application: ${err}`);
+    }
 
     process.exit(0);
 }
