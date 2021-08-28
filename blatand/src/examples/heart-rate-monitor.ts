@@ -1,6 +1,6 @@
 import * as dbus from "dbus-next";
 let { Interface, ACCESS_READ, ACCESS_WRITE, ACCESS_READWRITE } = dbus.interface;
-import { FTAgent, registerAgent, setDefaultAgent, unregisterAgent } from "../lib/agent";
+import { FTAgent } from "../lib/agent";
 import { GattApplication } from "../lib/application";
 import { BluetoothAdapter } from "../lib/bluetooth-adapter";
 import { GattCharacteristic } from "../lib/characteristic";
@@ -11,7 +11,7 @@ import { ReadFlags, WriteFlags } from "../lib/shared";
 
 let bus = dbus.systemBus();
 
-let agent = new FTAgent("org.bluez.Agent1");
+let agent = new FTAgent("/fieldtrainer/agent", bus);
 let advertisment = new GattAdvertisement("FieldTrainer", ["0x180D"], 832, "/fieldtrainer/ad");
 let adapter = new BluetoothAdapter(bus);
 
@@ -142,9 +142,8 @@ async function main() {
     await adapter.SetPairable(true);
     await application.RegisterApplication(bus);
     await advertisment.Register(bus);
-    bus.export("/fieldtrainer/agent", agent);
-    await registerAgent(agent, bus);
-    await setDefaultAgent(agent, bus);
+    await agent.Register();
+    await agent.Unregister();
     console.log("Agent registered");
 }
 
@@ -160,7 +159,7 @@ process.on("SIGINT", () => {
 
 async function clean() {
     await advertisment.Unregister(bus);
-    await unregisterAgent(agent, bus);
+    await agent.Unregister();
     await application.UnregisterApplication(bus);
 
     process.exit(0);

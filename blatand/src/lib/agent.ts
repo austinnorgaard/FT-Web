@@ -6,6 +6,12 @@ import * as dbus from "dbus-next";
 let { Interface } = dbus.interface;
 
 export class FTAgent extends Interface {
+    constructor(private readonly objectPath: string, private readonly bus: dbus.MessageBus) {
+        super("org.bluez.Agent1");
+    }
+
+    /// org.bluez.Agent1 Interface
+    /// --------------
     Release() {
         console.log("Agent Release");
     }
@@ -44,8 +50,51 @@ export class FTAgent extends Interface {
         console.log("Agent request Cancel");
     }
 
+    /// End user API
+    /// -------------
+
     GetObjectPath() {
-        return "/fieldtrainer/agent";
+        return this.objectPath;
+    }
+
+    /// Make BlueZ aware of this agent implementation
+    async Register() {
+        // Add this object to the bus
+        this.bus.export(this.objectPath, this);
+
+        let bluez = await this.bus.getProxyObject("org.bluez", "/org/bluez");
+        if (!bluez) {
+            throw new Error("Not able to get BlueZ dbus access. Permissions, or is bluetooth disabled?");
+        }
+
+        let agentManager = bluez.getInterface("org.bluez.AgentManager1");
+        let result = await agentManager.RegisterAgent(this.objectPath, "NoInputNoOutput");
+        console.log("Register Agent Result: ", result);
+    }
+
+    /// Remove this agent from BlueZ
+    async Unregister() {
+        try {
+            let bluez = await this.bus.getProxyObject("org.bluez", "/org/bluez");
+            let agentManager = bluez.getInterface("org.bluez.AgentManager1");
+            await agentManager.UnregisterAgent(this.objectPath);
+            this.bus.unexport(this.objectPath, this);
+        } catch (err) {
+            console.log("Swallowing unregister agent error");
+        }
+    }
+
+    /// Make this agent the default agent for all pairing operations
+    async SetDefault() {
+        // Request @agent be the default agent for this application
+        let bluez = await this.bus.getProxyObject("org.bluez", "/org/bluez");
+        if (!bluez) {
+            throw new Error("Not able to get BlueZ dbus access. Permissions, or is bluetooth disabled?");
+        }
+
+        let agentManager = bluez.getInterface("org.bluez.AgentManager1");
+        let result = await agentManager.RequestDefaultAgent(this.objectPath);
+        console.log("Default Agent Result: ", result);
     }
 }
 
@@ -78,38 +127,3 @@ FTAgent.configureMembers({
         Cancel: {},
     },
 });
-
-export async function registerAgent(agent: FTAgent, bus: dbus.MessageBus) {
-    // Make BlueZ aware of @agent
-    let bluez = await bus.getProxyObject("org.bluez", "/org/bluez");
-    if (!bluez) {
-        throw new Error("Not able to get BlueZ dbus access. Permissions, or is bluetooth disabled?");
-    }
-
-    let agentManager = bluez.getInterface("org.bluez.AgentManager1");
-    let result = await agentManager.RegisterAgent(agent.GetObjectPath(), "NoInputNoOutput");
-    console.log("Register Agent Result: ", result);
-}
-
-export async function unregisterAgent(agent: FTAgent, bus: dbus.MessageBus) {
-    try {
-        let bluez = await bus.getProxyObject("org.bluez", "/org/bluez");
-        let agentManager = bluez.getInterface("org.bluez.AgentManager1");
-        await agentManager.UnregisterAgent(agent.GetObjectPath());
-        bus.unexport(agent.GetObjectPath(), agent);
-    } catch (err) {
-        console.log("Swallowing unregister agent error");
-    }
-}
-
-export async function setDefaultAgent(agent: FTAgent, bus: dbus.MessageBus) {
-    // Request @agent be the default agent for this application
-    let bluez = await bus.getProxyObject("org.bluez", "/org/bluez");
-    if (!bluez) {
-        throw new Error("Not able to get BlueZ dbus access. Permissions, or is bluetooth disabled?");
-    }
-
-    let agentManager = bluez.getInterface("org.bluez.AgentManager1");
-    let result = await agentManager.RequestDefaultAgent(agent.GetObjectPath());
-    console.log("Default Agent Result: ", result);
-}
