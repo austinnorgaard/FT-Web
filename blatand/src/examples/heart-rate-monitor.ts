@@ -1,13 +1,13 @@
 import * as dbus from "dbus-next";
 let { Interface, ACCESS_READ, ACCESS_WRITE, ACCESS_READWRITE } = dbus.interface;
-import { FTAgent, registerAgent, setDefaultAgent, unregisterAgent } from "./agent";
-import { GattApplication } from "./application";
-import { BluetoothAdapter } from "./bluetooth-adapter";
-import { GattCharacteristic } from "./characteristic";
-import { GattDescriptor } from "./descriptor";
-import { GattAdvertisement } from "./gatt-advertisement";
-import { GattService } from "./service";
-import { ReadFlags, WriteFlags } from "./shared";
+import { FTAgent, registerAgent, setDefaultAgent, unregisterAgent } from "../lib/agent";
+import { GattApplication } from "../lib/application";
+import { BluetoothAdapter } from "../lib/bluetooth-adapter";
+import { GattCharacteristic } from "../lib/characteristic";
+import { GattDescriptor } from "../lib/descriptor";
+import { GattAdvertisement } from "../lib/gatt-advertisement";
+import { GattService } from "../lib/service";
+import { ReadFlags, WriteFlags } from "../lib/shared";
 
 let bus = dbus.systemBus();
 
@@ -74,15 +74,6 @@ class HeartRateMeasurementCharacteristic extends GattCharacteristic {
         }
 
         this.Value = Buffer.from([this.Value[0], this.Value[1] + 1]);
-        console.log("Emitting new value: ", this.Value);
-
-        Interface.emitPropertiesChanged(
-            this,
-            {
-                Value: this.Value,
-            },
-            [],
-        );
 
         setTimeout(() => {
             this.NotifyTick();

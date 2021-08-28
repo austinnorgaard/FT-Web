@@ -21,7 +21,7 @@ export abstract class GattCharacteristic extends Interface {
         this.Service = service;
         this.Flags = flags;
         this.Characteristic = `${this.Service}/${uuid}`;
-        this.Value = Buffer.from([]);
+        this._Value = Buffer.from([]);
     }
 
     abstract ReadValue(flags: ReadFlags): Promise<Buffer>;
@@ -69,12 +69,27 @@ export abstract class GattCharacteristic extends Interface {
         return this.Characteristic;
     }
 
+    get Value(): Buffer {
+        return this._Value;
+    }
+
+    set Value(value: Buffer) {
+        this._Value = value;
+
+        Interface.emitPropertiesChanged(
+            this,
+            {
+                Value: this.Value,
+            },
+            [],
+        );
+    }
+
     readonly UUID: string;
     // object path to parent Service
     readonly Service: string;
     readonly Flags: CharacteristicFlag[];
-    protected Value: Buffer;
-
+    private _Value: Buffer;
     private Characteristic: string;
 }
 
