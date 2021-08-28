@@ -2,6 +2,7 @@
 /// without any input or output required, so it is suitable for automation environments
 
 import * as dbus from "dbus-next";
+import { GetDBusInterface } from "./shared";
 
 let { Interface } = dbus.interface;
 
@@ -62,39 +63,21 @@ export class FTAgent extends Interface {
         // Add this object to the bus
         this.bus.export(this.objectPath, this);
 
-        let bluez = await this.bus.getProxyObject("org.bluez", "/org/bluez");
-        if (!bluez) {
-            throw new Error("Not able to get BlueZ dbus access. Permissions, or is bluetooth disabled?");
-        }
-
-        let agentManager = bluez.getInterface("org.bluez.AgentManager1");
-        let result = await agentManager.RegisterAgent(this.objectPath, "NoInputNoOutput");
-        console.log("Register Agent Result: ", result);
+        let agentManager = await GetDBusInterface(this.bus, "org.bluez", "/org/bluez", "org.bluez.AgentManager1");
+        await agentManager.RegisterAgent(this.objectPath, "NoInputNoOutput");
     }
 
     /// Remove this agent from BlueZ
     async Unregister() {
-        try {
-            let bluez = await this.bus.getProxyObject("org.bluez", "/org/bluez");
-            let agentManager = bluez.getInterface("org.bluez.AgentManager1");
-            await agentManager.UnregisterAgent(this.objectPath);
-            this.bus.unexport(this.objectPath, this);
-        } catch (err) {
-            console.log("Swallowing unregister agent error");
-        }
+        let agentManager = await GetDBusInterface(this.bus, "org.bluez", "/org/bluez", "org.bluez.AgentManager1");
+        await agentManager.UnregisterAgent(this.objectPath);
+        this.bus.unexport(this.objectPath, this);
     }
 
     /// Make this agent the default agent for all pairing operations
     async SetDefault() {
-        // Request @agent be the default agent for this application
-        let bluez = await this.bus.getProxyObject("org.bluez", "/org/bluez");
-        if (!bluez) {
-            throw new Error("Not able to get BlueZ dbus access. Permissions, or is bluetooth disabled?");
-        }
-
-        let agentManager = bluez.getInterface("org.bluez.AgentManager1");
-        let result = await agentManager.RequestDefaultAgent(this.objectPath);
-        console.log("Default Agent Result: ", result);
+        let agentManager = await GetDBusInterface(this.bus, "org.bluez", "/org/bluez", "org.bluez.AgentManager1");
+        await agentManager.RequestDefaultAgent(this.objectPath);
     }
 }
 

@@ -1,5 +1,7 @@
 import { Variant } from "dbus-next";
 
+import * as dbus from "dbus-next";
+
 export type DescriptorFlag =
     | "read"
     | "write"
@@ -86,4 +88,19 @@ export function ToWriteFlags(flags: DBusWriteFlags): WriteFlags {
 
 export function shortGattUuidToLong(uuid: string): string {
     return `0000${uuid}-0000-1000-8000-00805f9b34fb`;
+}
+
+export async function GetDBusInterface(bus: dbus.MessageBus, service: string, objectPath: string, iface: string): Promise<dbus.ClientInterface> {
+    let proxy = await bus.getProxyObject(service, objectPath);
+    if (!proxy) {
+        throw new Error(`Failed to get Proxy Object for Service: ${service} at ${objectPath}`);
+    }
+
+    let clientInterface = proxy.getInterface(iface);
+
+    if (!clientInterface) {
+        throw new Error(`Failed to get interface ${iface} on proxy object ${objectPath} on service ${service}`);
+    }
+
+    return clientInterface;
 }
