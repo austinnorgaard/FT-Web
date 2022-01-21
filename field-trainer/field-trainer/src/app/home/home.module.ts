@@ -3,15 +3,13 @@ import { CommonModule } from "@angular/common";
 import { HomePageComponent } from "./components/home-page/home-page.component";
 import { NavMenuContentComponent } from "./components/nav-menu-content/nav-menu-content.component";
 import { StatusIndicatorComponent } from "./components/status-indicator/status-indicator.component";
-import {
-    MatIconModule,
-    MatListModule,
-    MatTooltipModule,
-    MatSidenavModule,
-    MatButtonModule,
-    MatInputModule,
-    MatFormFieldModule,
-} from "@angular/material";
+import { MatButtonModule } from "@angular/material/button";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatIconModule } from "@angular/material/icon";
+import { MatInputModule } from "@angular/material/input";
+import { MatListModule } from "@angular/material/list";
+import { MatSidenavModule } from "@angular/material/sidenav";
+import { MatTooltipModule } from "@angular/material/tooltip";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { RouterModule } from "@angular/router";
 import { AuthenticationModule } from "../authentication/authentication.module";

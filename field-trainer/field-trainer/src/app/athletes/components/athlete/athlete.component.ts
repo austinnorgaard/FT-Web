@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { AthleteModel } from "../../models/athlete";
-import { MatDialog } from "@angular/material";
+import { MatDialog } from "@angular/material/dialog";
 import { YesNoDialogComponent } from "../../../dialogs/yes-no/yes-no-dialog.component";
 
 @Component({

@@ -4,15 +4,13 @@ import { PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarConfigInterface, PerfectScrol
 import { AddTeamComponent } from "./components/add-team/add-team.component";
 import { TeamManagementPageComponent } from "./components/team-management-page/team-management-page.component";
 import { TeamManagementService } from "./services/team-management.service";
-import {
-    MatOptionModule,
-    MatSelectModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatExpansionModule,
-    MatIconModule,
-    MatButtonModule,
-} from "@angular/material";
+import { MatButtonModule } from "@angular/material/button";
+import { MatOptionModule } from "@angular/material/core";
+import { MatExpansionModule } from "@angular/material/expansion";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatIconModule } from "@angular/material/icon";
+import { MatInputModule } from "@angular/material/input";
+import { MatSelectModule } from "@angular/material/select";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { AthleteModule } from "../athletes/athlete.module";
 import { NgbAlertModule } from "@ng-bootstrap/ng-bootstrap";

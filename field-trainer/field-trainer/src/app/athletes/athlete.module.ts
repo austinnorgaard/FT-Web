@@ -7,16 +7,14 @@ import { AddAthletePageComponent } from "./components/add-athlete-page/add-athle
 import { AthleteManagementPageComponent } from "./components/athlete-management-page/athlete-management-page.component";
 import { AthleteManagementService } from "./services/athlete-management.service";
 import { FormsModule } from "@angular/forms";
-import {
-    MatFormFieldModule,
-    MatSelectModule,
-    MatOptionModule,
-    MatIconModule,
-    MatCardModule,
-    MatExpansionModule,
-    MatButtonModule,
-    MatInputModule,
-} from "@angular/material";
+import { MatButtonModule } from "@angular/material/button";
+import { MatCardModule } from "@angular/material/card";
+import { MatOptionModule } from "@angular/material/core";
+import { MatExpansionModule } from "@angular/material/expansion";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatIconModule } from "@angular/material/icon";
+import { MatInputModule } from "@angular/material/input";
+import { MatSelectModule } from "@angular/material/select";
 import { TeamManagementAthleteComponent } from "./components/team-management-athlete/team-management-athlete.component";
 import { FlexLayoutModule } from "@angular/flex-layout";
 

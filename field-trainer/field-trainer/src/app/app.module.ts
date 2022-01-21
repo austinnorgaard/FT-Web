@@ -18,7 +18,10 @@ import { SessionModule } from "./session/session.module";
 import { UserModule } from "./user/user.module";
 import { AuthenticationModule } from "./authentication/authentication.module";
 
-import { MatIconModule, MatButtonModule, MatSidenavModule, MatToolbarModule } from "@angular/material";
+import { MatButtonModule } from "@angular/material/button";
+import { MatIconModule } from "@angular/material/icon";
+import { MatSidenavModule } from "@angular/material/sidenav";
+import { MatToolbarModule } from "@angular/material/toolbar";
 import { MiscModule } from "./misc/misc.module";
 import { environment } from "../environments/environment";
 import { UtilitiesModule } from "./utility/utilities.module";

@@ -8,19 +8,16 @@ import { SessionSetupPageComponent } from "./components/session-setup-page/sessi
 import { TrainingSessionPageComponent } from "./components/training-session-page/training-session-page.component";
 import { FieldsService } from "./services/fields.service";
 import { SessionService } from "./services/session.service";
-import {
-    MatOptionModule,
-    MatFormFieldModule,
-    MatSelectModule,
-    MatButtonModule,
-    MatDialog,
-    MatDialogModule,
-    MatCardModule,
-    MatTableModule,
-    MatIconModule,
-    MatDividerModule,
-    MatTreeModule,
-} from "@angular/material";
+import { MatButtonModule } from "@angular/material/button";
+import { MatCardModule } from "@angular/material/card";
+import { MatOptionModule } from "@angular/material/core";
+import { MatDialog, MatDialogModule } from "@angular/material/dialog";
+import { MatDividerModule } from "@angular/material/divider";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatIconModule } from "@angular/material/icon";
+import { MatSelectModule } from "@angular/material/select";
+import { MatTableModule } from "@angular/material/table";
+import { MatTreeModule } from "@angular/material/tree";
 import { FormsModule } from "@angular/forms";
 import { AthleteModule } from "../athletes/athlete.module";
 import { TeamModule } from "../teams/team.module";

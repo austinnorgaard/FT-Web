@@ -7,7 +7,9 @@ import { SessionModule } from "../session/session.module";
 import { MiscModule } from "../misc/misc.module";
 import { ConesComponent } from "./components/cones/cones.component";
 import { FieldConeComponent } from "./components/field-cone/field-cone.component";
-import { MatCardModule, MatButtonModule, MatInputModule } from "@angular/material";
+import { MatButtonModule } from "@angular/material/button";
+import { MatCardModule } from "@angular/material/card";
+import { MatInputModule } from "@angular/material/input";
 import { FormsModule } from "@angular/forms";
 
 @NgModule({
