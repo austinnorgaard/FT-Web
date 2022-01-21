@@ -10,7 +10,7 @@ import { Course } from "../../models/course";
     styleUrls: ["./field-preview.component.css"],
 })
 export class FieldPreviewComponent implements OnInit {
-    @ViewChild("fieldCanvas") canvasRef: ElementRef;
+    @ViewChild("fieldCanvas", { static: true }) canvasRef: ElementRef;
 
     private field: FieldDrawable;
 

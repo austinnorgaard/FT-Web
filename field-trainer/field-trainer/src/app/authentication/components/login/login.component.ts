@@ -46,9 +46,9 @@ export class LoginComponent implements OnInit {
             .catch(err => {
                 console.log(JSON.stringify(err));
                 // Error, figure out which one then pop message
-                if (err.error.message.toLowerCase().includes("password incorrect")) {
+                if (err.message.toLowerCase().includes("password incorrect")) {
                     this.showErrorMessage("Password incorrect!");
-                } else if (err.error.message.toLowerCase().includes("email not found")) {
+                } else if (err.message.toLowerCase().includes("email not found")) {
                     this.showErrorMessage("Email address not found!");
                 } else {
                     this.showErrorMessage("Unknown error");
