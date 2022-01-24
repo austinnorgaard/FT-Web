@@ -1,6 +1,8 @@
 import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest } from "@angular/common/http";
 import { Observable } from "rxjs";
+import { Injectable } from "@angular/core";
 
+@Injectable()
 export class AuthHeaderInterceptor implements HttpInterceptor {
     constructor() {
         this.token = localStorage.getItem("token");
