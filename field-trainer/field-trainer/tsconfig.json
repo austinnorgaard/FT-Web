@@ -13,7 +13,7 @@
         "typeRoots": ["node_modules/@types"],
         "lib": ["es2017", "dom"],
         "allowJs": true,
-        "module": "esnext",
+        "module": "es2020",
         "baseUrl": ".",
         "paths": {
             "fs": ["./shims/noop"],

@@ -15,7 +15,7 @@ export class StatusIndicatorComponent implements OnInit {
 
         this.broker.broker.RegisterEventObservable("connect").subscribe(data => {
             this.connected = true;
-            this.broker.getSocket().emit("SetTime", new Date());
+            //this.broker.getSocket().emit("SetTime", new Date());
         });
 
         this.broker.broker.RegisterEventObservable("disconnect").subscribe(data => {
