@@ -8,8 +8,9 @@ describe('SessionResultComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ SessionResultComponent ]
-    })
+    declarations: [SessionResultComponent],
+    teardown: { destroyAfterEach: false }
+})
     .compileComponents();
   }));
 

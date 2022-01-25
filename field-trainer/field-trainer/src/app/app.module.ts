@@ -73,7 +73,6 @@ export function tokenGetter() {
             useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
         },
     ],
-    bootstrap: [AppComponent],
-    entryComponents: [YesNoDialogComponent],
+    bootstrap: [AppComponent]
 })
 export class AppModule {}
