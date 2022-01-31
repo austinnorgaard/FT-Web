@@ -10,7 +10,7 @@ export class AthleteManagementService {
 
     async createAthlete(athleteRegistration: AthleteRegistration): Promise<DatabaseResponse> {
         try {
-            return this.http.post<DatabaseResponse>("/athletes", athleteRegistration);
+            return await this.http.post<DatabaseResponse>("/athlete", athleteRegistration);
         } catch (err) {
             console.log(err);
             throw err;
@@ -19,7 +19,7 @@ export class AthleteManagementService {
 
     async getAthletes(): Promise<Athlete[]> {
         try {
-            return await this.http.get<Athlete[]>("/athletes");
+            return await this.http.get<Athlete[]>("/athlete");
         } catch (err) {
             throw err;
         }
@@ -27,7 +27,7 @@ export class AthleteManagementService {
 
     async removeAthlete(id: number): Promise<DatabaseResponse> {
         try {
-            return await this.http.delete(`/athletes/${id}`);
+            return await this.http.delete(`/athlete/${id}`);
         } catch (err) {
             throw err;
         }

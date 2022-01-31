@@ -3,13 +3,10 @@ import { Get, Controller, Post } from "@nestjs/common";
 import * as child_process from "child_process";
 import * as fs from "fs";
 import { AppService, SmartConeInfo } from "./app.service";
-//import { getSmartConeInfo } from "./app.service";
 
 @Controller()
 export class AppController {
-    constructor(private readonly appService: AppService) {
-
-    }
+    constructor(private readonly appService: AppService) {}
 
     @Get()
     root(): string {

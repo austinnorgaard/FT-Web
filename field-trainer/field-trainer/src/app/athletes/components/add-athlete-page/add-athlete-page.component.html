@@ -24,9 +24,7 @@
                 <input matInput [(ngModel)]="this.athlete.weight" placeholder="Weight" name="weight" type="number" required />
             </mat-form-field>
             <mat-form-field fxFlex="48%">
-                <mat-select [(ngModel)]="this.athlete.height" placeholder="Height" name="height" required>
-                    <mat-option *ngFor="let height of heights" [value]="height"> {{ height }} </mat-option>
-                </mat-select>
+                <input matInput [(ngModel)]="this.athlete.height" placeholder="Height (inches)" name="height" type="number" required>
             </mat-form-field>
         </div>
         <div fxFlex="0 0 auto" fxLayout="row" fxLayoutGap="0.5em">
