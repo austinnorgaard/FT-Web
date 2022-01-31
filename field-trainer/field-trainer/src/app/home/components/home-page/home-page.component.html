@@ -8,15 +8,4 @@
             <p>Will need to find what else should be added to this page as we progress</p>
         </div>
     </div>
-    <div style="margin-bottom: 1em" fxFlex="0 1 auto" fxLayout="row">
-        <div fxLayout="column" *ngIf="smartConeInfo">
-            <span style="margin-right: 0.35em" *ngFor="let package of smartConeInfo.packages">{{package.name}}:</span>
-        </div>
-        <div fxLayout="column" *ngIf="smartConeInfo">
-            <span *ngFor="let package of smartConeInfo.packages">{{ package.version }}</span>
-        </div>
-    </div>
-    <div fxFlex="0 1 auto" fxLayout="column" fxLayoutAlign="end start">
-        <button fxFlexAlign="center" fxFlex="0 0 auto" style="margin-bottom: 1em; padding: 0.5em" mat-raised-button color="warn" (click)="updateSmartCone()">Update Start Cone</button>
-    </div>
 </div>

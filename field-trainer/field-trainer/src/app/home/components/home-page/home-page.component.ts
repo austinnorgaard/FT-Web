@@ -12,12 +12,5 @@ export class HomePageComponent implements OnInit {
     constructor(private readonly updateService: SmartConeUpdateService, private readonly infoService: SmartConeInfoService) {}
 
     async ngOnInit() {
-        this.smartConeInfo = await this.infoService.getSmartConeInfo();
-    }
-
-    async updateSmartCone() {
-        console.log(`Updating Smart Cone!`);
-
-        await this.updateService.updateSmartCone();
     }
 }

@@ -39,11 +39,11 @@ export class LoginComponent implements OnInit {
 
         this.loginService
             .login(credentials)
-            .then(response => {
+            .then((response) => {
                 // success
                 this.router.navigateByUrl(this.returnUrl);
             })
-            .catch(err => {
+            .catch((err) => {
                 console.log(JSON.stringify(err));
                 // Error, figure out which one then pop message
                 if (err.message.toLowerCase().includes("password incorrect")) {
