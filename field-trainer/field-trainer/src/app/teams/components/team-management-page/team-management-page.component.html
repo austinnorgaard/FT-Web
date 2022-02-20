@@ -20,7 +20,7 @@
             <h2>On Team</h2>
             <perfect-scrollbar fxFlex="auto" *ngIf="this.selectedTeam !== null">
                 <mat-accordion *ngFor="let player of this.selectedTeam.teamAthletes">
-                    <ft-team-management-athlete [athlete]="player" [mode]="'remove'" (removed)="this.onAthleteRemoved($event)"></ft-team-management-athlete>
+                    <ft-team-management-athlete [athlete]="player" [text]="'Remove from Team'" [mode]="'remove'" (removed)="this.onAthleteRemoved($event)"></ft-team-management-athlete>
                 </mat-accordion>
             </perfect-scrollbar>
         </div>
@@ -28,7 +28,7 @@
             <h2>Available</h2>
             <perfect-scrollbar fxFlex="auto" *ngIf="this.availableAthletes.length !== 0">
                 <mat-accordion *ngFor="let athlete of this.availableAthletes">
-                    <ft-team-management-athlete [athlete]="athlete" [mode]="'add'" (added)="this.onAthleteAdded($event)"></ft-team-management-athlete>
+                    <ft-team-management-athlete [athlete]="athlete" [text]="'Add To Team'" [mode]="'add'" (added)="this.onAthleteAdded($event)"></ft-team-management-athlete>
                 </mat-accordion>
             </perfect-scrollbar>
             <span *ngIf="this.availableAthletes.length === 0">No athletes remaining</span>
