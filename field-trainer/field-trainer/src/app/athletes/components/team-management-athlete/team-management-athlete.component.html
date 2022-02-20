@@ -12,10 +12,10 @@
         <div fxFlex>
             <!-- Add or delete button-->
             <button mat-raised-button mat-button color="primary" *ngIf="this.mode === 'add'" (click)="this.add()">
-                Add to team
+                {{ this.text }}
             </button>
-            <button mat-raised-button mat-button color="primary" *ngIf="this.mode === 'remove'" (click)="this.remove()">
-                Remove from team
+            <button mat-raised-button mat-button color="warn" *ngIf="this.mode === 'remove'" (click)="this.remove()">
+                {{ this.text }}
             </button>
         </div>
     </div>

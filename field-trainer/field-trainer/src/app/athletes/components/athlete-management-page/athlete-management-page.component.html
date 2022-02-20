@@ -3,7 +3,7 @@
     <div fxFlex *ngIf="this.athletes.length !==0" style="margin-left: 1em; margin-right: 1em;">
         <perfect-scrollbar fxFlex="auto">
             <mat-accordion *ngFor="let athlete of this.athletes">
-                <ft-team-management-athlete [athlete]="athlete" [mode]="'remove'" (removed)="this.onAthleteRemoved($event)">
+                <ft-team-management-athlete [athlete]="athlete" [text]="'Delete Athlete'" [mode]="'remove'" (removed)="this.onAthleteRemoved($event)">
 
                 </ft-team-management-athlete>
             </mat-accordion>

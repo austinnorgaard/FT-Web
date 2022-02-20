@@ -42,6 +42,8 @@ export class TeamManagementAthleteComponent implements OnInit {
     // "add" or "remove", anything else is invalid and may throw
     @Input() mode: string;
 
+    @Input() text: string;
+
     @Output() added: EventEmitter<AthleteModel> = new EventEmitter<AthleteModel>();
 
     @Output() removed: EventEmitter<AthleteModel> = new EventEmitter<AthleteModel>();
