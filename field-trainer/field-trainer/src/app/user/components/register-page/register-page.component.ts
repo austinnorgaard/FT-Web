@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { UserManagementService } from "../../services/user-management.service";
+import { CreateUserResult, UserManagementService } from "../../services/user-management.service";
 import { UserRegistrationModel } from "../../models/user-registration";
 import { Router } from "@angular/router";
 
@@ -11,8 +11,9 @@ import { Router } from "@angular/router";
 export class RegisterPageComponent {
     userRegistration: UserRegistrationModel = new UserRegistrationModel();
 
-    readonly prefixes: string[] = ["Mr", "Mrs", "Ms"];
-    public alertClosed = true;
+    public alertShown = false;
+    public errorMessage: string = "";
+    alertTimeout: any;
 
     readonly countries: string[] = [
         "United States",
@@ -29,19 +30,30 @@ export class RegisterPageComponent {
 
     constructor(private userManagement: UserManagementService, private router: Router) {}
 
-    submit(): void {
+    async submit() {
         this.submitted = true;
 
-        this.userManagement
-            .createUser(this.userRegistration)
-            .then(response => {
-                console.log("User created successfully!!");
-                this.router.navigateByUrl("/"); // w/e we have set as our home page
-            })
-            .catch(err => {
-                console.log(err);
-                this.alertClosed = false;
-            });
+        let result = await this.userManagement.createUser(this.userRegistration);
+
+        if (result === CreateUserResult.Success) {
+            console.log(`User: ${this.userRegistration.user.firstName} ${this.userRegistration.user.lastName} created successfully`);
+            // Bounce us out to the homepage
+            this.router.navigateByUrl("/");
+        } else if (result === CreateUserResult.FailureConstraintViolation) {
+            // Reused an email
+            console.log("Unique constraint violation on email, already in use");
+            this.showErrorMessage("Email address already in use");
+        } else {
+            console.log(result);
+            console.log(`Failed to create user. Error: ${result.toString()}`);
+        }
+    }
+
+    showErrorMessage(message: string) {
+        this.alertShown = true;
+        clearTimeout(this.alertTimeout);
+        this.alertTimeout = setTimeout(() => (this.alertShown = false), 5000);
+        this.errorMessage = message;
     }
 
     nameInvalid(): boolean {

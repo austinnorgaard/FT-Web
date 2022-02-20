@@ -24,7 +24,7 @@
         </div>
         <div>
             <mat-form-field fxFlex>
-                <input matInput [(ngModel)]="userRegistration.user.address2" name="address2" placeholder="Address Line 2" />
+                <input matInput [(ngModel)]="userRegistration.user.address2" name="address2" placeholder="Address Line 2" value=""/>
             </mat-form-field>
         </div>
         <div fxLayoutGap="0.5em">
@@ -82,9 +82,9 @@
             </mat-form-field>
         </div>
         <div fxLayoutGap="0.5em">
-            <mat-checkbox [(ngModel)]="userRegistration.user.subscribedToNewsLetter" name="subscribe">Subscribe to newsletter</mat-checkbox>
+            <mat-checkbox [(ngModel)]="userRegistration.user.subscribedToNewsletter" name="subscribe" value=false>Subscribe to newsletter</mat-checkbox>
         </div>
-        <ngb-alert type="danger" *ngIf="!this.alertClosed" (close)="this.alertClosed = true">Email address is already in use!</ngb-alert>
+        <ngb-alert type="danger" *ngIf="this.alertShown" (click)="this.alertShown = false">{{ this.errorMessage }}</ngb-alert>
         <div fxLayoutAlign="space-around">
             <button mat-raised-button type="submit" [disabled]="!userRegisterForm.form.valid" color="primary" fxFlex="25%">Submit</button>
         </div>

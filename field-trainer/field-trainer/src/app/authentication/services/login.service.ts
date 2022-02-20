@@ -40,6 +40,9 @@ export class LoginService {
                     console.error(`Missing handler for response code ${err.status}`);
                     return LoginResult.Unknown;
                 }
+            } else {
+                console.error("Got a non-http error from an HttpClient function?");
+                return LoginResult.Unknown;
             }
         }
     }

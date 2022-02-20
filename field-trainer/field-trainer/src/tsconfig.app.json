@@ -1,33 +1,27 @@
 {
-  "extends": "../tsconfig.json",
-  "compilerOptions": {
-      "outDir": "../out-tsc/app",
-      "baseUrl": ".",
-      "types": [],
-      "rootDirs": ["./app"],
-      "experimentalDecorators": true,
-      "paths": {
-          "@SmartCone/*": ["../../../smart-cone-api/src/*"],
-          "@FieldTrainer/*": ["./app/*"],
-          "fs": ["./shims/noop"],
-          "http": ["./shims/noop"],
-          "https": ["./shims/noop"],
-          "path": ["./shims/noop"],
-          "stream": ["./shims/noop"],
-          "crypto": ["./shims/noop"],
-          "zlib_bindings": ["./shims/noop"],
-          "net": ["./shims/noop"],
-          "os": ["./shims/noop"],
-          "tls": ["./shims/noop"],
-          "zlib": ["./shims/noop"]
-      }
-  },
-  "files": [
-    "main.ts",
-    "polyfills.ts",
-    "shims/noop.ts"
-  ],
-  "include": [
-    "src/**/*.d.ts"
-  ]
+    "extends": "../tsconfig.json",
+    "compilerOptions": {
+        "outDir": "../out-tsc/app",
+        "baseUrl": ".",
+        "types": [],
+        "rootDirs": ["./app"],
+        "experimentalDecorators": true,
+        "paths": {
+            "@SmartCone/*": ["../../../smart-cone-api/src/*"],
+            "@FieldTrainer/*": ["./app/*"],
+            "fs": ["./shims/noop"],
+            "http": ["./shims/noop"],
+            "https": ["./shims/noop"],
+            "path": ["./shims/noop"],
+            "stream": ["./shims/noop"],
+            "crypto": ["./shims/noop"],
+            "zlib_bindings": ["./shims/noop"],
+            "net": ["./shims/noop"],
+            "os": ["./shims/noop"],
+            "tls": ["./shims/noop"],
+            "zlib": ["./shims/noop"]
+        }
+    },
+    "files": ["main.ts", "polyfills.ts", "shims/noop.ts"],
+    "include": ["src/**/*.d.ts"]
 }
