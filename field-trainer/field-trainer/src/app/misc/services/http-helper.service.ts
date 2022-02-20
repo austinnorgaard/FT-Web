@@ -1,6 +1,8 @@
 import { Injectable } from "@angular/core";
 import { environment } from "../../../environments/environment";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpErrorResponse } from "@angular/common/http";
+import { catchError } from "rxjs/operators";
+import { ObservableInput } from "rxjs";
 
 @Injectable()
 export class HttpHelperService {
@@ -29,19 +31,7 @@ export class HttpHelperService {
      * ```
      */
     async post<T>(path: string, body: any): Promise<T> {
-        try {
-            const result = await this.http.post<T>(this.toBackendHttp(path), body).toPromise();
-            return result;
-        } catch (err) {
-            if (err.error.status === 400) {
-                // constraints violated, print a helpful error message to the console for debug
-                console.log("The following are the constraints which were violated: ", err.error.failedConstraints);
-                throw err;
-            } else {
-                // rethrow the error up for handling
-                throw err;
-            }
-        }
+        return this.http.post<T>(this.toBackendHttp(path), body).toPromise();
     }
 
     /**

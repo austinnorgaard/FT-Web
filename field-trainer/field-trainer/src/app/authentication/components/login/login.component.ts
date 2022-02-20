@@ -1,8 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 import { FormControl, Validators } from "@angular/forms";
-import { LoginService } from "../../services/login.service";
+import { LoginResult, LoginService } from "../../services/login.service";
 import { LoginCredentialsModel } from "../../models/login-credentials";
+import { HttpErrorResponse } from "@angular/common/http";
 
 @Component({
     selector: "ft-login",
@@ -12,6 +13,7 @@ import { LoginCredentialsModel } from "../../models/login-credentials";
 export class LoginComponent implements OnInit {
     public email: string;
     public password: string;
+    public loginInProgress: boolean = false;
     private returnUrl: string;
     public alertShown = false;
     public alertType = "danger";
@@ -29,31 +31,32 @@ export class LoginComponent implements OnInit {
         this.returnUrl = this.route.snapshot.queryParams["returnUrl"] || "/";
     }
 
-    login() {
+    async login() {
+        this.loginInProgress = true;
         const credentials = new LoginCredentialsModel(this.email, this.password);
         // Do not allow user to submit if they haven't filled out the form
         if (!credentials.isValid()) {
-            this.showErrorMessage("Enter an email and address.");
+            this.showErrorMessage("Enter an email and password");
+            this.loginInProgress = false;
             return;
         }
 
-        this.loginService
-            .login(credentials)
-            .then((response) => {
-                // success
-                this.router.navigateByUrl(this.returnUrl);
-            })
-            .catch((err) => {
-                console.log(JSON.stringify(err));
-                // Error, figure out which one then pop message
-                if (err.message.toLowerCase().includes("password incorrect")) {
-                    this.showErrorMessage("Password incorrect!");
-                } else if (err.message.toLowerCase().includes("email not found")) {
-                    this.showErrorMessage("Email address not found!");
-                } else {
-                    this.showErrorMessage("Unknown error");
-                }
-            });
+        let result = await this.loginService.login(credentials);
+
+        if (result === LoginResult.Success) {
+            // Successful, take user to page they were attempting to view before getting
+            // redirected to login
+            this.router.navigateByUrl(this.returnUrl);
+        } else if (result === LoginResult.FailureCredentials) {
+            this.showErrorMessage("Incorrect email or password");
+        } else if (result === LoginResult.FailureNetwork) {
+            this.showErrorMessage("Network or client error. Internet connectivity, or server down?");
+        } else if (result === LoginResult.FailureServer) {
+            this.showErrorMessage("Login failure due to server error");
+        } else if (result === LoginResult.Unknown) {
+            this.showErrorMessage("Login failure due to unknown error");
+        }
+        this.loginInProgress = false;
     }
 
     register() {
