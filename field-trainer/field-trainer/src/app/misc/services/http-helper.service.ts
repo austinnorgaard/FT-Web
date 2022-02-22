@@ -60,12 +60,7 @@ export class HttpHelperService {
         return this.http.delete(this.toBackendHttp(path)).toPromise();
     }
 
-    /*toSmartConeHttp(path: string): string {
-        return `http://${environment.config.startConeIp}:${environment.config.smartConeApiHttpPort}${path}`;
-    }*/
-
     toBackendHttp(path: string): string {
-        // TODO: Replace this with detection of dev/prod to pick local server or remote
-        return `http://localhost:8080${path}`;
+        return `${environment.config.backendHost}:${environment.config.backendPort}${path}`;
     }
 }

@@ -1,5 +1,3 @@
-import { FieldTrainerConfig } from "../../global-config";
-
 export const environment = {
     production: true,
     config: {
@@ -9,5 +7,7 @@ export const environment = {
         coneApiSocketPort: "6000",
         smartConeApiSocketPort: "5000",
         coneApiHttpPort: "6200",
+        backendHost: "https://api.field-trainer.com",
+        backendPort: "443",
     },
 };
