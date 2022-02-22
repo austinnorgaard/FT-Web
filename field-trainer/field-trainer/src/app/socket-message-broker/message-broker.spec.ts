@@ -1,6 +1,6 @@
 import { SocketMessageBroker } from "./socket-message-broker";
-import { IsNumber, IsString, IsArray, ValidateNested, Validate, IsDate, IsBoolean } from "../../../../../smart-cone-api/node_modules/class-validator";
-import { Type, Transform } from "../../../../../smart-cone-api/node_modules/class-transformer";
+import { IsNumber, IsString, IsArray, ValidateNested, Validate, IsDate, IsBoolean } from "class-validator";
+import { Type, Transform } from "class-transformer";
 import { MessageBroker } from "./message-broker";
 import { MockMessageBroker } from "./mock-message-broker";
 import { Athlete, BlahDto } from "../../../../../smart-cone-api/src/Athletes/athlete";
@@ -141,7 +141,7 @@ describe("SocketMessageBroker", () => {
         broker = new MockMessageBroker();
     });
 
-    it("No Return Value", async done => {
+    it("No Return Value", async (done) => {
         setBrokerTestData("testEvent", {});
         // user only wants to know when an event occurs, not what data is returned
         const observable = broker.RegisterEventObservable("testEvent");
@@ -154,7 +154,7 @@ describe("SocketMessageBroker", () => {
         triggerBrokerEvent();
     });
 
-    it("Basic - Positive", async done => {
+    it("Basic - Positive", async (done) => {
         // make the plain object (i.e. over the wire)
         const plain = {
             id: 10,
@@ -172,7 +172,7 @@ describe("SocketMessageBroker", () => {
         triggerBrokerEvent();
     });
 
-    fit("Basic - Negative", async done => {
+    fit("Basic - Negative", async (done) => {
         const plain = {
             id: 10,
             name: 10,
@@ -181,7 +181,7 @@ describe("SocketMessageBroker", () => {
 
         const obs = broker.RegisterEventObservable("testEvent", TestDto);
 
-        obs.subscribe(data => {
+        obs.subscribe((data) => {
             // this should never be hit, if it is, fail out
             fail("Broker should not have emitted!");
             done();
@@ -198,7 +198,7 @@ describe("SocketMessageBroker", () => {
         }
     });
 
-    it("Top-level Array - Positive", async done => {
+    it("Top-level Array - Positive", async (done) => {
         const plain = {
             items: [
                 {
@@ -225,7 +225,7 @@ describe("SocketMessageBroker", () => {
         triggerBrokerEvent();
     });
 
-    it("Top-level Array - Negative (wrong type)", async done => {
+    it("Top-level Array - Negative (wrong type)", async (done) => {
         // In this case, lets screw up the type internally
         const plain = {
             items: [
@@ -262,7 +262,7 @@ describe("SocketMessageBroker", () => {
         }
     });
 
-    it("Nested Object Basic - Positive", async done => {
+    it("Nested Object Basic - Positive", async (done) => {
         // make the plain object (i.e. over the wire)
         const plain = {
             id: 10,
@@ -282,7 +282,7 @@ describe("SocketMessageBroker", () => {
         triggerBrokerEvent();
     });
 
-    it("Nested Object Basic - Negative", async done => {
+    it("Nested Object Basic - Negative", async (done) => {
         // make the plain object (i.e. over the wire)
         const plain = {
             id: 10,
@@ -294,7 +294,7 @@ describe("SocketMessageBroker", () => {
         setBrokerTestData("testEvent", plain);
         const observable = broker.RegisterEventObservable("testEvent", NestedDto);
 
-        observable.subscribe(data => {
+        observable.subscribe((data) => {
             // this should never be hit, if it is, fail out
             fail("Broker should not have emitted!");
             done();
@@ -312,7 +312,7 @@ describe("SocketMessageBroker", () => {
         }
     });
 
-    it("Nested Object With Array - Positive", async done => {
+    it("Nested Object With Array - Positive", async (done) => {
         // make the plain object (i.e. over the wire)
         const plain = {
             id: 10,
@@ -339,7 +339,7 @@ describe("SocketMessageBroker", () => {
         triggerBrokerEvent();
     });
 
-    it("Nested Object With Array - Negative", async done => {
+    it("Nested Object With Array - Negative", async (done) => {
         // make the plain object (i.e. over the wire)
         const plain = {
             id: 10,
@@ -374,7 +374,7 @@ describe("SocketMessageBroker", () => {
         }
     });
 
-    it("Multiple Clients Same Event", async done => {
+    it("Multiple Clients Same Event", async (done) => {
         // make the plain object (i.e. over the wire)
         const plain = {
             id: 10,
@@ -414,7 +414,7 @@ describe("SocketMessageBroker", () => {
         triggerBrokerEvent();
     });
 
-    it("Handle dates - Basic - Positive", async done => {
+    it("Handle dates - Basic - Positive", async (done) => {
         // make the plain object (i.e. over the wire)
         const plain = {
             id: 10,
@@ -436,7 +436,7 @@ describe("SocketMessageBroker", () => {
         triggerBrokerEvent();
     });
 
-    it("Handles nested date array - Positive", async done => {
+    it("Handles nested date array - Positive", async (done) => {
         // make the plain object (i.e. over the wire)
         const plain = {
             field1: "This is a field",
@@ -462,7 +462,7 @@ describe("SocketMessageBroker", () => {
         triggerBrokerEvent();
     });
 
-    it("Complex nested hierachy - Positive", async done => {
+    it("Complex nested hierachy - Positive", async (done) => {
         // make the plain object (i.e. over the wire)
         const plain = {
             items: [

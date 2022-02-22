@@ -33,7 +33,7 @@
  * We also need a way for the coach to throw away scores. If he sees an obvious error, he will
  * need to be able to toss the result, before its written to longer-term storage.
  *
-*/
+ */
 
 import { Component, OnInit } from "@angular/core";
 import { AthleteSession, AthleteSessionArray } from "../../../../../../../smart-cone-api/src/Training/athlete-session";
@@ -43,7 +43,7 @@ import { SessionSetupData } from "../../models/session-setup-data";
 import { Athlete } from "../../../../../../../smart-cone-api/src/Athletes/athlete";
 import { Router } from "@angular/router";
 import { TrainingSessionState } from "@SmartCone/Training/training-session-state";
-import { plainToClass } from "../../../../../../../smart-cone-api/node_modules/class-transformer";
+import { plainToClass } from "class-transformer";
 
 @Component({
     selector: "ft-training-session-page",
@@ -66,7 +66,7 @@ export class TrainingSessionPageComponent implements OnInit {
         // Get the on-deck athlete
         this.onDeckAthlete = this.sessionService.getOnDeckAthlete();
         // Subscribe for changes on the on-deck athlete
-        this.sessionService.getCurrentAthleteObservable().subscribe(a => {
+        this.sessionService.getCurrentAthleteObservable().subscribe((a) => {
             this.onDeckAthlete = a;
         });
 
@@ -133,7 +133,7 @@ export class TrainingSessionPageComponent implements OnInit {
         } else {
             const allSessionsComplete = this.sessionState
                 .getCurrentSession()
-                .athleteSessions.every(session => session.segments.every(segment => segment.completed === true));
+                .athleteSessions.every((session) => session.segments.every((segment) => segment.completed === true));
 
             if (allSessionsComplete) {
                 return "Session Done";

@@ -4,9 +4,9 @@ import {
     IsNumber,
     ValidateNested,
     IsPhoneNumber,
-} from "class-validator";
+} from "../../../field-trainer/field-trainer/node_modules/class-validator";
 import { Team } from "../Teams/team";
-import { Type } from "class-transformer";
+import { Type } from "../../../field-trainer/field-trainer/node_modules/class-transformer";
 
 function t() {
     return Team;

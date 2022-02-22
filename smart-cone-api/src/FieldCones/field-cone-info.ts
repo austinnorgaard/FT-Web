@@ -1,6 +1,3 @@
-import * as io from "socket.io-client";
-import { AnonymousSubject } from "rxjs/internal/Subject";
-
 // A model of a field cone
 // This is the information the Field Cone will provide
 // early in the connection process which identifies the cone

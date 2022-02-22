@@ -31,9 +31,9 @@
     "@types/pixi.js": "^4.8.6",
     "@types/socket.io": "^1.4.40",
     "@types/socket.io-client": "^1.4.32",
+    "ajv": "^6.7.0",
     "class-transformer": "^0.2.2",
     "class-validator": "^0.9.1",
-    "ajv": "^6.7.0",
     "core-js": "^2.6.3",
     "moment": "^2.24.0",
     "ngx-perfect-scrollbar": "^5.3.5",
@@ -41,7 +41,7 @@
     "popper.js": "^1.14.6",
     "rxjs": "^6.6.7",
     "rxjs-compat": "^6.3.3",
-    "tslib": "^2.0.0",
+    "tslib": "^2.3.1",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {

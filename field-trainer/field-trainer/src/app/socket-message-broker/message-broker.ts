@@ -1,7 +1,7 @@
 import { Subject, Observable } from "rxjs";
 import { EventSubjectMap, ClassType } from "./event-subject-map";
-import { plainToClass } from "../../../../../smart-cone-api/node_modules/class-transformer";
-import { validate } from "../../../../../smart-cone-api/node_modules/class-validator";
+import { plainToClass } from "class-transformer";
+import { validate } from "class-validator";
 
 export abstract class MessageBroker {
     protected subjects: Subject<any>[] = [];
@@ -33,7 +33,7 @@ export abstract class MessageBroker {
     }
 
     protected async HandleIncomingData(eventName: string, payload: any) {
-        const mappings = this.mappings.filter(m => m.eventName === eventName);
+        const mappings = this.mappings.filter((m) => m.eventName === eventName);
         for (let i = 0; i < mappings.length; ++i) {
             if (mappings[i].emitClass) {
                 await this.TransformValidateEmitFlow(mappings[i], payload);
