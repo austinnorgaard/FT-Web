@@ -26,8 +26,8 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
         
-      - run: npm ci
-      - run: npm run build
+      - run: cd field-trainer/field-trainer && npm ci
+      - run: cd field-trainer/field-trainer && npm run build
       
       - uses: jakejarvis/s3-sync-action@master
         with:
