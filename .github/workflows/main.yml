@@ -27,6 +27,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
         
       - run: cd field-trainer/field-trainer && npm ci
+      - run: cd field-trainer/smart-cone-api && npm ci
       - run: cd field-trainer/field-trainer && npm run build
       
       - uses: jakejarvis/s3-sync-action@master
