@@ -7,6 +7,12 @@ import { AuthService } from '@FieldTrainer/authentication/services/auth.service'
     styleUrls: ["./app.component.css"],
 })
 
+class AuthService {
+    private authenticated: boolean = false;
+
+    constructor(public readonly authService: AuthService) {}
+}
+
 export class AppComponent {
 
     constructor(private router: Router) {

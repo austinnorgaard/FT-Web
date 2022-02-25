@@ -1,12 +1,13 @@
 import { Component } from "@angular/core";
 import { Router } from "@angular/router";
 import { AuthService } from '@FieldTrainer/authentication/services/auth.service';
+import NavMenuContentComponent from "./home/components/nav-menu-content/nav-menu-content.component"
+
 @Component({
     selector: "ft-app-root",
     templateUrl: "./app.component.html",
     styleUrls: ["./app.component.css"],
 })
-
 export class AppComponent {
 
     constructor(private router: Router) {
@@ -32,4 +33,10 @@ export class AppComponent {
         // Hacky, hard-coded solution.
         return item.substr(0, 3) + item.charAt(3).toUpperCase() + item.slice(4);
     }
+}
+
+class AuthService {
+    private authenticated: boolean = false;
+
+    constructor(public readonly authService: AuthService) {}
 }

@@ -1,11 +1,19 @@
 import { Component } from "@angular/core";
 import { Router } from "@angular/router";
 import { AuthService } from '@FieldTrainer/authentication/services/auth.service';
+import NavMenuContentComponent from "./home/components/nav-menu-content/nav-menu-content.component"
+
 @Component({
     selector: "ft-app-root",
     templateUrl: "./app.component.html",
     styleUrls: ["./app.component.css"],
 })
+
+class AuthService {
+    private authenticated: boolean = false;
+
+    constructor(public readonly authService: AuthService) {}
+}
 
 export class AppComponent {
 

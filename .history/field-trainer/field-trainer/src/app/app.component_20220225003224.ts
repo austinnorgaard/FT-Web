@@ -7,6 +7,27 @@ import { AuthService } from '@FieldTrainer/authentication/services/auth.service'
     styleUrls: ["./app.component.css"],
 })
 
+class NavMenuContentComponent implements OnInit {
+    // Whether the user is logged in or not
+    // We display either login/create-account links or a
+    // switch-user & account link
+    private authenticated: boolean = false;
+    @Input() sideNav: MatSidenav;
+
+    constructor(public readonly authService: AuthService) {}
+
+    ngOnInit() {
+    }
+
+    close() {
+        this.sideNav.close();
+    }
+
+    open() {
+        this.sideNav.open();
+    }
+}
+
 export class AppComponent {
 
     constructor(private router: Router) {
