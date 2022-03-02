@@ -10,9 +10,12 @@
 
 a {
     color: white;
-    padding-right: 25px;
 }
 
 a:hover {
     text-decoration: none;
+}
+
+.ft-nav-menu-container {
+    justify-content: center;
 }

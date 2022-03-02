@@ -103,7 +103,6 @@ export class FieldCourseSetupComponent implements AfterViewInit, OnInit {
     }
 
     onFieldChanged() {
-        this.selectedCourse = null;
         this.getCourses();
         this.loadFieldPreview();
         this.sessionSetup.setField(this.selectedField);

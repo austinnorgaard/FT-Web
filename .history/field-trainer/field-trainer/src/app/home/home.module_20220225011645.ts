@@ -31,7 +31,8 @@ import { MiscModule } from "../misc/misc.module";
         FormsModule,
         MiscModule,
     ],
-    declarations: [HomePageComponent, NavMenuContentComponent],
-    exports: [NavMenuContentComponent]
+    declarations: [HomePageComponent, NavMenuContentComponent, StatusIndicatorComponent, WifiSettingsComponent],
+    exports: [NavMenuContentComponent, StatusIndicatorComponent],
+    providers: [WiFiSettingsService, SmartConeUpdateService, SmartConeInfoService],
 })
 export class HomeModule {}

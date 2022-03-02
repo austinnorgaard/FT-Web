@@ -1,4 +1,6 @@
 import { Component, OnInit } from "@angular/core";
+import { SmartConeUpdateService } from "../../services/smart-cone-update.service";
+import { Package, SmartConeInfo, SmartConeInfoService } from "../../services/smart-cone-info.service";
 
 @Component({
     selector: "ft-home-page",
@@ -6,6 +8,7 @@ import { Component, OnInit } from "@angular/core";
     styleUrls: ["./home-page.component.css"],
 })
 export class HomePageComponent implements OnInit {
+    smartConeInfo: SmartConeInfo = undefined;
     constructor() {}
 
     async ngOnInit() {

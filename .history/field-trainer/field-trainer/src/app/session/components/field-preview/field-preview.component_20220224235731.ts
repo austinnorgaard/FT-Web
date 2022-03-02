@@ -21,7 +21,7 @@ export class FieldPreviewComponent implements OnInit {
     }
 
     public resize(width: number, height: number) {
-        this.field.resize(width, height);
+        this.field.resize(height, height);
     }
 
     public loadField(field: Field, width: number, height: number) {

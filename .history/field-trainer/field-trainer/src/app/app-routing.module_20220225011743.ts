@@ -86,6 +86,11 @@ const routes: Routes = [
         component: ConesComponent,
         canActivate: [AuthGuard],
     },
+    {
+        path: "wifi-settings",
+        component: WifiSettingsComponent,
+        canActivate: [AuthGuard],
+    },
 ];
 
 @NgModule({

@@ -17,7 +17,7 @@ export class FieldCourseSetupComponent implements AfterViewInit, OnInit {
     @ViewChild("fieldPreviewDiv", { static: true }) fieldPreviewDiv: ElementRef;
     @ViewChild("fieldPreview", { static: true }) fieldPreview: FieldPreviewComponent;
     selectedField: Field = null;
-    selectedCourse: Course = null;
+    selectedCourse: Course;
     fields: Field[] = null;
     courses: Course[] = null;
     loadedExistingData = false;
@@ -103,7 +103,6 @@ export class FieldCourseSetupComponent implements AfterViewInit, OnInit {
     }
 
     onFieldChanged() {
-        this.selectedCourse = null;
         this.getCourses();
         this.loadFieldPreview();
         this.sessionSetup.setField(this.selectedField);
