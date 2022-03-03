@@ -1,15 +1,19 @@
 div {
     justify-content: center;
     text-align: center;
-    width: 100%;
 }
 
-.background {
-    background-image: url('../../../../assets/wallpaperflare.com_wallpaper (1).jpg') !important;
-    background-size: cover;
-    background-position: center center;
+img {
+    background-image: url('../../../../assets/wallpaperflare.com_wallpaper.jpg') !important;
+    object-fit: cover;
+    width: 100vw;
     height: 100vh;
-    background: rgba(0,0,0,.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    filter: brightness(80%);
+    background: rgb(0, 0, 0, 0.5);
     overflow: hidden;
     -ms-overflow-style: none;
 }
@@ -29,3 +33,4 @@ p {
     text-align: center;
     color: white;
 }
+

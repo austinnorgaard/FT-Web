@@ -3,12 +3,17 @@ div {
     text-align: center;
 }
 
-.background {
-    background-image: url('../../../../assets/674183792.jpg') !important;
-    background-size: cover;
-    background-position: center center;
+img {
+    background-image: url('../../../../assets/academic.jpg') !important;
+    object-fit: cover;
+    width: 100vw;
     height: 100vh;
-    background: rgba(0,0,0,.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    filter: brightness(80%);
+    background: rgb(0, 0, 0, 0.5);
     overflow: hidden;
     -ms-overflow-style: none;
 }
