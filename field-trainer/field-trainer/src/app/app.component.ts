@@ -15,7 +15,6 @@ export class AppComponent {
     public errorMessage = "None";
     alertTimeout: any;
     returnUrl: string;
-    loc: string;
 
     constructor(private router: Router, public authService: AuthService, private route: ActivatedRoute) {
         this.router = router;
