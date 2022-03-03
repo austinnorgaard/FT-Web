@@ -1,9 +1,0 @@
-.ft-nav-menu-container {
-    margin: 1em;
-}
-
-.mat-nav-list .mat-list-item-content:hover,
-.mat-nav-list .mat-list-item-content.mat-list-item-focus {
-    background: none !important;
-    text-decoration: none !important;
-}
