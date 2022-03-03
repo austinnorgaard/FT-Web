@@ -14,6 +14,7 @@ import { TeamManagementPageComponent } from "./teams/components/team-management-
 import { AddAthletePageComponent } from "./athletes/components/add-athlete-page/add-athlete-page.component";
 import { SandboxComponent } from "./utility/components/sandbox/sandbox.component";
 import { ResultPageComponent } from "./session/components/result-page/result-page.component";
+import { FieldCourseSetupComponent } from "./session/components/field-course-setup/field-course-setup.component";
 
 const routes: Routes = [
     { path: "", redirectTo: "/home", pathMatch: "full" },
@@ -23,6 +24,10 @@ const routes: Routes = [
         path: "add-team",
         component: AddTeamComponent,
         canActivate: [AuthGuard],
+    },
+    {
+        path: "field",
+        component: FieldCourseSetupComponent,
     },
     {
         path: "app",

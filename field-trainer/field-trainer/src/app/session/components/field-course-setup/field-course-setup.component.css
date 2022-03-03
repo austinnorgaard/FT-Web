@@ -1,5 +1,31 @@
-.session-setup-container {
-    padding-left: 1em;
-    padding-right: 1em;
-    padding-bottom: 1em;
+div {
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+}
+
+.background {
+    background-image: url('https://storage.cloud.google.com/field-cone/wallpaperflare.com_wallpaper%20(1).jpg') !important;
+    background-size: cover;
+    background-position: center center;
+    height: 100vh;
+    background: rgba(0,0,0,.5);
+    overflow: hidden;
+    -ms-overflow-style: none;
+}
+
+.background::-webkit-scrollbar {
+    display: hidden;
+}
+
+h1 {
+    justify-content: center;
+    text-align: center;
+    color: white;
+}
+
+p {
+    justify-content: center;
+    text-align: center;
+    color: white;
 }
