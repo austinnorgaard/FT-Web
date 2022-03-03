@@ -14,15 +14,17 @@ h1 {
     color: white;
 }
 
-.background {
-    background-image: url('../../../../assets/facilities_Stadium_aerial_lighted_DJI_0215_edited.jpg') !important;
-    background-size: cover;
-    background-position: center center;
+video {
+    object-fit: cover;
+    width: 100vw;
     height: 100vh;
-    background: rgba(0,0,0,.5);
-    overflow: hidden;
-    -ms-overflow-style: none;
-}
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    filter: brightness(50%);
+    background-color: rgba(0,0,0,0.25);
+  }
 
 .background::-webkit-scrollbar {
     display: hidden;
