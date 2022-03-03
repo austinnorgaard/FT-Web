@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { Router } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 import { AuthService } from './authentication/services/auth.service';
 import { LoginResult } from "./authentication/services/login.service";
 @Component({
@@ -14,8 +14,9 @@ export class AppComponent {
     public alertType = "danger";
     public errorMessage = "None";
     alertTimeout: any;
+    returnUrl: string;
 
-    constructor(private router: Router, public authService: AuthService) {
+    constructor(private router: Router, public authService: AuthService, private route: ActivatedRoute) {
         this.router = router;
     }
 
@@ -23,6 +24,8 @@ export class AppComponent {
     }
 
     currentPath(): string {
+        localStorage.setItem("route", this.router.url);
+
         // take the router url and extract a pretty
         // path for our title bar
         if (this.router.url.toLowerCase().includes("athlete-management")) {
@@ -43,6 +46,8 @@ export class AppComponent {
     }
 
     logout() {
+        this.router.navigateByUrl(this.router.url);
+        location.reload();
         localStorage.removeItem("token");
         localStorage.setItem("status", "logged out");
     }

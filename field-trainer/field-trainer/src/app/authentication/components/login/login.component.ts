@@ -25,12 +25,14 @@ export class LoginComponent implements OnInit {
     public emailFormControl = new FormControl("", [Validators.required, Validators.email]);
     public passwordFormControl = new FormControl("", [Validators.required]);
 
-    constructor(private loginService: LoginService, private router: Router, private route: ActivatedRoute) {}
+    constructor(private loginService: LoginService, private router: Router, private route: ActivatedRoute) {
+        this.router = router;
+    }
 
     ngOnInit() {
         // grab the return url, default to home if none specified (user clicked
-        // directly onto the login page)
-        this.returnUrl = this.route.snapshot.queryParams["returnUrl"] || "/";
+        // directly onto the login page);
+        this.returnUrl = localStorage.getItem("route");
         if (this.loggedOutType === "logged out"){
             this.showMessage("Successfully Logged Out");
             localStorage.setItem("status", "null");
