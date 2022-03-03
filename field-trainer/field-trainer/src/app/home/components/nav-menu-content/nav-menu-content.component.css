@@ -22,15 +22,7 @@ a:hover {
     text-decoration: none;
 }
 
-app-black-box {
-    display: none;
-    background-color: black;
-    padding: 100px;
-    width: 100vw;
-    height: 40vh;
-}
-
-a.field:hover + app-black-box{
+a.field:hover{
     display: block;
 }
 
