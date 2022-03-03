@@ -45,5 +45,6 @@ export class AppComponent {
     logout() {
         localStorage.removeItem("token");
         localStorage.setItem("status", "logged out");
+
     }
 }
