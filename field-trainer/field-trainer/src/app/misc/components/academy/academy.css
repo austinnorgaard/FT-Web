@@ -4,7 +4,7 @@ div {
 }
 
 .background {
-    background-image: url('https://storage.cloud.google.com/field-cone/674183792.jpg') !important;
+    background-image: url('../../../../assets/674183792.jpg') !important;
     background-size: cover;
     background-position: center center;
     height: 100vh;

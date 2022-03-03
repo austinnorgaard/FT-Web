@@ -15,7 +15,7 @@ h1 {
 }
 
 .background {
-    background-image: url('https://storage.cloud.google.com/field-cone/facilities_Stadium_aerial_lighted_DJI_0215_edited.jpg') !important;
+    background-image: url('../../../../assets/facilities_Stadium_aerial_lighted_DJI_0215_edited.jpg') !important;
     background-size: cover;
     background-position: center center;
     height: 100vh;
