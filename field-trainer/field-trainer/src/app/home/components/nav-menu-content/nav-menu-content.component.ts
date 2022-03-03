@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { MatSidenav } from "@angular/material/sidenav";
 import { AuthService } from '../../../authentication/services/auth.service';
+import { BlackBoxModule } from 'ng-blackbox';
+
 
 @Component({
     selector: "ft-nav-menu-content",
