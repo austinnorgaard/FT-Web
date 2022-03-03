@@ -15,6 +15,7 @@ export class AppComponent {
     public errorMessage = "None";
     alertTimeout: any;
     returnUrl: string;
+    loc: string;
 
     constructor(private router: Router, public authService: AuthService, private route: ActivatedRoute) {
         this.router = router;
@@ -50,5 +51,20 @@ export class AppComponent {
         location.reload();
         localStorage.removeItem("token");
         localStorage.setItem("status", "logged out");
+    }
+
+    getBackgroundColor() {
+        let color = 'transparent';
+        let background = 'transparent';
+        if (this.router.url === "/home")
+        {
+            color = 'transparent';
+        }
+        else
+        {
+            color = '#111111';
+            background = 'rgba(17, 17, 17, 0.9)';
+        }
+        return color && background;
     }
 }

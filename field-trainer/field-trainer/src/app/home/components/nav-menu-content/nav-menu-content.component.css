@@ -5,7 +5,7 @@ div {
 
 a {
     padding-right: 25px;
-    color: black;
+    color: white;
 }
 
 /* unvisited link */
@@ -13,10 +13,10 @@ a:link {
     text-decoration: none;
   }
 
-  /* visited link */
-  a:visited {
+/* visited link */
+a:visited {
     text-decoration: none;
-  }
+}
 
 a:hover {
     text-decoration: none;
