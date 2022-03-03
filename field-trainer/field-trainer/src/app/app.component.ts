@@ -54,7 +54,6 @@ export class AppComponent {
 
     getBackgroundColor() {
         let color = 'transparent';
-        let background = 'transparent';
         if (this.router.url === "/home")
         {
             color = 'transparent';
@@ -62,8 +61,7 @@ export class AppComponent {
         else
         {
             color = '#111111';
-            background = 'rgba(17, 17, 17, 0.9)';
         }
-        return color && background;
+        return color;
     }
 }
