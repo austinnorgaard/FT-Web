@@ -1,0 +1,19 @@
+.copy-text {
+    margin: 1em;
+    font-size: 1.25em;
+}
+
+p {
+    justify-content: center;
+    text-align: center;
+}
+
+h1 {
+    justify-content: center;
+    text-align: center;
+}
+
+img {
+    max-width: 1920px;
+    overflow: hidden;
+}

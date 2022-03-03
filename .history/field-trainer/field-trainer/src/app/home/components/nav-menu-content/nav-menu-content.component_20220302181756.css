@@ -1,0 +1,15 @@
+div {
+    justify-content: center;
+    text-align: center;
+}
+
+a {
+    padding-right: 25px;
+    color: "primary";
+}
+
+a:hover {
+    text-decoration: none;
+    text-shadow: none;
+}
+

@@ -1,0 +1,23 @@
+<div fxLayout="column" fxFlexFill class="mat-typography">
+    <mat-sidenav-container fxFlex>
+        <mat-sidenav-content fxLayout="column">
+            <mat-toolbar color="primary" fxFlex="0 0 auto" fxLayout="row" fxLayoutAlign="start center" class="ft-toolbar">
+                <div class="ft-title" fxFlex><a routerLink="/home">Field Trainer</a></div>
+                <ft-nav-menu-content fxFlex="start" fxLayoutAlign="center"></ft-nav-menu-content>
+                <div style="margin-right: -20px; padding-left: 50px" *ngIf="!this.authService.isAuthenticated()">
+                        <a routerLink="/login">Login</a>
+                </div>
+                <div *ngIf="this.authService.isAuthenticated()">
+                        <a (click)="logout();showErrorMessage("Logged Out")" routerLink="/login">Switch User</a>
+                </div>
+            </mat-toolbar>
+            <router-outlet class="router-flex"></router-outlet>
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+</div>
+
+<!--  <div fxLayout="column" fxFlexFill>
+     <div fxFlex style="background: red">#1</div>
+     <div fxFlex style="background: green">#2</div>
+     <div fxFlex style="background: yellow">#3</div>
+ </div> -->

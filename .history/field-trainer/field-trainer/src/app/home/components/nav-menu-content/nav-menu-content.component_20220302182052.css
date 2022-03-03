@@ -1,0 +1,33 @@
+div {
+    justify-content: center;
+    text-align: center;
+}
+
+a {
+    padding-right: 25px;
+    color: "primary";
+}
+
+/* unvisited link */
+a:link {
+    text-decoration: none;
+    text-emphasis: none;
+    color: "primary";
+    text-shadow: none;
+  }
+
+  /* visited link */
+  a:visited {
+    text-decoration: none;
+    text-emphasis: none;
+    color: "primary";
+    text-shadow: none;
+  }
+
+a:hover {
+    text-decoration: none;
+    text-emphasis: none;
+    text-shadow: none;
+    color: "primary";
+}
+

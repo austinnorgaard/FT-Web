@@ -1,0 +1,7 @@
+<div fxLayout="row" class="ft-nav-menu-container">
+    <a routerLink="/session-setup">Fields</a>
+    <a routerLink="/home">The Cones</a>
+    <a routerLink="/home">The App</a>
+    <a *ngIf="!this.authService.isAuthenticated()" routerLink="/home">Results</a>
+    <a routerLink="/home">Academy</a>
+</div>
