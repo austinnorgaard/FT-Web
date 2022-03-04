@@ -11,10 +11,6 @@ body,
     margin: 0;
 }
 
-.ft-page-header {
-    margin-left: 0.5em;
-}
-
 .ps > .ps__rail-x,
 .ps > .ps__rail-y {
     opacity: 0.6;

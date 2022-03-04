@@ -18,17 +18,33 @@ export class LoginComponent implements OnInit {
     public alertShown = false;
     public alertType = "danger";
     public errorMessage = "None";
+    public alertMessage = "None";
     alertTimeout: any;
+    public loggedOutType: string = localStorage.getItem("status");
 
     public emailFormControl = new FormControl("", [Validators.required, Validators.email]);
     public passwordFormControl = new FormControl("", [Validators.required]);
 
-    constructor(private loginService: LoginService, private router: Router, private route: ActivatedRoute) {}
+    constructor(private loginService: LoginService, private router: Router, private route: ActivatedRoute) {
+        this.router = router;
+    }
 
     ngOnInit() {
         // grab the return url, default to home if none specified (user clicked
-        // directly onto the login page)
-        this.returnUrl = this.route.snapshot.queryParams["returnUrl"] || "/";
+        // directly onto the login page);
+        this.returnUrl = localStorage.getItem("route");
+        if (this.loggedOutType === "logged out" && this.router.url.includes("team-management")){
+            this.showMessage("Successfully Logged Out");
+            localStorage.setItem("status", "null");
+        }
+        if (this.loggedOutType === "logged out" && this.router.url.includes("athlete-management")){
+            this.showMessage("Successfully Logged Out");
+            localStorage.setItem("status", "null");
+        }
+        if (this.loggedOutType === "logged out" && this.router.url.includes("results")){
+            this.showMessage("Successfully Logged Out");
+            localStorage.setItem("status", "null");
+        }
     }
 
     async login() {
@@ -64,9 +80,18 @@ export class LoginComponent implements OnInit {
     }
 
     showErrorMessage(message: string) {
+        this.alertType = 'error';
         this.alertShown = true;
         clearTimeout(this.alertTimeout);
         this.alertTimeout = setTimeout(() => (this.alertShown = false), 5000);
         this.errorMessage = message;
+    }
+
+    showMessage(message: string) {
+        this.alertType = 'alert';
+        this.alertShown = true;
+        clearTimeout(this.alertTimeout);
+        this.alertTimeout = setTimeout(() => (this.alertShown = false), 5000);
+        this.alertMessage = message;
     }
 }

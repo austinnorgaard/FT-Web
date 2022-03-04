@@ -1,8 +1,40 @@
-.ft-nav-menu-container {
-    margin: 1em;
+div {
+    justify-content: center;
+    text-align: center;
 }
 
-.mat-nav-list .mat-list-item-content:hover,
-.mat-nav-list .mat-list-item-content.mat-list-item-focus {
-    background: none !important;
+a {
+    padding-right: 25px;
+    color: white;
+}
+
+/* unvisited link */
+a:link {
+    text-decoration: none;
+  }
+
+/* visited link */
+a:visited {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+.area {
+    background:#fff;
+    display:block;
+    height:475px;
+    opacity:0;
+    position:absolute;
+    width:320px;
+}
+
+#area2 {
+    left: 320px;
+}
+
+#area1:hover, #area2:hover {
+    opacity: 0.2;
 }
