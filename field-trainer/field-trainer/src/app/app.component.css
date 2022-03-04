@@ -43,6 +43,7 @@ a:hover {
     width: 100vw;
     height: 60vh;
     display: none;
+    z-index: 2147483647; /* override any overlays */
 }
 
 .hoverBox img {
