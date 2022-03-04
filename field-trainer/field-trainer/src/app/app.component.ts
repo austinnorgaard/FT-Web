@@ -21,6 +21,7 @@ export class AppComponent {
     }
 
     ngOnInit() {
+        this.setField("soccer");
     }
 
     currentPath(): string {
@@ -65,4 +66,27 @@ export class AppComponent {
         return color;
     }
 
+    setField(field: string){
+        localStorage.setItem("field", field);
+    }
+
+    getImage() {
+        let field = localStorage.getItem("field")
+        if (field === 'football')
+        {
+            return '../assets/1200px-AmFBfield.svg.png';
+        }
+        else if (field === 'soccer')
+        {
+            return '../assets/Soccer_field_-_empty.svg.png';
+        }
+        else if (field === 'basketball')
+        {
+            return '../assets/istockphoto-1212609648-612x612.jpg';
+        }
+        else if (field === 'track')
+        {
+            return '../assets/cartoon-running-track-stadium-vector-17932997.jpg';
+        }
+    }
 }

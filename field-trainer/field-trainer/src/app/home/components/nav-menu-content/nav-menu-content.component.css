@@ -22,10 +22,6 @@ a:hover {
     text-decoration: none;
 }
 
-a.field:hover{
-    display: block;
-}
-
 .area {
     background:#fff;
     display:block;
