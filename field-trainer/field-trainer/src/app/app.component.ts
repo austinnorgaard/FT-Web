@@ -68,6 +68,31 @@ export class AppComponent {
 
     setField(field: string){
         localStorage.setItem("field", field);
+        field = localStorage.getItem("field")
+        if (field === 'football')
+        {
+            localStorage.setItem("title", "Football");
+            localStorage.setItem("description", "A sport with running and throwing a ball");
+        }
+        else if (field === 'soccer')
+        {
+            localStorage.setItem("title", "Soccer");
+            localStorage.setItem("description", "A sport with running and kicking a ball");
+        }
+        else if (field === 'basketball')
+        {
+            localStorage.setItem("title", "Basketball");
+            localStorage.setItem("description", "A sport with running and shooting a ball");
+        }
+        else if (field === 'track')
+        {
+            localStorage.setItem("title", "Track");
+            localStorage.setItem("description", "A sport with running");
+        }
+        let description = localStorage.getItem("description");
+        let title = localStorage.getItem("title");
+        document.getElementById("sport_t").innerHTML = title;
+        document.getElementById("sport_d").innerHTML = description;
     }
 
     getImage() {
