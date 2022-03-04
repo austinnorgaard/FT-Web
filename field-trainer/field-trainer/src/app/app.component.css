@@ -80,7 +80,7 @@ div.field_cont {
     height: 8vh;
 }
 
-div.field_cont:hover + .blackBox .hoverBox {
+div.field_cont:hover ~ .blackBox .hoverBox {
     display: block;
 }
 
