@@ -1,0 +1,113 @@
+mat-toolbar {
+    height: 75px;
+}
+
+a {
+    color: white;
+    padding-right: 20px;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+.mat-sidenav-container {
+    -ms-overflow-style: none;
+}
+
+.mat-sidenav-container::-webkit-scrollbar {
+    display: none;
+}
+
+.mat-sidenav-content {
+    -ms-overflow-style: none;
+}
+
+.mat-sidenav-content::-webkit-scrollbar {
+    display: none;
+}
+
+.mat-sidenav-toolbar {
+    -ms-overflow-style: none;
+}
+
+.mat-sidenav-toolbar::-webkit-scrollbar {
+    display: none;
+}
+
+.blackBox {
+    background-color: rgb(0, 0, 0);
+    position: fixed;
+    top: 75px;
+    left: 0;
+    width: 100vw;
+    height: 60vh;
+    display: none;
+}
+
+.hoverBox img {
+    padding-top: 25px;
+    padding-right: 10px;
+    width: 500px;
+    height: 350px;
+    display: none;
+}
+
+.hoverBox h1 {
+    padding-top: 25px;
+    display: none;
+}
+
+div.hoverBox {
+    justify-content: center;
+    display: none;
+}
+
+.hoverBox a {
+    color: white;
+    padding-top: 25px;
+    display: none;
+}
+
+a.top{
+    z-index: 1;
+    right: 0;
+    align-items: center;
+    justify-content: center;
+}
+
+div.field_cont {
+    align-items: center;
+    right: 0;
+    bottom: 0;
+    width: 80px;
+    height: 8vh;
+}
+
+div.field_cont:hover + div.blackBox:hover + .hoverBox{
+    display: block;
+}
+
+a.top:hover + div.blackBox:hover + .hoverBox{
+    display: block;
+}
+
+div.blackBox:hover + .hoverBox{
+    display: block;
+}
+
+h1 {
+    color: white;
+}
+
+div.subs {
+    justify-content: center;
+    align-items: center;
+    height: 10vh;
+}
+
+h3 {
+    color: white;
+    padding-top: 25px;
+}
+

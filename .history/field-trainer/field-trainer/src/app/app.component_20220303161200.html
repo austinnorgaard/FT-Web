@@ -1,0 +1,35 @@
+<div fxLayout="column" fxFlexFill class="mat-typography">
+    <mat-sidenav-container fxFlex>
+        <mat-sidenav-content fxLayout="column">
+            <mat-toolbar fxFlex="0 0 auto" fxLayout="row" fxLayoutAlign="start center" [style.background-color]="getBackgroundColor()">
+                <div class="ft-title" fxFlex="0 0 auto"><a routerLink="/home">Field Trainer</a></div>
+                <div class="subs" fxFlex="1 1 auto" fxLayout="row">
+                    <a class="top" routerLink="/field">Fields</a>
+                    <div class="blackBox">
+                        <h1>Hi!</h1>
+                    </div>
+                    <div class="top">
+                    </div>
+                    <div class="blackBox">
+                        <h1>Hi!</h1>
+                    </div>
+                    <ft-nav-menu-content class="links"></ft-nav-menu-content>
+                </div>
+                <div fxFlex="0 0 auto" style="margin-right: -20px; padding-left: 50px" *ngIf="!this.authService.isAuthenticated()">
+                        <a (click)="currentPath()" routerLink="/login">Login</a>
+                </div>
+                <div fxFlex="0 0 auto" *ngIf="this.authService.isAuthenticated()">
+                        <a (click)="logout()" routerLink="">Switch User</a>
+                </div>
+            </mat-toolbar>
+            <router-outlet>
+            </router-outlet>
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+</div>
+
+<!--  <div fxLayout="column" fxFlexFill>
+     <div fxFlex style="background: red">#1</div>
+     <div fxFlex style="background: green">#2</div>
+     <div fxFlex style="background: yellow">#3</div>
+ </div> -->

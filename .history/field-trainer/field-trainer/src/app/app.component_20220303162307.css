@@ -1,0 +1,88 @@
+mat-toolbar {
+    height: 75px;
+}
+
+a {
+    color: white;
+    padding-right: 20px;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+.mat-sidenav-container {
+    -ms-overflow-style: none;
+}
+
+.mat-sidenav-container::-webkit-scrollbar {
+    display: none;
+}
+
+.mat-sidenav-content {
+    -ms-overflow-style: none;
+}
+
+.mat-sidenav-content::-webkit-scrollbar {
+    display: none;
+}
+
+.mat-sidenav-toolbar {
+    -ms-overflow-style: none;
+}
+
+.mat-sidenav-toolbar::-webkit-scrollbar {
+    display: none;
+}
+
+div.blackBox {
+    background-color: rgb(0, 0, 0);
+    position: fixed;
+    top: 75px;
+    left: 0;
+    width: 100vw;
+    height: 35vh;
+    display: none;
+}
+
+a.top{
+    z-index: 1;
+    height: 3vh;
+}
+
+div.field_cont {
+    align-items: center;
+}
+
+div.bottom {
+    display: hidden;
+    color: transparent;
+    width: 100px;
+    height: 5vh;
+    position: relative;
+    top: 0px;
+    right: 75px;
+    margin-left: 0;
+    z-index: 0;
+}
+
+div.bottom:hover + div.blackBox {
+    display: block;
+}
+
+a.top:hover + div.blackBox {
+    display: block;
+}
+
+div.blackBox:hover {
+    display: block;
+}
+
+h1 {
+    color: white;
+}
+
+div.subs {
+    justify-content: center;
+    align-items: center;
+}

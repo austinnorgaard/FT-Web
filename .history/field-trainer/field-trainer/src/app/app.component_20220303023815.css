@@ -1,0 +1,57 @@
+a {
+    color: white;
+    padding-right: 25px;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+.mat-sidenav-container {
+    -ms-overflow-style: none;
+}
+
+.mat-sidenav-container::-webkit-scrollbar {
+    display: none;
+}
+
+.mat-sidenav-content {
+    -ms-overflow-style: none;
+}
+
+.mat-sidenav-content::-webkit-scrollbar {
+    display: none;
+}
+
+.mat-sidenav-toolbar {
+    -ms-overflow-style: none;
+}
+
+.mat-sidenav-toolbar::-webkit-scrollbar {
+    display: none;
+}
+
+.wrapper {
+    background-color: transparent;
+    width: 100%;
+    -webkit-animation-name: example;
+    -webkit-animation-duration: 2s;
+    animation-name: example;
+    animation-duration: 2s;
+  }
+  @-webkit-keyframes example {
+    0% {
+      background-color: transparent;
+    }
+    100% {
+      background-color: black;
+    }
+  }
+  @keyframes example {
+    0% {
+        background-color: transparent;
+    }
+    100% {
+        background-color: black;
+    }
+  }

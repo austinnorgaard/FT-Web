@@ -1,0 +1,44 @@
+div {
+    justify-content: center;
+    text-align: center;
+}
+
+a {
+    padding-right: 25px;
+    color: white;
+}
+
+a.field:hover, a.field:active {
+    color: red;
+}
+
+/* unvisited link */
+a:link {
+    text-decoration: none;
+  }
+
+/* visited link */
+a:visited {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+.area {
+    background:#fff;
+    display:block;
+    height:475px;
+    opacity:0;
+    position:absolute;
+    width:320px;
+}
+
+#area2 {
+    left: 320px;
+}
+
+#area1:hover, #area2:hover {
+    opacity: 0.2;
+}
