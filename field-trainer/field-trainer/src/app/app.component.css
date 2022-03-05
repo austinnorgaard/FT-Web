@@ -49,8 +49,8 @@ a:hover {
 .hoverBox img {
     padding-top: 0px;
     padding-right: -15px;
-    width: 500px;
-    height: 350px;
+    width: 30vw;
+    height: 35vh;
 }
 
 .hoverBox h1 {
