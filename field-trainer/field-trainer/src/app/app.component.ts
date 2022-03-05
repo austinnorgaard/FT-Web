@@ -1,27 +1,34 @@
-import { Component } from "@angular/core";
+import { Component, NgZone, OnInit } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 import { AuthService } from './authentication/services/auth.service';
 import { LoginResult } from "./authentication/services/login.service";
 @Component({
     selector: "ft-app-root",
-    templateUrl: "./app.component.html",
+    templateUrl: 'app.component.html',
     styleUrls: ["./app.component.css"],
 })
 
-export class AppComponent {
+export class AppComponent implements OnInit {
 
     public alertShown = false;
     public alertType = "danger";
     public errorMessage = "None";
+    public width;
     alertTimeout: any;
     returnUrl: string;
 
-    constructor(private router: Router, public authService: AuthService, private route: ActivatedRoute) {
+    constructor(private router: Router, public authService: AuthService, private route: ActivatedRoute, private ngZone: NgZone) {
         this.router = router;
     }
 
-    ngOnInit() {
+    public ngOnInit() {
         this.setField("soccer");
+        window.onresize = (e) =>
+        {
+            this.ngZone.run(() => {
+                this.width = window.innerWidth;
+            });
+        };
     }
 
     currentPath(): string {
