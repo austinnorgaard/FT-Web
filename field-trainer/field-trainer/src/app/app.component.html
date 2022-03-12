@@ -1,26 +1,27 @@
+
 <div fxLayout="column" fxFlexFill class="mat-typography">
     <mat-sidenav-container fxFlex>
         <mat-sidenav-content fxLayout="column">
             <mat-toolbar fxFlex="0 0 auto" fxLayout="row" fxLayoutAlign="start center" [style.background-color]="getBackgroundColor()">
                 <div class="ft-title" fxFlex="0 0 auto"><a routerLink="/home">Field Trainer</a></div>
-                <div class="subs" fxFlex="1 1 auto" fxLayout="row">
-                    <div fxLayout="row" class="field_cont">
+                <div class="subs" fxFlex="1 0 auto" fxLayout="row">
+                    <div fxFlex="0 0 auto" fxLayout="row" class="field_cont">
                         <a class="top" routerLink="/field">Fields</a>
                     </div>
                     <div class="blackBox">
                         <div class="hoverBox" fxFlex fxFlexAlign="top">
                             <div class="hoverBox" fxLayout="row">
-                                <div fxLayout="column" style="padding-right: 200px;">
-                                    <a (mouseover)="setField('soccer')" routerLink="/field">Soccer</a>
-                                    <a (mouseover)="setField('basketball')" routerLink="/field">Basketball</a>
-                                    <a (mouseover)="setField('track')" routerLink="/field">Track</a>
-                                    <a (mouseover)="setField('football')" routerLink="/field">Football</a>
+                                <div fxLayout="column" style="padding-right: 8vw; padding-top: 4vh">
+                                    <a class="name" id="field_id" (mouseover)="setField('soccer')" routerLink="/field">Soccer</a>
+                                    <a class="name" (mouseover)="setField('basketball')" routerLink="/field">Basketball</a>
+                                    <a class="name" (mouseover)="setField('track')" routerLink="/field">Track</a>
+                                    <a class="name" (mouseover)="setField('football')" routerLink="/field">Football</a>
                                 </div>
                                 <div fxLayout="column">
-                                    <div fxLayout="row">
+                                    <div class="f_img" fxLayout="row">
                                         <a routerLink="/field"><img [src]="getImage()" id="field"></a>
                                     </div>
-                                    <div fxLayout="column">
+                                    <div class="f_desc" fxLayout="column">
                                         <h1><span id="sport_t"></span></h1>
                                         <h3><span id="sport_d"></span></h3>
                                     </div>
@@ -28,17 +29,16 @@
                             </div>
                         </div>
                     </div>
-                    <ft-nav-menu-content class="links"></ft-nav-menu-content>
+                    <ft-nav-menu-content fxFlex="0 0 auto" class="links"></ft-nav-menu-content>
                 </div>
-                <div fxFlex="0 0 auto" style="margin-right: -20px; padding-left: 50px" *ngIf="!this.authService.isAuthenticated()">
+                <div class="login" fxFlex="0 0 auto" *ngIf="!this.authService.isAuthenticated()">
                         <a (click)="currentPath()" routerLink="/login">Login</a>
                 </div>
-                <div fxFlex="0 0 auto" *ngIf="this.authService.isAuthenticated()">
+                <div class="login" fxFlex="0 0 auto" *ngIf="this.authService.isAuthenticated()">
                         <a (click)="logout()" routerLink="">Switch User</a>
                 </div>
             </mat-toolbar>
-            <router-outlet>
-            </router-outlet>
+            <router-outlet></router-outlet>
         </mat-sidenav-content>
     </mat-sidenav-container>
 </div>
