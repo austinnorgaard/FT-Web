@@ -33,15 +33,8 @@ export class LoginComponent implements OnInit {
         // grab the return url, default to home if none specified (user clicked
         // directly onto the login page);
         this.returnUrl = localStorage.getItem("route");
-        if (this.loggedOutType === "logged out" && this.router.url.includes("team-management")){
-            this.showMessage("Successfully Logged Out");
-            localStorage.setItem("status", "null");
-        }
-        if (this.loggedOutType === "logged out" && this.router.url.includes("athlete-management")){
-            this.showMessage("Successfully Logged Out");
-            localStorage.setItem("status", "null");
-        }
-        if (this.loggedOutType === "logged out" && this.router.url.includes("results")){
+        const fragments = ['team-management', 'athlete-management', 'results'];
+        if (this.loggedOutType === "logged out" && fragments.some(f => this.router.url.includes(f))){
             this.showMessage("Successfully Logged Out");
             localStorage.setItem("status", "null");
         }
