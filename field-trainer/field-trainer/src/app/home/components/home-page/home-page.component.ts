@@ -6,8 +6,15 @@ import { Component, OnInit } from "@angular/core";
     styleUrls: ["./home-page.component.css"],
 })
 export class HomePageComponent implements OnInit {
-    constructor() {}
+    constructor() {
+    }
 
     async ngOnInit() {
+    }
+    
+
+    getVideoSrc() {
+        let src = "../../../../assets/video.mp4";
+        return src;
     }
 }
