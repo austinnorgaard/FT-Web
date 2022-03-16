@@ -2,6 +2,7 @@ import { Component, NgZone, OnInit } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 import { AuthService } from './authentication/services/auth.service';
 import { LoginResult } from "./authentication/services/login.service";
+
 @Component({
     selector: "ft-app-root",
     templateUrl: 'app.component.html',
@@ -14,6 +15,7 @@ export class AppComponent implements OnInit {
     public alertType = "danger";
     public errorMessage = "None";
     public width;
+    public click = 0;
     alertTimeout: any;
     returnUrl: string;
 
@@ -23,6 +25,7 @@ export class AppComponent implements OnInit {
 
     public ngOnInit() {
         this.setField("soccer");
+        this.click = 0;
         window.onresize = (e) =>
         {
             this.ngZone.run(() => {
@@ -120,5 +123,15 @@ export class AppComponent implements OnInit {
         {
             return '../assets/cartoon-running-track-stadium-vector-17932997.jpg';
         }
+    }
+
+    setCSS() {
+        if (this.click == 0) {
+            this.click = 1;
+        }
+        else if (this.click == 1) {
+            this.click = 0;
+        }
+        return this.click;
     }
 }
