@@ -32,7 +32,6 @@
     "@types/socket.io": "^1.4.40",
     "@types/socket.io-client": "^1.4.32",
     "ajv": "^6.7.0",
-    "angular": "^1.8.2",
     "class-transformer": "^0.2.2",
     "class-validator": "^0.9.1",
     "core-js": "^2.6.3",
