@@ -45,7 +45,7 @@
     }
 }
 
-@media (min-width: 960px) and (orientation: landscape) and (max-width: 1559.98px) {
+@media (min-width: 960px) and (orientation: landscape) and (max-width: 2960px) {
     mat-toolbar {
         height: 9vh;
     }
@@ -175,14 +175,14 @@
     }
 }
 
-@media (min-width: 1559.98px) and (orientation: landscape) {
+@media (min-width: 2960.02px) and (orientation: landscape) {
     mat-toolbar {
         height: 9vh;
     }
     
     a {
         color: white;
-        padding-right: 20px;
+        font-size: 400%;
     }
     
     a:hover {
@@ -232,8 +232,9 @@
         height: 40vh;
     }
     
-    .hoverBox h1{
-        padding-top: 0px;
+    .hoverBox h1 {
+        padding-top: 3vh;
+        font-size: 400%;
     }
     
     div.hoverBox {
@@ -243,6 +244,7 @@
     .hoverBox a {
         color: white;
         padding-top: 3vh;
+        font-size: 400%;
     }
 
     .hoverBox a:hover {
@@ -277,12 +279,13 @@
     
     h1 {
         color: white;
+        font-size: 400%;
     }
     
     div.subs .field_cont {
         justify-content: center;
-        align-items: center;
         height: 9vh;
+        padding-bottom: 0.5vh;
     }
     
     div.subs {
@@ -293,14 +296,20 @@
     h3 {
         color: white;
         padding-top: 2.5vh;
+        font-size: 400%;
     }
     
     div.login {
         justify-content: flex-end;
-        padding-left: 4vw;
+        padding-right: 2vw;
     }
     
     mat-toolbar .links {
         flex-wrap: wrap;
+        align-items: center;
+    }
+
+    .ft-title a {
+        padding-left: 2vw;
     }
 }

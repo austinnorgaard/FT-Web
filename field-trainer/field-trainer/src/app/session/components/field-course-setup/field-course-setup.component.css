@@ -1,3 +1,14 @@
+@media (min-width: 2960.02px) and (orientation: landscape) {
+    h1 {
+        font-size: 600%;
+    }
+
+    p {
+        font-size: 500%;
+        padding-top: 3vh;
+    }
+}
+
 div {
     justify-content: center;
     text-align: center;
