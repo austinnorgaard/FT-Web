@@ -8,9 +8,6 @@
             <mat-toolbar fxFlex="0 0 auto" fxLayout="row" fxLayoutAlign="center center" [style.background-color]="getBackgroundColor()">
                 <div class="ft-title" fxFlex="0 0 auto"><a routerLink="/home">Field Trainer</a></div>
                 <button mat-icon-button class="ft-menu"><mat-icon class="material-icons">menu</mat-icon></button>
-                <mat-sidenav-content class="sidebar">
-
-                </mat-sidenav-content>
                 <div class="subs" fxFlex="1 0 auto" fxLayout="row">
                     <div fxFlex="0 0 auto" fxLayout="row" class="field_cont">
                         <a class="top" routerLink="/field">Fields</a>
@@ -44,9 +41,11 @@
                 <div class="login" fxFlex="0 0 auto" *ngIf="this.authService.isAuthenticated()">
                         <a (click)="logout()" routerLink="">Switch User</a>
                 </div>
+                <span></span>
             </mat-toolbar>
-            <router-outlet></router-outlet>
-        </mat-sidenav-content>
+            <router-outlet>
+            </router-outlet>
+        </mat-sidenav-content>    
     </mat-sidenav-container>
 </div>
 
