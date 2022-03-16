@@ -1,9 +1,16 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <div fxLayout="column" fxFlexFill class="mat-typography">
     <mat-sidenav-container fxFlex>
+        <mat-sidenav #sidenav mode="over">
+            <ft-nav-menu-content [sideNav]="sidenav"></ft-nav-menu-content>
+        </mat-sidenav>
         <mat-sidenav-content fxLayout="column">
             <mat-toolbar fxFlex="0 0 auto" fxLayout="row" fxLayoutAlign="center center" [style.background-color]="getBackgroundColor()">
                 <div class="ft-title" fxFlex="0 0 auto"><a routerLink="/home">Field Trainer</a></div>
+                <button mat-icon-button class="ft-menu"><mat-icon class="material-icons">menu</mat-icon></button>
+                <mat-sidenav-content class="sidebar">
+
+                </mat-sidenav-content>
                 <div class="subs" fxFlex="1 0 auto" fxLayout="row">
                     <div fxFlex="0 0 auto" fxLayout="row" class="field_cont">
                         <a class="top" routerLink="/field">Fields</a>
