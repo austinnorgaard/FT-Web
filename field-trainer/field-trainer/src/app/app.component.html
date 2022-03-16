@@ -41,7 +41,9 @@
                 <div class="login" fxFlex="0 0 auto" *ngIf="this.authService.isAuthenticated()">
                         <a (click)="logout()" routerLink="">Switch User</a>
                 </div>
-                <span></span>
+                <span>
+                    <ft-nav-menu-content fxFlex="0 0 auto" class="m-links"></ft-nav-menu-content>
+                </span>
                 <button mat-icon-button class="ft-close"><mat-icon class="material-icons">clear</mat-icon></button>
             </mat-toolbar>
             <router-outlet>

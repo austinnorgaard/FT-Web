@@ -18,7 +18,12 @@
         position: absolute;
         right: 3vw;
         z-index: 99;
-        transition: all 0.5s;
+    }
+
+    span {
+        display: none;
+        left: 100vw;
+        transition: left 1s;
     }
      
     button.ft-menu:focus ~ span,
@@ -26,6 +31,7 @@
         z-index: 100;
         display: block;
         position: fixed;
+        left: 0vw;
         bottom: 0;
         background-color: black;
         color: black;
@@ -33,12 +39,24 @@
         height: 100vh;
     }
 
+    span ft-nav-menu-content {
+        display: none;
+    }
+
+    button.ft-menu:focus ~ span ft-nav-menu-content.m-links,
+    span:hover ft-nav-menu-content.m-links {
+        display: flex;
+        flex-direction: column;
+        z-index: 101;
+    }
+
     button.ft-close {
         color: white;
         display: none;
     }
 
-    button.ft-menu:focus ~ button {
+    button.ft-menu:focus ~ button,
+    span:hover + button {
         display: initial;
         border: none;
         text-decoration: none;
@@ -47,7 +65,7 @@
         color: white;
         outline: none;
         position: absolute;
-        left: 3vw;
+        right: 3vw;
         z-index: 101;
     }
 
@@ -57,7 +75,6 @@
     }
 
     div.subs,
-     .links,
     .mat-sidenav-container::-webkit-scrollbar,
     .mat-sidenav-toolbar::-webkit-scrollbar, 
     .blackBox .hoverBox, 
@@ -75,7 +92,8 @@
     }
 
     .links {
-        display: none;
+        display: flex;
+        flex-direction: column;
     }
     
     a:hover {
@@ -112,6 +130,10 @@
 @media (min-width: 960px) and (orientation: landscape) and (max-width: 2960px) {
     mat-toolbar {
         height: 9vh;
+    }
+
+    button {
+        display: none;
     }
 
     .sidebar {
@@ -252,6 +274,10 @@
 @media (min-width: 2960.02px) and (orientation: landscape) {
     mat-toolbar {
         height: 9vh;
+    }
+
+    button {
+        display: none;
     }
 
     .sidebar {
