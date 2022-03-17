@@ -139,6 +139,10 @@
         height: 9vh;
     }
 
+    span {
+        display: none;
+    }
+
     button {
         display: none;
     }
@@ -285,6 +289,10 @@
 @media (min-width: 2960.02px) and (orientation: landscape) {
     mat-toolbar {
         height: 9vh;
+    }
+
+    span {
+        display: none;
     }
 
     .m-links {
