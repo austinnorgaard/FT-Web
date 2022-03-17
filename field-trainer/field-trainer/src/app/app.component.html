@@ -1,9 +1,6 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <div fxLayout="column" fxFlexFill class="mat-typography">
     <mat-sidenav-container fxFlex>
-        <mat-sidenav #sidenav mode="over">
-            <ft-nav-menu-content [sideNav]="sidenav"></ft-nav-menu-content>
-        </mat-sidenav>
         <mat-sidenav-content fxLayout="column">
             <mat-toolbar fxFlex="0 0 auto" fxLayout="row" fxLayoutAlign="center center" [style.background-color]="getBackgroundColor()">
                 <div class="ft-title" fxFlex="0 0 auto"><a routerLink="/home">Field Trainer</a></div>
@@ -41,8 +38,9 @@
                 <div class="login" fxFlex="0 0 auto" *ngIf="this.authService.isAuthenticated()">
                         <a (click)="logout()" routerLink="">Switch User</a>
                 </div>
+                <button mat-icon-button (click)="close()" class="ft-close"><mat-icon class="material-icons">clear</mat-icon></button>
                 <span>
-                    <ft-nav-menu-content fxFlex="0 0 auto" class="m-links"></ft-nav-menu-content>
+                    <ft-mobile-nav fxFlex="0 0 auto" class="m-links"></ft-mobile-nav>
                 </span>
                 <button mat-icon-button class="ft-close"><mat-icon class="material-icons">clear</mat-icon></button>
             </mat-toolbar>

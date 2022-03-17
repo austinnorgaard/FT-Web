@@ -1,5 +1,6 @@
-import { Component, NgZone, OnInit } from "@angular/core";
-import { Router, ActivatedRoute } from "@angular/router";
+import { Component, NgZone, OnInit, Input } from "@angular/core";
+import { MatSidenav } from "@angular/material/sidenav";
+import { Router, ActivatedRoute, RouterLink } from "@angular/router";
 import { AuthService } from './authentication/services/auth.service';
 import { LoginResult } from "./authentication/services/login.service";
 
@@ -15,8 +16,8 @@ export class AppComponent implements OnInit {
     public alertType = "danger";
     public errorMessage = "None";
     public width;
-    public click = 0;
     alertTimeout: any;
+    @Input() sideNav: MatSidenav;
     returnUrl: string;
 
     constructor(private router: Router, public authService: AuthService, private route: ActivatedRoute, private ngZone: NgZone) {
@@ -25,7 +26,6 @@ export class AppComponent implements OnInit {
 
     public ngOnInit() {
         this.setField("soccer");
-        this.click = 0;
         window.onresize = (e) =>
         {
             this.ngZone.run(() => {
@@ -125,13 +125,31 @@ export class AppComponent implements OnInit {
         }
     }
 
-    setCSS() {
-        if (this.click == 0) {
-            this.click = 1;
-        }
-        else if (this.click == 1) {
-            this.click = 0;
-        }
-        return this.click;
+    reloadCurrentRoute() {
+        const currentUrl = this.router.url;
+        this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+            this.router.navigate([currentUrl]);
+        });
+        location.reload();
     }
+
+    close() {
+        this.sideNav.close();
+    }
+
+    open() {
+        this.sideNav.open();
+    }
+
+    openSideNav() {
+        let display = 'none';
+        if (display == 'none') {
+            display = 'initial';
+        }
+        else if (display == 'initial') {
+            display = 'none';
+        }
+        return display;
+    }
+
 }
