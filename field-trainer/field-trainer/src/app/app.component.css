@@ -139,7 +139,7 @@
         height: 9vh;
     }
 
-    span {
+    div > span {
         display: none;
     }
 
@@ -291,7 +291,7 @@
         height: 9vh;
     }
 
-    span {
+    div > span {
         display: none;
     }
 
