@@ -14,6 +14,7 @@ import { RouterModule } from "@angular/router";
 import { AuthenticationModule } from "../authentication/authentication.module";
 import { FormsModule } from "@angular/forms";
 import { MiscModule } from "../misc/misc.module";
+import { MobileNavMenuContentComponent } from "./components/mobile-nav/mobile-nav.component";
 
 @NgModule({
     imports: [
@@ -31,7 +32,7 @@ import { MiscModule } from "../misc/misc.module";
         FormsModule,
         MiscModule,
     ],
-    declarations: [HomePageComponent, NavMenuContentComponent],
-    exports: [NavMenuContentComponent]
+    declarations: [HomePageComponent, MobileNavMenuContentComponent, NavMenuContentComponent],
+    exports: [NavMenuContentComponent, MobileNavMenuContentComponent]
 })
 export class HomeModule {}

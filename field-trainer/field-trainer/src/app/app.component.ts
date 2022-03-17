@@ -1,7 +1,9 @@
-import { Component, NgZone, OnInit } from "@angular/core";
-import { Router, ActivatedRoute } from "@angular/router";
+import { Component, NgZone, OnInit, Input } from "@angular/core";
+import { MatSidenav } from "@angular/material/sidenav";
+import { Router, ActivatedRoute, RouterLink } from "@angular/router";
 import { AuthService } from './authentication/services/auth.service';
 import { LoginResult } from "./authentication/services/login.service";
+
 @Component({
     selector: "ft-app-root",
     templateUrl: 'app.component.html',
@@ -15,6 +17,7 @@ export class AppComponent implements OnInit {
     public errorMessage = "None";
     public width;
     alertTimeout: any;
+    @Input() sideNav: MatSidenav;
     returnUrl: string;
 
     constructor(private router: Router, public authService: AuthService, private route: ActivatedRoute, private ngZone: NgZone) {
@@ -120,5 +123,18 @@ export class AppComponent implements OnInit {
         {
             return '../assets/cartoon-running-track-stadium-vector-17932997.jpg';
         }
+    }
+
+    async reload() {
+        await new Promise( resolve => setTimeout(resolve, 1) );
+        location.reload();
+    }
+
+    close() {
+        this.sideNav.close();
+    }
+
+    open() {
+        this.sideNav.open();
     }
 }

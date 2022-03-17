@@ -4,6 +4,7 @@
         <mat-sidenav-content fxLayout="column">
             <mat-toolbar fxFlex="0 0 auto" fxLayout="row" fxLayoutAlign="center center" [style.background-color]="getBackgroundColor()">
                 <div class="ft-title" fxFlex="0 0 auto"><a routerLink="/home">Field Trainer</a></div>
+                <button mat-icon-button class="ft-menu"><mat-icon class="material-icons">menu</mat-icon></button>
                 <div class="subs" fxFlex="1 0 auto" fxLayout="row">
                     <div fxFlex="0 0 auto" fxLayout="row" class="field_cont">
                         <a class="top" routerLink="/field">Fields</a>
@@ -12,10 +13,10 @@
                         <div class="hoverBox" fxFlex fxFlexAlign="top">
                             <div class="hoverBox" fxLayout="row">
                                 <div fxLayout="column" style="padding-right: 8vw; padding-top: 4vh">
-                                    <a class="name" id="field_id" (mouseover)="setField('soccer')" routerLink="/field">Soccer</a>
-                                    <a class="name" (mouseover)="setField('basketball')" routerLink="/field">Basketball</a>
-                                    <a class="name" (mouseover)="setField('track')" routerLink="/field">Track</a>
-                                    <a class="name" (mouseover)="setField('football')" routerLink="/field">Football</a>
+                                    <a class="name" id="field_id"(click)="reload()" (mouseover)="setField('soccer')" routerLink="/field">Soccer</a>
+                                    <a class="name" (click)="reload()" (mouseover)="setField('basketball')" routerLink="/field">Basketball</a>
+                                    <a class="name" (click)="reload()" (mouseover)="setField('track')" routerLink="/field">Track</a>
+                                    <a class="name" (click)="reload()" (mouseover)="setField('football')" routerLink="/field">Football</a>
                                 </div>
                                 <div fxLayout="column">
                                     <div class="f_img" fxLayout="row">
@@ -37,9 +38,15 @@
                 <div class="login" fxFlex="0 0 auto" *ngIf="this.authService.isAuthenticated()">
                         <a (click)="logout()" routerLink="">Switch User</a>
                 </div>
+                <button mat-icon-button (click)="close()" class="ft-close"><mat-icon class="material-icons">clear</mat-icon></button>
+                <span>
+                    <ft-mobile-nav fxFlex="0 0 auto" class="m-links"></ft-mobile-nav>
+                </span>
+                <button mat-icon-button class="ft-close"><mat-icon class="material-icons">clear</mat-icon></button>
             </mat-toolbar>
-            <router-outlet></router-outlet>
-        </mat-sidenav-content>
+            <router-outlet>
+            </router-outlet>
+        </mat-sidenav-content>    
     </mat-sidenav-container>
 </div>
 

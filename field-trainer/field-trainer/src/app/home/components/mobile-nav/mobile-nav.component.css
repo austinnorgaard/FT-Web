@@ -5,13 +5,14 @@
     }
 }
 
-div {
+div.ft-nav-menu-container {
     justify-content: center;
-    text-align: center;
+    text-align: left;
+    margin-top: 15vh;
 }
 
 a {
-    padding-right: 25px;
+    padding-bottom: 25px;
     color: white;
 }
 

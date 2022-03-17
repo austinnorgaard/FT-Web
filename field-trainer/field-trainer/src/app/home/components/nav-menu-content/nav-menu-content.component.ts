@@ -9,9 +9,17 @@ import { AuthService } from '../../../authentication/services/auth.service';
     styleUrls: ["./nav-menu-content.component.css"],
 })
 export class NavMenuContentComponent implements OnInit {
-
+    @Input() sideNav: MatSidenav;
     constructor(public readonly authService: AuthService) {}
 
     ngOnInit() {
+    }
+
+    close() {
+        this.sideNav.close();
+    }
+
+    open() {
+        this.sideNav.open();
     }
 }
