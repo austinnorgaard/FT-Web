@@ -24,7 +24,6 @@
     ft-mobile-nav {
         display: none;
         left: 100vw;
-        transition: left 1s;
     }
      
     button.ft-menu:focus ~ button.ft-close:not(:active) + span,
@@ -57,7 +56,6 @@
         color: white;
         display: none;
         visibility: hidden;
-        transition: visibility 0s, opacity 1s linear;
     }
 
 
