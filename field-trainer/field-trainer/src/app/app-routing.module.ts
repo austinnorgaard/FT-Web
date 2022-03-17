@@ -17,7 +17,7 @@ import { ResultPageComponent } from "./session/components/result-page/result-pag
 import { FieldCourseSetupComponent } from "./session/components/field-course-setup/field-course-setup.component";
 
 const routes: Routes = [
-    { path: "", redirectTo: "/home", pathMatch: "full" },
+    { path: "", redirectTo: "home", pathMatch: "full" },
     { path: "home", component: HomePageComponent },
     { path: "register", component: RegisterPageComponent },
     {
