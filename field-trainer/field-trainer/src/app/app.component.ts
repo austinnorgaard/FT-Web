@@ -125,11 +125,8 @@ export class AppComponent implements OnInit {
         }
     }
 
-    reloadCurrentRoute() {
-        const currentUrl = this.router.url;
-        this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
-            this.router.navigate([currentUrl]);
-        });
+    async reload() {
+        await new Promise( resolve => setTimeout(resolve, 1) );
         location.reload();
     }
 
@@ -140,16 +137,4 @@ export class AppComponent implements OnInit {
     open() {
         this.sideNav.open();
     }
-
-    openSideNav() {
-        let display = 'none';
-        if (display == 'none') {
-            display = 'initial';
-        }
-        else if (display == 'initial') {
-            display = 'none';
-        }
-        return display;
-    }
-
 }

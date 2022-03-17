@@ -13,10 +13,10 @@
                         <div class="hoverBox" fxFlex fxFlexAlign="top">
                             <div class="hoverBox" fxLayout="row">
                                 <div fxLayout="column" style="padding-right: 8vw; padding-top: 4vh">
-                                    <a class="name" id="field_id" (mouseover)="setField('soccer')" routerLink="/field">Soccer</a>
-                                    <a class="name" (mouseover)="setField('basketball')" routerLink="/field">Basketball</a>
-                                    <a class="name" (mouseover)="setField('track')" routerLink="/field">Track</a>
-                                    <a class="name" (mouseover)="setField('football')" routerLink="/field">Football</a>
+                                    <a class="name" id="field_id"(click)="reload()" (mouseover)="setField('soccer')" routerLink="/field">Soccer</a>
+                                    <a class="name" (click)="reload()" (mouseover)="setField('basketball')" routerLink="/field">Basketball</a>
+                                    <a class="name" (click)="reload()" (mouseover)="setField('track')" routerLink="/field">Track</a>
+                                    <a class="name" (click)="reload()" (mouseover)="setField('football')" routerLink="/field">Football</a>
                                 </div>
                                 <div fxLayout="column">
                                     <div class="f_img" fxLayout="row">
