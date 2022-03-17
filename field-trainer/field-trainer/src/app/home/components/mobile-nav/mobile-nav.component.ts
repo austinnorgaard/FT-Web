@@ -31,4 +31,35 @@ export class MobileNavMenuContentComponent implements OnInit {
     open() {
         this.sideNav.open();
     }
+
+    logout() {
+        this.router.navigateByUrl(this.router.url);
+        location.reload();
+        localStorage.removeItem("token");
+        localStorage.setItem("status", "logged out");
+    }
+
+    currentPath(): string {
+        localStorage.setItem("route", this.router.url);
+
+        // take the router url and extract a pretty
+        // path for our title bar
+        if (this.router.url.toLowerCase().includes("athlete-management")) {
+            return "Field Trainer | Athletes";
+        }
+
+        if (this.router.url.toLowerCase().includes("add-team")) {
+            return "Field Trainer | Teams";
+        }
+
+        const titleString = this.prettyString(this.router.url.replace("/", " | "));
+        return `Field Trainer ${titleString}`;
+    }
+    
+    private prettyString(item: string) {
+        // Hacky, hard-coded solution.
+        return item.substr(0, 3) + item.charAt(3).toUpperCase() + item.slice(4);
+    }
+
+
 }

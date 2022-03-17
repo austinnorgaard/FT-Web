@@ -55,6 +55,9 @@ export class LoginComponent implements OnInit {
         if (result === LoginResult.Success) {
             // Successful, take user to page they were attempting to view before getting
             // redirected to login
+            if (this.returnUrl == '/login') {
+                this.returnUrl = '/home';
+            }
             this.router.navigateByUrl(this.returnUrl);
         } else if (result === LoginResult.FailureCredentials) {
             this.showErrorMessage("Incorrect email or password");
