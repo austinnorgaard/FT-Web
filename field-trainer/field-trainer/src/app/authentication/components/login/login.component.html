@@ -18,5 +18,9 @@
         </div>
     </div>
     <br />
-    <ngb-alert [type]="this.alertType" *ngIf="this.alertShown" (click)="this.alertShown = false">{{ this.errorMessage }}</ngb-alert>
+    <div fxLayout="column" fxLayoutAlign="center center">
+        <ngb-alert class="error-message" [type]="this.alertType" *ngIf="this.alertType === 'error' && this.alertShown" (click)="this.alertShown = false">{{ this.errorMessage }}</ngb-alert>
+        <ngb-alert class="alert-message" [type]="this.alertType" *ngIf="this.alertType === 'alert' && this.alertShown" (click)="this.alertShown = false">{{ this.alertMessage }}</ngb-alert>
+    </div>
+
 </form>

@@ -1,4 +1,37 @@
-.copy-text {
-    margin: 1em;
-    font-size: 1.25em;
+@media (min-width: 2960.02px) and (orientation: landscape) {
+    h1 {
+        font-size: 600%;
+    }
+
+    p {
+        font-size: 500%;
+        padding-top: 3vh;
+    }
+}
+
+p {
+    justify-content: center;
+    text-align: center;
+}
+
+h1 {
+    justify-content: center;
+    text-align: center;
+    color: white;
+}
+
+video {
+    object-fit: cover;
+    width: 100vw !important;
+    height: 100vh !important;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -2;
+    filter: brightness(50%);
+    background-color: rgba(0,0,0,0.25);
+  }
+
+.background::-webkit-scrollbar {
+    display: hidden;
 }

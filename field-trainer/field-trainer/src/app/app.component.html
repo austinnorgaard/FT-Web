@@ -1,21 +1,55 @@
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <div fxLayout="column" fxFlexFill class="mat-typography">
     <mat-sidenav-container fxFlex>
-        <mat-sidenav #sidenav mode="over" (closedStart)="dummyButton.focus()">
-            <ft-nav-menu-content [sideNav]="sidenav"></ft-nav-menu-content>
-        </mat-sidenav>
         <mat-sidenav-content fxLayout="column">
-            <mat-toolbar color="primary" fxFlex="0 0 auto" fxLayout="row" fxLayoutAlign="start center" class="ft-toolbar">
-                <button mat-icon-button (click)="sidenav.toggle()" class="ft-menu"><mat-icon class="material-icons">menu</mat-icon></button>
-                <button
-                    #dummyButton
-                    style="color: transparent; background-color: transparent; border-color: transparent; cursor: default; outline: 0px;"
-                ></button>
-                <div class="ft-title" fxFlex><span>Field Trainer</span></div>
+            <mat-toolbar fxFlex="0 0 auto" fxLayout="row" fxLayoutAlign="center center" [style.background-color]="getBackgroundColor()">
+                <div class="ft-title" fxFlex="0 0 auto"><a routerLink="/home">Field Trainer</a></div>
+                <button mat-icon-button class="ft-menu"><mat-icon class="material-icons">menu</mat-icon></button>
+                <div class="subs" fxFlex="1 0 auto" fxLayout="row">
+                    <div fxFlex="0 0 auto" fxLayout="row" class="field_cont">
+                        <a class="top" routerLink="/field">Fields</a>
+                    </div>
+                    <div class="blackBox">
+                        <div class="hoverBox" fxFlex fxFlexAlign="top">
+                            <div class="hoverBox" fxLayout="row">
+                                <div fxLayout="column" style="padding-right: 8vw; padding-top: 4vh">
+                                    <a class="name" id="field_id"(click)="reload()" (mouseover)="setField('soccer')" routerLink="/field">Soccer</a>
+                                    <a class="name" (click)="reload()" (mouseover)="setField('basketball')" routerLink="/field">Basketball</a>
+                                    <a class="name" (click)="reload()" (mouseover)="setField('track')" routerLink="/field">Track</a>
+                                    <a class="name" (click)="reload()" (mouseover)="setField('football')" routerLink="/field">Football</a>
+                                </div>
+                                <div fxLayout="column">
+                                    <div class="f_img" fxLayout="row">
+                                        <a routerLink="/field"><img [src]="getImage()" id="field"></a>
+                                    </div>
+                                    <div class="f_desc" fxLayout="column">
+                                        <h1><span id="sport_t"></span></h1>
+                                        <h3><span id="sport_d"></span></h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <ft-nav-menu-content fxFlex="0 0 auto" class="links"></ft-nav-menu-content>
+                </div>
+                <div class="login" fxFlex="0 0 auto" *ngIf="!this.authService.isAuthenticated()">
+                        <a (click)="currentPath()" routerLink="/login">Login</a>
+                </div>
+                <div class="login" fxFlex="0 0 auto" *ngIf="this.authService.isAuthenticated()">
+                        <a (click)="logout()" routerLink="">Switch User</a>
+                </div>
+                <button mat-icon-button (click)="close()" class="ft-close"><mat-icon class="material-icons">clear</mat-icon></button>
+                <span>
+                    <ft-mobile-nav fxFlex="0 0 auto" class="m-links"></ft-mobile-nav>
+                </span>
+                <button mat-icon-button class="ft-close"><mat-icon class="material-icons">clear</mat-icon></button>
             </mat-toolbar>
-            <router-outlet class="router-flex"></router-outlet>
-        </mat-sidenav-content>
+            <router-outlet>
+            </router-outlet>
+        </mat-sidenav-content>    
     </mat-sidenav-container>
 </div>
+
 
 <!--  <div fxLayout="column" fxFlexFill>
      <div fxFlex style="background: red">#1</div>

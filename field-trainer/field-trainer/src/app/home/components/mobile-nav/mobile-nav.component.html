@@ -1,0 +1,14 @@
+<div fxLayout="column" class="ft-nav-menu-container">
+    <a (click)="reload()" routerLink="/cone-page">The Cones</a>
+    <a (click)="reload()" routerLink="/app">The App</a>
+    <a (click)="reload()" routerLink="/academy">Academy</a>
+    <div class="login" fxFlex="0 0 auto" *ngIf="!this.authService.isAuthenticated()">
+        <a (click)="reload(); currentPath()" routerLink="/login">Login</a>
+    </div>
+    <div fxLayout="column" class="auth" *ngIf="this.authService.isAuthenticated()">
+        <a (click)="reload()" routerLink="/team-management">Teams</a>
+        <a (click)="reload()" routerLink="/athlete-management">Athletes</a>
+        <a (click)="reload()" routerLink="training/results">Results</a>
+        <a (click)="logout()" routerLink="">Switch User</a>
+    </div>
+</div>

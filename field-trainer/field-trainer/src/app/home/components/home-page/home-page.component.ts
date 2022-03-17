@@ -1,6 +1,4 @@
 import { Component, OnInit } from "@angular/core";
-import { SmartConeUpdateService } from "../../services/smart-cone-update.service";
-import { Package, SmartConeInfo, SmartConeInfoService } from "../../services/smart-cone-info.service";
 
 @Component({
     selector: "ft-home-page",
@@ -8,9 +6,15 @@ import { Package, SmartConeInfo, SmartConeInfoService } from "../../services/sma
     styleUrls: ["./home-page.component.css"],
 })
 export class HomePageComponent implements OnInit {
-    smartConeInfo: SmartConeInfo = undefined;
-    constructor(private readonly updateService: SmartConeUpdateService, private readonly infoService: SmartConeInfoService) {}
+    constructor() {
+    }
 
     async ngOnInit() {
+    }
+    
+
+    getVideoSrc() {
+        let src = "../../../../assets/video.mp4";
+        return src;
     }
 }

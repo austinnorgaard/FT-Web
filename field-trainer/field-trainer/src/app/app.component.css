@@ -1,9 +1,446 @@
-/* Styling for the app-wide Toolbar which appears at the top */
-.ft-toolbar {
-    padding-right: 10px; /* default to 0px, allow sub elements to define their own margins */
+@media (max-width: 959.98px), (orientation: portrait) {
+    mat-toolbar {
+        height: 9vh;
+    }
+
+    a {
+        color: white;
+        padding-right: 20px;
+    }
+
+    button.ft-menu {
+        border: none;
+        text-decoration: none;
+        overflow: hidden;
+        cursor: pointer;
+        color: white;
+        outline: none;
+        position: absolute;
+        right: 3vw;
+        z-index: 99;
+    }
+
+    span,
+    ft-mobile-nav {
+        display: none;
+        left: 100vw;
+        transition: left 1s;
+    }
+     
+    button.ft-menu:focus ~ button.ft-close:not(:active) + span,
+    span:active + button.ft-close:hover,
+    span:hover {
+        z-index: 100;
+        display: block;
+        position: fixed;
+        left: 0vw;
+        bottom: 0;
+        background-color: black;
+        color: black;
+        width: 100vw;
+        height: 100vh;
+    }
+
+    button.ft-menu:focus ~ span ft-mobile-nav,
+    span:hover ft-mobile-nav.m-links {
+        display: flex;
+        font-size: 120%;
+        flex-direction: column;
+        width: 0vw;
+        text-align: left;
+        margin-left: 7vw;
+        flex-wrap: wrap;
+        z-index: 103;
+    }
+
+    button.ft-close {
+        color: white;
+        display: none;
+        visibility: hidden;
+        transition: visibility 0s, opacity 1s linear;
+    }
+
+
+    button.ft-menu:focus ~ button.ft-close,
+    span:hover + button.ft-close {
+        position: fixed;
+        visibility: visible;
+        display: block;
+        border: none;
+        text-decoration: none;
+        overflow: hidden;
+        cursor: pointer;
+        color: white;
+        outline: none;
+        right: 3vw;
+        z-index: 103;
+    }
+
+    .ft-menu:active {
+        text-decoration: none;
+        content: none;
+    }
+
+    div.subs,
+    .mat-sidenav-container::-webkit-scrollbar,
+    .mat-sidenav-toolbar::-webkit-scrollbar, 
+    .blackBox .hoverBox, 
+    .hoverBox img, 
+    .hoverBox h1, 
+    div.hoverBox,
+    .hoverBox a, 
+    a.top, 
+    div.field_cont, 
+    .subs .field_cont:hover ~ .blackBox .hoverBox,
+    .blackBox:hover .hoverBox, 
+    div.subs .field_cont, 
+    div.login {
+        display: none !important;
+    }
+
+    .links {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    a:hover {
+        text-decoration: none;
+    }
+    
+    .mat-sidenav-container {
+        -ms-overflow-style: none;
+    }
+    
+    .mat-sidenav-content {
+        -ms-overflow-style: none;
+    }
+    
+    .mat-sidenav-toolbar {
+        -ms-overflow-style: none;
+    }
+    
+    h1 {
+        color: white;
+    }
+
+    h3 {
+        color: white;
+        padding-top: 2.5vh;
+    }
+
+    .ft-title {
+        font-size: 120%;
+        z-index: 102;
+    }
 }
 
-/* Styling for menu button (hamburger menu) */
-.ft-menu {
-    margin-right: 0.5em;
+@media (min-width: 960px) and (orientation: landscape) and (max-width: 2960px) {
+    mat-toolbar {
+        height: 9vh;
+    }
+
+    span {
+        display: none;
+    }
+
+    button {
+        display: none;
+    }
+
+    .m-links {
+        display: none;
+    }
+
+    .sidebar {
+        display: none;
+    }
+    
+    a {
+        color: white;
+        padding-right: 20px;
+    }
+    
+    a:hover {
+        text-decoration: none;
+    }
+    
+    .mat-sidenav-container {
+        -ms-overflow-style: none;
+    }
+    
+    .mat-sidenav-container::-webkit-scrollbar {
+        display: none;
+    }
+    
+    .mat-sidenav-content {
+        -ms-overflow-style: none;
+    }
+    
+    .mat-sidenav-content::-webkit-scrollbar {
+        display: none;
+    }
+    
+    .mat-sidenav-toolbar {
+        -ms-overflow-style: none;
+    }
+    
+    .mat-sidenav-toolbar::-webkit-scrollbar {
+        display: none;
+    }
+    
+    .blackBox .hoverBox {
+        background-color: rgb(0, 0, 0);
+        position: fixed;
+        top: 9vh;
+        left: 10vw;
+        width: 80vw;
+        height: 60vh;
+        display: none;
+        overflow-x: hidden;
+        z-index: 2147483647; /* override any overlays */
+    }
+    
+    .hoverBox img {
+        padding-top: 0px;
+        padding-right: -5vw;
+        width: 35vw;
+        height: 40vh;
+    }
+    
+    .hoverBox h1{
+        padding-top: 0px;
+    }
+    
+    div.hoverBox {
+        justify-content: center;
+    }
+    
+    .hoverBox a {
+        color: white;
+        padding-top: 3vh;
+    }
+
+    .hoverBox a:hover {
+        color: #ADD8E6;
+    }
+    
+    a.top{
+        z-index: 1;
+        display: flex-wrap;
+        right: 0;
+        padding-right: 2vw;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    div.field_cont {
+        align-items: center;
+        justify-content: flex-end;
+        right: 0;
+        bottom: 0;
+        width: 6vw;
+        height: 9vh;
+    }
+    
+    .subs .field_cont:hover ~ .blackBox .hoverBox {
+        display: block;
+    }
+    
+    .blackBox:hover .hoverBox {
+        display: block;
+    }
+    
+    h1 {
+        color: white;
+    }
+    
+    div.subs .field_cont {
+        justify-content: center;
+        align-items: center;
+        height: 9vh;
+    }
+    
+    div.subs {
+        justify-content: center;
+        align-items: center;
+        margin-left: 20px;
+        padding-right: 50px;
+    }
+    
+    h3 {
+        color: white;
+        padding-top: 2.5vh;
+    }
+    
+    div.login {
+        justify-content: flex-end;
+        padding-right: 1vw;
+    }
+
+    .ft-title {
+        padding-left: 2vw;
+    }
+
+    .ft-menu {
+        display: none;
+    }
+}
+
+@media (min-width: 2960.02px) and (orientation: landscape) {
+    mat-toolbar {
+        height: 9vh;
+    }
+
+    span {
+        display: none;
+    }
+
+    .m-links {
+        display: none;
+    }
+
+    button {
+        display: none;
+    }
+
+    .sidebar {
+        display: none;
+    }
+    
+    a {
+        color: white;
+        font-size: 400%;
+    }
+    
+    a:hover {
+        text-decoration: none;
+    }
+    
+    .mat-sidenav-container {
+        -ms-overflow-style: none;
+    }
+    
+    .mat-sidenav-container::-webkit-scrollbar {
+        display: none;
+    }
+    
+    .mat-sidenav-content {
+        -ms-overflow-style: none;
+    }
+    
+    .mat-sidenav-content::-webkit-scrollbar {
+        display: none;
+    }
+    
+    .mat-sidenav-toolbar {
+        -ms-overflow-style: none;
+    }
+    
+    .mat-sidenav-toolbar::-webkit-scrollbar {
+        display: none;
+    }
+    
+    .blackBox .hoverBox {
+        background-color: rgb(0, 0, 0);
+        position: fixed;
+        top: 9vh;
+        left: 10vw;
+        width: 80vw;
+        height: 60vh;
+        display: none;
+        overflow-x: hidden;
+        z-index: 2147483647; /* override any overlays */
+    }
+    
+    .hoverBox img {
+        padding-top: 0px;
+        padding-right: -5vw;
+        width: 35vw;
+        height: 40vh;
+    }
+    
+    .hoverBox h1 {
+        padding-top: 3vh;
+        font-size: 400%;
+    }
+    
+    div.hoverBox {
+        justify-content: center;
+    }
+    
+    .hoverBox a {
+        color: white;
+        padding-top: 3vh;
+        font-size: 400%;
+    }
+
+    .hoverBox a:hover {
+        color: #ADD8E6;
+    }
+    
+    a.top{
+        z-index: 1;
+        display: flex-wrap;
+        right: 0;
+        padding-right: 2vw;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    div.field_cont {
+        align-items: center;
+        justify-content: flex-end;
+        right: 0;
+        bottom: 0;
+        width: 6vw;
+        height: 9vh;
+    }
+    
+    .subs .field_cont:hover ~ .blackBox .hoverBox {
+        display: block;
+    }
+    
+    .blackBox:hover .hoverBox {
+        display: block;
+    }
+    
+    h1 {
+        color: white;
+        font-size: 400%;
+    }
+    
+    div.subs .field_cont {
+        justify-content: center;
+        height: 9vh;
+        padding-bottom: 0.5vh;
+    }
+    
+    div.subs {
+        justify-content: center;
+        align-items: center;
+    }
+    
+    h3 {
+        color: white;
+        padding-top: 2.5vh;
+        font-size: 400%;
+    }
+    
+    div.login {
+        justify-content: flex-end;
+        padding-right: 2vw;
+    }
+    
+    mat-toolbar .links {
+        flex-wrap: wrap;
+        align-items: center;
+    }
+
+    .ft-title a {
+        padding-left: 2vw;
+    }
+
+    .ft-menu {
+        display: none;
+    }
 }

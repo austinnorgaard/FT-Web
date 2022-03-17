@@ -18,17 +18,26 @@ export class LoginComponent implements OnInit {
     public alertShown = false;
     public alertType = "danger";
     public errorMessage = "None";
+    public alertMessage = "None";
     alertTimeout: any;
+    public loggedOutType: string = localStorage.getItem("status");
 
     public emailFormControl = new FormControl("", [Validators.required, Validators.email]);
     public passwordFormControl = new FormControl("", [Validators.required]);
 
-    constructor(private loginService: LoginService, private router: Router, private route: ActivatedRoute) {}
+    constructor(private loginService: LoginService, private router: Router, private route: ActivatedRoute) {
+        this.router = router;
+    }
 
     ngOnInit() {
         // grab the return url, default to home if none specified (user clicked
-        // directly onto the login page)
-        this.returnUrl = this.route.snapshot.queryParams["returnUrl"] || "/";
+        // directly onto the login page);
+        this.returnUrl = localStorage.getItem("route");
+        const fragments = ['team-management', 'athlete-management', 'results'];
+        if (this.loggedOutType === "logged out" && fragments.some(f => this.router.url.includes(f))){
+            this.showMessage("Successfully Logged Out");
+            localStorage.setItem("status", "null");
+        }
     }
 
     async login() {
@@ -46,6 +55,9 @@ export class LoginComponent implements OnInit {
         if (result === LoginResult.Success) {
             // Successful, take user to page they were attempting to view before getting
             // redirected to login
+            if (this.returnUrl == '/login') {
+                this.returnUrl = '/home';
+            }
             this.router.navigateByUrl(this.returnUrl);
         } else if (result === LoginResult.FailureCredentials) {
             this.showErrorMessage("Incorrect email or password");
@@ -64,9 +76,18 @@ export class LoginComponent implements OnInit {
     }
 
     showErrorMessage(message: string) {
+        this.alertType = 'error';
         this.alertShown = true;
         clearTimeout(this.alertTimeout);
         this.alertTimeout = setTimeout(() => (this.alertShown = false), 5000);
         this.errorMessage = message;
+    }
+
+    showMessage(message: string) {
+        this.alertType = 'alert';
+        this.alertShown = true;
+        clearTimeout(this.alertTimeout);
+        this.alertTimeout = setTimeout(() => (this.alertShown = false), 5000);
+        this.alertMessage = message;
     }
 }
