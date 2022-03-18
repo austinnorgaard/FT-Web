@@ -122,6 +122,11 @@
         height: 9vh;
     }
 
+    #open, #close, #side, #sidebar {
+        display: none;
+        visibility: hidden;
+    }
+
     div > span {
         display: none;
     }
@@ -272,6 +277,11 @@
 @media (min-width: 2960.02px) and (orientation: landscape) {
     mat-toolbar {
         height: 9vh;
+    }
+
+    #open, #close, #side, #sidebar {
+        display: none;
+        visibility: hidden;
     }
 
     div > span {
