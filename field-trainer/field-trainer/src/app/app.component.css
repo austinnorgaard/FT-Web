@@ -24,6 +24,7 @@
     ft-mobile-nav {
         display: none;
         left: 100vw;
+        transition: left 1s;
     }
      
     button.ft-menu:focus ~ button.ft-close:not(:active) + span,
