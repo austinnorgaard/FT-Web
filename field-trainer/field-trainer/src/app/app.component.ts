@@ -131,10 +131,24 @@ export class AppComponent implements OnInit {
     }
 
     close() {
-        this.sideNav.close();
+        document.getElementById("sidebar").style.display = "none";
+        document.getElementById("side").style.display = "none";
+        document.getElementById("close").style.display = "none";
+        document.getElementById("open").style.display = "initial";
+        document.getElementById("sidebar").style.visibility = "hidden";
+        document.getElementById("side").style.visibility = "hidden";
+        document.getElementById("close").style.visibility = "hidden";
+        document.getElementById("open").style.visibility = "visible";
     }
 
     open() {
-        this.sideNav.open();
-    }
+        document.getElementById("sidebar").style.display = "flex";
+        document.getElementById("side").style.display = "flex";
+        document.getElementById("close").style.display = "block";
+        document.getElementById("open").style.display = "none";
+        document.getElementById("sidebar").style.visibility = "visible";
+        document.getElementById("side").style.visibility = "visible";
+        document.getElementById("close").style.visibility = "visible";
+        document.getElementById("open").style.visibility = "hidden";
+      }
 }
