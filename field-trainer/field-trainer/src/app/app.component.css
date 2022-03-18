@@ -8,7 +8,11 @@
         padding-right: 20px;
     }
 
-    button.ft-menu {
+    #close, #sidebar {
+        display: none;
+    }
+
+    #open {
         border: none;
         text-decoration: none;
         overflow: hidden;
@@ -20,30 +24,7 @@
         z-index: 99;
     }
 
-    span,
-    ft-mobile-nav {
-        display: none;
-        left: 100vw;
-        transition: left 1s;
-    }
-     
-    button.ft-menu:focus ~ button.ft-close:not(:active) + span,
-    span:active + button.ft-close:hover,
-    span:hover {
-        z-index: 100;
-        display: block;
-        position: fixed;
-        left: 0vw;
-        bottom: 0;
-        background-color: black;
-        color: black;
-        width: 100vw;
-        height: 100vh;
-    }
-
-    button.ft-menu:focus ~ span ft-mobile-nav,
-    span:hover ft-mobile-nav.m-links {
-        display: flex;
+    #sidebar {
         font-size: 120%;
         flex-direction: column;
         width: 0vw;
@@ -53,18 +34,21 @@
         z-index: 103;
     }
 
-    button.ft-close {
-        color: white;
+    #side {
         display: none;
         visibility: hidden;
+        z-index: 100;
+        position: fixed;
+        left: 0vw;
+        bottom: 0;
+        background-color: black;
+        color: black;
+        width: 100vw;
+        height: 100vh;
     }
 
-
-    button.ft-menu:focus ~ button.ft-close,
-    span:hover + button.ft-close {
+    #close {
         position: fixed;
-        visibility: visible;
-        display: block;
         border: none;
         text-decoration: none;
         overflow: hidden;
@@ -75,7 +59,7 @@
         z-index: 103;
     }
 
-    .ft-menu:active {
+    #open:active {
         text-decoration: none;
         content: none;
     }
