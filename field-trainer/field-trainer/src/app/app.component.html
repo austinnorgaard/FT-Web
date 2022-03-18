@@ -2,7 +2,7 @@
     <mat-sidenav-container fxFlex>
         <mat-sidenav-content fxLayout="column">
             <mat-toolbar fxFlex="0 0 auto" fxLayout="row" fxLayoutAlign="center center" [style.background-color]="getBackgroundColor()">
-                <div class="ft-title" fxFlex="0 0 auto"><a routerLink="/home">Field Trainer</a></div>
+                <div class="ft-title" fxFlex="0 0 auto"><a (click)="close()" routerLink="/home">Field Trainer</a></div>
                 <button mat-icon-button id="open" (click)="open()"><mat-icon class="material-icons">menu</mat-icon></button>
                 <div class="subs" fxFlex="1 0 auto" fxLayout="row">
                     <div fxFlex="0 0 auto" fxLayout="row" class="field_cont">
@@ -38,6 +38,7 @@
                         <a (click)="logout()" routerLink="">Switch User</a>
                 </div>
                 <span id="side">
+                    <a id="sidebar" routerLink="/field">Fields</a>
                     <ft-mobile-nav fxFlex="0 0 auto" id="sidebar"></ft-mobile-nav>
                 </span>
                 <button mat-icon-button (click)="close()" id="close" tabindex="0"><mat-icon class="material-icons">clear</mat-icon></button>
