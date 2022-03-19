@@ -276,6 +276,18 @@
     .ft-menu {
         display: none;
     }
+
+    #title:hover {
+        color: var(--color-secondary);
+    }
+
+    #login:hover {
+        color: var(--color-secondary);
+    }
+
+    #header:hover {
+        color: var(--color-secondary);
+    }
 }
 
 @media (min-width: 2960.02px) and (orientation: landscape) {
