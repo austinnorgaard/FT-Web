@@ -6,7 +6,7 @@
                 <button mat-icon-button id="open" (click)="open()"><mat-icon class="material-icons">menu</mat-icon></button>
                 <div class="subs" fxFlex="1 0 auto" fxLayout="row">
                     <div fxFlex="0 0 auto" fxLayout="row" class="field_cont">
-                        <a (click)="reload()" class="top" routerLink="/field">Fields</a>
+                        <a (click)="reload()" class="top" id="header" routerLink="/field">Fields</a>
                     </div>
                     <div class="blackBox">
                         <div class="hoverBox" fxFlex fxFlexAlign="top">
@@ -32,10 +32,10 @@
                     <ft-nav-menu-content fxFlex="0 0 auto" class="links"></ft-nav-menu-content>
                 </div>
                 <div class="login" fxFlex="0 0 auto" *ngIf="!this.authService.isAuthenticated()">
-                        <a (click)="currentPath()" routerLink="/login">Login</a>
+                        <a id="login" (click)="currentPath()" routerLink="/login">Login</a>
                 </div>
                 <div class="login" fxFlex="0 0 auto" *ngIf="this.authService.isAuthenticated()">
-                        <a (click)="logout()" routerLink="">Switch User</a>
+                        <a id="login" (click)="logout()" routerLink="">Switch User</a>
                 </div>
                 <span id="side">
                     <ft-mobile-nav fxFlex="0 0 auto" id="sidebar"></ft-mobile-nav>
