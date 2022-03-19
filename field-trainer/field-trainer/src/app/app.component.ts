@@ -67,11 +67,11 @@ export class AppComponent implements OnInit {
         let color = 'transparent';
         if (this.router.url === "/home")
         {
-            color = 'transparent';
+            color = 'var(--color-tertiary)';
         }
         else
         {
-            color = '#111111';
+            color = 'var(--color-tertiary2)';
         }
         return color;
     }
@@ -130,7 +130,7 @@ export class AppComponent implements OnInit {
         location.reload();
     }
 
-    close() {
+    async close() {
         document.getElementById("sidebar").style.display = "none";
         document.getElementById("side").style.display = "none";
         document.getElementById("close").style.display = "none";
@@ -139,6 +139,7 @@ export class AppComponent implements OnInit {
         document.getElementById("side").style.visibility = "hidden";
         document.getElementById("close").style.visibility = "hidden";
         document.getElementById("open").style.visibility = "visible";
+        document.getElementById("title").style.color = "var(--color-primary)";
     }
 
     open() {
@@ -150,5 +151,6 @@ export class AppComponent implements OnInit {
         document.getElementById("side").style.visibility = "visible";
         document.getElementById("close").style.visibility = "visible";
         document.getElementById("open").style.visibility = "hidden";
+        document.getElementById("title").style.color = "var(--color-secondary)";
       }
 }

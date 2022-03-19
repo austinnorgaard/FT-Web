@@ -12,7 +12,7 @@ div {
 
 a {
     padding-right: 25px;
-    color: white;
+    color: var(--color-secondary);
 }
 
 /* unvisited link */
@@ -30,7 +30,7 @@ a:hover {
 }
 
 .area {
-    background:#fff;
+    background: var(--color-primary);
     display:block;
     height:475px;
     opacity:0;
