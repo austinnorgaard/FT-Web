@@ -1,3 +1,8 @@
 .ft-scrollbar {
     position: relative;
 }
+
+#teamAdd {
+    background-color: var(--color-tertiary2);
+    color: rgba(255, 255, 255, 1)
+}

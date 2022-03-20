@@ -13,3 +13,8 @@
 .ft-add-team-age-group {
     margin-top: 1em;
 }
+
+#submit:enabled {
+    background-color: var(--color-tertiary2);
+    color: rgba(255, 255, 255, 1);
+}

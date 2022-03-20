@@ -26,7 +26,7 @@
                     <mat-option *ngFor="let gender of genders" [value]="gender"> {{ gender }} </mat-option>
                 </mat-select>
             </mat-form-field>
-            <button mat-raised-button color="primary" type="submit" [disabled]="!addTeamForm.form.valid" class="ft-add-team-submit">Submit</button>
+            <button mat-raised-button id="submit" type="submit" [disabled]="!addTeamForm.form.valid" class="ft-add-team-submit">Submit</button>
         </form>
         <div fxFlex>PICTURE PLACEHOLDER</div>
     </div>

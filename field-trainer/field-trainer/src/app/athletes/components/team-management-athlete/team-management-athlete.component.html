@@ -22,7 +22,7 @@
         </div>
         <div fxFlex>
             <!-- Add or delete button-->
-            <button mat-raised-button mat-button color="primary" *ngIf="this.mode === 'add'" (click)="this.add()">
+            <button mat-raised-button mat-button id="addButton" *ngIf="this.mode === 'add'" (click)="this.add()">
                 {{ this.text }}
             </button>
             <button mat-raised-button mat-button color="warn" *ngIf="this.mode === 'remove'" (click)="this.remove()">
