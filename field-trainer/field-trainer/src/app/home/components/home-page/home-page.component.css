@@ -22,13 +22,13 @@ p {
 h1 {
     justify-content: center;
     text-align: center;
-    color: white;
+    color: var(--color-primary);
 }
 
 h2 {
     justify-content: center;
     text-align: center;
-    color: white;
+    color: var(--color-primary);
 }
 
 video {

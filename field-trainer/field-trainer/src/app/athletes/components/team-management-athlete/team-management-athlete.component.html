@@ -5,9 +5,20 @@
         </mat-panel-title>
     </mat-expansion-panel-header>
     <div fxLayout="row" fxLayoutAlign="space-between center">
-        <div fxFlex="1 1 auto">
-            <!-- Athlete info-->
-            {{athlete.height}} {{athlete.weight}} lbs
+        <div fxLayout="column" fxFlex="1 1 auto">
+            <div id="info" fxFlex="1 1 auto">
+                <!-- Athlete info-->
+                Height: 
+                {{height}} 
+            </div>
+            <div id="info" fxFlex="1 1 auto">
+                Weight: 
+                {{athlete.weight}} lbs
+            </div>
+            <div id="info" fxFlex="1 1 auto">
+                Gender: 
+                {{athlete.gender}}
+            </div>
         </div>
         <div fxFlex>
             <!-- Add or delete button-->

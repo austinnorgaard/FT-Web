@@ -12,7 +12,7 @@ div {
 
 a {
     padding-right: 25px;
-    color: white;
+    color: var(--color-primary);
 }
 
 /* unvisited link */
@@ -27,10 +27,11 @@ a:visited {
 
 a:hover {
     text-decoration: none;
+    color: var(--color-secondary)
 }
 
 .area {
-    background:#fff;
+    background: var(--color-primary);
     display:block;
     height:475px;
     opacity:0;
