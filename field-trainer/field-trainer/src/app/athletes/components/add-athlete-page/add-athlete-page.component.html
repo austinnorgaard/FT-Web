@@ -16,7 +16,7 @@
             </mat-form-field>
 
             <mat-form-field fxFlex="48%">
-                <mat-select [(ngModel)]="this.athlete.gender" placeholder="Gender" name="gender">
+                <mat-select [(ngModel)]="this.athlete.gender" placeholder="Gender" name="gender" required>
                     <mat-option *ngFor="let gender of genders" [value]="gender"> {{ gender }} </mat-option>
                 </mat-select>
             </mat-form-field>
