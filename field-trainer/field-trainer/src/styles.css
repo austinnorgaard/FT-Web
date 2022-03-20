@@ -17,8 +17,8 @@ body,
     /* Color Theme Swatches in RGBA */
     --color-primary: rgba(255, 255, 255, 1);
     --color-secondary: rgba(0, 0, 0, 1);
-    --color-tertiary: rgba(78, 107, 168, .66);
-    --color-tertiary2: rgba(78, 107, 168, 1);
+    --color-tertiary: rgba(67, 67, 208, .66);
+    --color-tertiary2: rgba(67, 67, 208, 1);
     --color-quaternary: rgba(224, 129, 0, .88);
     --color-quinary: rgba(77, 219, 38, .86);
     --zindex-override:  2147483647; /* override any overlays */

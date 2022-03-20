@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { FormControl, Validators, NgForm } from "@angular/forms";
+import { Router } from "@angular/router";
 import { TeamModel } from "../../../teams/models/team";
 import { AthleteModel } from "../../models/athlete";
 import { TeamManagementService } from "../../../teams/services/team-management.service";
@@ -26,7 +27,7 @@ export class AddAthletePageComponent implements OnInit {
 
     @ViewChild("addAthleteForm", { static: true }) form: NgForm;
 
-    constructor(private readonly teamService: TeamManagementService, private readonly athletesService: AthleteManagementService) {}
+    constructor(private readonly teamService: TeamManagementService, private readonly athletesService: AthleteManagementService, private router: Router) {}
 
     ngOnInit() {
         // populate our available teams array when the data is ready
@@ -95,6 +96,7 @@ export class AddAthletePageComponent implements OnInit {
             .then((response) => {
                 console.log("Athlete added!");
                 this.form.resetForm();
+                this.router.navigateByUrl('/athlete-management')
             })
             .catch((err) => {
                 console.log("Failed to add athlete");
