@@ -1,5 +1,7 @@
 .ft-add-athlete-container {
-    margin: 1.5em;
+    margin-top: 1.5em;
+    margin-left: 15vw;
+    margin-right: 15vw;
 }
 
 .ft-add-athlete-header {
@@ -12,6 +14,15 @@
 
 .ft-parent-header {
     font-size: 1.5em;
+}
+
+#submit {
+    width: 10vw;
+    margin-right: 2vw;
+}
+
+#field {
+    width: 96%;
 }
 
 #submit:enabled {

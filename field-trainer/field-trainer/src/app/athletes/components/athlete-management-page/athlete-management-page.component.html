@@ -1,20 +1,24 @@
-<div fxLayout="column" fxFlex>
-    <h1 fxFlex="0 0 auto" fxFlexAlign="center">Athlete Management</h1>
-    <div fxFlex="1 1 auto" fxFlexAlign="center" id="athletes" *ngIf="this.athletes.length !==0">
-        <perfect-scrollbar fxFlex="auto" fxLayout="column">
-            <mat-accordion *ngFor="let athlete of this.athletes">
-                <ft-team-management-athlete class="mat-expansion-panel" [athlete]="athlete" [text]="'Delete Athlete'" [mode]="'remove'" (removed)="this.onAthleteRemoved($event)">
-                </ft-team-management-athlete>
-            </mat-accordion>
-        </perfect-scrollbar>
-        <button mat-icon-button (click)="addAthlete()">
-            <mat-icon id="addButton" class="material-icons">add_box</mat-icon>
-        </button>
-    </div>
-    <div fxFlex="1 1 auto" fxFlexAlign="center" *ngIf="this.athletes.length===0">
-        <span class="mat-body-1">No athletes added yet</span>
-        <button mat-icon-button (click)="addAthlete()">
-            <mat-icon id="addButton" class="material-icons">add_box</mat-icon>
-        </button>
+<div id="background">
+    <div id="content" fxLayout="column" fxFlex="0 0 auto">
+        <h1 id="title" fxFlex="0 0 auto" fxFlexAlign="center">Athlete Management</h1>
+        <div id="athCont" fxLayout="row">
+            <div fxFlex="1 1 auto" fxFlexAlign="center" id="athletes" *ngIf="this.athletes.length !==0">
+                <perfect-scrollbar fxFlex="auto" fxLayout="column">
+                    <mat-accordion *ngFor="let athlete of this.athletes">
+                        <ft-team-management-athlete class="mat-expansion-panel" [athlete]="athlete" [text]="'Delete Athlete'" [mode]="'remove'" (removed)="this.onAthleteRemoved($event)">
+                        </ft-team-management-athlete>
+                    </mat-accordion>
+                </perfect-scrollbar>
+            </div>
+            <button id="addButton2" mat-raised-button (click)="addAthlete()">
+                Add Athlete
+            </button>
+        </div>
+        <div fxFlex="1 1 auto" fxLayout="column" fxFlexAlign="center" *ngIf="this.athletes.length===0">
+            <span id="header" class="mat-body-1">No athletes added yet</span>
+            <button id="addButton1" mat-raised-button (click)="addAthlete()">
+                Add Athlete
+            </button>
+        </div>
     </div>
 </div>

@@ -1,11 +1,11 @@
-<mat-expansion-panel>
+<mat-expansion-panel id="mat">
     <mat-expansion-panel-header>
         <mat-panel-title>
             <span>{{athlete.firstName}} {{athlete.lastName}}</span>
         </mat-panel-title>
     </mat-expansion-panel-header>
     <div fxLayout="row" fxLayoutAlign="space-between center">
-        <div fxLayout="column" fxFlex="1 1 auto">
+        <div id="athInfo" fxLayout="column" fxFlex="1 1 auto">
             <div id="info" fxFlex="1 1 auto">
                 <!-- Athlete info-->
                 Height: 
@@ -25,7 +25,7 @@
             <button mat-raised-button mat-button id="addButton" *ngIf="this.mode === 'add'" (click)="this.add()">
                 {{ this.text }}
             </button>
-            <button mat-raised-button mat-button color="warn" *ngIf="this.mode === 'remove'" (click)="this.remove()">
+            <button mat-raised-button mat-button id="deleteButton" color="warn" *ngIf="this.mode === 'remove'" (click)="this.remove()">
                 {{ this.text }}
             </button>
         </div>
