@@ -1,3 +1,8 @@
 #info {
     padding-top: 1vw;
 }
+
+#addButton {
+    background-color: var(--color-tertiary2);
+    color: rgba(255, 255, 255, 1)
+}

@@ -86,7 +86,7 @@
         </div>
         <ngb-alert type="danger" *ngIf="this.alertShown" (click)="this.alertShown = false">{{ this.errorMessage }}</ngb-alert>
         <div fxLayoutAlign="space-around">
-            <button mat-raised-button type="submit" [disabled]="!userRegisterForm.form.valid" color="primary" fxFlex="25%">Submit</button>
+            <button id="submit" mat-raised-button type="submit" [disabled]="!userRegisterForm.form.valid" fxFlex="25%">Submit</button>
         </div>
     </form>
 </div>

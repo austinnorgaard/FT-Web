@@ -13,3 +13,8 @@
 .ft-parent-header {
     font-size: 1.5em;
 }
+
+#submit:enabled {
+    background-color: var(--color-tertiary2);
+    color: rgba(255, 255, 255, 1)
+}

@@ -38,3 +38,8 @@ h1 {
     box-sizing: border-box;
     text-align: center;
 }
+
+#login:enabled {
+    background-color: var(--color-tertiary2);
+    color: rgba(255, 255, 255, 1)
+}
