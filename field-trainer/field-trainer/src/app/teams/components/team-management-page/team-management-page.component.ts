@@ -69,6 +69,7 @@ export class TeamManagementPageComponent implements OnInit {
 
                 // immediately prune
                 this.removeUnavailableAthletes();
+                this.verifyEligibility ();
             })
             .catch(err => {
                 console.log(`Could not find any athletes. Err: ${err}`);
@@ -125,5 +126,17 @@ export class TeamManagementPageComponent implements OnInit {
                 console.log(`Failed to add athlete.`);
                 console.log(error);
             });
+    }
+
+    verifyEligibility () {
+        if (this.selectedTeam === null) {
+            return;
+        }
+
+        // remove any athletes which don't belong to team age or gender
+        this.availableAthletes = this.availableAthletes.filter((athlete: Athlete) => {
+            // check every athlete to see if they match the selected team's specifications
+            return athlete.gender == this.selectedTeam.teamGender && athlete.ageGroup == this.selectedTeam.ageGroup;
+        });
     }
 }

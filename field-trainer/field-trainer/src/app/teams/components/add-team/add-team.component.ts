@@ -11,8 +11,8 @@ import { DatabaseFailureType } from "../../../../../../../smart-cone-api/src/Dat
     styleUrls: ["./add-team.component.css"],
 })
 export class AddTeamComponent {
-    ageGroups: string[] = ["11-13", "13-15", "15-17"];
-    genders: string[] = ["Male", "Female"];
+    ageGroups: string[] = ["4-7", "8-10", "11-13", "13-15", "15-17", "18-20", "21-24"];
+    genders: string[] = ["Male", "Female", "Non-Binary", "Other"];
     submitted = false;
     teamModel = new TeamModel();
     alertShouldBeDisplayed = false;

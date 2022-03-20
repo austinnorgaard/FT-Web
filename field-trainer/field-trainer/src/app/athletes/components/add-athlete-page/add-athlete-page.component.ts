@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
-import { NgForm } from "@angular/forms";
+import { FormControl, Validators, NgForm } from "@angular/forms";
 import { TeamModel } from "../../../teams/models/team";
 import { AthleteModel } from "../../models/athlete";
 import { TeamManagementService } from "../../../teams/services/team-management.service";
@@ -13,13 +13,16 @@ import { DatabaseResponse } from "../../../../../../../smart-cone-api/src/Databa
     styleUrls: ["./add-athlete-page.component.css"],
 })
 export class AddAthletePageComponent implements OnInit {
-    genders: string[] = ["Male", "Female"];
+    genders: string[] = ["Male", "Female", "Non-Binary", "Other"];
+    ageGroups: string[] = ["4-7", "8-10", "11-13", "13-15", "15-17", "18-20", "21-24"];
 
     availableTeams: TeamModel[] = [];
     selectedTeam: TeamModel = null;
 
     athlete: AthleteModel = new AthleteModel();
     athleteForSubmission: AthleteModel = new AthleteModel();
+
+    public ageGroupFormControl = new FormControl("", [Validators.required]);
 
     @ViewChild("addAthleteForm", { static: true }) form: NgForm;
 
@@ -78,10 +81,6 @@ export class AddAthletePageComponent implements OnInit {
     onSubmit() {
         // create a copy of the athlete so we can muck with its fields
         Object.assign(this.athleteForSubmission, this.athlete);
-
-        if (!this.validateParent()) {
-            return;
-        }
 
         console.log(this.athleteForSubmission);
 
