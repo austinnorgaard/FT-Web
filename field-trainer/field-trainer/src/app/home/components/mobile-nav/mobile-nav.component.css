@@ -13,7 +13,7 @@ div.ft-nav-menu-container {
 
 a {
     padding-bottom: 25px;
-    color: white;
+    color: var(--color-tertiary);
 }
 
 /* unvisited link */
@@ -28,10 +28,11 @@ a:visited {
 
 a:hover {
     text-decoration: none;
+    color: var(--color-secondary);
 }
 
 .area {
-    background:#fff;
+    background: var(--color-quaternary);
     display:block;
     height:475px;
     opacity:0;

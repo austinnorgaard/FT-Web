@@ -9,14 +9,14 @@
                 <input matInput [(ngModel)]="this.athlete.lastName" placeholder="Last Name" name="lastName" type="text" required />
             </mat-form-field>
             <mat-form-field fxFlex="48%">
-                <input matInput [(ngModel)]="this.athlete.email" placeholder="Email" name="email" type="email" />
+                <input matInput [(ngModel)]="this.athlete.email" placeholder="Email" name="email" type="email"/>
             </mat-form-field>
             <mat-form-field fxFlex="48%">
-                <input matInput [(ngModel)]="this.athlete.phoneNumber" placeholder="Phone" name="phoneNumber" type="tel" required />
+                <input matInput [(ngModel)]="this.athlete.phoneNumber" placeholder="Phone" name="phoneNumber" type="tel"/>
             </mat-form-field>
 
             <mat-form-field fxFlex="48%">
-                <mat-select [(ngModel)]="this.athlete.gender" placeholder="Gender" name="gender" required>
+                <mat-select [(ngModel)]="this.athlete.gender" placeholder="Gender" name="gender">
                     <mat-option *ngFor="let gender of genders" [value]="gender"> {{ gender }} </mat-option>
                 </mat-select>
             </mat-form-field>
@@ -25,6 +25,11 @@
             </mat-form-field>
             <mat-form-field fxFlex="48%">
                 <input matInput [(ngModel)]="this.athlete.height" placeholder="Height (inches)" name="height" type="number" required>
+            </mat-form-field>
+            <mat-form-field fxFlex="48%">
+                <mat-select [(ngModel)]="this.athlete.ageGroup" placeholder="Age Group" name="ageGroup" required>
+                    <mat-option *ngFor="let age of ageGroups" [value]="age"> {{ age }} </mat-option>
+                </mat-select>
             </mat-form-field>
         </div>
         <div fxFlex="0 0 auto" fxLayout="row" fxLayoutGap="0.5em">
@@ -54,12 +59,6 @@
             </div>
         </div>
         <div fxFlex="0 0 auto" fxLayout="column">
-            <span fxFlex="0 0 auto">Select Team (optional)</span>
-            <mat-form-field fxFlex="0 0 auto">
-                <mat-select [placeholder]="getTeamDropdownPlaceholderText()" name="athletesTeam" [(ngModel)]="this.selectedTeam">
-                    <mat-option *ngFor="let team of availableTeams" [value]="team"> {{ team.teamName }} </mat-option>
-                </mat-select>
-            </mat-form-field>
             <button fxFlex="0 0 auto" mat-raised-button [disabled]="addAthleteForm.invalid" color="primary" type="submit" (submit)="onSubmit()">
                 Submit
             </button>

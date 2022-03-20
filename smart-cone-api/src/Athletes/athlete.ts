@@ -31,6 +31,8 @@ export class Athlete {
 
     @IsNumber() height: number;
 
+    @IsString() ageGroup: string;
+
     @IsOptional() parent1Name: string;
     @IsOptional() parent1Email: string;
     @IsOptional() parent1Phone: string;

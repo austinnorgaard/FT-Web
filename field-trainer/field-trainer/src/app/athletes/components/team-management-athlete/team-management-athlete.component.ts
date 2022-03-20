@@ -38,6 +38,8 @@ import { EventEmitter } from "@angular/core";
     styleUrls: ["./team-management-athlete.component.css"],
 })
 export class TeamManagementAthleteComponent implements OnInit {
+    public height: string;
+
     @Input() athlete: AthleteModel;
     // "add" or "remove", anything else is invalid and may throw
     @Input() mode: string;
@@ -48,9 +50,15 @@ export class TeamManagementAthleteComponent implements OnInit {
 
     @Output() removed: EventEmitter<AthleteModel> = new EventEmitter<AthleteModel>();
 
-    constructor() {}
+    
 
-    ngOnInit() {}
+    constructor() {
+
+    }
+
+    ngOnInit() {
+        this.height = Math.floor (this.athlete.height / 12 ).toString() + 'ft. ' + (this.athlete.height % 12) + 'in.';
+    }
 
     add() {
         this.added.emit(this.athlete);
