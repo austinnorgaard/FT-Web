@@ -31,14 +31,15 @@
         cursor: pointer;
         background-color: var(--color-tertiary);
     }
-    
+
     #addButton2 {
-        position: sticky;
-        max-height: 10vh;
-        width: 30vw;
-        margin-left: 1vw;
-        top: 10vh;
-        right: 20vw;
+        display: none;
+    }
+    
+    #addButtonMobile {
+        position: fixed;
+        bottom: 3vh;
+        right: 7vw;
         color: white;
         cursor: pointer;
         background-color: var(--color-tertiary);
@@ -54,12 +55,13 @@
     
     #athCont {
         margin-top: 8vh;
+        flex-direction: column !important;
     }
 
     .mat-expansion-panel {
         margin-bottom: 1vh;
-        width: 40vw;
-        left: 10vw;
+        width: 60vw;
+        left: 20vw;
         -webkit-box-shadow: none;
         -moz-box-shadow: none;
         box-shadow: none;
@@ -73,12 +75,9 @@
 
     #content {
         position: absolute;
-        margin-bottom: 10vh;
-        padding-top: 5vh;
-        width: 65vw;
-        height: 100vh;
-        z-index: 0;
-        left: 17.5vw;
+        width: 100vw;
+        height: 91vh;
+        z-index: -1;
         background-color: white;
         overflow-y: auto;
     }
@@ -104,10 +103,14 @@
         width: 12vw;
         margin-left: 1vw;
         top: 10vh;
-        right: 4vw;
+        right: 24vw;
         color: white;
         cursor: pointer;
         background-color: var(--color-tertiary);
+    }
+
+    #addButtonMobile {
+        display: none;
     }
     
     h1 {
@@ -115,7 +118,7 @@
     }
     
     #header {
-        margin-top: 12vh;
+        margin-top: 2vh;
     }
     
     #athCont {
@@ -125,7 +128,7 @@
     .mat-expansion-panel {
         margin-bottom: 1vh;
         width: 30vw;
-        left: 5vw;
+        left: 25vw;
         -webkit-box-shadow: none;
         -moz-box-shadow: none;
         box-shadow: none;

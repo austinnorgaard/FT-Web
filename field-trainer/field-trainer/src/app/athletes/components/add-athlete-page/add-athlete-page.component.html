@@ -1,7 +1,7 @@
 <div fxLayout="column" fxFlex class="ft-add-athlete-container">
     <h1 fxFlex="0 0 auto" fxFlexAlign="center">Add Athlete</h1>
-    <form fxLayout="column" fxFlex fxLayoutGap="3%" #addAthleteForm="ngForm" (ngSubmit)="onSubmit()">
-        <div fxFlex="0 0 auto" fxLayout="row wrap" fxLayoutGap="2%">
+    <form id="form" fxLayout="column" fxFlex fxLayoutGap="3%" #addAthleteForm="ngForm" (ngSubmit)="onSubmit()">
+        <div id="forms" fxFlex="0 0 auto" fxLayout="row wrap" fxLayoutGap="2%">
             <mat-form-field fxFlex="48%">
                 <input matInput [(ngModel)]="this.athlete.firstName" placeholder="First Name" name="firstName" type="text" required />
             </mat-form-field>
@@ -32,7 +32,7 @@
                 </mat-select>
             </mat-form-field>
         </div>
-        <div fxFlex="0 0 auto" fxLayout="row">
+        <div id="forms" fxFlex="0 0 auto" fxLayout="row">
             <div fxFlex fxLayout="column">
                 <span fxFlex="0 0 auto" class="ft-parent-header">Parent 1</span>
                 <mat-form-field id="field" fxFlex="48%">

@@ -1,19 +1,22 @@
 @media (max-width: 959.98px), (orientation: portrait) {
     #deleteButton {
-        width: 20vw;
-        margin-left: -4vw;
-        transform: scale(0.6);
+        width: 30vw;
+        margin-top: 2vh;
+        transform: scale(0.8);
     }
 
     #athInfo {
         flex-direction: row !important;
-        font-size: 60%;
+        font-size: 80%;
+    }
+
+    #athFullCont {
+        flex-direction: column !important;
     }
 }
 
 #info {
-    padding-top: 1vh;
-    padding-right: 3vw;
+    padding-left: 3vw;
 }
 
 #mat {
