@@ -109,4 +109,8 @@ export class AddAthletePageComponent implements OnInit {
         }
         return "Athlete's team";
     }
+
+    done () {
+        this.router.navigateByUrl('/athlete-management');
+    }
 }

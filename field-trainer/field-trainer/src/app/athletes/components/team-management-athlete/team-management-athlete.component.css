@@ -1,5 +1,6 @@
 @media (max-width: 959.98px), (orientation: portrait) {
-    #deleteButton {
+    #deleteButton,
+    #addButton {
         width: 30vw;
         margin-top: 2vh;
         transform: scale(0.8);
@@ -25,4 +26,9 @@
     -webkit-box-shadow: none;
 	-moz-box-shadow: none;
 	box-shadow: none;
+}
+
+#addButton {
+    color: white;
+    background-color: var(--color-tertiary);
 }

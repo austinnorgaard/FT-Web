@@ -27,7 +27,7 @@ export class TeamManagementPageComponent implements OnInit {
         this.updateTeams();
     }
 
-    addPlayer() {
+    addTeam() {
         this.router.navigateByUrl("add-team");
     }
 
@@ -124,6 +124,29 @@ export class TeamManagementPageComponent implements OnInit {
             })
             .catch((error: DatabaseResponse) => {
                 console.log(`Failed to add athlete.`);
+                console.log(error);
+            });
+    }
+
+    removeTeam(team: TeamModel) {
+        const t = team.id;
+        this.teamsService.removeTeam(t);  
+    }
+
+    onTeamRemoved(team: TeamModel) {
+        this.teamsService
+            .removeTeam(this.selectedTeam.id)
+            .then((response: DatabaseResponse) => {
+                for (let i = 0; i < this.selectedTeam.teamAthletes.length; i++) {
+                    this.onAthleteRemoved(this.selectedTeam.teamAthletes[i]);
+                }
+                this.updateAthletes();
+                this.updateTeamAthletes();
+                this.updateTeams();
+                this.selectedTeam = null;
+            })
+            .catch((error: DatabaseResponse) => {
+                console.log("Failed to remove team");
                 console.log(error);
             });
     }

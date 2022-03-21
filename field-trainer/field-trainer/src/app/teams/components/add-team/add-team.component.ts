@@ -4,6 +4,7 @@ import { TeamModel } from "../../models/team";
 import { TeamManagementService } from "../../services/team-management.service";
 import { DatabaseResponse } from "../../../../../../../smart-cone-api/src/Database/Data/DatabaseResponse";
 import { DatabaseFailureType } from "../../../../../../../smart-cone-api/src/Database/Data/DatabaseEnums";
+import { Router, RouterLink } from "@angular/router";
 
 @Component({
     selector: "ft-add-team",
@@ -26,7 +27,7 @@ export class AddTeamComponent {
 
     @ViewChild("addTeamForm", { static: true }) form: NgForm;
 
-    constructor(private teamManagement: TeamManagementService) {}
+    constructor(private teamManagement: TeamManagementService, public router: Router) {}
 
     onSubmit(): void {
         if (this.teamNameFormControl.valid === false) {
@@ -57,5 +58,13 @@ export class AddTeamComponent {
         this.alertTimeout = setTimeout(() => (this.alertShouldBeDisplayed = false), timeout);
         this.alertMessage = message;
         this.alertType = type;
+    }
+
+    getImage() {
+        return "../../../../assets/placeholder2.jpg";
+    }
+
+    done () {
+        this.router.navigateByUrl('/team-management');
     }
 }

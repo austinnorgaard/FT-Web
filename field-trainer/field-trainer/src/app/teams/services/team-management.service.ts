@@ -42,6 +42,14 @@ export class TeamManagementService {
         }
     }
 
+    async removeTeam(id: number): Promise<DatabaseResponse> {
+        try {
+            return await this.http.delete(`/team/${id}`);
+        } catch (err) {
+            throw err;
+        }
+    }
+
     async addAthleteToTeam(teamId: number, athleteId: number) {
         try {
             const result = await this.http.put<DatabaseResponse>(`/team/${teamId}/athletes/${athleteId}`, {});

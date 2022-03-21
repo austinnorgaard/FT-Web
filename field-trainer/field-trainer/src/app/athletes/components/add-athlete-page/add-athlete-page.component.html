@@ -1,5 +1,8 @@
 <div fxLayout="column" fxFlex class="ft-add-athlete-container">
-    <h1 fxFlex="0 0 auto" fxFlexAlign="center">Add Athlete</h1>
+    <div id="top" fxLayout="row">
+        <h1 fxFlex="0 0 auto" fxFlexAlign="center">Add Athlete</h1>
+        <button id="done" mat-raised-button (click)="done()">Done</button>
+    </div>
     <form id="form" fxLayout="column" fxFlex fxLayoutGap="3%" #addAthleteForm="ngForm" (ngSubmit)="onSubmit()">
         <div id="forms" fxFlex="0 0 auto" fxLayout="row wrap" fxLayoutGap="2%">
             <mat-form-field fxFlex="48%">

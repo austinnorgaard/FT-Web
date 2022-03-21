@@ -5,6 +5,23 @@
         flex-direction: column !important;
     }
 
+    #top {
+        position: relative;
+        justify-content: center;
+    }
+
+    #done {
+        margin-top: 1vh;
+        position: fixed;
+        right: 5vw;
+        height: 5vh;
+        color:rgba(255, 255, 255, 1);
+        background-color: var(--color-tertiary2);
+        text-decoration: none;
+        outline: none;
+        border: none;
+    }
+
     mat-form-field {
         max-width: 90vw !important;
         left: 5vw;
