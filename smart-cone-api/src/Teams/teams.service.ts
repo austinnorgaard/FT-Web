@@ -12,6 +12,22 @@ export class TeamsService {
         return await this.addTeamToDb(t);
     }
 
+    async removeTeamById(id: number): Promise<DatabaseResponse> {
+        return new Promise<DatabaseResponse>((resolve, reject) => {
+            TeamSchema.destroy({
+                where: { id },
+            })
+                .then(res => {
+                    const response = new DatabaseResponse(true, `Team ${id} deleted`);
+                    resolve(response);
+                })
+                .catch(err => {
+                    const response = new DatabaseResponse(false, `Could not delete team with id ${id}`);
+                    reject(response);
+                });
+        });
+    }
+
     async getTeams(): Promise<Team[]> {
         return TeamSchema.all({
             include: [AthleteSchema],

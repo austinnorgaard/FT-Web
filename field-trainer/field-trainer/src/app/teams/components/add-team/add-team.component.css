@@ -1,20 +1,95 @@
-.ft-add-team-container {
-    margin: 1.5em;
+@media (max-width: 959.98px), (orientation: portrait) {
+    #fullForm {
+        flex-direction: column !important;
+    }
+
+    #done {
+        margin-top: 1vh;
+        right: 2vh;
+        position: fixed;
+        height: 5vh;
+        color: white;
+        text-decoration: none;
+        outline: none;
+        border: none;
+        background-color: var(--color-tertiary2);
+    }
+
+    #top {
+        flex-direction: row !important;
+    }
+    
+    #form {
+        margin-left: 5vw;
+        width: 90vw;
+    }
+
+    #submit {
+        margin-top: 2vh;
+    }
+
+    #submit:enabled {
+        background-color: var(--color-tertiary);
+        color: white;
+    }
+
+    #pictureFrame {
+        width: 90vw;
+        margin-top: 2vh;
+        margin-left: 5vw;
+    }
+
+    ngb-alert {
+        width: 92vw;
+        position: fixed;
+        margin-left: -4vw;
+        bottom: 0vh;
+    }
 }
 
-.ft-add-team-header {
-    margin-left: 0.5em;
-}
-
-.ft-add-team-submit {
-    margin-top: 2em;
-}
-
-.ft-add-team-age-group {
-    margin-top: 1em;
-}
-
-#submit:enabled {
-    background-color: var(--color-tertiary2);
-    color: rgba(255, 255, 255, 1);
+@media (min-width: 960px) and (orientation: landscape) {
+    .ft-add-team-container {
+        margin-left: 15vw;
+    }
+    
+    .ft-add-team-header {
+        margin-left: 0.5em;
+    }
+    
+    .ft-add-team-submit {
+        margin-top: 2em;
+    }
+    
+    .ft-add-team-age-group {
+        margin-top: 1em;
+    }
+    
+    #submit {
+        margin-top: 10vh;
+    }
+    
+    #submit:enabled {
+        background-color: var(--color-tertiary2);
+        color: rgba(255, 255, 255, 1);
+    }
+    
+    #pictureFrame {
+        width: 25vw;
+        margin-left: 5vw;
+    }
+    
+    #picture {
+        width: 20vw;
+        height: 30vh;
+    }
+    
+    #form {
+        margin-top: 15vh;
+    }
+    
+    ngb-alert {
+        width: 40vw;
+        left: 14vw;
+        margin-top: 5vh;
+    }
 }

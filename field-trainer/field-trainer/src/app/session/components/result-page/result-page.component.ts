@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
+import { Router, Data } from "@angular/router";
 import { TeamModel } from "../../../teams/models/team";
 import { AthleteModel } from "../../../athletes/models/athlete";
 import { TeamManagementService } from "../../../teams/services/team-management.service";

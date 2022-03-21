@@ -1,7 +1,10 @@
 <div fxLayout="column" fxFlex class="ft-add-athlete-container">
-    <h1 fxFlex="0 0 auto" fxFlexAlign="center">Add Athlete</h1>
-    <form fxLayout="column" fxFlex fxLayoutGap="3%" #addAthleteForm="ngForm" (ngSubmit)="onSubmit()">
-        <div fxFlex="0 0 auto" fxLayout="row wrap" fxLayoutGap="2%">
+    <div id="top" fxLayout="row">
+        <h1 fxFlex="0 0 auto" fxFlexAlign="center">Add Athlete</h1>
+        <button id="done" mat-raised-button (click)="done()">Done</button>
+    </div>
+    <form id="form" fxLayout="column" fxFlex fxLayoutGap="3%" #addAthleteForm="ngForm" (ngSubmit)="onSubmit()">
+        <div id="forms" fxFlex="0 0 auto" fxLayout="row wrap" fxLayoutGap="2%">
             <mat-form-field fxFlex="48%">
                 <input matInput [(ngModel)]="this.athlete.firstName" placeholder="First Name" name="firstName" type="text" required />
             </mat-form-field>
@@ -32,33 +35,33 @@
                 </mat-select>
             </mat-form-field>
         </div>
-        <div fxFlex="0 0 auto" fxLayout="row" fxLayoutGap="0.5em">
+        <div id="forms" fxFlex="0 0 auto" fxLayout="row">
             <div fxFlex fxLayout="column">
                 <span fxFlex="0 0 auto" class="ft-parent-header">Parent 1</span>
-                <mat-form-field fxFlex>
+                <mat-form-field id="field" fxFlex="48%">
                     <input matInput [(ngModel)]="this.athlete.parent1Name" placeholder="Name" name="parent1Name" type="text" />
                 </mat-form-field>
-                <mat-form-field fxFlex>
+                <mat-form-field id="field" fxFlex="48%">
                     <input matInput [(ngModel)]="this.athlete.parent1Phone" placeholder="Phone" name="parent1Phone" type="tel" />
                 </mat-form-field>
-                <mat-form-field fxFlex>
+                <mat-form-field id="field" fxFlex="48%">
                     <input matInput [(ngModel)]="this.athlete.parent1Email" placeholder="Email" name="parent1Email" type="email" />
                 </mat-form-field>
             </div>
             <div fxFlex fxLayout="column">
                 <span fxFlex="0 0 auto" class="ft-parent-header">Parent 2</span>
-                <mat-form-field fxFlex>
+                <mat-form-field id="field" fxFlex="48%">
                     <input matInput [(ngModel)]="this.athlete.parent2Name" placeholder="Name" name="parent2Name" type="text" />
                 </mat-form-field>
-                <mat-form-field fxFlex>
+                <mat-form-field id="field" fxFlex="48%">
                     <input matInput [(ngModel)]="this.athlete.parent2Phone" placeholder="Phone" name="parent2Phone" type="tel" />
                 </mat-form-field>
-                <mat-form-field fxFlex>
+                <mat-form-field id="field" fxFlex="48%">
                     <input matInput [(ngModel)]="this.athlete.parent2Email" placeholder="Email" name="parent2Email" type="email" />
                 </mat-form-field>
             </div>
         </div>
-        <div fxFlex="0 0 auto" fxLayout="column">
+        <div fxFlex="0 0 auto" fxLayout="column" fxFlexAlign="flex-end">
             <button id="submit" fxFlex="0 0 auto" mat-raised-button [disabled]="addAthleteForm.invalid" type="submit" (submit)="onSubmit()">
                 Submit
             </button>

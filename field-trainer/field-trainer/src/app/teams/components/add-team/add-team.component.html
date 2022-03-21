@@ -1,7 +1,10 @@
 <div fxLayout="column">
-    <div fxFlex fxFlexAlign="center"><h1>Add Team</h1></div>
-    <div fxLayout="row" class="ft-add-team-container">
-        <form #addTeamForm="ngForm" fxFlex fxLayout="column" (ngSubmit)="onSubmit()">
+    <div fxFlex fxLayout="row" fxFlexAlign="center">
+        <h1>Add Team</h1>
+        <button mat-raised-button id="done" (click)="done()">Done</button>
+    </div>
+    <div id="fullForm" fxLayout="row" class="ft-add-team-container">
+        <form id="form" #addTeamForm="ngForm" fxFlex fxLayout="column" (ngSubmit)="onSubmit()">
             <mat-form-field>
                 <input
                     matInput
@@ -28,7 +31,10 @@
             </mat-form-field>
             <button mat-raised-button id="submit" type="submit" [disabled]="!addTeamForm.form.valid" class="ft-add-team-submit">Submit</button>
         </form>
-        <div fxFlex>PICTURE PLACEHOLDER</div>
+        <div id="pictureFrame" fxFlex fxLayout="column">
+            <h1>PICTURE PLACEHOLDER</h1>
+            <img id="picture" [src]="getImage()">
+        </div>
     </div>
     <ngb-alert
         style="margin-left:1em;margin-right:1em;"

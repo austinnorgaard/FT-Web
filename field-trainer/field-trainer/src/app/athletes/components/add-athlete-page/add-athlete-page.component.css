@@ -1,17 +1,73 @@
-.ft-add-athlete-container {
-    margin: 1.5em;
+@media (max-width: 959.98px), (orientation: portrait) {
+    #forms {
+        flex-wrap: nowrap;
+        flex-flow: column !important;
+        flex-direction: column !important;
+    }
+
+    #top {
+        position: relative;
+        justify-content: center;
+    }
+
+    #done {
+        margin-top: 1vh;
+        position: fixed;
+        right: 5vw;
+        height: 5vh;
+        color:rgba(255, 255, 255, 1);
+        background-color: var(--color-tertiary2);
+        text-decoration: none;
+        outline: none;
+        border: none;
+    }
+
+    mat-form-field {
+        max-width: 90vw !important;
+        left: 5vw;
+        justify-content: center !important;
+    }
+
+    span {
+        margin-top: 3vh !important;
+        margin-left: 5vw !important;
+    }
+
+    #submit {
+        width: 30vw;
+        margin-top: 5vh;
+        right: 5vw;
+        bottom: 4vh;
+    }
 }
 
-.ft-add-athlete-header {
-    margin-left: 0.5em;
-}
+@media (min-width: 960px) and (orientation: landscape) {
+    .ft-add-athlete-container {
+        margin-top: 1.5em;
+        margin-left: 15vw;
+        margin-right: 15vw;
+    }
 
-.ft-add-athlete-submit {
-    margin-top: 2em;
-}
-
-.ft-parent-header {
-    font-size: 1.5em;
+    .ft-add-athlete-header {
+        margin-left: 0.5em;
+    }
+    
+    .ft-add-athlete-submit {
+        margin-top: 2em;
+    }
+    
+    .ft-parent-header {
+        font-size: 1.5em;
+    }
+    
+    #submit {
+        width: 10vw;
+        margin-right: 2vw;
+    }
+    
+    #field {
+        width: 96%;
+    }
 }
 
 #submit:enabled {

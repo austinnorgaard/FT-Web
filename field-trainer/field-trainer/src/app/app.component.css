@@ -161,10 +161,11 @@
     
     .mat-sidenav-container,
     .mat-sidenav-content,
-    .mat-sidenav-toolbar {
+    .mat-sidenav-toolbar,
+    #top {
         -ms-overflow-style: none;
     }
-    
+
     .blackBox .hoverBox {
         background-color: var(--color-primary);
         position: fixed;
@@ -198,7 +199,7 @@
     }
     
     a.top{
-        z-index: 1;
+        z-index: 2;
         display: flex;
     }
     

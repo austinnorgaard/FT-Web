@@ -7,9 +7,7 @@
     <div fxLayout="row" id="athFullCont" fxLayoutAlign="space-between center">
         <div id="athInfo" fxLayout="column" fxFlex="1 1 auto">
             <div id="info" fxFlex="1 1 auto">
-                <!-- Athlete info-->
-                Height: 
-                {{height}} 
+                Score: na%n
             </div>
             <div id="info" fxFlex="1 1 auto">
                 Weight: 
@@ -19,15 +17,6 @@
                 Gender: 
                 {{athlete.gender}}
             </div>
-        </div>
-        <div fxFlex>
-            <!-- Add or delete button-->
-            <button mat-raised-button mat-button id="addButton" *ngIf="this.mode === 'add'" (click)="this.add()">
-                {{ this.text }}
-            </button>
-            <button mat-raised-button mat-button id="deleteButton" color="warn" *ngIf="this.mode === 'remove'" (click)="this.remove()">
-                {{ this.text }}
-            </button>
         </div>
     </div>
 </mat-expansion-panel>

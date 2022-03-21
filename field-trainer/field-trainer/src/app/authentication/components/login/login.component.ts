@@ -20,6 +20,7 @@ export class LoginComponent implements OnInit {
     public errorMessage = "None";
     public alertMessage = "None";
     alertTimeout: any;
+    public registered: string = localStorage.getItem("reg");
     public loggedOutType: string = localStorage.getItem("status");
 
     public emailFormControl = new FormControl("", [Validators.required, Validators.email]);
@@ -37,6 +38,10 @@ export class LoginComponent implements OnInit {
         if (this.loggedOutType === "logged out" && fragments.some(f => this.router.url.includes(f))){
             this.showMessage("Successfully Logged Out");
             localStorage.setItem("status", "null");
+        }
+        if (this.registered === "complete" && this.router.url.includes('register')) {
+            this.showMessage("Successfully Registered User");
+            localStorage.setItem("reg", "null");
         }
     }
 
