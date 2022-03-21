@@ -67,6 +67,18 @@
     #submit {
         margin-top: 10vh;
     }
+
+    #done {
+        margin-top: 3vh;
+        right: 5vw;
+        position: fixed;
+        height: 5vh;
+        color: white;
+        text-decoration: none;
+        outline: none;
+        border: none;
+        background-color: var(--color-tertiary2);
+    }
     
     #submit:enabled {
         background-color: var(--color-tertiary2);
