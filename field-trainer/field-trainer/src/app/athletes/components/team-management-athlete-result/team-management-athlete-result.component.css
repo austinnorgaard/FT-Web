@@ -1,0 +1,34 @@
+@media (max-width: 959.98px), (orientation: portrait) {
+    #deleteButton,
+    #addButton {
+        width: 30vw;
+        margin-top: 2vh;
+        transform: scale(0.8);
+    }
+
+    #athInfo {
+        flex-direction: row !important;
+        font-size: 80%;
+    }
+
+    #athFullCont {
+        flex-direction: column !important;
+    }
+}
+
+#info {
+    padding-left: 3vw;
+}
+
+#mat {
+    border-style: inset;
+    border-color: var(--color-tertiary2);
+    -webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+}
+
+#addButton {
+    color: white;
+    background-color: var(--color-tertiary);
+}

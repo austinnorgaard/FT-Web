@@ -16,6 +16,7 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
 import { MatSelectModule } from "@angular/material/select";
 import { TeamManagementAthleteComponent } from "./components/team-management-athlete/team-management-athlete.component";
+import { TeamManagementAthleteResultComponent } from "./components/team-management-athlete-result/team-management-athlete-result.component";
 import { FlexLayoutModule } from "@angular/flex-layout";
 
 @NgModule({
@@ -34,8 +35,8 @@ import { FlexLayoutModule } from "@angular/flex-layout";
         MatButtonModule,
         MatInputModule,
     ],
-    declarations: [AddAthletePageComponent, AthleteComponent, AthleteManagementPageComponent, TeamManagementAthleteComponent],
+    declarations: [AddAthletePageComponent, AthleteComponent, AthleteManagementPageComponent, TeamManagementAthleteComponent, TeamManagementAthleteResultComponent],
     providers: [AthleteManagementService],
-    exports: [TeamManagementAthleteComponent, AthleteComponent],
+    exports: [TeamManagementAthleteComponent, TeamManagementAthleteResultComponent, AthleteComponent],
 })
 export class AthleteModule {}
