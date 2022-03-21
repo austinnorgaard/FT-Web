@@ -64,6 +64,18 @@
         width: 10vw;
         margin-right: 2vw;
     }
+
+    #done {
+        margin-top: 1vh;
+        position: fixed;
+        right: 5vw;
+        height: 5vh;
+        color:rgba(255, 255, 255, 1);
+        background-color: var(--color-tertiary2);
+        text-decoration: none;
+        outline: none;
+        border: none;
+    }
     
     #field {
         width: 96%;
