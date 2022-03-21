@@ -9,7 +9,7 @@
         fxLayoutGap="0.5em"
         class="ft-form-container"
     >
-        <div fxLayoutGap="0.5em">
+        <div id="mob" fxLayoutGap="2vw">
             <mat-form-field fxFlex>
                 <input matInput [(ngModel)]="userRegistration.user.firstName" name="firstName" placeholder="First Name" required />
             </mat-form-field>
@@ -27,7 +27,7 @@
                 <input matInput [(ngModel)]="userRegistration.user.address2" name="address2" placeholder="Address Line 2" value=""/>
             </mat-form-field>
         </div>
-        <div fxLayoutGap="0.5em">
+        <div id="mob" fxLayoutGap="2vw">
             <mat-form-field fxFlex>
                 <input matInput [(ngModel)]="userRegistration.user.city" name="city" placeholder="City" required />
             </mat-form-field>
@@ -35,7 +35,7 @@
                 <input matInput [(ngModel)]="userRegistration.user.state" name="state" placeholder="State / Province" required />
             </mat-form-field>
         </div>
-        <div fxLayoutGap="0.5em">
+        <div id="mob" fxLayoutGap="2vw">
             <mat-form-field fxFlex>
                 <input matInput [(ngModel)]="userRegistration.user.zipCode" name="zip" placeholder="Postal / Zip Code" required />
             </mat-form-field>
@@ -45,12 +45,12 @@
                 </mat-select>
             </mat-form-field>
         </div>
-        <div fxLayoutGap="0.5em">
+        <div fxLayoutGap="2vw">
             <mat-form-field fxFlex>
                 <input matInput [(ngModel)]="userRegistration.user.phoneNumber" name="phoneNumber" type="tel" placeholder="Phone Number" required />
             </mat-form-field>
         </div>
-        <div fxLayoutGap="0.5em">
+        <div fxLayoutGap="2vw">
             <mat-form-field fxFlex>
                 <input
                     matInput
@@ -65,7 +65,7 @@
                 <mat-error *ngIf="email.errors?.email || email.errors?.required">Email must be a valid email address</mat-error>
             </mat-form-field>
         </div>
-        <div fxLayoutGap="0.5em">
+        <div fxLayoutGap="2vw">
             <mat-form-field fxFlex>
                 <input
                     matInput
@@ -81,7 +81,7 @@
                 <mat-error *ngIf="password.errors?.minlength">Password must be at least 8 characters</mat-error>
             </mat-form-field>
         </div>
-        <div fxLayoutGap="0.5em">
+        <div fxLayoutGap="2vw">
             <mat-checkbox [(ngModel)]="userRegistration.user.subscribedToNewsletter" name="subscribe" value=false>Subscribe to newsletter</mat-checkbox>
         </div>
         <ngb-alert type="danger" *ngIf="this.alertShown" (click)="this.alertShown = false">{{ this.errorMessage }}</ngb-alert>

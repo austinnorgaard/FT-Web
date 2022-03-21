@@ -1,7 +1,9 @@
 import { Component } from "@angular/core";
 import { CreateUserResult, UserManagementService } from "../../services/user-management.service";
 import { UserRegistrationModel } from "../../models/user-registration";
+import { LoginResult, LoginService } from "../../../authentication/services/login.service";
 import { Router } from "@angular/router";
+import { LoginCredentialsModel } from "../../../authentication/models/login-credentials";
 
 @Component({
     selector: "ft-app-register-page",
@@ -11,6 +13,9 @@ import { Router } from "@angular/router";
 export class RegisterPageComponent {
     userRegistration: UserRegistrationModel = new UserRegistrationModel();
 
+    public email: string;
+    public password: string;
+    public loginInProgress: boolean = false;
     public alertShown = false;
     public errorMessage: string = "";
     alertTimeout: any;
@@ -28,7 +33,7 @@ export class RegisterPageComponent {
 
     submitted = false;
 
-    constructor(private userManagement: UserManagementService, private router: Router) {}
+    constructor(private loginService: LoginService,private userManagement: UserManagementService, private router: Router) {}
 
     async submit() {
         this.submitted = true;
@@ -38,7 +43,11 @@ export class RegisterPageComponent {
         if (result === CreateUserResult.Success) {
             console.log(`User: ${this.userRegistration.user.firstName} ${this.userRegistration.user.lastName} created successfully`);
             // Bounce us out to the homepage
-            this.router.navigateByUrl("/");
+            localStorage.setItem("reg", "complete")
+            const credentials = new LoginCredentialsModel(this.userRegistration.user.email, this.userRegistration.password);
+            this.loginService.login(credentials);
+            console.log(this.email);
+            this.router.navigateByUrl("/home");
         } else if (result === CreateUserResult.FailureConstraintViolation) {
             // Reused an email
             console.log("Unique constraint violation on email, already in use");
