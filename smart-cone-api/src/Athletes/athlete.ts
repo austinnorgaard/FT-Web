@@ -23,7 +23,7 @@ export class Athlete {
 
     @IsOptional() @IsString() email: string;
 
-    @IsPhoneNumber("US") phoneNumber: string;
+    @IsOptional() @IsPhoneNumber("US") phoneNumber: string;
 
     @IsString() gender: string;
 

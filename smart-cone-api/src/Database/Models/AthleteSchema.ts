@@ -16,8 +16,10 @@ export class AthleteSchema extends Model<AthleteSchema> implements Athlete {
 
     @Column lastName: string;
 
+    @AllowNull(true)
     @Column email: string;
 
+    @AllowNull(true)
     @Column phoneNumber: string;
 
     @Column gender: string;
