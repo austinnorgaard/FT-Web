@@ -24,7 +24,7 @@ export class AthleteSchema extends Model<AthleteSchema> implements Athlete {
 
     @Column weight: number;
 
-    @Column height: string;
+    @Column height: number;
 
     @Column ageGroup: string;
 
