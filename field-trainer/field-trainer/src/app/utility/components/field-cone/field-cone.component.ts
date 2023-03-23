@@ -19,6 +19,11 @@ export class FieldConeComponent implements OnInit {
         this.fieldConesService.coneMakeNoise(this.coneInfo);
     }
 
+    makeMove() {
+        console.log(`Cone ID ${this.coneInfo.id} making a move`);
+        this.fieldConesService.coneMakeMove(this.coneInfo);
+    }
+
     async changeId() {
         // Check if the user gave us a legit number
         if (this.newId === "") {
