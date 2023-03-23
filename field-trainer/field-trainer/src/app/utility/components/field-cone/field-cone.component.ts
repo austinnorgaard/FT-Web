@@ -12,7 +12,9 @@ export class FieldConeComponent implements OnInit {
     public newId: string = "";
     constructor(private readonly fieldConesService: FieldConesService) {}
 
-    ngOnInit() {}
+    ngOnInit() {
+        
+    }
 
     makeNoise() {
         console.log(`Cone ID ${this.coneInfo.id} making a noise`);
