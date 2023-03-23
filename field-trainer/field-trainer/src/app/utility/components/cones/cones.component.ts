@@ -11,7 +11,7 @@ export class ConesComponent implements OnInit {
     public fieldCones: FieldCone[] = [];
     constructor(private readonly fieldConesService: FieldConesService) {
         fieldConesService.fieldConesSubject.asObservable().subscribe((cones: FieldCone[]) => {
-            this.fieldCones = cones;
+            this.fieldCones.push (new FieldCone);
         });
         fieldConesService.updateFieldCones();
     }
