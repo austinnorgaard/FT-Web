@@ -39,3 +39,4 @@ import { FlexLayoutModule } from "@angular/flex-layout";
     exports: [TeamManagementAthleteComponent, AthleteComponent],
 })
 export class AthleteModule {}
+

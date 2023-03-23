@@ -8,6 +8,6 @@ export const environment = {
         smartConeApiSocketPort: "5000",
         coneApiHttpPort: "6200",
         backendHost: "http://localhost",
-        backendPort: "8080",
+        backendPort: "8081",
     },
 };

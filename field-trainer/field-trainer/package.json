@@ -4,14 +4,14 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --port=4200",
     "build": "ng build --source-map=false --configuration production --aot",
     "test": "ng test --progress",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "deploy": "npm run build && rm -rf ../../serve-frontend/dist && mv ./dist ../../serve-frontend/"
   },
-  "private": true,
+  "private": false,
   "dependencies": {
     "@angular/animations": "13.1.3",
     "@angular/cdk": "13.1.3",

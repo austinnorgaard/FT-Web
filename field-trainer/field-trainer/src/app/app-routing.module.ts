@@ -18,6 +18,7 @@ import { DebugComponent } from "./utility/components/debug/debug.component";
 import { SessionDetailsPageComponent } from "./session/components/session-details-page/session-details-page.component";
 import { ResultPageComponent } from "./session/components/result-page/result-page.component";
 import { ConesComponent } from "./utility/components/cones/cones.component";
+import { FieldConeComponent } from "./utility/components/field-cone/field-cone.component";
 import { WifiSettingsComponent } from "./home/components/wifi-settings/wifi-settings.component";
 
 const routes: Routes = [
@@ -85,6 +86,11 @@ const routes: Routes = [
     {
         path: "cones",
         component: ConesComponent,
+        canActivate: [AuthGuard],
+    },
+    {
+        path: "field-cone",
+        component: FieldConeComponent,
         canActivate: [AuthGuard],
     },
     {
