@@ -19,7 +19,6 @@ export abstract class User {
     @IsString() country: string = "";
     @IsString() phoneNumber: string = "";
     @IsString() email: string = "";
-    @IsBoolean() subscribedToNewsletter: boolean = false;
 
     constructor() {}
 }

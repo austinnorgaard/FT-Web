@@ -4,7 +4,7 @@ import { FtJwtSecret } from "./ft-jwt";
 import { LoginCredentials } from "./login-credentials";
 import { JwtToken } from "./jwt-token";
 import { UserSchema } from "../Database/Models/UserSchema";
-const bcrypt = require("bcrypt"); // ts-lint
+const bcrypt = require("bcryptjs"); // ts-lint
 
 @Injectable()
 export class AuthService {

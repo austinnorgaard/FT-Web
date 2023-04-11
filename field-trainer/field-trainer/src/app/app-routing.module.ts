@@ -8,7 +8,8 @@ import { RegisterPageComponent } from "./user/components/register-page/register-
 import { AddTeamComponent } from "./teams/components/add-team/add-team.component";
 import { AppComponent } from "./misc/components/app/app";
 import { AcademyComponent } from "./misc/components/academy/academy";
-import { ConePageComponent } from "./misc/components/cones/cones";
+import { ConesComponent } from "./utility/components/cones/cones.component";
+import { FieldConeComponent } from "./utility/components/field-cone/field-cone.component";
 import { LoginPageComponent } from "./authentication/components/login-page/login-page.component";
 import { TeamManagementPageComponent } from "./teams/components/team-management-page/team-management-page.component";
 import { AddAthletePageComponent } from "./athletes/components/add-athlete-page/add-athlete-page.component";
@@ -44,7 +45,11 @@ const routes: Routes = [
     },
     {
         path: "cone-page",
-        component: ConePageComponent,
+        component: ConesComponent,
+    },
+    {
+        path: "ft-field-cone",
+        component: FieldConeComponent,
     },
     {
         path: "login",

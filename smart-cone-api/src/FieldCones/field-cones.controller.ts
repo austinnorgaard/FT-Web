@@ -16,14 +16,14 @@ export class FieldConesController {
         // Take a FieldCone and resolve it: i.e. update the actual remote device
         // including our internal information
         // For now, just update the ID
-        console.log(`Sending to: http://${body.ip}:6200/comms/id`);
-        await this.http.post(`http://${body.ip}:6200/comms/id`, { id: body.id }).toPromise();
+        console.log(`Sending to: http://${body.ip}:6000/comms/id`);
+        await this.http.post(`http://${body.ip}:6000/comms/id`, { id: body.id }).toPromise();
     }
 
     @Post("noise")
     async makeNoise(@Body() body: FieldConeInfo) {
         console.log(`Telling cone at ${body.ip} to make a noise!`);
-        await this.http.post(`http://${body.ip}:6200/audio/test-noise`, {}).toPromise();
+        await this.http.post(`http://${body.ip}:6000/audio/test-noise`, {}).toPromise();
     }
 
     @Post("update")
@@ -36,7 +36,7 @@ export class FieldConesController {
             });
             if (cone) {
                 console.log(`Attempting to update cone with ID ${body.id}`);
-                await this.http.post(`http://${cone.ip}:6200/comms/update`).toPromise();
+                await this.http.post(`http://${cone.ip}:6000/comms/update`).toPromise();
             }
         } catch (err) {
             // dont care

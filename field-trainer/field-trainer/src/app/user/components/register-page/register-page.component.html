@@ -81,9 +81,6 @@
                 <mat-error *ngIf="password.errors?.minlength">Password must be at least 8 characters</mat-error>
             </mat-form-field>
         </div>
-        <div fxLayoutGap="2vw">
-            <mat-checkbox [(ngModel)]="userRegistration.user.subscribedToNewsletter" name="subscribe" value=false>Subscribe to newsletter</mat-checkbox>
-        </div>
         <ngb-alert type="danger" *ngIf="this.alertShown" (click)="this.alertShown = false">{{ this.errorMessage }}</ngb-alert>
         <div fxLayoutAlign="space-around">
             <button id="submit" mat-raised-button type="submit" [disabled]="!userRegisterForm.form.valid" fxFlex="25%">Submit</button>

@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpHelperService } from "../../misc/services/http-helper.service";
 import { FieldCone } from "../models/field-cone";
-import { BehaviorSubject } from "rxjs";
+import { BehaviorSubject, NEVER, Observable } from "rxjs";
 import { SocketMessageBrokerService } from "../../socket-message-broker/socket-message-broker.service";
 import { IsArray, ValidateNested } from "class-validator";
 import { Type } from "class-transformer";

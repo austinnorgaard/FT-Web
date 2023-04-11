@@ -6,7 +6,7 @@ export const environment = {
         smartConeApiHttpPort: "5200",
         coneApiSocketPort: "6000",
         smartConeApiSocketPort: "5000",
-        coneApiHttpPort: "6200",
+        coneApiHttpPort: "53333",
         backendHost: "http://localhost",
         backendPort: "8080",
     },
