@@ -13,7 +13,7 @@ async function bootstrap() {
     app.use(cors());
     //app.useGlobalPipes(new ValidationPipe());
     app.useGlobalInterceptors(new ConstraintsInterceptor());
-    await app.listen(parseInt(environment.config.smartConeApiHttpPort, 10));
+    await app.listen(8080);
 }
 // start
 bootstrap();

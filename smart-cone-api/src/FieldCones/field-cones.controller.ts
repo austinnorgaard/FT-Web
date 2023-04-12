@@ -26,6 +26,18 @@ export class FieldConesController {
         await this.http.post(`http://${body.ip}:6000/audio/test-noise`, {}).toPromise();
     }
 
+    @Post("tilt")
+    async makeTilt(@Body() body: FieldConeInfo) {
+        console.log(`Telling cone at ${body.ip} to tilt!`);
+        await this.http.post(`http://${body.ip}:6000/tilt`, {}).toPromise();
+    }
+
+    @Post("ultrasonic")
+    async makeUltrasonic(@Body() body: FieldConeInfo) {
+        console.log(`Telling cone at ${body.ip} to activate ultrasonic!`);
+        await this.http.post(`http://${body.ip}:6000/ultrasonic`, {}).toPromise();
+    }
+
     @Post("update")
     async updateCone(@Body() body: FieldConeInfo) {
         // Just inform the cone they need to update, don't care about getting a response

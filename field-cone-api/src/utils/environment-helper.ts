@@ -22,7 +22,7 @@ export function smartConeSocketUrl(): string {
         console.log(`Field Cone Socket URL env var was set, returning: ${process.env.FIELD_CONE_SOCKET_URL}`);
         return process.env.FIELD_CONE_SOCKET_URL;
     } else {
-        console.log(`Field Cone Socket URL was not set. Defaulting to: http://127.0.0.1:53333`);
-        return "http://127.0.0.1:53333";
+        console.log(`Field Cone Socket URL was not set. Defaulting to: http://127.0.0.1:6000`);
+        return "http://127.0.0.1:6000";
     }
 }

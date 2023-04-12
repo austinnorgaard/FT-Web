@@ -9,6 +9,7 @@ export class MockTiltService extends BaseTiltService {
     }
 
     emitTilt() {
+        console.log("Tilted!");
         this.TiltOccured.next();
     }
 }
