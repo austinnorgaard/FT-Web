@@ -10,6 +10,7 @@ export class FieldCone {
         public ip?: string,
         public latencyResults?: number[],
         public version?: FieldConeVersion,
+        public port?: number
     ) {}
 }
 

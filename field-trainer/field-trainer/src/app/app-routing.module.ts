@@ -20,6 +20,8 @@ import { SessionSetupPageComponent } from "./session/components/session-setup-pa
 import { AthleteSelectComponent } from "./session/components/athlete-select/athlete-select.component";
 import { TrainingSessionPageComponent } from "./session/components/training-session-page/training-session-page.component";
 import { SessionDetailsPageComponent } from "./session/components/session-details-page/session-details-page.component";
+import { Field } from "./session/models/field";
+import { FieldComponent } from "./session/components/fields/field.component";
 
 const routes: Routes = [
     { path: "", redirectTo: "home", pathMatch: "full" },
@@ -32,7 +34,7 @@ const routes: Routes = [
     },
     {
         path: "field",
-        component: FieldCourseSetupComponent,
+        component: FieldComponent,
     },
     {
         path: "app",

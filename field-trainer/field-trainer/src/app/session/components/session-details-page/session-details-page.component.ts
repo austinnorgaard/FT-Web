@@ -31,7 +31,7 @@ export class SessionDetailsPageComponent implements OnInit {
             }
 
             this.athleteIdMap = [];
-            let i = 0;
+            let i = -1;
             sessionState.getCurrentSession().athleteSessions.forEach(session => {
                 this.athleteIdMap.push({ id: session.athlete.id, index: i });
                 i++;

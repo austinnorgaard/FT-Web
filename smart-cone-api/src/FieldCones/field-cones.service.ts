@@ -19,7 +19,7 @@ export class FieldConesService implements OnGatewayConnection, OnGatewayDisconne
         console.log("Field Cones Service instantiated!");
         this.onConnectSubject.subscribe({
             next: cone => {
-                console.log(`Received new cone data! ConeID: ${cone.id}. Session ID: ${cone.sessionId}. IP: ${cone.ip}`);
+                console.log(`Received new cone data! ConeID: ${cone.id}. Session ID: ${cone.sessionId}. IP: http://${cone.ip}:${cone.port}`);
 
                 // Check if we already have a cone, and throw up a warning if we do
                 if (this.connectedFieldCones.getValue().some(item => item.id === cone.id)) {
@@ -92,7 +92,7 @@ export class FieldConesService implements OnGatewayConnection, OnGatewayDisconne
     // along with any information we may need from them up front
     @SubscribeMessage("initialContact")
     onInitialContact(client, data: FieldConeInfo) {
-        console.log(`Contacted by a field cone! Their info, cone ID: ${data.id} at ${data.ip}`);
+        console.log(`Contacted by a field cone! Their info, cone ID: ${data.id} at http://${data.ip}:${data.port}`);
 
         const _ourClient = this.clients.find(c => c.id === data.id);
         if (_ourClient === null || _ourClient === undefined) {
@@ -111,14 +111,12 @@ export class FieldConesService implements OnGatewayConnection, OnGatewayDisconne
         // Send the current time to the field-cones
         client.emit("SetTime", new Date());
 
-        this.onConnectSubject.next({ id: data.id, ip: data.ip, sessionId: client.id, latencyResults: [], version: data.version } as FieldConeInfo);
+        this.onConnectSubject.next({ id: data.id, ip: data.ip, port: data.port, sessionId: client.id, latencyResults: [], version: data.version } as FieldConeInfo);
     }
 
     @SubscribeMessage("tiltOccurred")
     onTiltEvent(client, data: any) {
-        console.log("on tilt event!");
         if (client === undefined || client === null) {
-            console.log("Client information is not valid.");
             return;
         }
         // data is nothing
@@ -148,7 +146,6 @@ export class FieldConesService implements OnGatewayConnection, OnGatewayDisconne
         let fieldCones = this.connectedFieldCones.getValue();
         let fieldCone = fieldCones.find(f => f.sessionId === client.id);
         if (fieldCone === undefined || fieldCone === null) {
-            console.log(`WARN!! Got a Field Cone Ping for a cone which we don't know about!!`);
             return;
         }
 

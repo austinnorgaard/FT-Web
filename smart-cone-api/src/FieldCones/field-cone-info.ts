@@ -5,6 +5,7 @@
 export class FieldConeInfo {
     ip: string;
     id: number;
+    port: number;
     sessionId: string; // the socket session id, unique identifier per session
 
     // Latency results for this FieldCone

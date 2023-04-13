@@ -5,7 +5,7 @@ import * as child_process from "child_process";
 import * as fs from "fs";
 import { environment } from "../../../field-trainer/field-trainer/src/environments/environment";
 import { FieldConeInfo, BuildsJsonFormat } from "../../../smart-cone-api/src/FieldCones/field-cone-info";
-import { getFieldConeId, smartConeSocketUrl } from "../utils/environment-helper";
+import { getFieldConeId, smartConeSocketUrl, getFieldConePort } from "../utils/environment-helper";
 import { BaseTiltService } from "../Tilt/base-tilt-service";
 import { WifiSetting } from "../Wifi/wifi.service";
 import { BaseWifiService } from "../Wifi/base-wifi.service";
@@ -96,6 +96,7 @@ export class CommsService {
         const info = {
             ip: "unknown",
             id: -1,
+            port: 0,
             version: {
                 fieldCone: -1,
                 fieldConeSystem: -1,
@@ -130,6 +131,9 @@ export class CommsService {
 
         const coneId = await getFieldConeId();
         info.id = coneId;
+
+        const conePort = await getFieldConePort();
+        info.port = conePort;
 
         // If we are on a dev machine, hard-code the versions instead of querying them as they will not exist
         if (info.ip === "127.0.0.1") {

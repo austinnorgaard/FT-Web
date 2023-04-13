@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpHelperService } from "../../misc/services/http-helper.service";
 import { FieldCone } from "../models/field-cone";
+import { UltrasonicService } from '../../../../../../smart-cone-api/src/Ultrasonic/ultrasonic.service';
 import { BehaviorSubject, NEVER, Observable } from "rxjs";
 import { SocketMessageBrokerService } from "../../socket-message-broker/socket-message-broker.service";
 import { IsArray, ValidateNested } from "class-validator";
@@ -28,34 +29,68 @@ export class FieldConesService {
         });
     }
     async updateFieldCones(): Promise<void> {
-        const cones = await this.getFieldCones();
-        this.fieldConesSubject.next(cones);
+        try {
+            const cones = await this.getFieldCones();
+            this.fieldConesSubject.next(cones);
+        } catch (err) {
+            console.log(err);
+            return undefined;
+        }
     }
 
     async getFieldCones(): Promise<FieldCone[]> {
-        const cones = await this.http.get<FieldConesArray>("/field-cones");
-        return cones.items;
+        try {
+            const cones = await this.http.get<FieldConesArray>("/field-cones");
+            return cones.items;
+        } catch (err) {
+            return FieldCone[0];
+        }
     }
 
     async setFieldConeId(fieldCone: FieldCone): Promise<void> {
-        await this.http.post<FieldCone>("/field-cones", fieldCone);
+        try {
+            await this.http.post<FieldCone>("/field-cones", fieldCone);
+        } catch(err) {
+            console.log(err);
+            return undefined;
+        }
     }
 
     async coneMakeNoise(fieldCone: FieldCone): Promise<void> {
-        await this.http.post<FieldCone>("/field-cones/noise", fieldCone);
+        try {
+            await this.http.post<FieldCone>("/field-cones/noise", fieldCone);
+        } catch (err) {
+            console.log(err);
+            return undefined;
+        }
     }
 
     async coneMakeTilt(fieldCone: FieldCone): Promise<void> {
-        await this.http.post<FieldCone>("/field-cones/tilt", fieldCone);
+        try {
+            await this.http.post<FieldCone>("/field-cones/tilt", fieldCone);
+        } catch (err) {
+            console.log(err);
+            return undefined;
+        }
     }
-
 
     async coneMakeUltrasonic(fieldCone: FieldCone): Promise<void> {
-        await this.http.post<FieldCone>("/field-cones/ultrasonic", fieldCone);
+        try {
+            await this.http.post<FieldCone>("/field-cones/ultrasonic", fieldCone);
+        } catch (err) {
+            console.log(err);
+            return undefined;
+        }
+       
     }
 
-
     async updateCone(fieldCone: FieldCone): Promise<void> {
-        await this.http.post<FieldCone>("/field-cones/update", fieldCone);
+        try {
+            await this.http.post<FieldCone>("/field-cones/update", fieldCone);
+        } catch (err) {
+            console.log(err);
+            return undefined;
+        }
+        
     }
 }

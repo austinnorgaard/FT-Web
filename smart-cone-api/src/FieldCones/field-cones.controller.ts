@@ -16,26 +16,42 @@ export class FieldConesController {
         // Take a FieldCone and resolve it: i.e. update the actual remote device
         // including our internal information
         // For now, just update the ID
-        console.log(`Sending to: http://${body.ip}:6000/comms/id`);
-        await this.http.post(`http://${body.ip}:6000/comms/id`, { id: body.id }).toPromise();
+        try {
+            await this.http.post(`http://${body.ip}:6200/comms/id`, { id: body.id }).toPromise();
+        } catch (err) {
+            console.log(err);
+            return undefined;
+        }
     }
 
     @Post("noise")
     async makeNoise(@Body() body: FieldConeInfo) {
-        console.log(`Telling cone at ${body.ip} to make a noise!`);
-        await this.http.post(`http://${body.ip}:6000/audio/test-noise`, {}).toPromise();
+        try {
+            await this.http.post(`http://${body.ip}:6200/audio/test-noise`, {}).toPromise();
+        } catch (err) {
+            console.log(err);
+            return undefined;
+        }
     }
 
     @Post("tilt")
     async makeTilt(@Body() body: FieldConeInfo) {
-        console.log(`Telling cone at ${body.ip} to tilt!`);
-        await this.http.post(`http://${body.ip}:6000/tilt`, {}).toPromise();
+        try {
+            await this.http.post(`http://${body.ip}:6200/test/tilt`, {}).toPromise();
+        } catch (err) {
+            console.log(err);
+            return undefined;
+        }
     }
 
     @Post("ultrasonic")
     async makeUltrasonic(@Body() body: FieldConeInfo) {
-        console.log(`Telling cone at ${body.ip} to activate ultrasonic!`);
-        await this.http.post(`http://${body.ip}:6000/ultrasonic`, {}).toPromise();
+        try {
+            await this.http.post(`http://${body.ip}:6200/test/ultrasonic`, {}).toPromise();
+        } catch (err) {
+            console.log(err);
+            return undefined;
+        }
     }
 
     @Post("update")
@@ -47,10 +63,10 @@ export class FieldConesController {
                 return c.id === body.id;
             });
             if (cone) {
-                console.log(`Attempting to update cone with ID ${body.id}`);
-                await this.http.post(`http://${cone.ip}:6000/comms/update`).toPromise();
+                await this.http.post(`http://${cone.ip}:6200/comms/update`).toPromise();
             }
         } catch (err) {
+            return undefined;
             // dont care
         }
     }

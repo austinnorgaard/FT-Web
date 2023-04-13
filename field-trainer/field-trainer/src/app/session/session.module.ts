@@ -4,6 +4,7 @@ import { PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarConfigInterface, PerfectScrol
 import { AthleteSelectComponent } from "./components/athlete-select/athlete-select.component";
 import { FieldCourseSetupComponent } from "./components/field-course-setup/field-course-setup.component";
 import { FieldPreviewComponent } from "./components/field-preview/field-preview.component";
+import { FieldComponent } from "./components/fields/field.component";
 import { SessionSetupPageComponent } from "./components/session-setup-page/session-setup-page.component";
 import { TrainingSessionPageComponent } from "./components/training-session-page/training-session-page.component";
 import { FieldsService } from "./services/fields.service";
@@ -65,6 +66,7 @@ import { SessionResultComponent } from "./components/session-result/session-resu
         SegmentDetailsComponent,
         ResultPageComponent,
         SessionResultComponent,
+        FieldComponent,
     ],
     providers: [FieldsService, SessionService, SessionSetupService, FieldConesService],
 })
