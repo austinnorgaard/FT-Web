@@ -14,7 +14,7 @@ export class TeamManagementService {
 
     async createTeam(team: Team): Promise<DatabaseResponse> {
         try {
-            const result = await this.http.post<DatabaseResponse>("/team", team);
+            const result = await this.http.post<DatabaseResponse>("/teams", team);
             return result;
         } catch (err) {
             console.log(`Failed to create team: ${team.teamName}. Error:`, err);
@@ -24,7 +24,7 @@ export class TeamManagementService {
 
     async getTeams(): Promise<Team[]> {
         try {
-            const result = await this.http.get<Team[]>("/team");
+            const result = await this.http.get<Team[]>("/teams");
             return result;
         } catch (err) {
             console.log(`Failed to get teams. Error:`, err);
@@ -34,7 +34,7 @@ export class TeamManagementService {
 
     async getTeamById(id: number): Promise<Team> {
         try {
-            const result = await this.http.get<Team>(`/team/${id}`);
+            const result = await this.http.get<Team>(`/teams/${id}`);
             return result;
         } catch (err) {
             console.log(`Failed to get team ${id}. Error: `, err);
@@ -44,7 +44,7 @@ export class TeamManagementService {
 
     async removeTeam(id: number): Promise<DatabaseResponse> {
         try {
-            return await this.http.delete(`/team/${id}`);
+            return await this.http.delete(`/teams/${id}`);
         } catch (err) {
             throw err;
         }
@@ -52,7 +52,7 @@ export class TeamManagementService {
 
     async addAthleteToTeam(teamId: number, athleteId: number) {
         try {
-            const result = await this.http.put<DatabaseResponse>(`/team/${teamId}/athletes/${athleteId}`, {});
+            const result = await this.http.put<DatabaseResponse>(`/teams/${teamId}/athletes/${athleteId}`, {});
             return result;
         } catch (err) {
             console.log(`Failed to add athlete ${athleteId} to team ${teamId},`, err);
@@ -62,7 +62,7 @@ export class TeamManagementService {
 
     async removeAthleteFromTeam(teamId: number, athleteId: number) {
         try {
-            const result = await this.http.delete(`/team/${teamId}/athletes/${athleteId}`);
+            const result = await this.http.delete(`/teams/${teamId}/athletes/${athleteId}`);
             return result;
         } catch (err) {
             console.log(`Failed to remove athlete ${athleteId} from ${teamId}, error: `, err);

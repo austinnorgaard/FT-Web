@@ -5,11 +5,12 @@ import { Injectable } from "@nestjs/common";
 import { FieldConesService } from "../FieldCones/field-cones.service";
 
 import * as child_process from "child_process";
+import { EventEmitter } from "stream";
 
 @WebSocketGateway(parseInt(environment.config.smartConeApiSocketPort, 10))
 @Injectable()
 export class FrontEndCommunicator implements OnGatewayConnection, OnGatewayDisconnect {
-    frontEndSocket: any = null;
+    frontEndSocket: EventEmitter = new EventEmitter();
 
     public constructor(private readonly logger: FileLogger, private readonly fieldConesService: FieldConesService) {
         this.logger.log("Enabling Websocket Gateway!");

@@ -16,6 +16,10 @@ import { AddAthletePageComponent } from "./athletes/components/add-athlete-page/
 import { SandboxComponent } from "./utility/components/sandbox/sandbox.component";
 import { ResultPageComponent } from "./session/components/result-page/result-page.component";
 import { FieldCourseSetupComponent } from "./session/components/field-course-setup/field-course-setup.component";
+import { SessionSetupPageComponent } from "./session/components/session-setup-page/session-setup-page.component";
+import { AthleteSelectComponent } from "./session/components/athlete-select/athlete-select.component";
+import { TrainingSessionPageComponent } from "./session/components/training-session-page/training-session-page.component";
+import { SessionDetailsPageComponent } from "./session/components/session-details-page/session-details-page.component";
 
 const routes: Routes = [
     { path: "", redirectTo: "home", pathMatch: "full" },
@@ -46,10 +50,12 @@ const routes: Routes = [
     {
         path: "cone-page",
         component: ConesComponent,
+        canActivate: [AuthGuard],
     },
     {
         path: "ft-field-cone",
         component: FieldConeComponent,
+        canActivate: [AuthGuard],
     },
     {
         path: "login",
@@ -64,6 +70,27 @@ const routes: Routes = [
         path: "add-athlete",
         component: AddAthletePageComponent,
         canActivate: [AuthGuard],
+    },
+    {
+        path: "session-setup",
+        component: SessionSetupPageComponent,
+        canActivate: [AuthGuard],
+        children: [
+            { path: "", redirectTo: "field-select", pathMatch: "full" },
+            { path: "field-select", component: FieldCourseSetupComponent },
+            { path: "athlete-select", component: AthleteSelectComponent },
+        ],
+    },
+    {
+        path: "training-session",
+        component: TrainingSessionPageComponent,
+        canActivate: [AuthGuard],
+    },
+    {
+        path: "training-session/:id",
+        component: SessionDetailsPageComponent,
+        canActivate: [AuthGuard],
+        runGuardsAndResolvers: "always",
     },
     {
         path: "sandbox",

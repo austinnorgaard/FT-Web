@@ -5,8 +5,6 @@ import { User } from "../../Users/user";
     modelName: "Users",
 })
 export class UserSchema extends Model<UserSchema> implements User {
-    @Column subscribedToNewsLetter: boolean;
-
     @Column firstName: string;
 
     @Column lastName: string;

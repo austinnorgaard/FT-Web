@@ -4,7 +4,7 @@ import { DatabaseFailureType } from "../Database/Data/DatabaseEnums";
 import { UserRegistration } from "./user-registration";
 import { FileLogger } from "../Logging/file-logger";
 
-@Controller("users")
+@Controller("user")
 export class UsersController {
     constructor(private usersService: UsersService, private logger: FileLogger) {}
 

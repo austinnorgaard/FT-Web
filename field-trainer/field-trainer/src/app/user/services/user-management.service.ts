@@ -24,7 +24,7 @@ export class UserManagementService {
             // user fields
             await this.http.post<User>("/user", {
                 password: user.password,
-                ...user.user,
+                user: user.user
             });
             return CreateUserResult.Success;
         } catch (err) {

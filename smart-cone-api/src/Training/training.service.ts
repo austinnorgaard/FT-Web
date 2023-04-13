@@ -16,6 +16,7 @@ import { SessionResultCollection } from "./session-results";
 import { TrainingSessionState } from "./training-session-state";
 import { BaseTiltService } from "../Tilt/base-tilt-service";
 import { BaseAudioService } from "../Audio/base-audio.service";
+import EventEmitter = require("events");
 
 @Injectable()
 export class TrainingService {
@@ -29,7 +30,7 @@ export class TrainingService {
 
     constructor(
         private fieldCones: FieldConesService,
-        private readonly frontEndComms: FrontEndCommunicator,
+        private frontEndComms: FrontEndCommunicator,
         private readonly ultraSonicService: BaseUltrasonicService,
         private http: HttpService,
         private localTiltService: BaseTiltService,
