@@ -1,4 +1,5 @@
 import { BaseUltrasonicService } from "./base-ultrasonic.service";
+declare var require: any;
 
 const spawn = require("threads").spawn;
 
