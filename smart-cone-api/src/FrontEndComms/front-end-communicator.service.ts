@@ -29,7 +29,7 @@ export class FrontEndCommunicator implements OnGatewayConnection, OnGatewayDisco
 
         // now that we are connected with the front end, we will want to keep track
         // of the socket
-        this.frontEndSocket = client;
+        this.frontEndSocket = client.client;
 
         // re-emit the current values
         this.fieldConesService.connectedFieldCones.next(this.fieldConesService.connectedFieldCones.getValue());

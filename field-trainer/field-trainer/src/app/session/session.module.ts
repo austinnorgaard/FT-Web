@@ -32,6 +32,7 @@ import { MiscModule } from "../misc/misc.module";
 import { SessionDetailsPageComponent } from "./components/session-details-page/session-details-page.component";
 import { SegmentDetailsComponent } from "./components/segment-details/segment-details.component";
 import { ResultPageComponent } from "./components/result-page/result-page.component";
+import { FinishedResultPageComponent } from "./components/finished-result-page/finished-result-page.component";
 import { SessionResultComponent } from "./components/session-result/session-result.component";
 
 @NgModule({
@@ -65,6 +66,7 @@ import { SessionResultComponent } from "./components/session-result/session-resu
         SessionDetailsPageComponent,
         SegmentDetailsComponent,
         ResultPageComponent,
+        FinishedResultPageComponent,
         SessionResultComponent,
         FieldComponent,
     ],

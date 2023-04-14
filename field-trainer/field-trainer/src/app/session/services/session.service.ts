@@ -138,4 +138,8 @@ export class SessionService {
     public async saveResults() {
         await this.http.post<any>("/training/save-results", {});
     }
+
+    public async getResults() {
+        await this.http.get<any>("/training/results");
+    }
 }

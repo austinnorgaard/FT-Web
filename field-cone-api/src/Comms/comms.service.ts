@@ -93,6 +93,7 @@ export class CommsService {
 
     async getFieldConeInfo(): Promise<FieldConeInfo> {
         const interfaces = os.networkInterfaces();
+        const devIp = `127.0.0.${await getFieldConeId()}`;
         const info = {
             ip: "unknown",
             id: -1,
@@ -121,12 +122,12 @@ export class CommsService {
             let test = Object.keys(interfaces).filter(i => i.includes("wlx"));
             console.log(interfaces[test[0]].filter(i => i.family === "IPv4")[0].address);*/
             console.log("Assuming we are on a dev machine");
-            info.ip = "127.0.0.1";
+            info.ip = devIp;
         } else {
             // Just assume we are running on a desktop development machine as that
             // is the most likely case
             console.log("Assuming we are on a dev machine");
-            info.ip = "127.0.0.1";
+            info.ip = devIp;
         }
 
         const coneId = await getFieldConeId();
@@ -136,7 +137,7 @@ export class CommsService {
         info.port = conePort;
 
         // If we are on a dev machine, hard-code the versions instead of querying them as they will not exist
-        if (info.ip === "127.0.0.1") {
+        if (info.ip === devIp) {
             info.version.fieldCone = 123;
             info.version.fieldConeSystem = 123;
             info.version.audioFiles = 123;

@@ -240,6 +240,46 @@ export class TrainingService {
         });
     }
 
+    async getResults(): Promise<any> {
+        let num = 0;
+        this.trainingSessionState.athleteSessions.sessions.forEach(session => {
+            this.getSession(num);
+            num++;
+        });
+    }
+
+    private async getSession(sessionNum: number) {
+        console.log("Returning session results");
+
+        let athleteSessions = this.trainingSessionState.athleteSessions.sessions[sessionNum];
+
+        const session = new SessionSchema();
+        session.startTime = new Date(); // FIXME
+        session.fieldInfo = "Some Field Info here!";
+        session.courseInfo = "Some Course Info Here!";
+        const newSession = await session.get();
+
+        // fill out the session results, 1 per athlete
+        athleteSessions.athleteSessions.forEach(async athleteSession => {
+            try {
+                // need to add all segments for this athlete
+                athleteSession.segments.forEach(async segment => {
+                    console.log("Returning a segment: " + segment.action);
+                    console.log("Returning a segment: " + ((segment.duration * 0.001).toFixed(2)) + " seconds");
+                });
+            } catch (err) {
+                console.log(`Could not find correct athlete in database with id: ${athleteSession.athlete.id}! Giving up!!`);
+                throw err;
+            }
+        });
+        try {
+        } catch (err) {
+            console.log(`Error getting overall session results. Err: ${err}`);
+            throw err;
+        }
+        return true;
+    }
+
     private async saveSession(sessionNum: number) {
         console.log("Saving session results");
 

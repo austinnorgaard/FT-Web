@@ -35,6 +35,7 @@ export class SessionDetailsPageComponent implements OnInit {
             sessionState.getCurrentSession().athleteSessions.forEach(session => {
                 this.athleteIdMap.push({ id: session.athlete.id, index: i });
                 i++;
+                location.reload();
             });
 
             this.sessionState = sessionState;
@@ -66,7 +67,13 @@ export class SessionDetailsPageComponent implements OnInit {
         return this.athleteIdMap.find(item => item.id === id).index;
     }
 
-    ngOnInit() {}
+    async reload() {
+        await new Promise( resolve => setTimeout(resolve, 1) );
+        location.reload();
+    }
+
+    ngOnInit() {
+    }
 
     async onRight() {
         // we need to determine which athlete is next, then route to that id

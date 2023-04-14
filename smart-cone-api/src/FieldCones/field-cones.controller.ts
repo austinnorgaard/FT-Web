@@ -17,7 +17,7 @@ export class FieldConesController {
         // including our internal information
         // For now, just update the ID
         try {
-            await this.http.post(`http://${body.ip}:6200/comms/id`, { id: body.id }).toPromise();
+            await this.http.post(`http://127.0.0.1:${body.port}/comms/id`, { id: body.id }).toPromise();
         } catch (err) {
             console.log(err);
             return undefined;
@@ -27,7 +27,7 @@ export class FieldConesController {
     @Post("noise")
     async makeNoise(@Body() body: FieldConeInfo) {
         try {
-            await this.http.post(`http://${body.ip}:6200/audio/test-noise`, {}).toPromise();
+            await this.http.post(`http://127.0.0.1:${body.port}/audio/test-noise`, {}).toPromise();
         } catch (err) {
             console.log(err);
             return undefined;
@@ -37,7 +37,7 @@ export class FieldConesController {
     @Post("tilt")
     async makeTilt(@Body() body: FieldConeInfo) {
         try {
-            await this.http.post(`http://${body.ip}:6200/test/tilt`, {}).toPromise();
+            await this.http.post(`http://127.0.0.1:${body.port}/test/tilt`, {}).toPromise();
         } catch (err) {
             console.log(err);
             return undefined;
@@ -47,7 +47,7 @@ export class FieldConesController {
     @Post("ultrasonic")
     async makeUltrasonic(@Body() body: FieldConeInfo) {
         try {
-            await this.http.post(`http://${body.ip}:6200/test/ultrasonic`, {}).toPromise();
+            await this.http.post(`http://127.0.0.1:${body.port}/test/ultrasonic`, {}).toPromise();
         } catch (err) {
             console.log(err);
             return undefined;
@@ -63,7 +63,7 @@ export class FieldConesController {
                 return c.id === body.id;
             });
             if (cone) {
-                await this.http.post(`http://${cone.ip}:6200/comms/update`).toPromise();
+                await this.http.post(`http://127.0.0.1:${cone.port}/comms/update`).toPromise();
             }
         } catch (err) {
             return undefined;

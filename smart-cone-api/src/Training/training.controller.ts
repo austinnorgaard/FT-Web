@@ -31,6 +31,11 @@ export class TrainingController {
         await this.trainingService.saveResults();
     }
 
+    @Get("results")
+    async getResults() {
+        await this.trainingService.getResults();
+    }
+
     @Post("next-athlete-starting")
     async nextAthleteStarting() {
         try {

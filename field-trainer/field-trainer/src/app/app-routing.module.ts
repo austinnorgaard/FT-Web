@@ -15,6 +15,7 @@ import { TeamManagementPageComponent } from "./teams/components/team-management-
 import { AddAthletePageComponent } from "./athletes/components/add-athlete-page/add-athlete-page.component";
 import { SandboxComponent } from "./utility/components/sandbox/sandbox.component";
 import { ResultPageComponent } from "./session/components/result-page/result-page.component";
+import { FinishedResultPageComponent } from "./session/components/finished-result-page/finished-result-page.component";
 import { FieldCourseSetupComponent } from "./session/components/field-course-setup/field-course-setup.component";
 import { SessionSetupPageComponent } from "./session/components/session-setup-page/session-setup-page.component";
 import { AthleteSelectComponent } from "./session/components/athlete-select/athlete-select.component";
@@ -103,6 +104,11 @@ const routes: Routes = [
         component: ResultPageComponent,
         canActivate: [AuthGuard],
     },
+    {
+        path: "training/results/finished",
+        component: FinishedResultPageComponent,
+        canActivate: [AuthGuard],
+    }
 ];
 
 @NgModule({

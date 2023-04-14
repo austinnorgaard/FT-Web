@@ -5,6 +5,7 @@ import { FieldConeInfo, FieldConeClient } from "./field-cone-info";
 import { Observable, Subject, BehaviorSubject, identity } from "rxjs";
 import { PING_DATA } from "./ping-data";
 import { BaseWifiService } from "../Wifi/base-wifi.service";
+import { Socket } from "socket.io";
 
 @Injectable()
 @WebSocketGateway(parseInt(environment.config.coneApiSocketPort, 10))
@@ -74,7 +75,7 @@ export class FieldConesService implements OnGatewayConnection, OnGatewayDisconne
     }
 
     // TODO: Can I fix the `any` here? Need socket.io types
-    public getFieldConeSocketClient(id: number): any {
+    public getFieldConeSocketClient(id: number): FieldConeClient {
         const client = this.clients.find(c => c.id === id);
         if (client) {
             return client;
@@ -135,6 +136,7 @@ export class FieldConesService implements OnGatewayConnection, OnGatewayDisconne
 
         extractedCone.id = data.id;
         extractedCone.ip = data.ip;
+        extractedCone.port = data.port;
         coneArray[extractedConeId];
         this.connectedFieldCones.next(coneArray);
     }

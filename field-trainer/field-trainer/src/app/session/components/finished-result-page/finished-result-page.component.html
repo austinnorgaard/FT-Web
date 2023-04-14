@@ -1,0 +1,9 @@
+<div fxFlex fxLayout="column" style="margin-top: 1em; margin-bottom: 1em">
+    <h1 fxFlex="0 0 auto" fxFlexAlign="center">Results</h1>
+    <ul>
+        {{sessionService.getResults()}}
+    </ul>
+    <button fxFlex="10%" mat-raised-button color="primary" (click)="onSaveResults()">
+        Save Results
+    </button>
+</div>
