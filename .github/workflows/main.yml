@@ -26,7 +26,7 @@ jobs:
               with:
                   node-version: ${{ matrix.node-version }}
 
-            - run: cd field-trainer/field-trainer && npm i
+            - run: cd field-trainer/field-trainer && npm ci
 
             - name: Use Node.js 12
               uses: actions/setup-node@v1
