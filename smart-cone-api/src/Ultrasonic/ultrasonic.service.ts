@@ -1,10 +1,9 @@
-import { Injectable } from "@nestjs/common";
 import { BaseUltrasonicService } from "./base-ultrasonic.service";
 
 const spawn = require("threads").spawn;
 
 // This is the real implementation, based on reading GPIO events
-@Injectable()
+
 export class UltrasonicService extends BaseUltrasonicService {
     thread: any = undefined;
     rateLimited: boolean = false;

@@ -1,4 +1,4 @@
-import { Subject } from "rxjs/internal/Subject";
+import { Subject } from "rxjs";
 
 export abstract class BaseUltrasonicService {
     public UltrasonicEvent: Subject<void> = new Subject<void>();

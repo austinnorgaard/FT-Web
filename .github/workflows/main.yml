@@ -26,7 +26,7 @@ jobs:
               with:
                   node-version: ${{ matrix.node-version }}
 
-            - run: cd field-trainer/field-trainer && npm ci
+            - run: cd field-trainer/field-trainer && npm i
             - run: cd smart-cone-api && npm install tslib --no-package-lock
             - run: cd field-trainer/field-trainer && npm run build
 
