@@ -22,8 +22,8 @@ export class FieldDrawable {
         this.textContainer = new PIXI.Container();
         this.app.stage.addChild(this.coneContainer);
         this.app.stage.addChild(this.textContainer);
-        this.coneTexture = PIXI.Texture.fromImage("./assets/cone.png");
-        this.smartConeTexture = PIXI.Texture.fromImage("./assets/smart-cone.png");
+        this.coneTexture = PIXI.Texture.from("./assets/cone.png");
+        this.smartConeTexture = PIXI.Texture.from("./assets/smart-cone.png");
         this.app.renderer.backgroundColor = 0xFFFFFF;
     }
 
