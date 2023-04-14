@@ -1,6 +1,5 @@
 import { Controller, Post } from "@nestjs/common";
 import { BaseUltrasonicService } from "./base-ultrasonic.service";
-import { emitKeypressEvents } from "readline";
 import { MockUltrasonicService } from "./mock-ultrasonic.service";
 
 /// provides a helper endpoint to simulate ultrasonic events

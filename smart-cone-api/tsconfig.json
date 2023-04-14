@@ -12,7 +12,8 @@
         "sourceMap": true,
         "allowJs": true,
         "outDir": "./dist",
-        "types": ["mocha", "node"]
+        "types": ["node"],
+        "typeRoots": [ "../node_modules/@types" ]
     },
     "include": ["src/**/*"],
     "exclude": ["node_modules"]

@@ -1,7 +1,5 @@
-import { Injectable } from "@nestjs/common";
 import { BaseUltrasonicService } from "./base-ultrasonic.service";
 
-@Injectable()
 export class MockUltrasonicService extends BaseUltrasonicService {
     constructor() {
         super();
