@@ -2,4 +2,32 @@
     padding-left: 1em;
     padding-right: 1em;
     padding-bottom: 1em;
+    min-height: 92vh;
+}
+
+html, body {
+    height: 100vh;
+}
+
+div {
+    background-color: #FFFFFF;
+    bottom: 0;
+}
+
+.mat-select {
+    max-width: 50rem;
+}
+
+#fieldPreviewDiv {
+    display: flex;
+    margin-top: 2rem;
+    max-width: 50rem;
+    min-width: 30rem;
+    max-height: 25rem;
+    min-height: 15rem;
+}
+
+button {
+    display: flex;
+    margin-top: 1rem;
 }

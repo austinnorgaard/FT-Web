@@ -140,6 +140,6 @@ export class SessionService {
     }
 
     public async getResults() {
-        await this.http.get<any>("/training/results");
-    }
+        await this.http.get<any>('/results');
+    };
 }

@@ -1,46 +1,48 @@
-@media (min-width: 2960.02px) and (orientation: landscape) {
-    h1 {
-        font-size: 600%;
-    }
-
-    p {
-        font-size: 500%;
-        padding-top: 3vh;
-    }
+.session-setup-container {
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-bottom: 1em;
+    min-height: 92vh;
 }
 
-div {
-    justify-content: center;
-    text-align: center;
-}
-
-img {
-    background-image: url('../../../../assets/wallpaperflare.com_wallpaper.jpg') !important;
-    object-fit: cover;
-    width: 100vw;
+html, body {
     height: 100vh;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: -1;
-    filter: brightness(80%);
-    background: rgb(0, 0, 0, 0.5);
-    overflow: hidden;
-    -ms-overflow-style: none;
-}
-
-.background::-webkit-scrollbar {
-    display: hidden;
 }
 
 h1 {
-    justify-content: center;
-    text-align: center;
-    color: white;
+    padding-top: 2rem;
+    margin-bottom: 4rem;
 }
 
-p {
-    justify-content: center;
-    text-align: center;
-    color: white;
+.mat-select {
+    margin-bottom: 0.5rem;
+    width: 25rem;
+    height: 1.5rem;
+}
+
+div {
+    background-color: #FFFFFF;
+    bottom: 0;
+}
+
+#container {
+    display: flex;
+    flex-direction: row;
+}
+
+#options {
+    display: flex;
+    flex-direction: column;
+    flex: 0 0 auto;
+    max-width: 25rem;
+    min-width: 25rem;
+    margin-right: 2rem;
+}
+
+#fieldPreviewDiv {
+    display: flex;
+    max-width: 70rem;
+    min-width: 50rem;
+    max-height: 35rem;
+    min-height: 25rem;
 }

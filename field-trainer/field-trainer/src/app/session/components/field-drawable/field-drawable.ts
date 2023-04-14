@@ -24,7 +24,7 @@ export class FieldDrawable {
         this.app.stage.addChild(this.textContainer);
         this.coneTexture = PIXI.Texture.fromImage("./assets/cone.png");
         this.smartConeTexture = PIXI.Texture.fromImage("./assets/smart-cone.png");
-        this.app.renderer.backgroundColor = 0x228b22;
+        this.app.renderer.backgroundColor = 0xFFFFFF;
     }
 
     public resize(width: number, height: number) {
@@ -59,6 +59,8 @@ export class FieldDrawable {
     public loadField(field: Field, parentWidth: number, parentHeight: number) {
         this.clearField();
         const dimensions = this.getScaledDimensions(field, parentWidth, parentHeight);
+
+        this.app.renderer.backgroundColor = 0x228b22;
 
         this.app.renderer.resize(dimensions.x, dimensions.y);
 

@@ -19,6 +19,11 @@ export class NavMenuContentComponent implements OnInit {
         this.sideNav.close();
     }
 
+    async reload() {
+        await new Promise( resolve => setTimeout(resolve, 1) );
+        location.reload();
+    }
+
     open() {
         this.sideNav.open();
     }

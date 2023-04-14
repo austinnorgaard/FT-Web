@@ -1,41 +1,10 @@
 <div fxLayout="column" fxFlexFill class="mat-typography">
     <mat-sidenav-container fxFlex>
         <mat-sidenav-content fxLayout="column">
-            <mat-toolbar id="top" fxFlex="0 0 auto" fxLayout="row" fxLayoutAlign="center center" [style.background-color]="getBackgroundColor()">
-                <div class="ft-title" fxFlex="0 0 auto"><a id="title" (click)="reload()" routerLink="/home">Field Trainer</a></div>
+            <mat-toolbar id="top" fxLayout="row" fxLayoutAlign="center center" [style.background-color]="getBackgroundColor()">
                 <button mat-icon-button id="open" (click)="open()"><mat-icon class="material-icons">menu</mat-icon></button>
-                <div class="subs" fxFlex="1 0 auto" fxLayout="row">
-                    <div fxFlex="0 0 auto" fxLayout="row" class="field_cont">
-                        <a (click)="reload()" class="top" id="header" routerLink="/field">Fields</a>
-                    </div>
-                    <div class="blackBox">
-                        <div class="hoverBox" fxFlex fxFlexAlign="top">
-                            <div class="hoverBox" fxLayout="row">
-                                <div fxLayout="column" style="padding-right: 8vw; padding-top: 4vh">
-                                    <a class="name" id="field_id"(click)="reload()" (mouseover)="setField('soccer')" routerLink="/field">Soccer</a>
-                                    <a class="name" (click)="reload()" (mouseover)="setField('basketball')" routerLink="/field">Basketball</a>
-                                    <a class="name" (click)="reload()" (mouseover)="setField('track')" routerLink="/field">Track</a>
-                                    <a class="name" (click)="reload()" (mouseover)="setField('football')" routerLink="/field">Football</a>
-                                </div>
-                                <div fxLayout="column">
-                                    <div class="f_img" fxLayout="row">
-                                        <a (click)="reload()" routerLink="/field"><img [src]="getImage()" id="field"></a>
-                                    </div>
-                                    <div class="f_desc" fxLayout="column">
-                                        <h1><span id="sport_t"></span></h1>
-                                        <h3><span id="sport_d"></span></h3>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <ft-nav-menu-content fxFlex="0 0 auto" class="links"></ft-nav-menu-content>
-                </div>
-                <div class="login" fxFlex="0 0 auto" *ngIf="!this.authService.isAuthenticated()">
-                        <a id="login" (click)="currentPath()" routerLink="/login">Login</a>
-                </div>
-                <div class="login" fxFlex="0 0 auto" *ngIf="this.authService.isAuthenticated()">
-                        <a id="login" (click)="logout()" routerLink="">Log Out</a>
+                <div class="subs" fxLayout="row">
+                    <ft-nav-menu-content class="links"></ft-nav-menu-content>
                 </div>
                 <span id="side">
                     <ft-mobile-nav fxFlex="0 0 auto" id="sidebar"></ft-mobile-nav>

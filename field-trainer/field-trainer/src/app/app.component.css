@@ -230,10 +230,16 @@
         justify-content: center;
         align-items: center;
     }
-    
+
     div.subs {
-        margin-left: 2vw;
-        padding-right: 3vw;
+        margin: 0;
+        padding: 0;
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
     }
     
     h3 {
@@ -251,6 +257,17 @@
 
     .ft-title {
         padding-left: 2vw;
+    }
+    #top, .links {
+        margin: 0;
+        padding: 0;
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        min-height: 9vh;
     }
 }
 

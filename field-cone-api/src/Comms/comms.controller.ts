@@ -4,6 +4,7 @@ import * as fs from "fs";
 import * as util from "util";
 import * as child_process from "child_process";
 import { CommsService } from "./comms.service";
+import { coneEnvironment } from "utils/cone-environment";
 
 const writeFile = util.promisify(fs.writeFile);
 const readFile = util.promisify(fs.readFile);
@@ -23,6 +24,8 @@ export class CommsController {
 
         // Open the /var/tmp/.cone-id file, write the new value ignoring the previous
         await writeFile("/var/tmp/.cone-id", newId.id.toString());
+
+        await coneEnvironment.updateID(newId.id);
 
         await this.commsService.updateConeInfo();
     }

@@ -1,9 +1,22 @@
-<div fxLayout="column" fxLayoutAlign="space-between center" fxFlex>
-    <div fxLayout="column" fxLayoutAlign="top center" style="padding-top: 100px" class="background">
-        <img id="background" src="../../../../assets/wallpaperflare.com_wallpaper (1).jpg">
-        <h1 style="text-align: center">Field Page is Currently Being Developed!</h1>
-        <div fxFlexAlign="center" style="justify-content: center;" class="mat-body-2">
-            <p>Check Back for More Updates :)</p>
+<div fxLayout="column" fxFlex fxLayoutAlign="start center" class="session-setup-container">
+    <h1 fxFlex="0 0 auto">Field & Course Preview</h1>
+    <div fxFlex="0 0 auto" id="container">
+        <div id="options">
+            <mat-select [(ngModel)]="this.selectedField" (selectionChange)="onFieldChanged()" fxFlex="0 0 auto" placeholder="Select field" [compareWith]="this.fieldCompareFn">
+                <mat-option *ngFor="let field of this.fields" value="field.name" [value]="field">
+                    {{field.name}}
+                </mat-option>
+            </mat-select>
+            <mat-select [(ngModel)]="this.selectedCourse" (selectionChange)="onCourseChanged()" style="margin-top: 1em" fxFlex="0 0 auto" placeholder="Select Course"
+                [compareWith]="this.courseCompareFn">
+                <mat-option *ngFor="let course of this.courses" value="course.name" [value]="course">
+                    {{course.name}}
+                </mat-option>
+            </mat-select>
+        </div>
+        <div fxLayout="column" #fieldPreviewDiv id="fieldPreviewDiv">
+            <ft-field-preview fxFlexAlign="center" #fieldPreview></ft-field-preview>
+            <h3 fxFlex fxFlexAlign="center" *ngIf="this.selectedField === null" class="select-field-text">Select a field</h3>
         </div>
     </div>
 </div>

@@ -16,10 +16,10 @@ import { FieldCone } from "../../models/field-cone";
 export class FieldCourseSetupComponent implements AfterViewInit, OnInit {
     @ViewChild("fieldPreviewDiv", { static: true }) fieldPreviewDiv: ElementRef;
     @ViewChild("fieldPreview", { static: true }) fieldPreview: FieldPreviewComponent;
-    selectedField: Field = null;
+    selectedField: Field;
     selectedCourse: Course;
-    fields: Field[] = null;
-    courses: Course[] = null;
+    fields: Field[];
+    courses: Course[];
     loadedExistingData = false;
     numConnectedFieldCones = 0;
 

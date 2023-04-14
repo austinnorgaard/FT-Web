@@ -93,7 +93,7 @@ export class CommsService {
 
     async getFieldConeInfo(): Promise<FieldConeInfo> {
         const interfaces = os.networkInterfaces();
-        const devIp = `127.0.0.${await getFieldConeId()}`;
+        const devIp = `127.0.0.1`;
         const info = {
             ip: "unknown",
             id: -1,

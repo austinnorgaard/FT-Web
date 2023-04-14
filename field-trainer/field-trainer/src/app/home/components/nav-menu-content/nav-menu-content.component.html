@@ -1,11 +1,21 @@
 <div fxLayout="row" class="ft-nav-menu-container">
-    <a routerLink="/app">The App</a>
-    <a routerLink="/academy">Academy</a>
-    <div class="auth" *ngIf="this.authService.isAuthenticated()">
-        <a routerLink="/cone-page">Cones</a>
-        <a routerLink="/team-management">Teams</a>
-        <a routerLink="/athlete-management">Athletes</a>
-        <a routerLink="training/results">Results</a>
-        <a routerLink="session-setup">Sessions</a>
+    <div class="ft-title"><a id="title" (click)="reload()" routerLink="/home">Field Trainer</a></div>
+    <div class="middle-links">
+        <a (click)="reload()" routerLink="/field">Fields</a>
+        <a (click)="reload()" routerLink="/app">The App</a>
+        <a (click)="reload()" routerLink="/academy">Academy</a>
+        <div class="auth" *ngIf="this.authService.isAuthenticated()">
+            <a (click)="reload()" routerLink="/cone-page">Cones</a>
+            <a (click)="reload()" routerLink="/team-management">Teams</a>
+            <a (click)="reload()" routerLink="/athlete-management">Athletes</a>
+            <a (click)="reload()" routerLink="training/results">Results</a>
+            <a (click)="reload()" routerLink="session-setup">Sessions</a>
+        </div>
     </div>
+    <div class="login" *ngIf="!this.authService.isAuthenticated()">
+        <a (click)="reload(); currentPath()" routerLink="/login">Login</a>
+    </div>
+    <div class="login" *ngIf="this.authService.isAuthenticated()">
+        <a id="login" (click)="logout()" routerLink="">Log Out</a>
+</div>
 </div>

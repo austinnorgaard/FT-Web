@@ -81,6 +81,7 @@ const routes: Routes = [
         children: [
             { path: "", redirectTo: "field-select", pathMatch: "full" },
             { path: "field-select", component: FieldCourseSetupComponent },
+            { path: "field-select/#", component: FieldCourseSetupComponent },
             { path: "athlete-select", component: AthleteSelectComponent },
         ],
     },

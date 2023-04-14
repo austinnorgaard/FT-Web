@@ -46,3 +46,29 @@ a:hover {
 #area1:hover, #area2:hover {
     opacity: 0.2;
 }
+
+.login {
+    flex-shrink: 1;
+    margin-right: -1.5rem;
+    padding-right: 4rem;
+    padding-left: 1.5rem;
+}
+
+.middle-links {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: row;
+}
+
+.ft-nav-menu-container {
+    display:flex;
+    flex-direction: row;
+    justify-content:center;
+    align-items: center;
+    width: 100%;
+}
+
+div.ft-title {
+    flex-shrink: 1;
+    padding-left: 4rem;
+}
