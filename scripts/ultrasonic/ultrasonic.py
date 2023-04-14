@@ -10,7 +10,7 @@ GPIO.setup(ECHO,GPIO.IN)
 
 GPIO.output(TRIG, False)
 
-print "Starting sensor"
+print ("Starting sensor")
 
 while True:
         GPIO.output(TRIG, True)
@@ -29,6 +29,6 @@ while True:
 
         distance = round(distance, 2)
         if distance < 95:
-                print "Distance:", distance, "cm"
+                print ("Distance:", distance, "cm")
 
 GPIO.cleanup()
