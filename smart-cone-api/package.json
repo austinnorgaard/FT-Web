@@ -36,7 +36,7 @@
         "redis": "^2.7.1",
         "reflect-metadata": "0.1.12",
         "rpio": "^2.1.1",
-        "rxjs": "~7.5.2",
+        "rxjs": "~7.8.0",
         "sequelize": "^4.33.4",
         "sequelize-typescript": "^0.6.2",
         "socket.io": "^2.1.0",
