@@ -1,6 +1,5 @@
 import { Module } from "@nestjs/common";
 import { BaseUltrasonicService } from "./base-ultrasonic.service";
-import { UltrasonicService } from "./ultrasonic.service";
 import { MockUltrasonicService } from "./mock-ultrasonic.service";
 import { UltrasonicController } from "./ultrasonic.controller";
 import * as fs from "fs";
@@ -21,7 +20,7 @@ function isReal(): boolean {
     providers: [
         {
             provide: BaseUltrasonicService,
-            useClass: isReal() ? UltrasonicService : MockUltrasonicService,
+            useClass: MockUltrasonicService,
         },
     ],
     controllers: [TestController, UltrasonicController],

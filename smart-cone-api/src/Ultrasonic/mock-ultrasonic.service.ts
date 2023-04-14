@@ -7,7 +7,6 @@ export class MockUltrasonicService extends BaseUltrasonicService {
     }
 
     emitUltrasonicEvent() {
-        console.log("Ultrasonic!")
-        this.UltrasonicEvent.next();
+        console.log("Ultrasonic!");
     }
 }

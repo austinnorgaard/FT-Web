@@ -12,6 +12,6 @@ export class UltrasonicController {
 
     @Post("test")
     public emitEvent() {
-        this.mockUltrasonicService.UltrasonicEvent.next();
+        this.mockUltrasonicService.emitUltrasonicEvent();
     }
 }
