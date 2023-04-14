@@ -27,19 +27,7 @@ jobs:
                   node-version: ${{ matrix.node-version }}
 
             - run: cd field-trainer/field-trainer && npm ci
-
-            - name: Use Node.js 12
-              uses: actions/setup-node@v1
-              with:
-                  node-version: 12.x
-
             - run: cd smart-cone-api && npm install tslib --no-package-lock
-
-            - name: Use Node.js ${{ matrix.node-version }}
-              uses: actions/setup-node@v1
-              with:
-                  node-version: ${{ matrix.node-version }}
-
             - run: cd field-trainer/field-trainer && npm run build
 
             - uses: jakejarvis/s3-sync-action@master
