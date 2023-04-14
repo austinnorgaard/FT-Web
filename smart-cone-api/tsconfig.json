@@ -12,7 +12,7 @@
         "sourceMap": true,
         "allowJs": true,
         "outDir": "./dist",
-        "types": ["mocha"]
+        "types": ["mocha", "node"]
     },
     "include": ["src/**/*"],
     "exclude": ["node_modules"]
