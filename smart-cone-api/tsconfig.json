@@ -9,12 +9,13 @@
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
         "target": "ES2017",
+        "skipLibCheck": true,
         "sourceMap": true,
         "allowJs": true,
         "outDir": "./dist",
         "types": ["node"],
         "typeRoots": [ "node_modules/@types" ]
     },
-    "include": ["src/**/*"],
+    "include": ["src/**/*", "./src/javascript/**/*"],
     "exclude": ["node_modules"]
 }
