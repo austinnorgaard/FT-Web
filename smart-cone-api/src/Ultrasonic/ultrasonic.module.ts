@@ -3,7 +3,17 @@ import { BaseUltrasonicService } from "./base-ultrasonic.service";
 import { UltrasonicService } from "./ultrasonic.service";
 import { MockUltrasonicService } from "./mock-ultrasonic.service";
 import { UltrasonicController } from "./ultrasonic.controller";
-import { IsTargetSystem } from "../Utility/is-target-system";
+import * as fs from "fs";
+import { TestController } from "./test.controller";
+
+function isReal(): boolean {
+    try {
+        fs.readFileSync("/var/tmp/.tilt-gpio-pin");
+        return true;
+    } catch (err) {
+        return false;
+    }
+}
 
 @Module({
     imports: [],
@@ -11,9 +21,11 @@ import { IsTargetSystem } from "../Utility/is-target-system";
     providers: [
         {
             provide: BaseUltrasonicService,
-            useClass: IsTargetSystem() ? UltrasonicService : MockUltrasonicService,
+            useClass: isReal() ? UltrasonicService : MockUltrasonicService,
         },
     ],
-    controllers: [UltrasonicController],
+    controllers: [TestController, UltrasonicController],
 })
-export class UltrasonicModule {}
+export class UltrasonicModule {
+    constructor() {}
+}
