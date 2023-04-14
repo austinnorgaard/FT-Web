@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { UserRegistration } from "../../../../../../smart-cone-api/src/Users/user-registration";
 
-import "rxjs/add/operator/toPromise";
+import "rxjs/operators";
 import { HttpHelperService } from "../../misc/services/http-helper.service";
 import { User } from "../../../../../../smart-cone-api/src/Users/user";
 

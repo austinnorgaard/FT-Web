@@ -1,6 +1,6 @@
 import { Injectable, OnInit } from "@angular/core";
 
-import "rxjs/add/operator/toPromise";
+import "rxjs/operators";
 import { Athlete } from "../../../../../../smart-cone-api/src/Athletes/athlete";
 import { Observable, Subject, BehaviorSubject } from "rxjs";
 import { SessionSetupService } from "./session-setup.service";

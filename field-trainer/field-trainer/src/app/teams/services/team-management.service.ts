@@ -4,8 +4,7 @@ import { Team } from "../../../../../../smart-cone-api/src/Teams/team";
 import { DatabaseResponse } from "../../../../../../smart-cone-api/src/Database/Data/DatabaseResponse";
 import { AddAthleteTeamModel } from "../../../../../../smart-cone-api/src/Teams/add-athlete-team-model";
 
-import "rxjs/add/operator/toPromise";
-import "rxjs/add/operator/map";
+import "rxjs/operators";
 import { HttpHelperService } from "../../misc/services/http-helper.service";
 
 @Injectable()
