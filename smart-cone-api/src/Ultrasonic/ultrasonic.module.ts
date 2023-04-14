@@ -1,18 +1,9 @@
 import { Module } from "@nestjs/common";
 import { BaseUltrasonicService } from "./base-ultrasonic.service";
+import { UltrasonicService } from "./ultrasonic.service";
 import { MockUltrasonicService } from "./mock-ultrasonic.service";
 import { UltrasonicController } from "./ultrasonic.controller";
-import * as fs from "fs";
-import { TestController } from "./test.controller";
-
-function isReal(): boolean {
-    try {
-        fs.readFileSync("/var/tmp/.tilt-gpio-pin");
-        return true;
-    } catch (err) {
-        return false;
-    }
-}
+import { IsTargetSystem } from "../Utility/is-target-system";
 
 @Module({
     imports: [],
@@ -20,11 +11,9 @@ function isReal(): boolean {
     providers: [
         {
             provide: BaseUltrasonicService,
-            useClass: MockUltrasonicService,
+            useClass: IsTargetSystem() ? UltrasonicService : MockUltrasonicService,
         },
     ],
-    controllers: [TestController, UltrasonicController],
+    controllers: [UltrasonicController],
 })
-export class UltrasonicModule {
-    constructor() {}
-}
+export class UltrasonicModule {}
