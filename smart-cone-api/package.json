@@ -36,7 +36,7 @@
         "redis": "^2.7.1",
         "reflect-metadata": "0.1.12",
         "rpio": "^2.1.1",
-        "rxjs": "^6.3.3",
+        "rxjs": "^6.6.7",
         "sequelize": "^4.33.4",
         "sequelize-typescript": "^0.6.2",
         "socket.io": "^2.1.0",
@@ -48,7 +48,7 @@
     "devDependencies": {
         "@types/chai": "^4.1.7",
         "@types/mocha": "^5.2.5",
-        "@types/node": "^10.17.19",
+        "@types/node": "^10.17.60",
         "chai": "^4.2.0",
         "mocha": "^5.2.0",
         "nodemon": "^1.15.0",
