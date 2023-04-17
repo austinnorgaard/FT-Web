@@ -4,7 +4,7 @@ import { DatabaseFailureType } from "../Database/Data/DatabaseEnums";
 import { UserRegistration } from "./user-registration";
 import { UserSchema } from "../Database/Models/UserSchema";
 
-import bcrypt = require("bcryptjs");
+import bcrypt = require("bcrypt");
 import { FileLogger } from "../Logging/file-logger";
 
 @Injectable()
