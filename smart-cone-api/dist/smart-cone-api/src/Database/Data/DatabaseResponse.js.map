@@ -1,0 +1,1 @@
+{"version":3,"file":"DatabaseResponse.js","sourceRoot":"","sources":["../../../../../src/Database/Data/DatabaseResponse.ts"],"names":[],"mappings":";;AAEA;IACI,YAAmB,OAAiB,EAAS,OAAgB,EAAS,WAAiC,EAAS,IAAU;QAAvG,YAAO,GAAP,OAAO,CAAU;QAAS,YAAO,GAAP,OAAO,CAAS;QAAS,gBAAW,GAAX,WAAW,CAAsB;QAAS,SAAI,GAAJ,IAAI,CAAM;IAAG,CAAC;CACjI;AAFD,4CAEC"}

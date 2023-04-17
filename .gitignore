@@ -13,7 +13,6 @@ build
 
 node_modules
 */.vscode/
-*/dist/
 smart-cone-api/db/field-trainer-db.db
 smart-cone-api/db/*.db
 .DS_Store
@@ -23,6 +22,5 @@ smart-cone-api/db/*.db
 build_output/
 
 __pycache__
-dist/
 
 .history
